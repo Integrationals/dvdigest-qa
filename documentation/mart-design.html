@@ -1,0 +1,1520 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mart design | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Mart design</p><p class="eyebrow">Documentation · next release, in QA</p><h1>Mart design</h1><p>Mary&#x27;s questions served from the conformed mart: its grains, its keys, and the meaning each measure carries.</p></div></header>
+<main><article class="doc"><h1>DIG-574 Mart Design: Mary&rsquo;s questions in CONFORMED_DM</h1>
+<h3>Mart Design Document</h3>
+<p>Template version: 2 | Updated: 2026-10-11 UTC</p>
+<p><em>Branch Delivery Document</em> - <strong>Level 3 - Design Document</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Effort</strong></td>
+<td>DIG-574 - DIGEST course: Data Vault (datavault4dbt) - branch <code>claude_ws/dig-574-arrival-and-identity</code>; built on the fix to release 1 (DIG-594), branch <code>claude_ws/dig-594-release-1-keys-rebased-2</code></td>
+</tr>
+<tr>
+<td><strong>Governed by</strong></td>
+<td>Standard: Branch Delivery Documents (knowledge 12, item 27); Data Mart Design Principles, v4 (knowledge 12, item 104); the workgroup datamart standard (knowledge 17, item 118).</td>
+</tr>
+<tr>
+<td><strong>References</strong></td>
+<td>Profiling: branch profile  (source ERD, 2.1 to 2.6); related records: branch design  (consumer questions Q-7 to Q-16, D-1 to D-52); QA item  (DIG-594); DIG-583 (the connector); test plan: branch test plan , its mart section 2.3.</td>
+</tr>
+<tr>
+<td><strong>Audience</strong></td>
+<td>Ray (reviewer and approver); Mary Mink, the consumer, through DV Digest</td>
+</tr>
+<tr>
+<td><strong>Author</strong></td>
+<td>Ray Serrano; edited by ChatGPT - 2026-10-27</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal - Data Management</td>
+</tr>
+<tr>
+<td><strong>Official copy method</strong></td>
+<td>Instantiate this governed template through AGENTIC.PILOT.KNOWLEDGE_ITEM_FROM_TEMPLATE; retain the source template number and SHA-256 recorded by the procedure.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>How to complete this template</h2>
+<p>This template specializes the Branch Delivery Design Document template (knowledge 12, item 175) for mart design. The design owns WHAT and WHY, including all source-to-column mappings. The implementation guide owns HOW; the test plan owns the detailed runnable proof. Neither adds an unresolved design decision.</p>
+<p>Complete the workflow in order: consumer questions and metric definitions; required grains and existing-fact search; missing measures and dimensions; MetricFlow definitions and consumer views; validation and approval. Read the existing branch code and warehouse objects before declaring an object reusable, insufficient, or absent. Use current evidence with its environment and clock. Do not propose new physical objects before completing the metric, grain, and existing-fact analysis. Record not applicable with a reason instead of omitting a required field. Replace every placeholder before instantiation.</p>
+<p>A measure describes one row at a declared fact grain. A metric answers a consumer&rsquo;s question over a population. A calculated value can still be a measure at the row grain. A qualifier describes, filters, or groups the rows and belongs in a dimension. For example, an amount applied by one payment to one invoice is a measure; its total across the selected population is a metric; payment status is a qualifier.</p>
+<h2>0. Target ERD</h2>
+<p>The mart this design builds, drawn from section 2&rsquo;s grains and section 3&rsquo;s maps (Standard: Branch Delivery Documents v6.2, section 0): four facts, one per grain (client_policy_role_fact, agent_policy_fact, policy_terms_fact, finding_fact), each carrying its keys, its event dates and, for policy_terms_fact, the one measure; the qualifiers live in the dimensions. People and organizations follow the party model (D-10, D-11): two base dimensions, person_dim and organization_dim, with role views over them, client_dim, insured_dim and agent_dim over person_dim and carrier_dim over organization_dim, each drawn joined to its base; policy_dim, source_dim and day_dim complete the dimensions. Each event date is on its fact as a date that is also its key to day_dim in its role (sold, first known, valid from, valid to, effective, detected), drawn as a note rather than lines; agent_policy_fact, person_dim, organization_dim and policy_dim also refer to source_dim, left undrawn for the same reason. The insured&rsquo;s birth date and address are shown under the masking mock of D-9. Every line holds by construction from the vault&rsquo;s keys and is proved by section 5.3&rsquo;s dimension integrity tests.</p>
+<figure class="diagram" tabindex="0" role="button" aria-label="Open this diagram full screen"><svg width="100%" viewBox="0 0 680 1030" role="img" xmlns="http://www.w3.org/2000/svg"><title>Target ERD: Mary's mart in CONFORMED_DM</title><desc>Four facts, one per grain; two base dimensions, person_dim and organization_dim, with role views over them; policy_dim, source_dim and day_dim. Facts carry keys, event dates and the one measure, face amount; qualifiers live in the dimensions. Every event date is also a day_dim key, MetricFlow's time spine; every source_key joins source_dim.</desc><g class="c-gray"><rect x="10" y="10" width="200" height="118" rx="7" stroke-width="1"/></g><text class="th" x="20" y="29">organization_dim</text><text class="ts" x="20" y="46">one organization</text><line class="arr" x1="10" y1="54" x2="210" y2="54" stroke-width="0.6"/><text class="ts" x="20" y="71">organization_key  PK</text><text class="ts" x="20" y="88">organization_code</text><text class="ts" x="20" y="105">organization_name</text><text class="ts" x="20" y="122">source_key  FK</text><g class="c-coral"><rect x="240" y="10" width="200" height="169" rx="7" stroke-width="1"/></g><text class="th" x="250" y="29">policy_terms_fact</text><text class="ts" x="250" y="46">one version of policy terms</text><line class="arr" x1="240" y1="54" x2="440" y2="54" stroke-width="0.6"/><text class="ts" x="250" y="71">policy_terms_key  PK</text><text class="ts" x="250" y="88">policy_key  FK</text><text class="ts" x="250" y="105">valid_from_date</text><text class="ts" x="250" y="122">valid_to_date</text><text class="ts" x="250" y="139">effective_date</text><text class="ts" x="250" y="156">face_amount  (measure)</text><text class="ts" x="250" y="173">status</text><g class="c-gray"><rect x="470" y="10" width="200" height="84" rx="7" stroke-width="1"/></g><text class="th" x="480" y="29">day_dim</text><text class="ts" x="480" y="46">one day; the time spine</text><line class="arr" x1="470" y1="54" x2="670" y2="54" stroke-width="0.6"/><text class="ts" x="480" y="71">date_day  PK</text><text class="ts" x="480" y="88">joined by every event date</text><g class="c-gray"><rect x="10" y="230" width="200" height="84" rx="7" stroke-width="1"/></g><text class="th" x="20" y="249">carrier_dim (view)</text><text class="ts" x="20" y="266">one carrier organization</text><line class="arr" x1="10" y1="274" x2="210" y2="274" stroke-width="0.6"/><text class="ts" x="20" y="291">carrier_key  PK</text><text class="ts" x="20" y="308">carrier_code, carrier_name</text><g class="c-gray"><rect x="240" y="230" width="200" height="118" rx="7" stroke-width="1"/></g><text class="th" x="250" y="249">policy_dim</text><text class="ts" x="250" y="266">one policy per carrier</text><line class="arr" x1="240" y1="274" x2="440" y2="274" stroke-width="0.6"/><text class="ts" x="250" y="291">policy_key  PK</text><text class="ts" x="250" y="308">carrier_key  FK</text><text class="ts" x="250" y="325">policy_number, plan_name</text><text class="ts" x="250" y="342">first_named_by_source_key</text><g class="c-coral"><rect x="240" y="420" width="200" height="118" rx="7" stroke-width="1"/></g><text class="th" x="250" y="439">client_policy_role_fact</text><text class="ts" x="250" y="456">a client's role on a policy</text><line class="arr" x1="240" y1="464" x2="440" y2="464" stroke-width="0.6"/><text class="ts" x="250" y="481">client_policy_role_key  PK</text><text class="ts" x="250" y="498">client_key, policy_key  FK</text><text class="ts" x="250" y="515">role</text><text class="ts" x="250" y="532">sold_date, first_known_date</text><g class="c-coral"><rect x="470" y="420" width="200" height="118" rx="7" stroke-width="1"/></g><text class="th" x="480" y="439">agent_policy_fact</text><text class="ts" x="480" y="456">one agent named for a policy</text><line class="arr" x1="470" y1="464" x2="670" y2="464" stroke-width="0.6"/><text class="ts" x="480" y="481">agent_policy_key  PK</text><text class="ts" x="480" y="498">agent_key, policy_key  FK</text><text class="ts" x="480" y="515">first_named_by_source_key</text><text class="ts" x="480" y="532">first_known_date</text><g class="c-gray"><rect x="10" y="610" width="200" height="118" rx="7" stroke-width="1"/></g><text class="th" x="20" y="629">client_dim (view)</text><text class="ts" x="20" y="646">one client record</text><line class="arr" x1="10" y1="654" x2="210" y2="654" stroke-width="0.6"/><text class="ts" x="20" y="671">client_key  PK</text><text class="ts" x="20" y="688">client_number</text><text class="ts" x="20" y="705">first_name, last_name</text><text class="ts" x="20" y="722">state</text><g class="c-gray"><rect x="240" y="610" width="200" height="152" rx="7" stroke-width="1"/></g><text class="th" x="250" y="629">person_dim</text><text class="ts" x="250" y="646">one person record, unmatched</text><line class="arr" x1="240" y1="654" x2="440" y2="654" stroke-width="0.6"/><text class="ts" x="250" y="671">person_key  PK</text><text class="ts" x="250" y="688">person_role, person_number</text><text class="ts" x="250" y="705">source_key  FK</text><text class="ts" x="250" y="722">first_name, last_name</text><text class="ts" x="250" y="739">full_name, state</text><text class="ts" x="250" y="756">birth_date, address</text><g class="c-gray"><rect x="470" y="610" width="200" height="84" rx="7" stroke-width="1"/></g><text class="th" x="480" y="629">agent_dim (view)</text><text class="ts" x="480" y="646">one agent record</text><line class="arr" x1="470" y1="654" x2="670" y2="654" stroke-width="0.6"/><text class="ts" x="480" y="671">agent_key  PK</text><text class="ts" x="480" y="688">agent_npn, full_name</text><g class="c-gray"><rect x="10" y="815" width="200" height="101" rx="7" stroke-width="1"/></g><text class="th" x="20" y="834">source_dim</text><text class="ts" x="20" y="851">one source system</text><line class="arr" x1="10" y1="859" x2="210" y2="859" stroke-width="0.6"/><text class="ts" x="20" y="876">source_key  PK</text><text class="ts" x="20" y="893">source_name, owner</text><text class="ts" x="20" y="910">joined by every source_key</text><g class="c-coral"><rect x="240" y="815" width="200" height="152" rx="7" stroke-width="1"/></g><text class="th" x="250" y="834">finding_fact</text><text class="ts" x="250" y="851">one flagged record</text><line class="arr" x1="240" y1="859" x2="440" y2="859" stroke-width="0.6"/><text class="ts" x="250" y="876">finding_key  PK</text><text class="ts" x="250" y="893">source_key  FK</text><text class="ts" x="250" y="910">detected_date</text><text class="ts" x="250" y="927">finder_name, finder_type</text><text class="ts" x="250" y="944">source_table, source_column</text><text class="ts" x="250" y="961">column_value, status</text><g class="c-gray"><rect x="470" y="815" width="200" height="118" rx="7" stroke-width="1"/></g><text class="th" x="480" y="834">insured_dim (view)</text><text class="ts" x="480" y="851">one insured record</text><line class="arr" x1="470" y1="859" x2="670" y2="859" stroke-width="0.6"/><text class="ts" x="480" y="876">insured_key  PK</text><text class="ts" x="480" y="893">full_name</text><text class="ts" x="480" y="910">birth_date, address</text><text class="ts" x="480" y="927">masked: the mock of D-9</text><line class="arr" x1="340" y1="230" x2="340" y2="179"/><line class="arr" x1="333" y1="223" x2="347" y2="223"/><line class="arr" x1="333" y1="218" x2="347" y2="218"/><line class="arr" x1="340" y1="191" x2="348" y2="179"/><line class="arr" x1="340" y1="191" x2="340" y2="179"/><line class="arr" x1="340" y1="191" x2="332" y2="179"/><circle class="arr" cx="340" cy="198" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="340" y1="348" x2="340" y2="420"/><line class="arr" x1="347" y1="355" x2="333" y2="355"/><line class="arr" x1="347" y1="360" x2="333" y2="360"/><line class="arr" x1="340" y1="408" x2="332" y2="420"/><line class="arr" x1="340" y1="408" x2="340" y2="420"/><line class="arr" x1="340" y1="408" x2="348" y2="420"/><circle class="arr" cx="340" cy="401" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="440" y1="300" x2="570" y2="300"/><line class="arr" x1="570" y1="300" x2="570" y2="420"/><line class="arr" x1="447" y1="293" x2="447" y2="307"/><line class="arr" x1="452" y1="293" x2="452" y2="307"/><line class="arr" x1="570" y1="408" x2="562" y2="420"/><line class="arr" x1="570" y1="408" x2="570" y2="420"/><line class="arr" x1="570" y1="408" x2="578" y2="420"/><circle class="arr" cx="570" cy="401" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="210" y1="272" x2="240" y2="272"/><line class="arr" x1="217" y1="265" x2="217" y2="279"/><line class="arr" x1="222" y1="265" x2="222" y2="279"/><line class="arr" x1="228" y1="272" x2="240" y2="264"/><line class="arr" x1="228" y1="272" x2="240" y2="272"/><line class="arr" x1="228" y1="272" x2="240" y2="280"/><line class="arr" x1="110" y1="128" x2="110" y2="230"/><line class="arr" x1="103" y1="135" x2="117" y2="135"/><line class="arr" x1="103" y1="140" x2="117" y2="140"/><line class="arr" x1="103" y1="223" x2="117" y2="223"/><line class="arr" x1="103" y1="218" x2="117" y2="218"/><line class="arr" x1="190" y1="610" x2="190" y2="575"/><line class="arr" x1="190" y1="575" x2="280" y2="575"/><line class="arr" x1="280" y1="575" x2="280" y2="538"/><line class="arr" x1="183" y1="603" x2="197" y2="603"/><line class="arr" x1="183" y1="598" x2="197" y2="598"/><line class="arr" x1="280" y1="550" x2="272" y2="538"/><line class="arr" x1="280" y1="550" x2="280" y2="538"/><line class="arr" x1="280" y1="550" x2="288" y2="538"/><circle class="arr" cx="280" cy="557" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="570" y1="610" x2="570" y2="538"/><line class="arr" x1="563" y1="603" x2="577" y2="603"/><line class="arr" x1="563" y1="598" x2="577" y2="598"/><line class="arr" x1="570" y1="550" x2="562" y2="538"/><line class="arr" x1="570" y1="550" x2="570" y2="538"/><line class="arr" x1="570" y1="550" x2="578" y2="538"/><circle class="arr" cx="570" cy="557" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="210" y1="660" x2="240" y2="660"/><line class="arr" x1="217" y1="653" x2="217" y2="667"/><line class="arr" x1="222" y1="653" x2="222" y2="667"/><line class="arr" x1="228" y1="653" x2="228" y2="667"/><line class="arr" x1="233" y1="653" x2="233" y2="667"/><line class="arr" x1="440" y1="650" x2="470" y2="650"/><line class="arr" x1="447" y1="643" x2="447" y2="657"/><line class="arr" x1="452" y1="643" x2="452" y2="657"/><line class="arr" x1="458" y1="643" x2="458" y2="657"/><line class="arr" x1="463" y1="643" x2="463" y2="657"/><line class="arr" x1="400" y1="762" x2="400" y2="790"/><line class="arr" x1="400" y1="790" x2="570" y2="790"/><line class="arr" x1="570" y1="790" x2="570" y2="815"/><line class="arr" x1="393" y1="769" x2="407" y2="769"/><line class="arr" x1="393" y1="774" x2="407" y2="774"/><line class="arr" x1="563" y1="808" x2="577" y2="808"/><line class="arr" x1="563" y1="803" x2="577" y2="803"/><line class="arr" x1="210" y1="857" x2="240" y2="857"/><line class="arr" x1="217" y1="850" x2="217" y2="864"/><line class="arr" x1="222" y1="850" x2="222" y2="864"/><line class="arr" x1="228" y1="857" x2="240" y2="849"/><line class="arr" x1="228" y1="857" x2="240" y2="857"/><line class="arr" x1="228" y1="857" x2="240" y2="865"/><g class="c-coral"><rect x="20" y="1000" width="16" height="16" rx="4" stroke-width="1"/></g><text class="ts" x="42" y="1012">Fact: keys, date keys, measures</text><g class="c-gray"><rect x="287.2" y="1000" width="16" height="16" rx="4" stroke-width="1"/></g><text class="ts" x="309.2" y="1012">Dimension: qualifiers</text></svg><span class="zoom-hint">Tap to enlarge</span></figure>
+<h2>1. Consumer questions and metrics</h2>
+<h3>1.1 Purpose, scope, and concept</h3>
+<p>The consumer is Mary Mink, Director of Data Architecture and Governance, asking her predicted questions from her own Claude through the DV Digest connector, which serves governed metrics only (list-metrics, get-dimensions, query-metrics: a metric and its group-by, no filter). The surface supports her first look at what the acquired agency&rsquo;s and the carrier&rsquo;s data say about clients, policies and agents, and how much of it arrives in a form the vault rejects.</p>
+<p>Scope: the six questions the raw vault answers today, Q-9, Q-10, Q-11, Q-13, Q-14 and Q-15. Out of scope: Q-7, Q-8 and Q-16, which need the data integration layer and a second acquired agency; Q-12 is deferred until its rule is decided (DD-1). The concepts: a client (a client number Sunbelt Senior sends), a policy (a carrier&rsquo;s policy number), an agent (a national producer number), a role (what a client is on a policy: owner, insured, payor), a version of a policy&rsquo;s terms (what the carrier said about it from one load until the next), and a finding (a record an inspector or auditor flagged).</p>
+<p>This design replaces the five MART views built on 2026-10-26 and 27 without a design (client_policy_fact, agent_policy_fact, policy_fact, finding_fact, and time_spine_day), which break the datamart form: facts carrying qualifiers, no dimensions, timestamps in place of day keys, and the sunsetting MART schema. Their numbers were right; their shape is retired here (D-6).</p>
+<p>Name the consumer, the decision the surface supports, and the business concepts in plain language. State the design&rsquo;s boundary and cite the profile results that establish it.</p>
+<h3>1.2 Questions from consumers</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Asked by</th>
+<th>Asked at</th>
+<th>Origin</th>
+<th>Question in the asker&rsquo;s words</th>
+<th>Answer and reason</th>
+<th>Design decision</th>
+<th>Test probe</th>
+<th>Answer state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q-9</td>
+<td>Mary Mink (prediction, design )</td>
+<td>2026-10-25</td>
+<td>DIG-574</td>
+<td>For each client, which policies are they on, with which carrier, and in what role?</td>
+<td>The client-policy-role fact, grouped by the client, policy and carrier qualifiers and the role</td>
+<td>D-1, D-3</td>
+<td>P-9</td>
+<td>Served today in MART (to be rebuilt)</td>
+</tr>
+<tr>
+<td>Q-10</td>
+<td>Mary Mink (prediction)</td>
+<td>2026-10-25</td>
+<td>DIG-574</td>
+<td>How much coverage does each carrier provide through us?</td>
+<td>The current face amount of the policy-terms fact by carrier; only Northfield Life sends amounts today, Pinecrest Mutual through Ray&rsquo;s labs</td>
+<td>D-1, D-4</td>
+<td>P-10</td>
+<td>Served today in MART (to be rebuilt)</td>
+</tr>
+<tr>
+<td>Q-11</td>
+<td>Mary Mink (prediction)</td>
+<td>2026-10-25</td>
+<td>DIG-574</td>
+<td>Which agent sold each policy, and where do our sources disagree about it?</td>
+<td>The agent-policy fact: agents named per policy; a policy with more than one agent named is where the sources disagree</td>
+<td>D-1</td>
+<td>P-11</td>
+<td>Served today in MART (to be rebuilt)</td>
+</tr>
+<tr>
+<td>Q-12</td>
+<td>Mary Mink (prediction)</td>
+<td>2026-10-25</td>
+<td>DIG-574</td>
+<td>Which independent agents sell through us without an agency?</td>
+<td>Deferred: needs the rule for independent (DD-1)</td>
+<td>DD-1</td>
+<td>none yet</td>
+<td>Deferred</td>
+</tr>
+<tr>
+<td>Q-13</td>
+<td>Mary Mink (prediction)</td>
+<td>2026-10-25</td>
+<td>DIG-574</td>
+<td>Where did this client&rsquo;s record come from, and when did we first know it?</td>
+<td>The client-policy-role fact&rsquo;s metrics grouped by the client&rsquo;s source and first-known date; a client with no policy role does not appear until release 2</td>
+<td>D-1, D-2</td>
+<td>P-13</td>
+<td>Not yet served</td>
+</tr>
+<tr>
+<td>Q-14</td>
+<td>Mary Mink (prediction)</td>
+<td>2026-10-25</td>
+<td>DIG-574</td>
+<td>What did we know about this policy on a given date, and what changed since?</td>
+<td>The policy-terms fact grouped by policy and by each version&rsquo;s valid-from and valid-to days; the version covering a date, and every change after it, read from the rows</td>
+<td>D-1, D-4</td>
+<td>P-14</td>
+<td>Not yet served</td>
+</tr>
+<tr>
+<td>Q-15</td>
+<td>Mary Mink (prediction)</td>
+<td>2026-10-25</td>
+<td>DIG-574</td>
+<td>How many records arrive in a form we don&rsquo;t accept, from which source?</td>
+<td>records_not_accepted by source and finder type, the form findings; rows_missing_key beside it counts rows kept and flagged for a missing key</td>
+<td>D-1, D-5, D-13</td>
+<td>P-15</td>
+<td>Served today in MART (to be rebuilt)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use Q-n identifiers. A predicted initial question is identified as a prediction, rather than attributed to a consumer who has not asked it.</p>
+<h3>1.3 Questions to consumers and source owners</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Asked of</th>
+<th>Raised by and when</th>
+<th>Question</th>
+<th>Decision blocked</th>
+<th>Interim rule</th>
+<th>Measured stakes, environment, and clock</th>
+<th>State, answer, respondent, and answer date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-1</td>
+<td>Ray, for Mary</td>
+<td>Claude, 2026-10-26</td>
+<td>What makes an agent independent? Proposed: only carriers name the agent, no acquired agency&rsquo;s data does</td>
+<td>Q-12</td>
+<td>Q-12 not served</td>
+<td>6 agents in DV_QA, 1 policy with two agents named (2026-10-27 01:04 UTC)</td>
+<td>Open</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use C-n for questions to consumers and S-n for questions to source owners. This design is their live home; other branch documents cite these entries. An unanswered question carries its interim treatment and disclosed consequences.</p>
+<h3>1.4 Metric definitions</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Consumer question</th>
+<th>Business definition and owner</th>
+<th>Population and exclusions</th>
+<th>Calculation, unit, and sign</th>
+<th>Reporting grain</th>
+<th>Period, date role, and time zone</th>
+<th>Unknown, absent, and known-zero treatment</th>
+<th>Comparison basis</th>
+<th>Additivity restrictions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>policies_held</td>
+<td>Q-9</td>
+<td>Distinct policies Sunbelt Senior&rsquo;s clients are on; owner Ray</td>
+<td>Client-policy roles in the sales data; ghost rows out; a sale with a blank policy number counts once as the unknown policy</td>
+<td>Distinct count of policy keys; policies; positive</td>
+<td>Any grouping of client, carrier, policy, role, first-known day</td>
+<td>First-known day of the role (the link&rsquo;s load), UTC</td>
+<td>A client with no sale is on none (absent, not zero)</td>
+<td>none</td>
+<td>Not additive across roles or clients: one policy can have several</td>
+</tr>
+<tr>
+<td>client_policy_roles</td>
+<td>Q-9</td>
+<td>Client, policy and role combinations; owner Ray</td>
+<td>As above</td>
+<td>Distinct count of role-row keys; roles; positive</td>
+<td>As above</td>
+<td>As above</td>
+<td>As above</td>
+<td>none</td>
+<td>Additive across roles</td>
+</tr>
+<tr>
+<td>face_amount_current</td>
+<td>Q-10</td>
+<td>The face amount a carrier currently states for its policies; owner Ray</td>
+<td>Current versions of carrier-sent terms; policies a carrier never sent terms for are absent</td>
+<td>Sum of face amount; US dollars as sent; positive</td>
+<td>Carrier, policy, status</td>
+<td>Current version only (valid-to empty); UTC</td>
+<td>A policy without terms contributes nothing and is not zero; disclosed as policies without terms</td>
+<td>none</td>
+<td>Additive across policies within the current version</td>
+</tr>
+<tr>
+<td>policy_versions</td>
+<td>Q-14</td>
+<td>Versions of a policy&rsquo;s terms the vault holds; owner Ray</td>
+<td>All versions, current and past</td>
+<td>Distinct count of version keys; versions</td>
+<td>Policy with valid-from and valid-to days</td>
+<td>Valid-from day (the version&rsquo;s load), UTC</td>
+<td>none</td>
+<td>none</td>
+<td>Additive</td>
+</tr>
+<tr>
+<td>face_amount</td>
+<td>Q-14</td>
+<td>Face amount per version, to read what was stated on a date; owner Ray</td>
+<td>All versions</td>
+<td>Sum of face amount; US dollars</td>
+<td>Policy with valid-from and valid-to days</td>
+<td>Valid-from day, UTC</td>
+<td>As face_amount_current</td>
+<td>Before and after a change, by version</td>
+<td>Not additive across versions of one policy: read per version</td>
+</tr>
+<tr>
+<td>policies_sold</td>
+<td>Q-11</td>
+<td>Distinct policies with an agent named as the one who sold them; owner Ray</td>
+<td>Agent-policy pairs from both sources</td>
+<td>Distinct count of policy keys</td>
+<td>Agent, policy, carrier, first-named source</td>
+<td>First-known day of the pair, UTC</td>
+<td>A policy no source names an agent for is absent</td>
+<td>none</td>
+<td>Not additive across agents</td>
+</tr>
+<tr>
+<td>agents_named</td>
+<td>Q-11</td>
+<td>Distinct agents named for the policies in the group; owner Ray</td>
+<td>As above</td>
+<td>Distinct count of agent keys</td>
+<td>Grouped by policy: 2 or more means the sources disagree</td>
+<td>As above</td>
+<td>none</td>
+<td>none</td>
+<td>Not additive across policies</td>
+</tr>
+<tr>
+<td>records_not_accepted</td>
+<td>Q-15</td>
+<td>Records that arrived in a form the vault does not accept; owner Ray</td>
+<td>Findings whose finding_kind is form, in the landing&rsquo;s CONFIG.DATA_FINDING</td>
+<td>Distinct count of finding keys; records; positive</td>
+<td>Source, table, column, finder, finder type, status</td>
+<td>Detected day, UTC</td>
+<td>A source with no such finding is absent, not zero</td>
+<td>none</td>
+<td>Additive</td>
+</tr>
+<tr>
+<td>rows_missing_key</td>
+<td>Q-15</td>
+<td>Rows that arrived without a business key, kept and flagged; owner Ray</td>
+<td>Findings whose finding_kind is missing_key</td>
+<td>Distinct count of finding_row; rows; positive</td>
+<td>Source, table, finder</td>
+<td>Detected day, UTC</td>
+<td>As records_not_accepted</td>
+<td>none</td>
+<td>Not additive across columns: one row can miss two keys</td>
+</tr>
+</tbody>
+</table></div>
+<p>Define each displayed number before deciding its physical model. State filters, numerator and denominator where applicable, period boundaries, and whether partial periods are allowed. Distinguish reporting grain from the supporting fact grain identified in Section 2. A comparison names both sides and their interpretation. Do not silently supply a business judgment that requires a consumer answer.</p>
+<h2>2. Grains and fact reuse</h2>
+<p><strong>Grain is foundational.</strong> Declare exactly what one row represents in business terms and the keys that prove its uniqueness before selecting fact columns, joins, or physical objects. Distinguish the consumer&rsquo;s reporting grain from each required supporting fact grain. Population restrictions are separate from grain; a restricted population does not by itself justify another fact at the same grain. Establish the actual grain from existing code and warehouse rows, not from selected columns, grouping, or an assumed model name.</p>
+<h3>2.1 Data reality</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Profile result</th>
+<th>Measured fact and read clock</th>
+<th>Existing code or warehouse evidence</th>
+<th>Design consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile 2.1, source ERD</td>
+<td>client_policy_l 13 rows, 13 keys, 13 distinct (client, policy, role), 11 distinct (client, policy), 1 row to the unknown policy; DV_QA, read 2026-10-27 01:04 UTC</td>
+<td>dbt/models/raw_vault/client_policy_l.sql; role is a dependent child key (design D-33)</td>
+<td>The role is part of the row&rsquo;s identity</td>
+</tr>
+<tr>
+<td>Profile 2.1</td>
+<td>agent_policy_l 17 rows, 17 keys, 17 distinct (agent, policy), 16 policies; first named by SSI 10, NFL 7; 1 policy with two agents; DV_QA, read 2026-10-27 01:04 UTC</td>
+<td>agent_policy_l.sql</td>
+<td>One row per pair, not per source: the record source is the first source to name the pair</td>
+</tr>
+<tr>
+<td>Profile 2.1</td>
+<td>policy_northfield_s 10 rows, 10 distinct (policy, load), 9 policies; the dated view gives 9 current versions; DV_QA, read 2026-10-27 01:04 UTC</td>
+<td>policy_northfield_s.sql and policy_northfield_s1.sql (valid-to 8888-12-31 when current)</td>
+<td>A version is a policy and its load</td>
+</tr>
+<tr>
+<td>Profile 2.6</td>
+<td>client_h 35 clients, policy_h 15 policies, agent_h 6 agents (ghost rows out); DV_QA, read 2026-10-27 01:04 UTC</td>
+<td>the hubs</td>
+<td>The hubs supply the dimensions</td>
+</tr>
+<tr>
+<td>Profile 2.5, findings</td>
+<td>LANDING_QA.CONFIG.DATA_FINDING 3 rows, 3 keys; DV_QA, read 2026-10-27 01:04 UTC</td>
+<td>inspectors and auditors, merge_into</td>
+<td>One row per finding</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cite the profile&rsquo;s result identifiers. Measurements are dated evidence, not fixed expected values for future tests.</p>
+<h3>2.2 Metric-to-fact map</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Consumer reporting grain</th>
+<th>Required supporting fact grain: what one row represents in business words</th>
+<th>Row identity and uniqueness keys</th>
+<th>Existing fact and repository path</th>
+<th>Evidence of actual grain and population</th>
+<th>Existing measures</th>
+<th>Missing measures or population support</th>
+<th>Reuse, extend, consumer view, or new fact</th>
+<th>Justification and decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>policies_held, client_policy_roles</td>
+<td>client, carrier, policy, role</td>
+<td>One role a Sunbelt Senior client has on one policy, as the sales data reports it</td>
+<td>client_policy_role_key (the link&rsquo;s hash key); unique, and one per (client, policy, role)</td>
+<td>None in CONFORMED_DM; MART.client_policy_fact retired</td>
+<td>13 rows = 13 keys = 13 triples</td>
+<td>none: factless</td>
+<td>none</td>
+<td>New factless fact</td>
+<td>No existing fact has this relationship grain</td>
+</tr>
+<tr>
+<td>policies_sold, agents_named</td>
+<td>agent, policy, carrier</td>
+<td>One agent named by at least one source as the one who sold the policy</td>
+<td>agent_policy_key; unique, one per (agent, policy)</td>
+<td>None; MART.agent_policy_fact retired</td>
+<td>17 rows = 17 keys = 17 pairs</td>
+<td>none: factless</td>
+<td>none</td>
+<td>New factless fact</td>
+<td>A distinct relationship grain; no existing fact serves it</td>
+</tr>
+<tr>
+<td>face_amount_current, face_amount, policy_versions</td>
+<td>carrier, policy, version days</td>
+<td>One version of a carrier&rsquo;s terms for one policy, from its load until the next</td>
+<td>policy_terms_key (policy key and valid-from); unique</td>
+<td>None; MART.policy_fact retired, which was at policy grain and mixed sales-only policies</td>
+<td>10 rows = 10 (policy, load)</td>
+<td>face_amount</td>
+<td>none</td>
+<td>New fact</td>
+<td>Q-10 and Q-14 share this grain: one fact serves both (Ray, one fact per grain)</td>
+</tr>
+<tr>
+<td>records_not_accepted, rows_missing_key</td>
+<td>source, table, finder</td>
+<td>One record an inspector or auditor flagged</td>
+<td>finding_key (finding_pk); unique</td>
+<td>None; MART.finding_fact retired</td>
+<td>3 rows = 3 keys</td>
+<td>none: factless</td>
+<td>none</td>
+<td>New factless fact</td>
+<td>A distinct grain; the two metrics filter it by finding_kind (D-13)</td>
+</tr>
+</tbody>
+</table></div>
+<p>One fact serves each group of metrics at the same required supporting grain. Reuse an existing fact at that grain; extend it when measures or necessary population support are missing. Preserve existing consumers&rsquo; declared populations through explicit semantic filters and regression proof. A dashboard, comparison purpose, new consumer, or different reporting grain does not justify another shared fact by itself.</p>
+<p>Before proposing a new fact, show whether the existing facts and dimensions can supply the required output through semantic calculations and consumer views. A new fact requires evidence that a distinct underlying business grain is necessary and that no existing fact serves it; the same requirement applies to a factless relationship fact. State the actual row identity, not merely a list of selected columns. For any upstream computation required, specify whether an existing source supplies it or a separately designed change is necessary.</p>
+<p>Complete the review in this order: existing facts and actual grains; required supporting grain; reuse or extension; consumer-view necessity; object classification and schema-specific naming. A naming or suffix correction rechecks object necessity and classification; it must not preserve an unvalidated object proposal. For example, a deal/month output does not by itself justify another deal fact: assess the existing deal fact and attendance relationships before designing its consumer projection.</p>
+<h3>2.3 Decisions</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Decision</th>
+<th>Rationale</th>
+<th>Supporting profile and code or data evidence</th>
+<th>Affected map rows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-1</td>
+<td>Four facts, one per grain: client_policy_role_fact, agent_policy_fact, policy_terms_fact, finding_fact</td>
+<td>Ray, 2026-10-27: one fact table per grain; the principles&rsquo; fact reuse by grain</td>
+<td>Section 2.1 grains, each proven rows = keys</td>
+<td>2.2 rows 1 to 4</td>
+</tr>
+<tr>
+<td>D-2</td>
+<td>Dimensions: person_dim and organization_dim as base dimensions, with role views client_dim, insured_dim and agent_dim over person_dim and carrier_dim over organization_dim (D-10, D-11); policy_dim; source_dim, from the source system seed; day_dim, which is also MetricFlow&rsquo;s time spine</td>
+<td>Qualifiers belong in dimensions; one day dimension in its roles</td>
+<td>Hubs and the seed</td>
+<td>3.3</td>
+</tr>
+<tr>
+<td>D-3</td>
+<td>The role stays on client_policy_role_fact as a degenerate code: it is part of the row&rsquo;s identity, and three values need no dimension</td>
+<td>Datamart form allows a judicious degenerate code</td>
+<td>client_policy_l, D-33</td>
+<td>2.2 row 1</td>
+</tr>
+<tr>
+<td>D-4</td>
+<td>A version&rsquo;s valid-to day is empty while it is current; face_amount_current filters on that in its semantic definition</td>
+<td>Q-10 needs now, Q-14 needs any date; one fact</td>
+<td>policy_northfield_s1</td>
+<td>2.2 row 3, 4.1</td>
+</tr>
+<tr>
+<td>D-5</td>
+<td>The finding&rsquo;s finder name and type, table, column, value and status stay on finding_fact as degenerate codes and identifiers of the flagged record; only the source is a dimension key, since two finders need no dimension</td>
+<td>They identify the one record, not a population</td>
+<td>DATA_FINDING</td>
+<td>2.2 row 4</td>
+</tr>
+<tr>
+<td>D-6</td>
+<td>All objects in CONFORMED_DM (models/marts/conformed_dm), views; the five MART views retired in the same pull request; DV Digest is their only reader and reloads from the QA build</td>
+<td>: MART empties by pull; no duplicate copy</td>
+<td>MART objects of 2026-10-26 and 27</td>
+<td>4.4</td>
+</tr>
+<tr>
+<td>D-7</td>
+<td>No workgroup datamart in release 1: Mary&rsquo;s metrics sit on CONFORMED_DM, the mart layer&rsquo;s shared schema. Her workgroup, Data Architecture and Governance, gets its datamart, GOVERNANCE_DM, with release 2, whose compliance questions serve governance; it reads CONFORMED_DM alone</td>
+<td>Created by need; release 1 needs no workgroup schema (Ray, 2026-10-31)</td>
+<td>none</td>
+<td>4.4</td>
+</tr>
+<tr>
+<td>D-8</td>
+<td>Disagreement about a policy&rsquo;s agent is read from agents_named grouped by policy, not a SQL flag</td>
+<td>If MetricFlow can express it, MetricFlow does it; the retired view&rsquo;s window function is gone</td>
+<td></td>
+<td>4.2</td>
+</tr>
+<tr>
+<td>D-9</td>
+<td>The insured dimension&rsquo;s birth date and address are shown under role-based conditional masking: a secure view returns the real values to the governance role and a mask to every other role (birth year only; the address reduced to its state). This mocks a Snowflake masking policy, which needs the Enterprise edition; this Snowflake rejects masking policies as an unsupported feature (verified 2026-10-31). The view says so, and the policy replaces it once the edition allows</td>
+<td>A basic personal-data handling capability, under Mary&rsquo;s governance remit; a mock in a view can be bypassed by another view, which a column policy cannot (Ray, 2026-10-31, answer 2d)</td>
+<td>CREATE MASKING POLICY refused, 2026-10-31</td>
+<td>3.3</td>
+</tr>
+<tr>
+<td>D-10</td>
+<td>The party model in release 1: person_dim holds one row per person record the raw vault receives (each client, insured and agent record is its own person, unmatched), and client_dim, insured_dim and agent_dim are role views over it; an agent&rsquo;s name is the person&rsquo;s attribute, from the most recent sale that names the agent. Matching the same human across roles is left to release 2&rsquo;s business vault, and the unmatched people are shown to Mary as the reason for it</td>
+<td>Ray, 2026-10-31: role dimensions are views over the person dimension; release 1 has only the raw vault, release 2 brings the business vault</td>
+<td>client_h, insured_h, agent_h; client_sunbelt_s, insured_northfield_s, client_policy_sunbelt_s</td>
+<td>3.3</td>
+</tr>
+<tr>
+<td>D-11</td>
+<td>A carrier is an organization: organization_dim, with carrier_dim as its role view. Each carrier sends its own organization record, code and name, through its feed into landing, then staging and the raw vault; no carrier is known by a code alone</td>
+<td>Ray, 2026-10-31: no source system gives organizations without names (answer 1b)</td>
+<td>policy_h carries the carrier code only today</td>
+<td>3.1, 3.3</td>
+</tr>
+<tr>
+<td>D-12</td>
+<td>client_arrival_fact is removed: it had one row per client, the client dimension&rsquo;s own grain, and no metric is assigned to the arrival. Its two attributes move to the client: source_key and first_known_date become columns of person_dim for client records, shown by the client_dim role view. Q-13 (&ldquo;Where did this client&rsquo;s record come from, and when did we first know it?&rdquo;) is answered in release 1 from client_policy_role_fact&rsquo;s metrics grouped by the client&rsquo;s source and first-known date; a client with no policy role does not appear, and release 2 enhances this. Release 2 also reviews the decision</td>
+<td>Ray, 2026-10-31</td>
+<td>none</td>
+<td>1.2, 1.4, 2.2, 3.2, 3.3, 4.1, 4.1a, 4.4, 5.6</td>
+</tr>
+<tr>
+<td>D-13</td>
+<td>Q-15 is answered by two metrics on finding_fact: records_not_accepted, the findings whose finding_kind is form, and rows_missing_key, the distinct rows named by findings whose finding_kind is missing_key. finding_fact carries finding_kind, taken from the finder that wrote the finding (form, missing_key or audit), and finding_row, the source table and the name of the row, as degenerate codes beside those of D-5</td>
+<td>A count of every finding answered Q-15 with 10 instead of 3 once the missing-key inspectors existed; release 1 already serves the two metrics (branch design D-47), so its readers keep the same answers</td>
+<td>Branch design , D-47; development vault at commit 2a921a1: 3 form findings, and 7 missing-key findings naming 6 rows</td>
+<td>1.2, 1.4, 2.2, 3.2, 4.1, 4.1a</td>
+</tr>
+<tr>
+<td>D-14</td>
+<td>Each ghost key appears once in person_dim, with no role, and every role view, client_dim, insured_dim, agent_dim and carrier_dim, carries the two ghost rows of its base dimension, so a fact&rsquo;s unknown or error key always finds exactly one member</td>
+<td>client_h, insured_h and agent_h share the same two ghost keys; one row per role would repeat a key and break person_dim&rsquo;s uniqueness</td>
+<td>Test plan uq_person_dim_person_key (DU1); the hubs&rsquo; ghost records</td>
+<td>3.3</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use D-n identifiers in sequence. Proposed mappings are shown to the reviewer and resolved through numbered decisions. Changed mappings are re-proposed, never silently substituted.</p>
+<h2>3. Measures and dimensions</h2>
+<h3>3.1 Upstream and UDM map</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Profile verdict</th>
+<th>Source concept and column</th>
+<th>Existing or proposed UDM destination table and column</th>
+<th>Identity recipe</th>
+<th>Derivation and pattern</th>
+<th>Additive change?</th>
+<th>Decision</th>
+<th>Deliberate omission or deferral and reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integrate</td>
+<td>A carrier&rsquo;s own organization record: carrier code and carrier name, as each carrier sends it; Northfield Life sends NFL and Pinecrest Mutual sends PMC</td>
+<td>New landing table in each carrier&rsquo;s feed, one row per organization record</td>
+<td>The carrier code</td>
+<td>As sent</td>
+<td>Yes</td>
+<td>D-11</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Integrate</td>
+<td>The same record in staging</td>
+<td>New staging model over that landing table, with the source system named</td>
+<td>The carrier code</td>
+<td>As sent; the source system added</td>
+<td>Yes</td>
+<td>D-11</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Integrate</td>
+<td>The organization in the raw vault</td>
+<td>New hub organization_h keyed by the carrier code, fed by every carrier&rsquo;s staging model; one satellite per carrier source, such as organization_northfield_s and organization_pinecrest_s, each with the carrier&rsquo;s name as that carrier sends it</td>
+<td>The hash of the carrier code</td>
+<td>Standard hub and satellite from the staging model</td>
+<td>Yes</td>
+<td>D-11</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Not applicable</td>
+<td>No other integration change: this design consumes the raw vault as built (hubs client_h, policy_h, agent_h, insured_h; links client_policy_l, agent_policy_l, insured_policy_l; satellites client_sunbelt_s, insured_northfield_s, client_policy_sunbelt_s and policy_northfield_s, with their dated views) and the landing&rsquo;s CONFIG.DATA_FINDING</td>
+<td>none</td>
+<td>none</td>
+<td>none</td>
+<td>No</td>
+<td>D-6</td>
+<td>The data integration layer is out of scope (Q-7, Q-8, Q-16)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Consume every column in the profile&rsquo;s Integrate list; name Defer and Reject as absences. If this mart design requires no integration change, explicitly state that conclusion and map the existing upstream inputs it consumes. A missing consumer view does not by itself establish a missing integration capability.</p>
+<h3>3.2 Fact measures and keys</h3>
+<p>Each event date is carried on its fact as the date itself, which is also its key to day_dim in that role ( as corrected 2026-10-31). People and organizations are reached through the role views of section 3.3 (D-10, D-11).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Fact and declared grain</th>
+<th>Destination column</th>
+<th>Classification: measure, dimension key, or permitted degenerate identifier</th>
+<th>Source object and column</th>
+<th>Derivation</th>
+<th>Unit, sign, and null meaning</th>
+<th>Additivity and date role</th>
+<th>Existing or new</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_policy_role_fact: one client role on one policy</td>
+<td>client_policy_role_key</td>
+<td>permitted degenerate identifier (row key)</td>
+<td>client_policy_l.hk_client_policy_l</td>
+<td>as is</td>
+<td>key</td>
+<td>none</td>
+<td>new</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>client_policy_role_fact</td>
+<td>client_key, policy_key</td>
+<td>dimension keys: client_dim, policy_dim</td>
+<td>client_policy_l.hk_client_h, hk_policy_h</td>
+<td>as is</td>
+<td>keys; the unknown policy&rsquo;s key is the ghost key</td>
+<td>none</td>
+<td>new</td>
+<td>D-1, D-10</td>
+</tr>
+<tr>
+<td>client_policy_role_fact</td>
+<td>role</td>
+<td>permitted degenerate code</td>
+<td>client_policy_l.role</td>
+<td>as is</td>
+<td>owner, insured, payor as sent</td>
+<td>none</td>
+<td>new</td>
+<td>D-3</td>
+</tr>
+<tr>
+<td>client_policy_role_fact</td>
+<td>sold_date</td>
+<td>event date and day_dim key, role sold</td>
+<td>client_policy_sunbelt_s1.sold_on, current version</td>
+<td>to date</td>
+<td>UTC day; empty when the sale gives none</td>
+<td>date role: sold</td>
+<td>new</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>client_policy_role_fact</td>
+<td>first_known_date</td>
+<td>event date and day_dim key, role first known</td>
+<td>client_policy_l.ldts</td>
+<td>to date</td>
+<td>UTC day</td>
+<td>date role: first known</td>
+<td>new</td>
+<td>D-2</td>
+</tr>
+<tr>
+<td>agent_policy_fact: one agent named for one policy</td>
+<td>agent_policy_key; agent_key, policy_key; first_named_by_source_key; first_known_date</td>
+<td>row key; dimension keys: agent_dim, policy_dim; source_dim key; event date and day_dim key</td>
+<td>agent_policy_l.hk_agent_policy_l, hk_agent_h, hk_policy_h, rsrc, ldts</td>
+<td>as is; ldts to date</td>
+<td>the source is the first to name the pair</td>
+<td>date role: first known</td>
+<td>new</td>
+<td>D-1, D-10</td>
+</tr>
+<tr>
+<td>policy_terms_fact: one version of a policy&rsquo;s terms</td>
+<td>policy_terms_key; policy_key; valid_from_date; valid_to_date</td>
+<td>row key (policy key and load); dimension key: policy_dim; event dates and day_dim keys in two roles</td>
+<td>policy_northfield_s1.hk_policy_h, ldts, ledts</td>
+<td>key is the hash of policy key and load; valid-to empty when ledts is 8888-12-31</td>
+<td>UTC days</td>
+<td>date roles: valid from, valid to</td>
+<td>new</td>
+<td>D-1, D-4</td>
+</tr>
+<tr>
+<td>policy_terms_fact</td>
+<td>effective_date</td>
+<td>event date and day_dim key, role effective</td>
+<td>policy_northfield_s1.effective_date</td>
+<td>to date</td>
+<td>the day the carrier says the policy took effect</td>
+<td>date role: effective</td>
+<td>new</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>policy_terms_fact</td>
+<td>face_amount</td>
+<td>measure</td>
+<td>policy_northfield_s1.face_amount</td>
+<td>as is</td>
+<td>US dollars; null when not sent</td>
+<td>additive across policies in one version state</td>
+<td>new</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>policy_terms_fact</td>
+<td>status</td>
+<td>permitted degenerate code of the version</td>
+<td>policy_northfield_s1.status</td>
+<td>as is</td>
+<td>as sent</td>
+<td>none</td>
+<td>new</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>finding_fact: one flagged record</td>
+<td>finding_key; source_key; detected_date; finder_name, finder_type, source_table, source_column, column_value, status, finding_kind, finding_row</td>
+<td>row key; dimension key: source_dim; event date and day_dim key; degenerate codes and identifiers</td>
+<td>DATA_FINDING.finding_pk, source_system, detected_at, finder_name, finder_type, source_table, source_column, column_value, status</td>
+<td>detected_at to date; finding_kind is audit when finder_type is audit, missing_key for a finder name ending _key_missing, form for one ending _form; finding_row is the source table and column_value</td>
+<td>UTC day</td>
+<td>date role: detected</td>
+<td>new</td>
+<td>D-5, D-13</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every written column traces to a source column or an explicit derivation. Facts carry measures and keys; qualifiers belong in dimensions. Date keys refer to the shared day dimension in their named roles. Explain any judicious degenerate identifier. Population metrics do not become precomputed fact columns.</p>
+<h3>3.3 Dimensions and qualifiers</h3>
+<p>Release 1 uses the party model (D-10, D-11): two base dimensions, person_dim and organization_dim, with role views over them. Dates that describe the entity itself, such as a birth date, live in its dimension; event dates live in the facts.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Dimension and grain</th>
+<th>Qualifier or key</th>
+<th>Business meaning</th>
+<th>Source object and column or derivation</th>
+<th>Existing or new</th>
+<th>Fact foreign key and dimension key</th>
+<th>Unknown member and history behavior</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>person_dim: one person record, as one source sent it, unmatched</td>
+<td>person_key, person_role (client, insured or agent), source_key, first_known_date, person_number, first_name, last_name, full_name, state, birth_date, address</td>
+<td>A person as one source knows them; the same human under two roles is two rows until release 2</td>
+<td>client: client_h (client_number; ldts to first_known_date, the hub&rsquo;s load, for client records), client_sunbelt_s1 current version (first_name, last_name, state); insured: insured_h, insured_northfield_s1 current version (insured_name to full_name, birth_date, address); agent: agent_h (agent_npn to person_number), agent name from the most recent sale (client_policy_sunbelt_s1.agent_name) of a policy that agent_policy_l joins to the agent</td>
+<td>new</td>
+<td>through the role views</td>
+<td>Each ghost key kept once, with no role (D-14); current satellite version only</td>
+<td>D-10</td>
+</tr>
+<tr>
+<td>client_dim, role view: one client record</td>
+<td>person_key as client_key; client_number, first_name, last_name, state, source_key, first_known_date</td>
+<td>A client of Sunbelt Senior</td>
+<td>person_dim where person_role is client, with the two ghost rows (D-14)</td>
+<td>new</td>
+<td>client_policy_role_fact.client_key</td>
+<td>the two ghost rows of its base dimension (D-14)</td>
+<td>D-10, D-14</td>
+</tr>
+<tr>
+<td>insured_dim, role view: one insured record</td>
+<td>person_key as insured_key; full_name; birth_date and address under the masking mock</td>
+<td>The person a Northfield Life policy covers</td>
+<td>person_dim where person_role is insured, through the secure view of D-9, with the two ghost rows (D-14)</td>
+<td>new</td>
+<td>joins policy_dim through insured_policy_l in release 1</td>
+<td>the two ghost rows of its base dimension (D-14)</td>
+<td>D-9, D-10, D-14</td>
+</tr>
+<tr>
+<td>agent_dim, role view: one agent record</td>
+<td>person_key as agent_key; agent_npn, full_name</td>
+<td>An agent, by national producer number</td>
+<td>person_dim where person_role is agent, with the two ghost rows (D-14)</td>
+<td>new</td>
+<td>agent_policy_fact.agent_key</td>
+<td>the two ghost rows of its base dimension (D-14)</td>
+<td>D-10, D-14</td>
+</tr>
+<tr>
+<td>organization_dim: one organization</td>
+<td>organization_key, organization_code, organization_name, source_key</td>
+<td>An organization as it names itself</td>
+<td>each carrier&rsquo;s own organization record, through its feed: landing, staging, a new organization hub, and one satellite per carrier source</td>
+<td>new</td>
+<td>through carrier_dim</td>
+<td>Ghost rows kept as unknown and error members</td>
+<td>D-11</td>
+</tr>
+<tr>
+<td>carrier_dim, role view: one carrier</td>
+<td>organization_key as carrier_key; carrier_code, carrier_name</td>
+<td>A carrier Digest sells for</td>
+<td>organization_dim for organizations sent through carrier feeds, with the two ghost rows (D-14)</td>
+<td>new</td>
+<td>policy_dim.carrier_key</td>
+<td>the two ghost rows of its base dimension (D-14)</td>
+<td>D-11, D-14</td>
+</tr>
+<tr>
+<td>policy_dim: one policy number per carrier</td>
+<td>policy_key, carrier_key, policy_number, plan_name, first_named_by_source_key</td>
+<td>A carrier&rsquo;s policy; its plan as the most recent sale names it</td>
+<td>policy_h; carrier_code resolved to carrier_key; plan_name from the most recent client_policy_sunbelt_s1 row for the policy</td>
+<td>new</td>
+<td>facts&rsquo; policy_key</td>
+<td>Ghost rows kept as unknown and error members</td>
+<td>D-2, D-11</td>
+</tr>
+<tr>
+<td>source_dim: one source system</td>
+<td>source_key, source_name, owner</td>
+<td>Who sent the data</td>
+<td>seed_source_system</td>
+<td>new</td>
+<td>the facts&rsquo; source keys</td>
+<td>none</td>
+<td>D-2</td>
+</tr>
+<tr>
+<td>day_dim: one calendar day</td>
+<td>date_day</td>
+<td>The day dimension, and MetricFlow&rsquo;s time spine under this name</td>
+<td>generated, 2026 and 2027</td>
+<td>new, replacing MART.time_spine_day</td>
+<td>every event date key</td>
+<td>none</td>
+<td>D-2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Reuse dimensions where they supply the required qualifiers. Qualifiers include codes, names, states, flags, and descriptive attributes.</p>
+<h3>3.4 Joins and cardinality</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Left object and grain</th>
+<th>Right object and grain</th>
+<th>Join columns and predicate</th>
+<th>Expected cardinality</th>
+<th>Unmatched-row treatment</th>
+<th>Evidence or planned proof</th>
+<th>Effect on measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_policy_role_fact, role row</td>
+<td>client_dim, client</td>
+<td>client_key = client_key</td>
+<td>many to one</td>
+<td>none: every link row&rsquo;s key exists in its hub (assert_increment_2_link_hub_keys_exist)</td>
+<td>layer 4 assertion; relationships tests</td>
+<td>none: factless</td>
+</tr>
+<tr>
+<td>client_policy_role_fact and agent_policy_fact</td>
+<td>policy_dim, policy</td>
+<td>policy_key = policy_key</td>
+<td>many to one</td>
+<td>none, as above</td>
+<td>as above</td>
+<td>none</td>
+</tr>
+<tr>
+<td>policy_terms_fact, version</td>
+<td>policy_dim, policy</td>
+<td>policy_key = policy_key</td>
+<td>many to one</td>
+<td>none: D-40&rsquo;s relationship test</td>
+<td>rel_policy_northfield_s_hk_policy_h</td>
+<td>face_amount stays at version grain</td>
+</tr>
+<tr>
+<td>any fact</td>
+<td>day_dim</td>
+<td>date key = date_day</td>
+<td>many to one</td>
+<td>days outside 2026 and 2027 unmatched; none today</td>
+<td>relationships test</td>
+<td>none</td>
+</tr>
+<tr>
+<td>finding_fact</td>
+<td>source_dim</td>
+<td>source_key = source_key</td>
+<td>many to one</td>
+<td>the findings&rsquo; source names (SUNBELT, NORTHFIELD) are not seed codes: mapped in the view, SUNBELT to SSI, NORTHFIELD to NFL</td>
+<td>relationships test</td>
+<td>none</td>
+</tr>
+</tbody>
+</table></div>
+<p>Show how each join preserves row identity and measures. A total over a view must first establish how often each measure-bearing key occurs.</p>
+<h3>3.5 Dictionary and domain rules</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Business meaning</th>
+<th>Model and column mapping</th>
+<th>Mapping state</th>
+<th>Decision</th>
+<th>Verified example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client</td>
+<td>A client number Sunbelt Senior sends</td>
+<td>client_dim.client_number</td>
+<td>PROPOSED</td>
+<td>D-2</td>
+<td>A-1007</td>
+</tr>
+<tr>
+<td>role</td>
+<td>What a client is on a policy</td>
+<td>client_policy_role_fact.role</td>
+<td>PROPOSED</td>
+<td>D-3</td>
+<td>owner</td>
+</tr>
+<tr>
+<td>version of terms</td>
+<td>What a carrier said about a policy from one load until the next</td>
+<td>policy_terms_fact</td>
+<td>PROPOSED</td>
+<td>D-4</td>
+<td>NF-100003 with two versions</td>
+</tr>
+<tr>
+<td>finding</td>
+<td>A record the vault flagged at arrival</td>
+<td>finding_fact</td>
+<td>PROPOSED</td>
+<td>D-5</td>
+<td>A1007, client-number form</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ghost members: the unknown and error rows of each hub are dimension members, never fact rows. A sale with a blank policy number is joined to the unknown policy, whose carrier reads (unknown).</p>
+<p>Teach terms in dependency order. Newly designed dictionary mappings begin PROPOSED and become VERIFIED through built-data evidence.</p>
+<h2>4. MetricFlow and consumer views</h2>
+<h3>4.1 Semantic definitions</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Semantic model and repository path</th>
+<th>Fact and measures</th>
+<th>Aggregation or expression</th>
+<th>Entities and dimensions</th>
+<th>Time dimension and filters</th>
+<th>Definition owner and record</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>policies_held, client_policy_roles</td>
+<td>client_policy_role_fact, dbt/models/marts/conformed_dm/_conformed_dm.yml</td>
+<td>none (factless); keys</td>
+<td>count_distinct policy_key; count_distinct client_policy_role_key</td>
+<td>entity client_policy_role; dimensions role; joins to client, policy</td>
+<td>first_known_date</td>
+<td>Ray, this design</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>policies_sold, agents_named</td>
+<td>agent_policy_fact, same file</td>
+<td>none; keys</td>
+<td>count_distinct policy_key; count_distinct agent_key</td>
+<td>entity agent_policy; joins to agent, policy, source</td>
+<td>first_known_date</td>
+<td>Ray</td>
+<td>D-1, D-8</td>
+</tr>
+<tr>
+<td>face_amount_current, face_amount, policy_versions</td>
+<td>policy_terms_fact, same file</td>
+<td>face_amount</td>
+<td>sum face_amount, filtered to an empty valid_to_date for the current one; sum face_amount; count_distinct policy_terms_key</td>
+<td>entity policy_terms; dimensions status, valid_to_date; joins to policy</td>
+<td>valid_from_date</td>
+<td>Ray</td>
+<td>D-1, D-4</td>
+</tr>
+<tr>
+<td>records_not_accepted, rows_missing_key</td>
+<td>finding_fact, same file</td>
+<td>none</td>
+<td>count_distinct finding_key where finding_kind is form; count_distinct finding_row where finding_kind is missing_key</td>
+<td>dimensions source_table, source_column, status, finder_name, finder_type, finding_kind; joins to source</td>
+<td>detected_date</td>
+<td>Ray</td>
+<td>D-5, D-13</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every published metric is defined in semantic YAML. A consumer view preserves that shared definition; it does not become a second independent definition.</p>
+<h3>4.1a The agent&rsquo;s guide: descriptions and saved queries</h3>
+<p>The semantic layer is the agent&rsquo;s guide to this data (Data Mart Design Principles, , &ldquo;The agent&rsquo;s guide&rdquo;). Every semantic model, metric and column of sections 3.2 and 3.3 carries a description in the semantic YAML: a model states what one row is and which questions it serves; a metric states what it counts, how to read it, what it leaves out, what to pair it with, and the decision that defined it; a column states what it holds, including when it is empty or unknown. A saved query stands for each question release 1 answers:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Saved query</th>
+<th>Question</th>
+<th>Metrics</th>
+<th>Grouped by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>q09_client_policies</td>
+<td>Q-9</td>
+<td>policies_held, client_policy_roles</td>
+<td>client, carrier, policy, role</td>
+</tr>
+<tr>
+<td>q10_coverage_by_carrier</td>
+<td>Q-10</td>
+<td>face_amount_current</td>
+<td>carrier</td>
+</tr>
+<tr>
+<td>q11_agent_per_policy</td>
+<td>Q-11</td>
+<td>policies_sold, agents_named</td>
+<td>agent, policy; a policy with agents_named of 2 or more is where the sources disagree</td>
+</tr>
+<tr>
+<td>q13_client_arrivals</td>
+<td>Q-13</td>
+<td>policies_held, client_policy_roles</td>
+<td>client&rsquo;s source, client&rsquo;s first-known date</td>
+</tr>
+<tr>
+<td>q14_policy_versions</td>
+<td>Q-14</td>
+<td>policy_versions, face_amount</td>
+<td>policy, valid-from day, valid-to day, status</td>
+</tr>
+<tr>
+<td>q15_records_not_accepted</td>
+<td>Q-15</td>
+<td>records_not_accepted, rows_missing_key</td>
+<td>source, finder type</td>
+</tr>
+</tbody>
+</table></div>
+<p>Proof: for each saved query, the test plan runs it and checks its answer against the figures on Mary&rsquo;s release page.</p>
+<h3>4.2 SQL exceptions</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Exception name</th>
+<th>Required per-entity computation</th>
+<th>Why MetricFlow cannot express it</th>
+<th>Single derivation site</th>
+<th>Unit-test reference</th>
+<th>Layer-6 reconciliation reference</th>
+<th>Capability or model change that retires it</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none</td>
+<td>none</td>
+<td>Every metric is a MetricFlow aggregation; the retired agent view&rsquo;s per-policy window flag is replaced by agents_named grouped by policy (D-8)</td>
+<td>none</td>
+<td>none</td>
+<td>none</td>
+<td>none</td>
+<td>D-8</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use none with a reason if no exception is required. SQL exceptions are limited to computations allowed by Data Mart Design Principles (knowledge 12, item 104); dashboard convenience is not a justification.</p>
+<h3>4.3 Consumer-view and card map</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Consumer question or card</th>
+<th>Metric or evidence supplied</th>
+<th>View and repository path</th>
+<th>Report grain and row key</th>
+<th>Upstream objects</th>
+<th>Population and period filters</th>
+<th>Summary or finer-grain detail</th>
+<th>Repeated-measure prevention</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DV Digest, every question</td>
+<td>the metrics of 4.1</td>
+<td>none: the connector reads the semantic manifest and MetricFlow compiles over the facts and dimensions</td>
+<td>the metric&rsquo;s group-by</td>
+<td>the facts and dimensions</td>
+<td>in the metric definitions only (no tool filter exists)</td>
+<td>summary</td>
+<td>MetricFlow joins facts to dimensions many to one</td>
+<td>No consumer view: the connector is the surface</td>
+</tr>
+</tbody>
+</table></div>
+<p>One measures view serves a report&rsquo;s measures at the report grain. Finer-grain child views serve separate detail cards. The measures view never joins its children; child records are not flattened into numbered columns.</p>
+<h3>4.4 Physical placement and materialization</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Schema</th>
+<th>Upstream schemas and objects</th>
+<th>View or table and justification</th>
+<th>Existing readers affected</th>
+<th>Move, retirement, and reader changes</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>person_dim, organization_dim, policy_dim, source_dim, day_dim; role views client_dim, insured_dim, agent_dim, carrier_dim</td>
+<td>CONFORMED_DM</td>
+<td>RAW_VAULT hubs, satellites and the new organization hub; REFERENCE.seed_source_system; generated days</td>
+<td>views: rebuilt each run from the vault, which keeps history</td>
+<td>none</td>
+<td>new</td>
+<td>D-6</td>
+</tr>
+<tr>
+<td>client_policy_role_fact, agent_policy_fact, policy_terms_fact, finding_fact</td>
+<td>CONFORMED_DM</td>
+<td>RAW_VAULT links and the dated satellite view; landing CONFIG.DATA_FINDING through landing_storage()</td>
+<td>views</td>
+<td>none</td>
+<td>new</td>
+<td>D-6</td>
+</tr>
+<tr>
+<td>MART.client_policy_fact, agent_policy_fact, policy_fact, finding_fact, time_spine_day</td>
+<td>MART</td>
+<td>as built</td>
+<td>dropped by the pull request: models removed; the QA build&rsquo;s DV_QA.MART views dropped by setup script</td>
+<td>DV Digest, which reloads from the QA build</td>
+<td>retired</td>
+<td>D-6</td>
+</tr>
+</tbody>
+</table></div>
+<p>Warehouse schemas and repository folders are distinct. Workgroup marts read CONFORMED_DM alone. A needed MART object moves to CONFORMED_DM once, with its MART copy retired and readers repointed; no duplicate copy is introduced. Datamart tables are facts or dimensions with the corresponding _fact or _dim suffix. Apply the Object Naming standard (knowledge 12, item 147) before agreement.</p>
+<h3>4.5 Consumer interpretation</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Plain-language question or finding</th>
+<th>Definition and methods shown at point of use</th>
+<th>Unknown and no-answer display</th>
+<th>Exclusions and limitations</th>
+<th>Evidence drill and clocks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DV Digest</td>
+<td>Mary&rsquo;s six questions</td>
+<td>each metric&rsquo;s description, from the semantic YAML, shown by list-metrics</td>
+<td>absent groups are absent, not zero</td>
+<td>Q-7, Q-8, Q-12, Q-16 not served; amounts only where a carrier sends them</td>
+<td>the QA build&rsquo;s run id and time, which the connector loaded</td>
+</tr>
+</tbody>
+</table></div>
+<p>Apply the Data Consumption Design standard (knowledge 17, item 72). Show what was measured, over which population and period, with which exclusions and as-of clocks. An unexplained discrepancy or unresolved interpretation remains visible rather than receiving an invented answer.</p>
+<h2>5. Validation and approval</h2>
+<h3>5.1 Instance models</h3>
+<p>Policy NF-100003 in DV_QA (read 2026-10-27 01:10 UTC): policy_dim holds it once (carrier NFL). policy_terms_fact holds two versions: valid from 2026-10-01 02:00 to 2026-10-02 01:59:59.999 UTC with status IF and face amount 15,000.00, and valid from 2026-10-02 02:00, current, with status LP and the same amount. face_amount_current reads 15,000.00 from the second; policy_versions grouped by policy reads 2; grouped by status, the change from IF to LP on 2026-10-02 is the answer to what changed. Figure M-1:</p>
+<pre><code class="language-mermaid">flowchart LR
+  S1[&quot;policy_northfield_s1: NF-100003, IF, 15,000.00, loaded 2026-10-01 02:00&quot;] ==&gt; V1[&quot;policy_terms_fact: valid 2026-10-01 to 2026-10-02, IF, 15,000.00&quot;]
+  S2[&quot;policy_northfield_s1: NF-100003, LP, 15,000.00, loaded 2026-10-02 02:00&quot;] ==&gt; V2[&quot;policy_terms_fact: valid from 2026-10-02, current, LP, 15,000.00&quot;]
+  V1 ==&gt; P[&quot;policy_dim: NFL NF-100003&quot;]
+  V2 ==&gt; P
+  V2 ==&gt; C[&quot;face_amount_current: 15,000.00&quot;]
+  V1 ==&gt; N[&quot;policy_versions for NF-100003: 2&quot;]
+  V2 ==&gt; N
+</code></pre>
+<p>Show verified real records, source read clocks, and their rows through the proposed model to the consumer projection. Include a diagram for each trace. An instance model is evidence.</p>
+<h3>5.2 Worked examples</h3>
+<p>A client Ada is on policy P-1 as owner and insured: two rows in client_policy_role_fact, one policy. policies_held for Ada reads 1; client_policy_roles reads 2. Figure M-2:</p>
+<pre><code class="language-mermaid">flowchart LR
+  R1[&quot;client_policy_role_fact: Ada, P-1, owner&quot;] ==&gt; P[&quot;policy_dim: P-1&quot;]
+  R2[&quot;client_policy_role_fact: Ada, P-1, insured&quot;] ==&gt; P
+  R1 ==&gt; A[&quot;client_dim: Ada&quot;]
+  R2 ==&gt; A
+  A ==&gt; H[&quot;policies_held for Ada: 1&quot;]
+  A ==&gt; K[&quot;client_policy_roles for Ada: 2&quot;]
+</code></pre>
+<p>Use small invented names and values to explain the design, with a diagram. A worked example teaches the shape and does not replace real-data evidence.</p>
+<h3>5.3 Required proof and test-plan references</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Model, metric, or view</th>
+<th>Source-to-target comparison or invariant</th>
+<th>Expected relationship</th>
+<th>Test-plan artifact and layer</th>
+<th>Consumer question or design decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grain uniqueness</td>
+<td>each fact and dimension</td>
+<td>rows equal keys</td>
+<td>equal</td>
+<td>unique tests, layer 1</td>
+<td>D-1, D-2</td>
+</tr>
+<tr>
+<td>Dimension integrity</td>
+<td>every fact key</td>
+<td>each key exists in its dimension</td>
+<td>no orphans</td>
+<td>relationships tests, layer 1</td>
+<td>D-2</td>
+</tr>
+<tr>
+<td>Measure conservation</td>
+<td>policy_terms_fact.face_amount</td>
+<td>sum over versions equals the satellite&rsquo;s sum</td>
+<td>equal</td>
+<td>layer 4 assertion</td>
+<td>D-1</td>
+</tr>
+<tr>
+<td>Two-route reconciliation</td>
+<td>every metric</td>
+<td>MetricFlow&rsquo;s answer equals a direct query on the vault</td>
+<td>equal</td>
+<td>layer 6</td>
+<td>4.1</td>
+</tr>
+<tr>
+<td>Consumer probes</td>
+<td>Q-9, Q-10, Q-11, Q-13, Q-14, Q-15</td>
+<td>DV Digest&rsquo;s answer equals the direct query on DV_QA</td>
+<td>equal</td>
+<td>consumer certification</td>
+<td>1.2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Walk the seven layers of the current Testing Methodology (knowledge 2) in order in the paired test plan; state not applicable with a reason. Do not copy an older template&rsquo;s layer numbering. Include grain uniqueness, dimension integrity, join cardinality, measure conservation, unknown treatment, metric reconciliation through two independent routes, existing-consumer regression, and consumer-question probes as applicable. Tests precede implementation under the Test-Driven Development standard (knowledge 23). Fixed observed counts or amounts are dated examples, not enduring pass conditions.</p>
+<h3>5.4 Deferred decisions</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Deferred decision</th>
+<th>Reason</th>
+<th>Interim treatment</th>
+<th>Unblocking condition</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DD-1</td>
+<td>The rule for an independent agent (Q-12)</td>
+<td>Needs Ray&rsquo;s word (C-1)</td>
+<td>Q-12 not served</td>
+<td>Ray answers C-1</td>
+<td>Ray</td>
+</tr>
+</tbody>
+</table></div>
+<h3>5.5 Compliance record and completion checklist</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Passage, map row, or evidence</th>
+<th>Met, not met, or not applicable</th>
+<th>Reason and unresolved decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every consumer question maps to a metric</td>
+<td>1.2, 1.4</td>
+<td>Met for six; not applicable for Q-12 (DD-1)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Every fact declares its grain and proves it</td>
+<td>2.1, 2.2</td>
+<td>Met: rows equal keys on DV_QA</td>
+<td>none</td>
+</tr>
+<tr>
+<td>One fact per grain; reuse before new</td>
+<td>2.2, D-1</td>
+<td>Met: no existing fact in CONFORMED_DM; four distinct grains</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Facts carry measures and keys; qualifiers in dimensions</td>
+<td>3.2, 3.3, D-3, D-5</td>
+<td>Met, with three judicious degenerate codes</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Metrics in MetricFlow; no SQL metric</td>
+<td>4.1, 4.2</td>
+<td>Met</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Placement: CONFORMED_DM, _fact and _dim, MART retired</td>
+<td>4.4</td>
+<td>Met</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Every template section and field filled</td>
+<td>Sections 0 to 5.6 and the header</td>
+<td>Met</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Reporting grain distinguished from supporting fact grain</td>
+<td>2.2</td>
+<td>Met</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Every written column has a source or a derivation</td>
+<td>3.2, 3.3</td>
+<td>Met</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Joins preserve row identity and measures</td>
+<td>3.4</td>
+<td>Met: every fact joins its dimensions many to one</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Consumer views assessed before another shared fact</td>
+<td>4.3</td>
+<td>Met: no consumer view is needed</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Every instance model and worked example carries its diagram</td>
+<td>5.1, 5.2</td>
+<td>Met: Figures M-1 and M-2</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Every decision has proof in the test plan</td>
+<td>Test plan , section 2.3; implementation guide , steps 52 to 78</td>
+<td>Met for D-1 to D-6 and D-8 to D-14: D-13 by SR8, SR9, SQ6 and P-15; D-14 by DG1 and DS1 to DS4; D-6 by the guide&rsquo;s steps 60 and 78; not applicable for D-7, which builds nothing</td>
+<td>none</td>
+</tr>
+</tbody>
+</table></div>
+<p>Before agreement, verify every template section and field is filled; every applicable standard has evidence; every consumer question maps to a metric or evidence answer; every fact declares what one row represents and the keys that prove its actual grain; reporting grain and supporting fact grains are distinguished; every metric maps to a required supporting grain and fact; every new fact proves a distinct underlying business grain is necessary and no existing fact serves it; every missing measure or necessary population extension reuses an existing fact when its grain matches; consumer views are assessed before proposing another shared fact; object necessity and classification are checked before schema-specific naming, including after a suffix correction; every written column has a source or derivation; dimensions carry qualifiers; joins preserve measures; semantic definitions and SQL exceptions comply; physical placement meets schema boundaries; and every decision has corresponding proof in the test plan. Resolve every internal section and item reference. A requirement without evidence is not met.</p>
+<h3>5.6 Handoff boundary</h3>
+<p>The implementation guide adds the mart steps: the conformed_dm folder and schema entry, the thirteen models (four facts, five dimensions and four role views), the semantic YAML, the tests of 5.3 written first, the MART retirement, and the QA run. Agreement of this design does not authorize code; the build follows Ray&rsquo;s answer on it.</p>
+<p>The implementation guide implements the agreed decisions and maps, naming exact files and patterns. It adds no model, column, metric definition, consumer interpretation, or mapping decision absent from this design. Agreement of this document does not authorize code or database execution; execution follows the separately approved numbered decisions or agreed execution goal.</p></article><section class="cta bleed"><h2>Next: Post-implementation guide</h2><p>What the next release shipped, the evidence, and every difference from the plan, with why.</p><a class="btn" href="post-implementation-next.html">Read the post-implementation guide</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

@@ -1,0 +1,228 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ask DV Digest | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+
+.chat{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px rgba(9,18,41,.06);overflow:hidden}
+.chat-head{background:var(--navy);color:#e6edf4;padding:14px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chat-head b{font-family:"Poppins",Arial,sans-serif;color:#fff}.chat-head .dot{width:9px;height:9px;border-radius:50%;background:var(--green)}
+.chat-head.off .dot{background:#b8c2cf}
+.log{padding:18px;min-height:220px;max-height:60vh;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+.msg{max-width:88%;padding:12px 15px;border-radius:14px;line-height:1.6;overflow-wrap:anywhere}
+.msg.user{align-self:flex-end;background:var(--teal);color:#fff;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.err{align-self:flex-start;background:#fff4f2;border:1px solid #f1c4b8;color:#7a2e1a}
+.msg p{margin:0 0 8px}.msg p:last-child{margin:0}.msg ul,.msg ol{margin:6px 0 6px 20px;padding:0}
+.msg .ctable{overflow-x:auto;margin:8px 0;border:1px solid var(--line);border-radius:8px}.msg table{font-size:13.5px;width:max-content;min-width:100%}.msg td,.msg th{overflow-wrap:normal;word-break:normal;white-space:nowrap}.msg th{white-space:nowrap}.msg code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:.9em}
+.qchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.qchip{font:600 11.5px ui-monospace,Menlo,Consolas,monospace;background:var(--soft);color:var(--teal-d);padding:3px 8px;border-radius:6px}
+.typing{align-self:flex-start;color:var(--muted);font-size:14px}
+.sugg{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px 0}
+.sugg button{font:600 13px "Open Sans",Arial,sans-serif;background:#fff;border:1px solid var(--teal);color:var(--teal-d);border-radius:999px;padding:7px 12px;cursor:pointer}
+.compose{display:flex;gap:10px;padding:14px 18px;border-top:1px solid var(--line);background:#fff;flex-wrap:wrap}
+.compose textarea{flex:1 1 240px;min-height:48px;max-height:160px;resize:vertical;font:15px/1.5 "Open Sans",Arial,sans-serif;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.compose textarea:focus,.code input:focus{outline:2px solid var(--teal);outline-offset:1px}
+.compose .btn{border:0;cursor:pointer}.compose .btn[disabled]{opacity:.5;cursor:not-allowed}
+.code{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px 18px;background:#fff;border-bottom:1px solid var(--line)}
+.code input{font:15px "Open Sans",Arial,sans-serif;border:1px solid var(--line);border-radius:10px;padding:8px 12px;flex:0 1 200px}
+.code small{color:var(--muted)}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="index.html" class="on">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="../documentation/index.html">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span>Ask</p><p class="eyebrow">Ask</p><h1>Ask DV Digest</h1><p>Your questions, answered from production, with the query behind every number.</p></div></header>
+<main><p class="kicker">Ask in plain words</p><h2>Ask DV Digest</h2><p class="lede">The assistant answers only from release 1's metrics in production, names the query behind every number, and tells you which coming release answers what this one can't.</p><div class="chat" id="chat" data-url="https://izalyxmvo4hudfg4v3mdl7ac740xrcgq.lambda-url.us-east-1.on.aws/"><div class="chat-head off" id="chat-head"><span class="dot"></span><b>DV Digest assistant</b><span id="status"></span></div><div class="code"><label for="code"><b>Site access code</b></label><input id="code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="the code Ray sent you"><small>The code for this site, from Ray: never a password. Kept only for this visit.</small></div><div class="log" id="log" aria-live="polite"><div class="msg bot"><p>Ask about the acquired book in plain words. Every number I give comes from a query against production, and I'll show which.</p></div></div><div class="sugg"><button type="button">On how many policies is a client the owner, the insured or the payor?</button><button type="button">How much coverage does each carrier provide through us?</button><button type="button">On how many policies do our sources agree about the agent who sold it, and on how many do they disagree?</button><button type="button">How many records arrived in a form we don&#x27;t accept?</button><button type="button">Where did each client&#x27;s record come from, and when did we first know it?</button><button type="button">What did we know about policy NF-100003 on October 1, and what changed since?</button></div><div class="compose"><textarea id="q" maxlength="2000" placeholder="Ask a question about the acquired book" aria-label="Your question"></textarea><button type="button" class="btn" id="send">Ask</button></div></div><script>
+(function(){
+var url=(new URLSearchParams(location.search).get('chat'))||document.getElementById('chat').dataset.url||'';
+var log=document.getElementById('log'),ta=document.getElementById('q'),send=document.getElementById('send'),code=document.getElementById('code');
+var head=document.getElementById('chat-head'),status=document.getElementById('status'),history=[];
+try{code.value=sessionStorage.getItem('dvd_code')||'';}catch(e){}
+function esc(s){return s.replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function inl(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');}
+function md(t){var lines=esc(t).split('\n'),out=[],list=null,i=0;
+ function close(){if(list){out.push('</'+list+'>');list=null;}}
+ while(i<lines.length){var l=lines[i];
+  if(/^\s*\|.*\|\s*$/.test(l)){close();var rows=[];
+   while(i<lines.length&&(/^\s*\|.*\|\s*$/.test(lines[i])||!lines[i].trim())){if(lines[i].trim())rows.push(lines[i]);i++;}
+   var cells=function(r){return r.trim().replace(/^\||\|$/g,'').split('|').map(function(c){return inl(c.trim());});};
+   var body=rows.filter(function(r){return !/^\s*\|[\s:|-]+\|\s*$/.test(r);});
+   var h=cells(body[0]),bd=body.slice(1).map(cells);
+   out.push('<div class="ctable"><table><thead><tr>'+h.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>'+bd.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div>');
+   continue;}
+  var m=l.match(/^\s*(?:[-*]|\d+[.)])\s+(.*)/);
+  if(m){var kind=/^\s*\d/.test(l)?'ol':'ul';if(list!==kind){close();list=kind;out.push('<'+kind+'>');}out.push('<li>'+inl(m[1])+'</li>');}
+  else{close();if(l.trim())out.push('<p>'+inl(l.replace(/^#+\s*/,''))+'</p>');}
+  i++;}
+ close();return out.join('');}
+function add(cls,html){var d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+function setOn(on){head.classList.toggle('off',!on);status.textContent=on?'Answering from production':'Not connected yet: the assistant joins this page shortly';send.disabled=!on;ta.disabled=!on;}
+setOn(!!url);
+var REFUSE={access_code:'That access code was not accepted. Check it and try again.',daily_cap:'Today\'s limit of questions has been reached. Please try again tomorrow.',too_long:'That question is too long. Please shorten it.',upstream:'The assistant could not reach the data just now. Please try again in a moment.'};
+function evidence(b){var chips=(b.queries||[]).filter(function(q){return q.label;}).map(function(q){var g=(q.group_by_labels||[]).filter(Boolean);return '<span class="qchip">'+esc(q.label)+(g.length?' by '+esc(g.join(', ')):'')+'</span>';}).join('');
+ return chips?'<div class="qchips" title="The queries behind this answer">'+chips+'</div>':'';}
+async function stream(r,t){
+ var reader=r.body.getReader(),decoder=new TextDecoder(),buffer='',reply='',done=null,failure=null,bot=null;
+ function consume(text){
+  buffer+=text;var parts=buffer.split(/\r?\n\r?\n/);buffer=parts.pop();
+  parts.forEach(function(block){
+   var kind='message',data=[];
+   block.split(/\r?\n/).forEach(function(line){if(line.indexOf('event:')===0)kind=line.slice(6).trim();else if(line.indexOf('data:')===0)data.push(line.slice(5).trim());});
+   if(!data.length)return;var b=JSON.parse(data.join('\n'));
+   if(kind==='delta'){reply+=b.text||'';if(!bot){t.remove();bot=add('bot','');}bot.innerHTML=md(reply);log.scrollTop=log.scrollHeight;}
+   else if(kind==='done')done=b;else if(kind==='error')failure=b.error||'upstream';
+  });
+ }
+ try{
+  while(true){var next=await reader.read();if(next.done)break;consume(decoder.decode(next.value,{stream:true}));}
+  consume(decoder.decode()+'\n\n');
+ }catch(e){if(bot)bot.remove();throw e;}
+ if(failure)throw new Error(failure);if(!done)throw new Error('upstream');
+ t.remove();history.push({role:'assistant',content:done.reply});
+ var rendered=md(done.reply)+evidence(done);if(bot)bot.innerHTML=rendered;else add('bot',rendered);log.scrollTop=log.scrollHeight;
+}
+async function ask(text){
+ if(!url||!text.trim())return;
+ var c=code.value.trim(); if(!c){add('err','Enter the site access code Ray sent you first.');code.focus();return;}
+ try{sessionStorage.setItem('dvd_code',c);}catch(e){}
+ history.push({role:'user',content:text}); add('user',esc(text)); ta.value='';
+ var t=document.createElement('div');t.className='typing';t.textContent='Asking DV Digest\u2026';log.appendChild(t);log.scrollTop=log.scrollHeight;
+ send.disabled=true;
+ for(var attempt=0;attempt<3;attempt++){
+  try{var r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify({access_code:c,messages:history.slice(-20)})});
+   var contentType=r.headers.get('content-type')||'';
+   if(r.ok&&contentType.indexOf('text/event-stream')!==-1){await stream(r,t);break;}
+   var b=await r.json().catch(function(){return{error:'upstream'};});
+   if(r.status===429&&b.error!=='daily_cap'&&attempt<2){await new Promise(function(z){setTimeout(z,800*(attempt+1));});continue;}
+   t.remove();
+   if(!r.ok||b.error){history.pop();add('err',REFUSE[b.error]||REFUSE.upstream);}
+   else{history.push({role:'assistant',content:b.reply});add('bot',md(b.reply)+evidence(b));}
+   break;
+  }catch(e){if(attempt<2){await new Promise(function(z){setTimeout(z,800*(attempt+1));});continue;}t.remove();history.pop();add('err',REFUSE.upstream);}
+ }
+ send.disabled=!url;ta.focus();
+}
+send.addEventListener('click',function(){ask(ta.value);});
+ta.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ask(ta.value);}});
+document.querySelectorAll('.sugg button').forEach(function(bt){bt.addEventListener('click',function(){if(url)ask(bt.textContent);else{ta.value=bt.textContent;}});});
+})();
+</script><section class="cta bleed"><h2>What it can answer</h2><p>Release 1, The Acquired Book: four questions about what the distributor bought.</p><a class="btn" href="../releases/v2026-10-1.html">See the answers</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

@@ -1,0 +1,2061 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The vault | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../ask/index.html">Ask</a><a href="../../guide/index.html">Guide</a><a href="../../releases/index.html">Releases</a><a href="../../documentation/index.html">Documentation</a><a href="../../learn/index.html">Learn</a><a href="../../model/index.html">Model</a><a href="../index.html" class="on">Build</a></nav></div>
+<div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>The vault</h1><p>Staging, hubs, links, satellites and their dated views: each a declaration the datavault4dbt macros build. 36 files.</p></div></header>
+<main><details class="file"><summary>dbt/models/raw_vault/_client_h.yml</summary><pre><code>version: 2
+
+models:
+  - name: client_h
+    description: &gt;
+      Hub of Sunbelt Senior Insurance client numbers (increment 1 design D-3): one row per client key, with the
+      load timestamp and record source of the key&#x27;s first arrival, plus the two ghost records.
+    columns:
+      - name: hk_client_h
+        tests:
+          # Layer 1
+          - unique:
+              name: uq_client_h_hk_client_h
+              config: {severity: warn}
+          - not_null:
+              name: nn_client_h_hk_client_h
+              config: {severity: warn}
+
+# Layer 3: Permutation Coverage Method paths P1 to P8 (test plan, Pilot item 271).
+# Expected hash keys are literals computed with datavault4dbt&#x27;s own hash expression (guide G-8).
+# Every staging expectation lists the two ghost records the stage adds (unknown -1, error -2).
+# Engine note (2026-10-23; narrowed 2026-10-26): a unit test that fails on dbt v1 is tagged fusion_only; one that
+# passes there carries no tag (re-checked on dbt 1.12.6). On dbt v1, a unit test replaces each
+# input with a query block (for example __dbt__cte__sunbelt__client); datavault4dbt&#x27;s macros describe their
+# inputs to list columns (the stage its source, the hub its staging model), the describe fails on a query block,
+# and the test errors with &quot;&#x27;None&#x27; has no attribute &#x27;database&#x27;&quot;. On the Fusion engine they pass. They run on the
+# workstation&#x27;s Fusion builds; v1 environments exclude them with: --exclude tag:fusion_only
+unit_tests:
+  - name: unit_stg_sunbelt_client_p4_surface_variant_same_key
+    model: stg_sunbelt_client
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 4, client_number: &#x27;A-1004&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 37, client_number: &#x27;a-1004&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+          - {crm_row_id: 5, client_number: &#x27;A-1005&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 38, client_number: &#x27;A-1005 &#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {crm_row_id: 4, hk_client_h: &#x27;d451d5e07e1297d40e4e211e07d63c87&#x27;}
+        - {crm_row_id: 37, hk_client_h: &#x27;d451d5e07e1297d40e4e211e07d63c87&#x27;}
+        - {crm_row_id: 5, hk_client_h: &#x27;97dcf5db15fab07747135a359e89eb79&#x27;}
+        - {crm_row_id: 38, hk_client_h: &#x27;97dcf5db15fab07747135a359e89eb79&#x27;}
+        - {crm_row_id: -1, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {crm_row_id: -2, hk_client_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_client_p5_internal_form_new_key
+    model: stg_sunbelt_client
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 7, client_number: &#x27;A-1007&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 39, client_number: &#x27;A1007&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {crm_row_id: 7, hk_client_h: &#x27;6620e029877aae0b4a4cac7cc4dacce2&#x27;}
+        - {crm_row_id: 39, hk_client_h: &#x27;9b015df670245d76e164c5313771bad8&#x27;}
+        - {crm_row_id: -1, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {crm_row_id: -2, hk_client_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_client_p6_null_zero_key
+    model: stg_sunbelt_client
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 31, client_number: null, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {crm_row_id: 31, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {crm_row_id: -1, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {crm_row_id: -2, hk_client_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_client_p7_blank_zero_key
+    model: stg_sunbelt_client
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 32, client_number: &#x27;&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 41, client_number: &#x27;   &#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {crm_row_id: 32, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {crm_row_id: 41, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {crm_row_id: -1, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {crm_row_id: -2, hk_client_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_client_h_p1_new_key
+    model: client_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, client_number: &#x27;A-1001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, client_number: &#x27;A-1001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+
+  - name: unit_client_h_p2_repeat_keeps_first
+    model: client_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;a9e948587b971f1e9c3b104f4be78b81&#x27;, client_number: &#x27;A-1003&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_client_h: &#x27;a9e948587b971f1e9c3b104f4be78b81&#x27;, client_number: &#x27;A-1003&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_client_h: &#x27;a9e948587b971f1e9c3b104f4be78b81&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;}
+
+  - name: unit_client_h_p3_later_load_inserts
+    model: client_h
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, client_number: &#x27;A-1001&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_client_h: &#x27;210760676c52f84825af4c9a4c97b040&#x27;, client_number: &#x27;A-1031&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: this
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, client_number: &#x27;A-1001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_client_h: &#x27;210760676c52f84825af4c9a4c97b040&#x27;, client_number: &#x27;A-1031&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;}
+
+  - name: unit_client_h_p8_duplicate_in_load_one_row
+    model: client_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;854fb226c402caa6d757b70aba3330c2&#x27;, client_number: &#x27;A-1010&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_client_h: &#x27;854fb226c402caa6d757b70aba3330c2&#x27;, client_number: &#x27;a-1010&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_client_h: &#x27;854fb226c402caa6d757b70aba3330c2&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/_increment_2.yml</summary><pre><code>version: 2
+
+# Layer 3, test plan logic areas E, G, H, I, J, K, L and M. The toolkit&#x27;s hub, link and satellite
+# macros carry these behaviors, so these tests characterize them (TDD standard, section 2).
+# Incremental tests give their new rows the load time 2099-01-01: the toolkit&#x27;s satellite reads its high-water mark
+# with a real query on the live table, not the mocked this (sat_v0, snowflake), so a fixture dated inside the loaded
+# acts is filtered out once real data exists, and a no-new-row test would pass without proving anything.
+# Layer 1, increment 2 (design section 8): every new hub and link, unique and not null on its hash key.
+# Layer 1, D-40: each satellite&#x27;s hash key to its parent, a relationships test. The links&#x27; hub keys are checked by the
+# layer 4 assertion assert_increment_2_link_hub_keys_exist.
+models:
+  - name: policy_h
+    columns:
+      - name: hk_policy_h
+        tests:
+          - unique:
+              name: uq_policy_h_hk_policy_h
+              config: {severity: warn}
+          - not_null:
+              name: nn_policy_h_hk_policy_h
+              config: {severity: warn}
+  - name: insured_h
+    columns:
+      - name: hk_insured_h
+        tests:
+          - unique:
+              name: uq_insured_h_hk_insured_h
+              config: {severity: warn}
+          - not_null:
+              name: nn_insured_h_hk_insured_h
+              config: {severity: warn}
+  - name: agent_h
+    columns:
+      - name: hk_agent_h
+        tests:
+          - unique:
+              name: uq_agent_h_hk_agent_h
+              config: {severity: warn}
+          - not_null:
+              name: nn_agent_h_hk_agent_h
+              config: {severity: warn}
+  - name: client_policy_l
+    columns:
+      - name: hk_client_policy_l
+        tests:
+          - unique:
+              name: uq_client_policy_l_hk_client_policy_l
+              config: {severity: warn}
+          - not_null:
+              name: nn_client_policy_l_hk_client_policy_l
+              config: {severity: warn}
+      - name: hk_client_h
+        tests:
+          - relationships:
+              name: rel_client_policy_l_hk_client_h
+              arguments:
+                to: ref(&#x27;client_h&#x27;)
+                field: hk_client_h
+              config: {severity: warn}
+      - name: hk_policy_h
+        tests:
+          - relationships:
+              name: rel_client_policy_l_hk_policy_h
+              arguments:
+                to: ref(&#x27;policy_h&#x27;)
+                field: hk_policy_h
+              config: {severity: warn}
+  - name: insured_policy_l
+    columns:
+      - name: hk_insured_policy_l
+        tests:
+          - unique:
+              name: uq_insured_policy_l_hk_insured_policy_l
+              config: {severity: warn}
+          - not_null:
+              name: nn_insured_policy_l_hk_insured_policy_l
+              config: {severity: warn}
+      - name: hk_insured_h
+        tests:
+          - relationships:
+              name: rel_insured_policy_l_hk_insured_h
+              arguments:
+                to: ref(&#x27;insured_h&#x27;)
+                field: hk_insured_h
+              config: {severity: warn}
+      - name: hk_policy_h
+        tests:
+          - relationships:
+              name: rel_insured_policy_l_hk_policy_h
+              arguments:
+                to: ref(&#x27;policy_h&#x27;)
+                field: hk_policy_h
+              config: {severity: warn}
+  - name: agent_policy_l
+    columns:
+      - name: hk_agent_policy_l
+        tests:
+          - unique:
+              name: uq_agent_policy_l_hk_agent_policy_l
+              config: {severity: warn}
+          - not_null:
+              name: nn_agent_policy_l_hk_agent_policy_l
+              config: {severity: warn}
+      - name: hk_agent_h
+        tests:
+          - relationships:
+              name: rel_agent_policy_l_hk_agent_h
+              arguments:
+                to: ref(&#x27;agent_h&#x27;)
+                field: hk_agent_h
+              config: {severity: warn}
+      - name: hk_policy_h
+        tests:
+          - relationships:
+              name: rel_agent_policy_l_hk_policy_h
+              arguments:
+                to: ref(&#x27;policy_h&#x27;)
+                field: hk_policy_h
+              config: {severity: warn}
+  - name: client_sunbelt_s
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: uq_client_sunbelt_s_pk
+          arguments:
+            combination_of_columns: [hk_client_h, ldts]
+          config: {severity: warn}
+    columns:
+      - name: ldts
+        tests:
+          - not_null:
+              name: nn_client_sunbelt_s_ldts
+              config: {severity: warn}
+      - name: hk_client_h
+        tests:
+          - not_null:
+              name: nn_client_sunbelt_s_hk_client_h
+              config: {severity: warn}
+          - relationships:
+              name: rel_client_sunbelt_s_hk_client_h
+              arguments:
+                to: ref(&#x27;client_h&#x27;)
+                field: hk_client_h
+              config: {severity: warn}
+  - name: client_policy_sunbelt_s
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: uq_client_policy_sunbelt_s_pk
+          arguments:
+            combination_of_columns: [hk_client_policy_l, ldts]
+          config: {severity: warn}
+    columns:
+      - name: ldts
+        tests:
+          - not_null:
+              name: nn_client_policy_sunbelt_s_ldts
+              config: {severity: warn}
+      - name: hk_client_policy_l
+        tests:
+          - not_null:
+              name: nn_client_policy_sunbelt_s_hk_client_policy_l
+              config: {severity: warn}
+          - relationships:
+              name: rel_client_policy_sunbelt_s_hk_client_policy_l
+              arguments:
+                to: ref(&#x27;client_policy_l&#x27;)
+                field: hk_client_policy_l
+              config: {severity: warn}
+  - name: insured_northfield_s
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: uq_insured_northfield_s_pk
+          arguments:
+            combination_of_columns: [hk_insured_h, ldts]
+          config: {severity: warn}
+    columns:
+      - name: ldts
+        tests:
+          - not_null:
+              name: nn_insured_northfield_s_ldts
+              config: {severity: warn}
+      - name: hk_insured_h
+        tests:
+          - not_null:
+              name: nn_insured_northfield_s_hk_insured_h
+              config: {severity: warn}
+          - relationships:
+              name: rel_insured_northfield_s_hk_insured_h
+              arguments:
+                to: ref(&#x27;insured_h&#x27;)
+                field: hk_insured_h
+              config: {severity: warn}
+  - name: policy_northfield_s
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: uq_policy_northfield_s_pk
+          arguments:
+            combination_of_columns: [hk_policy_h, ldts]
+          config: {severity: warn}
+    columns:
+      - name: ldts
+        tests:
+          - not_null:
+              name: nn_policy_northfield_s_ldts
+              config: {severity: warn}
+      - name: hk_policy_h
+        tests:
+          - not_null:
+              name: nn_policy_northfield_s_hk_policy_h
+              config: {severity: warn}
+          - relationships:
+              name: rel_policy_northfield_s_hk_policy_h
+              arguments:
+                to: ref(&#x27;policy_h&#x27;)
+                field: hk_policy_h
+              config: {severity: warn}
+
+# Engine note (2026-10-26): a unit test that fails on dbt v1 is tagged fusion_only, for the reason in _client_h.yml;
+# one that passes on dbt 1.12.6 carries no tag, so the v1 QA job runs it.
+unit_tests:
+  - name: unit_policy_h_ph1_sales_only
+    model: policy_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;4421fbfe51494a436dddd51ad9fbdcea&#x27;, carrier_code: &#x27;NFL&#x27;, policy_number: &#x27;NF-100012&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;4421fbfe51494a436dddd51ad9fbdcea&#x27;, rsrc: &#x27;SSI&#x27;}
+
+  - name: unit_policy_h_ph2_carrier_only
+    model: policy_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows: []
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;0fbe3d46b048aff86aad058697c49c0d&#x27;, carrier_code: &#x27;NFL&#x27;, policy_number: &#x27;NF-100002&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;0fbe3d46b048aff86aad058697c49c0d&#x27;, rsrc: &#x27;NFL&#x27;}
+
+  - name: unit_policy_h_ph3_both_sources_same_load
+    model: policy_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, carrier_code: &#x27;NFL&#x27;, policy_number: &#x27;NF-100001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, carrier_code: &#x27;NFL&#x27;, policy_number: &#x27;NF-100001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;}
+
+  - name: unit_policy_h_ph4_later_load_keeps_first
+    model: policy_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;6a6c0d4202959e1b979ed6240fb5bcf5&#x27;, carrier_code: &#x27;NFL&#x27;, policy_number: &#x27;NF-100011&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;6a6c0d4202959e1b979ed6240fb5bcf5&#x27;, carrier_code: &#x27;NFL&#x27;, policy_number: &#x27;NF-100011&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;6a6c0d4202959e1b979ed6240fb5bcf5&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+
+  - name: unit_client_h_ch1_sale_number_already_in_hub
+    model: client_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, client_number: &#x27;A-1001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, client_number: &#x27;A-1001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;}
+
+  - name: unit_client_h_ch2_sale_number_first_seen
+    model: client_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows: []
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_h: &#x27;d0bb749a44f95125e5c8335eb9426c40&#x27;, client_number: &#x27;A-1033&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_h: &#x27;d0bb749a44f95125e5c8335eb9426c40&#x27;, client_number: &#x27;A-1033&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;}
+
+  - name: unit_insured_h_ih1_new_insured
+    model: insured_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;cf6c376d04392d59a92e2f9af65dac68&#x27;, insured_number: &#x27;NLI-55003&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;cf6c376d04392d59a92e2f9af65dac68&#x27;, insured_number: &#x27;NLI-55003&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;}
+
+  - name: unit_insured_h_ih2_resend_no_new_row
+    model: insured_h
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;4ac462dd38b65bb5f2ed0c5f77546e45&#x27;, insured_number: &#x27;NLI-55001&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+      - input: this
+        rows:
+          - {hk_insured_h: &#x27;4ac462dd38b65bb5f2ed0c5f77546e45&#x27;, insured_number: &#x27;NLI-55001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_insured_h_ih3_one_insured_two_policies
+    model: insured_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;4ac462dd38b65bb5f2ed0c5f77546e45&#x27;, insured_number: &#x27;NLI-55001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+          - {hk_insured_h: &#x27;4ac462dd38b65bb5f2ed0c5f77546e45&#x27;, insured_number: &#x27;NLI-55001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;4ac462dd38b65bb5f2ed0c5f77546e45&#x27;}
+
+  - name: unit_agent_h_ag1_both_sources_one_row
+    model: agent_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, agent_npn: &#x27;17001001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, agent_npn: &#x27;17001001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;}
+
+  - name: unit_agent_h_ag2_carrier_only
+    model: agent_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows: []
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_agent_h: &#x27;e6137991924f8e4f6df8d948789c1f8e&#x27;, agent_npn: &#x27;17002001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_agent_h: &#x27;e6137991924f8e4f6df8d948789c1f8e&#x27;, rsrc: &#x27;NFL&#x27;}
+
+  - name: unit_agent_h_ag3_sales_only
+    model: agent_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_agent_h: &#x27;c13cc1ef72792555af86fef17f6b2be4&#x27;, agent_npn: &#x27;17001007&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_agent_h: &#x27;c13cc1ef72792555af86fef17f6b2be4&#x27;, rsrc: &#x27;SSI&#x27;}
+
+  - name: unit_agent_h_ag4_one_agent_several_policies
+    model: agent_h
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, agent_npn: &#x27;17001001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, agent_npn: &#x27;17001001&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;}
+
+  - name: unit_client_policy_l_l1_one_person_one_role
+    model: client_policy_l
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, role: &#x27;owner&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, role: &#x27;owner&#x27;}
+
+  - name: unit_client_policy_l_l2_two_people_two_roles
+    model: client_policy_l
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;35070bf5206d1078eb34d43e979852b5&#x27;, hk_client_h: &#x27;f7698055a7796f4c6dd8411ac66b0df8&#x27;, hk_policy_h: &#x27;b4d7f4e1cc021fe406a4ad68216d4f16&#x27;, role: &#x27;owner&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_client_policy_l: &#x27;48c9d3c864d9fa7c29b2c9150582abeb&#x27;, hk_client_h: &#x27;c2df2cab17cb85cff2cadf5f3efa5a7f&#x27;, hk_policy_h: &#x27;b4d7f4e1cc021fe406a4ad68216d4f16&#x27;, role: &#x27;insured&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_h: &#x27;f7698055a7796f4c6dd8411ac66b0df8&#x27;, role: &#x27;owner&#x27;}
+        - {hk_client_h: &#x27;c2df2cab17cb85cff2cadf5f3efa5a7f&#x27;, role: &#x27;insured&#x27;}
+
+  - name: unit_client_policy_l_l3_one_person_two_roles
+    model: client_policy_l
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;91610428e12b838c0e5a1e600f426146&#x27;, hk_client_h: &#x27;854fb226c402caa6d757b70aba3330c2&#x27;, hk_policy_h: &#x27;90e92ca73cd3ec3f2ea6ef07808fafb1&#x27;, role: &#x27;owner&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_client_policy_l: &#x27;01d5eaf067800197240ab2a34b2a2d41&#x27;, hk_client_h: &#x27;854fb226c402caa6d757b70aba3330c2&#x27;, hk_policy_h: &#x27;90e92ca73cd3ec3f2ea6ef07808fafb1&#x27;, role: &#x27;insured&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_policy_l: &#x27;91610428e12b838c0e5a1e600f426146&#x27;, role: &#x27;owner&#x27;}
+        - {hk_client_policy_l: &#x27;01d5eaf067800197240ab2a34b2a2d41&#x27;, role: &#x27;insured&#x27;}
+
+  - name: unit_client_policy_l_l5_undocumented_role_new_row
+    model: client_policy_l
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;c20b79ba279169d47a086f0c049b1ff4&#x27;, hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, role: &#x27;payor&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: this
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, role: &#x27;owner&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_policy_l: &#x27;c20b79ba279169d47a086f0c049b1ff4&#x27;, role: &#x27;payor&#x27;}
+
+  - name: unit_client_policy_l_l6_resend_no_new_row
+    model: client_policy_l
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, role: &#x27;owner&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: this
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, role: &#x27;owner&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_insured_policy_l_l4_same_policy_two_role_keys
+    model: insured_policy_l
+    description: The policy key equals the one client_policy_l stores for A-1007 on NF-100007, and the person key is the insured&#x27;s; nothing joins A-1007 to NLI-55007.
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_insured_policy_l: &#x27;dd237da50cc05102da2b1b4c7fc36d2e&#x27;, hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hk_policy_h: &#x27;baf9908c5804664d4f4ca439c97ed621&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hk_policy_h: &#x27;baf9908c5804664d4f4ca439c97ed621&#x27;}
+
+  - name: unit_agent_policy_l_la2_sources_disagree_two_rows
+    model: agent_policy_l
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_agent_policy_l: &#x27;3a6a1d9caf253a540830f1d78d74e5cb&#x27;, hk_agent_h: &#x27;1646684df001e1f6e9950bbbcbe0afce&#x27;, hk_policy_h: &#x27;6a6c0d4202959e1b979ed6240fb5bcf5&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_agent_policy_l: &#x27;d6dbc0e71fad14d3d03410bdb7d52144&#x27;, hk_agent_h: &#x27;5323ec0c2a986419ec5b9ec151ee73aa&#x27;, hk_policy_h: &#x27;6a6c0d4202959e1b979ed6240fb5bcf5&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_agent_h: &#x27;1646684df001e1f6e9950bbbcbe0afce&#x27;, hk_policy_h: &#x27;6a6c0d4202959e1b979ed6240fb5bcf5&#x27;}
+        - {hk_agent_h: &#x27;5323ec0c2a986419ec5b9ec151ee73aa&#x27;, hk_policy_h: &#x27;6a6c0d4202959e1b979ed6240fb5bcf5&#x27;}
+
+  - name: unit_agent_policy_l_la3_resend_no_new_row
+    model: agent_policy_l
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_agent_policy_l: &#x27;ad257663d1d908d4d78aa74032b2ae4c&#x27;, hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows: []
+      - input: this
+        rows:
+          - {hk_agent_policy_l: &#x27;ad257663d1d908d4d78aa74032b2ae4c&#x27;, hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_policy_northfield_s_st1_first_version
+    model: policy_northfield_s
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_northfield_policy_known_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, hd_policy_northfield_s: &#x27;bd4406bb651c5acd7da7aa07c01564ba&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, status: &#x27;IF&#x27;}
+
+  - name: unit_policy_northfield_s_st2_unchanged_resend
+    model: policy_northfield_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_northfield_policy_known_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;0fbe3d46b048aff86aad058697c49c0d&#x27;, hd_policy_northfield_s: &#x27;bd4406bb651c5acd7da7aa07c01564ba&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+      - input: this
+        rows:
+          - {hk_policy_h: &#x27;0fbe3d46b048aff86aad058697c49c0d&#x27;, hd_policy_northfield_s: &#x27;bd4406bb651c5acd7da7aa07c01564ba&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_policy_northfield_s_st3_changed_value_new_version
+    model: policy_northfield_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_northfield_policy_known_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;b11eca74a12073083c635c5eaa17fca9&#x27;, hd_policy_northfield_s: &#x27;e2ab4a058b0ad60336834aec7774198b&#x27;, face_amount: 25000, status: &#x27;LP&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+      - input: this
+        rows:
+          - {hk_policy_h: &#x27;b11eca74a12073083c635c5eaa17fca9&#x27;, hd_policy_northfield_s: &#x27;bd4406bb651c5acd7da7aa07c01564ba&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;b11eca74a12073083c635c5eaa17fca9&#x27;, status: &#x27;LP&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;}
+
+  - name: unit_policy_northfield_s_st5_absent_stays_current
+    model: policy_northfield_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_northfield_policy_known_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;0fbe3d46b048aff86aad058697c49c0d&#x27;, hd_policy_northfield_s: &#x27;bd4406bb651c5acd7da7aa07c01564ba&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+      - input: this
+        rows:
+          - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, hd_policy_northfield_s: &#x27;bd4406bb651c5acd7da7aa07c01564ba&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+          - {hk_policy_h: &#x27;0fbe3d46b048aff86aad058697c49c0d&#x27;, hd_policy_northfield_s: &#x27;bd4406bb651c5acd7da7aa07c01564ba&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows: []
+
+
+# Layer 3, increment 2, added 2026-10-25 (Ray, decision 1a): logic areas P (staging change hashes), M extended to
+# client_sunbelt_s and client_policy_sunbelt_s, and Q (version 1 views: load end dates). Change-hash literals computed
+# with datavault4dbt&#x27;s own expression and checked against all 81 live staged rows first (guide G-8).
+  - name: unit_stg_sunbelt_client_hd1_unchanged_same_hash
+    model: stg_sunbelt_client
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 1, client_number: &#x27;A-1001&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;FL&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 1, client_number: &#x27;A-1001&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;FL&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;}
+        - {hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;}
+        - {hd_client_sunbelt_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hd_client_sunbelt_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+  - name: unit_stg_sunbelt_client_hd2_changed_value_new_hash
+    model: stg_sunbelt_client
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 1, client_number: &#x27;A-1001&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;FL&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 34, client_number: &#x27;A-1001&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;GA&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;}
+        - {hd_client_sunbelt_s: &#x27;3df756eb454e536f52a2b8c3f74298c5&#x27;}
+        - {hd_client_sunbelt_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hd_client_sunbelt_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+  - name: unit_stg_sunbelt_policy_sale_hd1_unchanged_same_hash
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 1, policy_number: &#x27;NF-100001&#x27;, client_number: &#x27;A-1001&#x27;, carrier_code: &#x27;NFL&#x27;, role: &#x27;owner&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, agent_npn: &#x27;17001001&#x27;, plan_name: &#x27;Senior Term 20&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {sale_row_id: 12, policy_number: &#x27;NF-100001&#x27;, client_number: &#x27;A-1001&#x27;, carrier_code: &#x27;NFL&#x27;, role: &#x27;owner&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, agent_npn: &#x27;17001001&#x27;, plan_name: &#x27;Senior Term 20&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;}
+        - {hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;}
+        - {hd_client_policy_sunbelt_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hd_client_policy_sunbelt_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+  - name: unit_stg_sunbelt_policy_sale_hd2_changed_value_new_hash
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 1, policy_number: &#x27;NF-100001&#x27;, client_number: &#x27;A-1001&#x27;, carrier_code: &#x27;NFL&#x27;, role: &#x27;owner&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, agent_npn: &#x27;17001001&#x27;, plan_name: &#x27;Senior Term 20&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {sale_row_id: 12, policy_number: &#x27;NF-100001&#x27;, client_number: &#x27;A-1001&#x27;, carrier_code: &#x27;NFL&#x27;, role: &#x27;owner&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, agent_npn: &#x27;17001001&#x27;, plan_name: &#x27;Final Expense 10K&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;}
+        - {hd_client_policy_sunbelt_s: &#x27;cbe24e2030372cc51108052ef39bac93&#x27;}
+        - {hd_client_policy_sunbelt_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hd_client_policy_sunbelt_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+  - name: unit_stg_northfield_policy_hd1_unchanged_same_hash
+    model: stg_northfield_policy
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;northfield&#x27;, &#x27;policy&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100001&#x27;, insured_id: &#x27;NLI-55001&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, writing_agent_npn: &#x27;17001001&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {policy_number: &#x27;NF-100001&#x27;, insured_id: &#x27;NLI-55001&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, writing_agent_npn: &#x27;17001001&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hd_policy_northfield_s: &#x27;e6f14a2ee16022350f08582d4058dd38&#x27;}
+        - {hd_policy_northfield_s: &#x27;e6f14a2ee16022350f08582d4058dd38&#x27;}
+        - {hd_policy_northfield_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hd_policy_northfield_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+  - name: unit_stg_northfield_policy_hd2_changed_value_new_hash
+    model: stg_northfield_policy
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;northfield&#x27;, &#x27;policy&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100001&#x27;, insured_id: &#x27;NLI-55001&#x27;, face_amount: 25000, status: &#x27;IF&#x27;, effective_date: &#x27;2026-09-15&#x27;, writing_agent_npn: &#x27;17001001&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {policy_number: &#x27;NF-100001&#x27;, insured_id: &#x27;NLI-55001&#x27;, face_amount: 25000, status: &#x27;LP&#x27;, effective_date: &#x27;2026-09-15&#x27;, writing_agent_npn: &#x27;17001001&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hd_policy_northfield_s: &#x27;e6f14a2ee16022350f08582d4058dd38&#x27;}
+        - {hd_policy_northfield_s: &#x27;9485ee1686586ce7ecb7ef63abdaa1b0&#x27;}
+        - {hd_policy_northfield_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hd_policy_northfield_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+  - name: unit_client_sunbelt_s_st1_first_version
+    model: client_sunbelt_s
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_client_known_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;FL&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;}
+  - name: unit_client_sunbelt_s_st2_unchanged_resend
+    model: client_sunbelt_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_client_known_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;FL&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: this
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;FL&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows: []
+  - name: unit_client_sunbelt_s_st3_changed_value_new_version
+    model: client_sunbelt_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_client_known_client&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;3df756eb454e536f52a2b8c3f74298c5&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;GA&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: this
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;, first_name: &#x27;Rosa&#x27;, last_name: &#x27;Alvarez&#x27;, state: &#x27;FL&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, state: &#x27;GA&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;}
+  - name: unit_client_policy_sunbelt_s_st1_first_version
+    model: client_policy_sunbelt_s
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, plan_name: &#x27;Senior Term 20&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;}
+  - name: unit_client_policy_sunbelt_s_st2_unchanged_resend
+    model: client_policy_sunbelt_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, plan_name: &#x27;Senior Term 20&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: this
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, plan_name: &#x27;Senior Term 20&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows: []
+  - name: unit_client_policy_sunbelt_s_st3_changed_value_new_version
+    model: client_policy_sunbelt_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;cbe24e2030372cc51108052ef39bac93&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, plan_name: &#x27;Final Expense 10K&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: this
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;, sold_on: &#x27;2026-09-02&#x27;, agent_name: &#x27;Dana Whitaker&#x27;, plan_name: &#x27;Senior Term 20&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, plan_name: &#x27;Final Expense 10K&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;}
+  - name: unit_client_sunbelt_s1_v1_single_version_current
+    model: client_sunbelt_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;client_sunbelt_s&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+  - name: unit_client_sunbelt_s1_v2_earlier_version_end_dated
+    model: client_sunbelt_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;client_sunbelt_s&#x27;)
+        rows:
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;a2c7bc57dd55c23e984c5f8ac50b2401&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, hd_client_sunbelt_s: &#x27;3df756eb454e536f52a2b8c3f74298c5&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;2026-10-02 01:59:59.999999&#x27;}
+        - {hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+  - name: unit_client_policy_sunbelt_s1_v1_single_version_current
+    model: client_policy_sunbelt_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;client_policy_sunbelt_s&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+  - name: unit_client_policy_sunbelt_s1_v2_earlier_version_end_dated
+    model: client_policy_sunbelt_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;client_policy_sunbelt_s&#x27;)
+        rows:
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;dff4ea605651138b0ff6c84f6dab8305&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, hd_client_policy_sunbelt_s: &#x27;cbe24e2030372cc51108052ef39bac93&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;2026-10-02 01:59:59.999999&#x27;}
+        - {hk_client_policy_l: &#x27;1399b6288e1f6004208ce689b209ba91&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+  - name: unit_insured_northfield_s1_v1_single_version_current
+    model: insured_northfield_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;insured_northfield_s&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+  - name: unit_insured_northfield_s1_v2_earlier_version_end_dated
+    model: insured_northfield_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;insured_northfield_s&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;39271be97cd6c2aaaa73dbaaaefdb649&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;2026-10-02 01:59:59.999999&#x27;}
+        - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+  - name: unit_policy_northfield_s1_v1_single_version_current
+    model: policy_northfield_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;policy_northfield_s&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, hd_policy_northfield_s: &#x27;e6f14a2ee16022350f08582d4058dd38&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+  - name: unit_policy_northfield_s1_v2_earlier_version_end_dated
+    model: policy_northfield_s1
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;policy_northfield_s&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, hd_policy_northfield_s: &#x27;e6f14a2ee16022350f08582d4058dd38&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+          - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, hd_policy_northfield_s: &#x27;9485ee1686586ce7ecb7ef63abdaa1b0&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, ledts: &#x27;2026-10-02 01:59:59.999999&#x27;}
+        - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, ldts: &#x27;2026-10-02 02:00:00&#x27;, ledts: &#x27;8888-12-31 23:59:59&#x27;}
+
+  - name: unit_insured_northfield_s_st1_first_version
+    model: insured_northfield_s
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_northfield_policy_known_insured&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;, insured_name: &#x27;Lowe, Martin&#x27;, birth_date: &#x27;1947-01-30&#x27;, address: &#x27;12 Elm St, Flint MI&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;}
+  - name: unit_insured_northfield_s_st2_unchanged_resend
+    model: insured_northfield_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_northfield_policy_known_insured&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;, insured_name: &#x27;Lowe, Martin&#x27;, birth_date: &#x27;1947-01-30&#x27;, address: &#x27;12 Elm St, Flint MI&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+      - input: this
+        rows:
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;, insured_name: &#x27;Lowe, Martin&#x27;, birth_date: &#x27;1947-01-30&#x27;, address: &#x27;12 Elm St, Flint MI&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows: []
+  - name: unit_insured_northfield_s_st3_case_only_new_version
+    model: insured_northfield_s
+    overrides:
+      macros:
+        is_incremental: true
+    given:
+      - input: ref(&#x27;stg_northfield_policy_known_insured&#x27;)
+        rows:
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;39271be97cd6c2aaaa73dbaaaefdb649&#x27;, insured_name: &#x27;Lowe, Martin&#x27;, birth_date: &#x27;1947-01-30&#x27;, address: &#x27;12 ELM ST, FLINT MI&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+      - input: this
+        rows:
+          - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;, insured_name: &#x27;Lowe, Martin&#x27;, birth_date: &#x27;1947-01-30&#x27;, address: &#x27;12 Elm St, Flint MI&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;8f1097a8e919696c8288f8ca5de44f62&#x27;, address: &#x27;12 ELM ST, FLINT MI&#x27;, ldts: &#x27;2099-01-01 00:00:00&#x27;}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/_organization.yml</summary><pre><code>version: 2
+
+# Layer 1, test plan 2.3.1 paths OK1 to OK4 (guide step 59), severity warn.
+models:
+- name: organization_h
+  columns:
+  - name: hk_organization_h
+    tests:
+    - unique:
+        name: uq_organization_h_hk_organization_h
+        config:
+          severity: warn
+    - not_null:
+        name: nn_organization_h_hk_organization_h
+        config:
+          severity: warn
+- name: organization_northfield_s
+  tests:
+  - dbt_utils.unique_combination_of_columns:
+      name: uq_organization_northfield_s_pk
+      arguments:
+        combination_of_columns:
+        - hk_organization_h
+        - ldts
+      config:
+        severity: warn
+  columns:
+  - name: hk_organization_h
+    tests:
+    - not_null:
+        name: nn_organization_northfield_s_hk_organization_h
+        config:
+          severity: warn
+    - relationships:
+        name: rel_organization_northfield_s_hk_organization_h
+        arguments:
+          to: ref(&#x27;organization_h&#x27;)
+          field: hk_organization_h
+        config:
+          severity: warn
+  - name: ldts
+    tests:
+    - not_null:
+        name: nn_organization_northfield_s_ldts
+        config:
+          severity: warn
+- name: organization_pinecrest_s
+  tests:
+  - dbt_utils.unique_combination_of_columns:
+      name: uq_organization_pinecrest_s_pk
+      arguments:
+        combination_of_columns:
+        - hk_organization_h
+        - ldts
+      config:
+        severity: warn
+  columns:
+  - name: hk_organization_h
+    tests:
+    - not_null:
+        name: nn_organization_pinecrest_s_hk_organization_h
+        config:
+          severity: warn
+    - relationships:
+        name: rel_organization_pinecrest_s_hk_organization_h
+        arguments:
+          to: ref(&#x27;organization_h&#x27;)
+          field: hk_organization_h
+        config:
+          severity: warn
+  - name: ldts
+    tests:
+    - not_null:
+        name: nn_organization_pinecrest_s_ldts
+        config:
+          severity: warn
+unit_tests:
+- name: unit_organization_h_oh1_new_key
+  model: organization_h
+  config:
+    tags:
+    - fusion_only
+  given:
+  - input: ref(&#x27;stg_northfield_organization&#x27;)
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_code: NFL
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: NFL
+  - input: ref(&#x27;stg_pinecrest_organization&#x27;)
+    rows: []
+  expect:
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_code: NFL
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: NFL
+- name: unit_organization_h_oh2_repeat_keeps_first
+  model: organization_h
+  config:
+    tags:
+    - fusion_only
+  given:
+  - input: ref(&#x27;stg_northfield_organization&#x27;)
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_code: NFL
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: NFL
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_code: NFL
+      ldts: &#x27;2026-10-02 02:00:00&#x27;
+      rsrc: NFL
+  - input: ref(&#x27;stg_pinecrest_organization&#x27;)
+    rows: []
+  expect:
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+- name: unit_organization_h_oh3_later_load_inserts
+  model: organization_h
+  config:
+    tags:
+    - fusion_only  # dbt&#x27;s latest engine cannot supply the hub&#x27;s existing table as a fixture; runs under Fusion in development
+  overrides:
+    macros:
+      is_incremental: true
+  given:
+  - input: ref(&#x27;stg_northfield_organization&#x27;)
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_code: NFL
+      ldts: &#x27;2026-10-02 02:00:00&#x27;
+      rsrc: NFL
+  - input: ref(&#x27;stg_pinecrest_organization&#x27;)
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      carrier_code: PMC
+      ldts: &#x27;2026-10-02 02:00:00&#x27;
+      rsrc: PMC
+  - input: this
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_code: NFL
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: NFL
+  expect:
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      carrier_code: PMC
+      ldts: &#x27;2026-10-02 02:00:00&#x27;
+      rsrc: PMC
+- name: unit_organization_h_oh4_both_carrier_feeds
+  model: organization_h
+  config:
+    tags:
+    - fusion_only
+  given:
+  - input: ref(&#x27;stg_northfield_organization&#x27;)
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_code: NFL
+      ldts: &#x27;2026-10-02 02:00:00&#x27;
+      rsrc: NFL
+  - input: ref(&#x27;stg_pinecrest_organization&#x27;)
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      carrier_code: PMC
+      ldts: &#x27;2026-10-02 02:00:00&#x27;
+      rsrc: PMC
+  expect:
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      rsrc: NFL
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      rsrc: PMC
+- name: unit_organization_northfield_s_ot1_first_version
+  model: organization_northfield_s
+  config:
+    tags:
+    - fusion_only
+  given:
+  - input: ref(&#x27;stg_northfield_organization&#x27;)
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      hd_organization_northfield_s: ccb0afb295bb639fa3c3a7ed24dec33d
+      carrier_name: Northfield Life
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: NFL
+  expect:
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_name: Northfield Life
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+- name: unit_organization_northfield_s_ot2_unchanged_resend
+  model: organization_northfield_s
+  overrides:
+    macros:
+      is_incremental: true
+  given:
+  - input: ref(&#x27;stg_northfield_organization&#x27;)
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      hd_organization_northfield_s: ccb0afb295bb639fa3c3a7ed24dec33d
+      carrier_name: Northfield Life
+      ldts: &#x27;2099-01-01 00:00:00&#x27;
+      rsrc: NFL
+  - input: this
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      hd_organization_northfield_s: ccb0afb295bb639fa3c3a7ed24dec33d
+      carrier_name: Northfield Life
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: NFL
+  expect:
+    rows: []
+- name: unit_organization_northfield_s_ot3_changed_name_new_version
+  model: organization_northfield_s
+  overrides:
+    macros:
+      is_incremental: true
+  given:
+  - input: ref(&#x27;stg_northfield_organization&#x27;)
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      hd_organization_northfield_s: 27c5a51e425637a848b2ce4394e03d74
+      carrier_name: Northfield Life Insurance Company
+      ldts: &#x27;2099-01-01 00:00:00&#x27;
+      rsrc: NFL
+  - input: this
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      hd_organization_northfield_s: ccb0afb295bb639fa3c3a7ed24dec33d
+      carrier_name: Northfield Life
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: NFL
+  expect:
+    rows:
+    - hk_organization_h: d17b6314d3888f183e3cb2c52c745d98
+      carrier_name: Northfield Life Insurance Company
+      ldts: &#x27;2099-01-01 00:00:00&#x27;
+- name: unit_organization_pinecrest_s_ot1_first_version
+  model: organization_pinecrest_s
+  config:
+    tags:
+    - fusion_only
+  given:
+  - input: ref(&#x27;stg_pinecrest_organization&#x27;)
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      hd_organization_pinecrest_s: ce37930b9bd5a6b153bb685ee3198f0e
+      carrier_name: Pinecrest Mutual
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: PMC
+  expect:
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      carrier_name: Pinecrest Mutual
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+- name: unit_organization_pinecrest_s_ot2_unchanged_resend
+  model: organization_pinecrest_s
+  overrides:
+    macros:
+      is_incremental: true
+  given:
+  - input: ref(&#x27;stg_pinecrest_organization&#x27;)
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      hd_organization_pinecrest_s: ce37930b9bd5a6b153bb685ee3198f0e
+      carrier_name: Pinecrest Mutual
+      ldts: &#x27;2099-01-01 00:00:00&#x27;
+      rsrc: PMC
+  - input: this
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      hd_organization_pinecrest_s: ce37930b9bd5a6b153bb685ee3198f0e
+      carrier_name: Pinecrest Mutual
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: PMC
+  expect:
+    rows: []
+- name: unit_organization_pinecrest_s_ot3_changed_name_new_version
+  model: organization_pinecrest_s
+  overrides:
+    macros:
+      is_incremental: true
+  given:
+  - input: ref(&#x27;stg_pinecrest_organization&#x27;)
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      hd_organization_pinecrest_s: 791c8481bddf3bf9564b98f8d995083a
+      carrier_name: Pinecrest Mutual Insurance Company
+      ldts: &#x27;2099-01-01 00:00:00&#x27;
+      rsrc: PMC
+  - input: this
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      hd_organization_pinecrest_s: ce37930b9bd5a6b153bb685ee3198f0e
+      carrier_name: Pinecrest Mutual
+      ldts: &#x27;2026-10-01 02:00:00&#x27;
+      rsrc: PMC
+  expect:
+    rows:
+    - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
+      carrier_name: Pinecrest Mutual Insurance Company
+      ldts: &#x27;2099-01-01 00:00:00&#x27;
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/agent_h.sql</summary><pre><code>{# Agent hub (design D-35; guide step 28): keyed by the national producer number, fed by both sources. #}
+{{ datavault4dbt.hub(
+    hashkey=&#x27;hk_agent_h&#x27;,
+    business_keys=[&#x27;agent_npn&#x27;],
+    source_models=[
+        {&#x27;name&#x27;: &#x27;stg_sunbelt_policy_sale&#x27;, &#x27;rsrc_static&#x27;: &#x27;SSI&#x27;},
+        {&#x27;name&#x27;: &#x27;stg_northfield_policy&#x27;, &#x27;rsrc_static&#x27;: &#x27;NFL&#x27;}
+    ]
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/agent_policy_l.sql</summary><pre><code>{# Agent-policy link (design D-36; guide step 29): fed by both sources; disagreeing sources are kept as two rows. #}
+{{ datavault4dbt.link(
+    link_hashkey=&#x27;hk_agent_policy_l&#x27;,
+    foreign_hashkeys=[&#x27;hk_agent_h&#x27;, &#x27;hk_policy_h&#x27;],
+    source_models=[
+        {&#x27;name&#x27;: &#x27;stg_sunbelt_policy_sale&#x27;, &#x27;rsrc_static&#x27;: &#x27;SSI&#x27;},
+        {&#x27;name&#x27;: &#x27;stg_northfield_policy&#x27;, &#x27;rsrc_static&#x27;: &#x27;NFL&#x27;}
+    ]
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/client_h.sql</summary><pre><code>{#
+  Hub of Sunbelt Senior client numbers (design D-3, D-32; guide steps 9 and 28): one row per client key, keeping
+  the first sighting. Two sources, the client list and the sales data; both carry SSI, so no rsrc_static and no
+  high-water mark (guide G-14).
+#}
+{{ datavault4dbt.hub(
+    hashkey=&#x27;hk_client_h&#x27;,
+    business_keys=[&#x27;client_number&#x27;],
+    source_models=[
+        {&#x27;name&#x27;: &#x27;stg_sunbelt_client&#x27;},
+        {&#x27;name&#x27;: &#x27;stg_sunbelt_policy_sale&#x27;}
+    ]
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/client_policy_l.sql</summary><pre><code>{# Client-policy link (design D-33; guide step 29): the role is a dependent child key. #}
+{{ datavault4dbt.link(
+    link_hashkey=&#x27;hk_client_policy_l&#x27;,
+    foreign_hashkeys=[&#x27;hk_client_h&#x27;, &#x27;hk_policy_h&#x27;, &#x27;role&#x27;],
+    source_models=&#x27;stg_sunbelt_policy_sale&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/client_policy_sunbelt_s.sql</summary><pre><code>{# Satellite (design D-34; guide step 30): the sale&#x27;s details as Sunbelt Senior keeps them. #}
+{{ datavault4dbt.sat_v0(
+    parent_hashkey=&#x27;hk_client_policy_l&#x27;,
+    src_hashdiff=&#x27;hd_client_policy_sunbelt_s&#x27;,
+    src_payload=[&#x27;sold_on&#x27;, &#x27;agent_name&#x27;, &#x27;plan_name&#x27;],
+    source_model=&#x27;stg_sunbelt_policy_sale&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/client_policy_sunbelt_s1.sql</summary><pre><code>{# Version 1 view of client_policy_sunbelt_s (guide step 30, G-15): adds the load end date. #}
+{{ config(materialized=&#x27;view&#x27;) }}
+{{ datavault4dbt.sat_v1(
+    sat_v0=&#x27;client_policy_sunbelt_s&#x27;,
+    hashkey=&#x27;hk_client_policy_l&#x27;,
+    hashdiff=&#x27;hd_client_policy_sunbelt_s&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/client_sunbelt_s.sql</summary><pre><code>{# Satellite (design D-34; guide step 30): the client&#x27;s details as Sunbelt Senior keeps them. #}
+{{ datavault4dbt.sat_v0(
+    parent_hashkey=&#x27;hk_client_h&#x27;,
+    src_hashdiff=&#x27;hd_client_sunbelt_s&#x27;,
+    src_payload=[&#x27;first_name&#x27;, &#x27;last_name&#x27;, &#x27;state&#x27;],
+    source_model=&#x27;stg_sunbelt_client_known_client&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/client_sunbelt_s1.sql</summary><pre><code>{# Version 1 view of client_sunbelt_s (guide step 30, G-15): adds the load end date. #}
+{{ config(materialized=&#x27;view&#x27;) }}
+{{ datavault4dbt.sat_v1(
+    sat_v0=&#x27;client_sunbelt_s&#x27;,
+    hashkey=&#x27;hk_client_h&#x27;,
+    hashdiff=&#x27;hd_client_sunbelt_s&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/insured_h.sql</summary><pre><code>{# Insured hub (design D-32; guide step 28): one row per Northfield Life insured number. #}
+{{ datavault4dbt.hub(
+    hashkey=&#x27;hk_insured_h&#x27;,
+    business_keys=[&#x27;insured_number&#x27;],
+    source_models=&#x27;stg_northfield_policy&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/insured_northfield_s.sql</summary><pre><code>{# Satellite (design D-34; guide step 30): the insured&#x27;s details as Northfield Life keeps them. #}
+{{ datavault4dbt.sat_v0(
+    parent_hashkey=&#x27;hk_insured_h&#x27;,
+    src_hashdiff=&#x27;hd_insured_northfield_s&#x27;,
+    src_payload=[&#x27;insured_name&#x27;, &#x27;birth_date&#x27;, &#x27;address&#x27;],
+    source_model=&#x27;stg_northfield_policy_known_insured&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/insured_northfield_s1.sql</summary><pre><code>{# Version 1 view of insured_northfield_s (guide step 30, G-15): adds the load end date. #}
+{{ config(materialized=&#x27;view&#x27;) }}
+{{ datavault4dbt.sat_v1(
+    sat_v0=&#x27;insured_northfield_s&#x27;,
+    hashkey=&#x27;hk_insured_h&#x27;,
+    hashdiff=&#x27;hd_insured_northfield_s&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/insured_policy_l.sql</summary><pre><code>{# Insured-policy link (design D-33; guide step 29): Northfield Life&#x27;s insured on its policy. #}
+{{ datavault4dbt.link(
+    link_hashkey=&#x27;hk_insured_policy_l&#x27;,
+    foreign_hashkeys=[&#x27;hk_insured_h&#x27;, &#x27;hk_policy_h&#x27;],
+    source_models=&#x27;stg_northfield_policy&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/organization_h.sql</summary><pre><code>{# Organization hub (mart design D-11; guide step 58): keyed by the carrier code, fed by each carrier&#x27;s own record. #}
+{{ datavault4dbt.hub(
+    hashkey=&#x27;hk_organization_h&#x27;,
+    business_keys=[&#x27;carrier_code&#x27;],
+    source_models=[
+        {&#x27;name&#x27;: &#x27;stg_northfield_organization&#x27;, &#x27;rsrc_static&#x27;: &#x27;NFL&#x27;},
+        {&#x27;name&#x27;: &#x27;stg_pinecrest_organization&#x27;, &#x27;rsrc_static&#x27;: &#x27;PMC&#x27;}
+    ]
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/organization_northfield_s.sql</summary><pre><code>{# Satellite (mart design D-11; guide step 59): the carrier&#x27;s name, as Northfield Life sends it. #}
+{{ datavault4dbt.sat_v0(
+    parent_hashkey=&#x27;hk_organization_h&#x27;,
+    src_hashdiff=&#x27;hd_organization_northfield_s&#x27;,
+    src_payload=[&#x27;carrier_name&#x27;],
+    source_model=&#x27;stg_northfield_organization&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/organization_northfield_s1.sql</summary><pre><code>{# Version 1 view of organization_northfield_s (guide step 59, G-15): adds the load end date. #}
+{{ config(materialized=&#x27;view&#x27;) }}
+{{ datavault4dbt.sat_v1(
+    sat_v0=&#x27;organization_northfield_s&#x27;,
+    hashkey=&#x27;hk_organization_h&#x27;,
+    hashdiff=&#x27;hd_organization_northfield_s&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/organization_pinecrest_s.sql</summary><pre><code>{# Satellite (mart design D-11; guide step 59): the carrier&#x27;s name, as Pinecrest Mutual sends it. #}
+{{ datavault4dbt.sat_v0(
+    parent_hashkey=&#x27;hk_organization_h&#x27;,
+    src_hashdiff=&#x27;hd_organization_pinecrest_s&#x27;,
+    src_payload=[&#x27;carrier_name&#x27;],
+    source_model=&#x27;stg_pinecrest_organization&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/organization_pinecrest_s1.sql</summary><pre><code>{# Version 1 view of organization_pinecrest_s (guide step 59, G-15): adds the load end date. #}
+{{ config(materialized=&#x27;view&#x27;) }}
+{{ datavault4dbt.sat_v1(
+    sat_v0=&#x27;organization_pinecrest_s&#x27;,
+    hashkey=&#x27;hk_organization_h&#x27;,
+    hashdiff=&#x27;hd_organization_pinecrest_s&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/policy_h.sql</summary><pre><code>{# Policy hub (design D-26; guide step 28): keyed by the issuing carrier&#x27;s code and the policy number, two sources. #}
+{{ datavault4dbt.hub(
+    hashkey=&#x27;hk_policy_h&#x27;,
+    business_keys=[&#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+    source_models=[
+        {&#x27;name&#x27;: &#x27;stg_sunbelt_policy_sale&#x27;, &#x27;rsrc_static&#x27;: &#x27;SSI&#x27;},
+        {&#x27;name&#x27;: &#x27;stg_northfield_policy&#x27;, &#x27;rsrc_static&#x27;: &#x27;NFL&#x27;}
+    ]
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/policy_northfield_s.sql</summary><pre><code>{# Satellite (design D-34; guide step 30): the policy&#x27;s details as Northfield Life keeps them. #}
+{{ datavault4dbt.sat_v0(
+    parent_hashkey=&#x27;hk_policy_h&#x27;,
+    src_hashdiff=&#x27;hd_policy_northfield_s&#x27;,
+    src_payload=[&#x27;face_amount&#x27;, &#x27;status&#x27;, &#x27;effective_date&#x27;],
+    source_model=&#x27;stg_northfield_policy_known_policy&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/policy_northfield_s1.sql</summary><pre><code>{# Version 1 view of policy_northfield_s (guide step 30, G-15): adds the load end date. #}
+{{ config(materialized=&#x27;view&#x27;) }}
+{{ datavault4dbt.sat_v1(
+    sat_v0=&#x27;policy_northfield_s&#x27;,
+    hashkey=&#x27;hk_policy_h&#x27;,
+    hashdiff=&#x27;hd_policy_northfield_s&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/staging/_stg_northfield_organization.yml</summary><pre><code>version: 2
+
+# Layer 3, test plan 2.3.1, logic area R (path OS1); mart design D-11; profile P-21 (guide step 56).
+# Expected hashes computed with the toolkit&#x27;s own hash macro (G-8), 2026-11-01.
+unit_tests:
+  - name: unit_stg_northfield_organization_os1_arrival_code_and_name
+    model: stg_northfield_organization
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;northfield&#x27;, &#x27;organization&#x27;)
+        rows:
+          - {carrier_code: &#x27;NFL&#x27;, carrier_name: &#x27;Northfield Life&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hk_organization_h: &#x27;d17b6314d3888f183e3cb2c52c745d98&#x27;, hd_organization_northfield_s: &#x27;ccb0afb295bb639fa3c3a7ed24dec33d&#x27;}
+        - {hk_organization_h: &#x27;00000000000000000000000000000000&#x27;, hd_organization_northfield_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hk_organization_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;, hd_organization_northfield_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+</code></pre></details><details class="file"><summary>dbt/models/staging/_stg_northfield_policy.yml</summary><pre><code>version: 2
+
+# Layer 3, test plan logic areas H and M (paths IH4 and ST4). ST4 is tested here, where the case-sensitive
+# change hash is computed; the satellite only compares the hashes it is given.
+unit_tests:
+  - name: unit_stg_northfield_policy_ih4_empty_insured_zero_key
+    model: stg_northfield_policy
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;northfield&#x27;, &#x27;policy&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100013&#x27;, insured_id: &#x27;&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hk_insured_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {hk_insured_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {hk_insured_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_northfield_policy_st4_case_only_new_hashdiff
+    model: stg_northfield_policy
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;northfield&#x27;, &#x27;policy&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100008&#x27;, insured_id: &#x27;NLI-55008&#x27;, insured_name: &#x27;Lowe, Martin&#x27;, birth_date: &#x27;1947-01-30&#x27;, address: &#x27;12 Elm St, Flint MI&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {policy_number: &#x27;NF-100008&#x27;, insured_id: &#x27;NLI-55008&#x27;, insured_name: &#x27;Lowe, Martin&#x27;, birth_date: &#x27;1947-01-30&#x27;, address: &#x27;12 ELM ST, FLINT MI&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {address: &#x27;12 Elm St, Flint MI&#x27;, hd_insured_northfield_s: &#x27;00afbeadc7f25ecacde88a7e84af9020&#x27;}
+        - {address: &#x27;12 ELM ST, FLINT MI&#x27;, hd_insured_northfield_s: &#x27;39271be97cd6c2aaaa73dbaaaefdb649&#x27;}
+        - {address: &#x27;(unknown)&#x27;, hd_insured_northfield_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {address: &#x27;(error)&#x27;, hd_insured_northfield_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+</code></pre></details><details class="file"><summary>dbt/models/staging/_stg_pinecrest_organization.yml</summary><pre><code>version: 2
+
+# Layer 3, test plan 2.3.1, logic area R (path OS1); mart design D-11; profile P-21 (guide step 56).
+# Expected hashes computed with the toolkit&#x27;s own hash macro (G-8), 2026-11-01.
+unit_tests:
+  - name: unit_stg_pinecrest_organization_os1_arrival_code_and_name
+    model: stg_pinecrest_organization
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;pinecrest&#x27;, &#x27;organization&#x27;)
+        rows:
+          - {carrier_code: &#x27;PMC&#x27;, carrier_name: &#x27;Pinecrest Mutual&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {hk_organization_h: &#x27;03823cbeec4e049070eceeafa45b3560&#x27;, hd_organization_pinecrest_s: &#x27;ce37930b9bd5a6b153bb685ee3198f0e&#x27;}
+        - {hk_organization_h: &#x27;00000000000000000000000000000000&#x27;, hd_organization_pinecrest_s: &#x27;00000000000000000000000000000000&#x27;}
+        - {hk_organization_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;, hd_organization_pinecrest_s: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+</code></pre></details><details class="file"><summary>dbt/models/staging/_stg_sunbelt_policy_sale.yml</summary><pre><code>version: 2
+
+# Layer 3, test plan logic areas F, G and K (paths PH5 to PH8, CH3, AG5). Expected hash literals are computed
+# with the toolkit&#x27;s own standardization (guide G-8). Every staging expectation lists the two ghost records.
+unit_tests:
+  - name: unit_stg_sunbelt_policy_sale_ph5_case_variant_same_key
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 1, policy_number: &#x27;NF-100001&#x27;, carrier_code: &#x27;NFL&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {sale_row_id: 12, policy_number: &#x27;nf-100001&#x27;, carrier_code: &#x27;NFL&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {sale_row_id: 1, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;}
+        - {sale_row_id: 12, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;}
+        - {sale_row_id: -1, hk_policy_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -2, hk_policy_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_policy_sale_ph6_internal_form_new_key
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 13, policy_number: &#x27;NF100009&#x27;, carrier_code: &#x27;NFL&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+          - {sale_row_id: 99, policy_number: &#x27;NF-100009&#x27;, carrier_code: &#x27;NFL&#x27;, loaded_at: &#x27;2026-10-02T02:00:00&#x27;}
+    expect:
+      rows:
+        - {sale_row_id: 13, hk_policy_h: &#x27;3150d64383e2f4c875796d8c1da5c8e8&#x27;}
+        - {sale_row_id: 99, hk_policy_h: &#x27;12d26c525e80544eb7dd0dd2c75d64cf&#x27;}
+        - {sale_row_id: -1, hk_policy_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -2, hk_policy_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_policy_sale_ph7_both_parts_missing_zero_key
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 8, policy_number: &#x27;&#x27;, carrier_code: null, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {sale_row_id: 8, hk_policy_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -1, hk_policy_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -2, hk_policy_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_policy_sale_ph8_one_part_missing_placeholder_key
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 2, policy_number: &#x27;NF-100005&#x27;, carrier_code: null, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {sale_row_id: 2, hk_policy_h: &#x27;d391ab28fdaf5ec47a993b23b29eb5c6&#x27;}
+        - {sale_row_id: -1, hk_policy_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -2, hk_policy_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_policy_sale_ch3_empty_client_zero_key
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 9, policy_number: &#x27;NF-100014&#x27;, client_number: &#x27;&#x27;, carrier_code: &#x27;NFL&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {sale_row_id: 9, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -1, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -2, hk_client_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+  - name: unit_stg_sunbelt_policy_sale_ag5_empty_agent_zero_key
+    model: stg_sunbelt_policy_sale
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 9, policy_number: &#x27;NF-100014&#x27;, agent_npn: &#x27;&#x27;, carrier_code: &#x27;NFL&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {sale_row_id: 9, hk_agent_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -1, hk_agent_h: &#x27;00000000000000000000000000000000&#x27;}
+        - {sale_row_id: -2, hk_agent_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+
+</code></pre></details><details class="file"><summary>dbt/models/staging/_sunbelt__sources.yml</summary><pre><code>version: 2
+
+sources:
+  - name: sunbelt
+    description: &gt;
+      Source data of Sunbelt Senior Insurance, an acquired agency: its client list and its policy sales.
+      Synthetic data specified by the branch profile (Pilot item 267), landed by the land_act macro.
+    database: &quot;{{ env_var(&#x27;DBT_LANDING_STORAGE&#x27;, &#x27;LANDING&#x27;) }}&quot;
+    schema: SUNBELT
+    tables:
+      - name: client
+        identifier: CLIENT
+        description: Client rows as Sunbelt Senior Insurance&#x27;s CRM delivered them; grain is one row per CRM row per load.
+        tests:
+          # Layer 2 (deviation DEV-2: dbt_utils instead of dbt_expectations)
+          - dbt_utils.unique_combination_of_columns:
+              name: uqc_sunbelt_client_loaded_at_crm_row_id
+              arguments:
+                combination_of_columns: [&#x27;LOADED_AT&#x27;, &#x27;CRM_ROW_ID&#x27;]
+              config:
+                severity: warn
+        columns:
+          - name: CRM_ROW_ID
+            tests:
+              # Layer 1
+              - not_null:
+                  name: nn_sunbelt_client_crm_row_id
+                  config:
+                    severity: warn
+          - name: LOADED_AT
+            tests:
+              - not_null:
+                  name: nn_sunbelt_client_loaded_at
+                  config:
+                    severity: warn
+      - name: policy_sale
+        identifier: POLICY_SALE
+        description: Sunbelt Senior&#x27;s policy sales; grain is one row per policy, client and role per load (profile 2.1.3).
+        tests:
+          # Layer 2, increment 2 (design section 8): the grain of profile 2.1.3
+          - dbt_utils.unique_combination_of_columns:
+              name: uqc_sunbelt_policy_sale_loaded_at_policy_client_role
+              arguments:
+                combination_of_columns: [&#x27;LOADED_AT&#x27;, &#x27;POLICY_NUMBER&#x27;, &#x27;CLIENT_NUMBER&#x27;, &#x27;ROLE&#x27;]
+              config:
+                severity: warn
+        columns:
+          - name: LOADED_AT
+            tests:
+              # Layer 1, increment 2
+              - not_null:
+                  name: nn_sunbelt_policy_sale_loaded_at
+                  config:
+                    severity: warn
+
+  - name: northfield
+    description: &gt;
+      Source data of Northfield Life, a carrier: one row per policy with its insured inline (profile 2.1.4).
+    database: &quot;{{ env_var(&#x27;DBT_LANDING_STORAGE&#x27;, &#x27;LANDING&#x27;) }}&quot;
+    schema: NORTHFIELD
+    tables:
+      - name: policy
+        identifier: POLICY
+        description: Northfield Life&#x27;s policy data; grain is one row per policy per load.
+        tests:
+          # Layer 2, increment 2 (design section 8): the grain of profile 2.1.4
+          - dbt_utils.unique_combination_of_columns:
+              name: uqc_northfield_policy_loaded_at_policy_number
+              arguments:
+                combination_of_columns: [&#x27;LOADED_AT&#x27;, &#x27;POLICY_NUMBER&#x27;]
+              config:
+                severity: warn
+        columns:
+          - name: LOADED_AT
+            tests:
+              # Layer 1, increment 2
+              - not_null:
+                  name: nn_northfield_policy_loaded_at
+                  config:
+                    severity: warn
+      - name: organization
+        identifier: ORGANIZATION
+        description: Northfield Life&#x27;s own organization record, carrier code and name; grain is one row per carrier code per load (mart design D-11; profile P-21).
+        tests:
+          # Layer 2 (test plan 2.3.1, path OL1): one record per carrier code in each load
+          - dbt_utils.unique_combination_of_columns:
+              name: uqc_northfield_organization_loaded_at_carrier_code
+              arguments:
+                combination_of_columns: [&#x27;LOADED_AT&#x27;, &#x27;CARRIER_CODE&#x27;]
+              config:
+                severity: warn
+        columns:
+          - name: CARRIER_NAME
+            tests:
+              # Layer 1 (test plan 2.3.1, path OL2): no carrier known by a code alone
+              - not_null:
+                  name: nn_northfield_organization_carrier_name
+                  config:
+                    severity: warn
+  - name: pinecrest
+    description: &gt;
+      Source data of Pinecrest Mutual, a carrier. On this branch only its organization record (guide step 55); Lab 1-2 adds
+      its table policy on Ray&#x27;s branch, and the two merge without conflict.
+    database: &quot;{{ env_var(&#x27;DBT_LANDING_STORAGE&#x27;, &#x27;LANDING&#x27;) }}&quot;
+    schema: PINECREST
+    tables:
+      - name: organization
+        identifier: ORGANIZATION
+        description: Pinecrest Mutual&#x27;s own organization record, carrier code and name; grain is one row per carrier code per load (mart design D-11; profile P-21).
+        tests:
+          # Layer 2 (test plan 2.3.1, path OL1): one record per carrier code in each load
+          - dbt_utils.unique_combination_of_columns:
+              name: uqc_pinecrest_organization_loaded_at_carrier_code
+              arguments:
+                combination_of_columns: [&#x27;LOADED_AT&#x27;, &#x27;CARRIER_CODE&#x27;]
+              config:
+                severity: warn
+        columns:
+          - name: CARRIER_NAME
+            tests:
+              # Layer 1 (test plan 2.3.1, path OL2): no carrier known by a code alone
+              - not_null:
+                  name: nn_pinecrest_organization_carrier_name
+                  config:
+                    severity: warn
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_northfield_organization.sql</summary><pre><code>{#
+  Staging view for Northfield Life&#x27;s own organization record (mart design D-11; profile P-21; guide step 57).
+  Hard rule: an empty or whitespace-only carrier code becomes NULL before hashing (design D-24&#x27;s rule).
+#}
+{{ datavault4dbt.stage(
+    source_model={&#x27;northfield&#x27;: &#x27;organization&#x27;},
+    ldts=&#x27;TO_TIMESTAMP_NTZ(LOADED_AT)&#x27;,
+    rsrc=&#x27;!NFL&#x27;,
+    derived_columns={
+        &#x27;carrier_code&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(carrier_code), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(16)&#x27;, &#x27;src_cols_required&#x27;: &#x27;carrier_code&#x27;}
+    },
+    hashed_columns={
+        &#x27;hk_organization_h&#x27;: [&#x27;carrier_code&#x27;],
+        &#x27;hd_organization_northfield_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;carrier_name&#x27;]}
+    }
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_northfield_policy.sql</summary><pre><code>{#
+  Staging view for Northfield Life&#x27;s policy data (design D-23, D-24, D-26, D-32, D-34, D-35; guide step 27).
+  D-24 hard rules: empty or whitespace-only insured, agent and policy numbers become NULL before hashing (unit test IH4
+  red 2026-10-25 01:12 UTC on beb49c9 without them, green with them). NFL is supplied as the carrier code (D-26).
+#}
+{{ datavault4dbt.stage(
+    source_model={&#x27;northfield&#x27;: &#x27;policy&#x27;},
+    ldts=&#x27;TO_TIMESTAMP_NTZ(LOADED_AT)&#x27;,
+    rsrc=&#x27;!NFL&#x27;,
+    derived_columns={
+        &#x27;carrier_code&#x27;: {&#x27;value&#x27;: &quot;&#x27;NFL&#x27;&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(8)&#x27;},
+        &#x27;insured_number&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(insured_id), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(16)&#x27;},
+        &#x27;agent_npn&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(writing_agent_npn), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(10)&#x27;},
+        &#x27;policy_number&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(policy_number), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(32)&#x27;, &#x27;src_cols_required&#x27;: &#x27;policy_number&#x27;}
+    },
+    hashed_columns={
+        &#x27;hk_policy_h&#x27;: [&#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+        &#x27;hk_insured_h&#x27;: [&#x27;insured_number&#x27;],
+        &#x27;hk_agent_h&#x27;: [&#x27;agent_npn&#x27;],
+        &#x27;hk_insured_policy_l&#x27;: [&#x27;insured_number&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+        &#x27;hk_agent_policy_l&#x27;: [&#x27;agent_npn&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+        &#x27;hd_insured_northfield_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;insured_name&#x27;, &#x27;birth_date&#x27;, &#x27;address&#x27;]},
+        &#x27;hd_policy_northfield_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;face_amount&#x27;, &#x27;status&#x27;, &#x27;effective_date&#x27;]}
+    }
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_northfield_policy_known_insured.sql</summary><pre><code>{#
+  The rows of stg_northfield_policy whose insured id is known: the source of satellite insured_northfield_s (fix to release 1, 2026-10-28).
+  A row without an insured id describes no one: staging maps it to the zero key, and a satellite holding it would
+  record one false entity for every such row. It stays out of the satellite and is raised as a finding by the
+  missing-key inspector, so nothing is lost silently (Code Review Standard, k12ki19). A view, like the staging it filters (a unit test can mock only a model the database holds).
+#}
+{{ config(materialized=&#x27;view&#x27;) }}
+SELECT * FROM {{ ref(&#x27;stg_northfield_policy&#x27;) }} WHERE insured_number IS NOT NULL
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_northfield_policy_known_policy.sql</summary><pre><code>{#
+  The rows of stg_northfield_policy whose policy number is known: the source of satellite policy_northfield_s (fix to release 1, 2026-10-28).
+  A row without a policy number describes no one: staging maps it to the zero key, and a satellite holding it would
+  record one false entity for every such row. It stays out of the satellite and is raised as a finding by the
+  missing-key inspector, so nothing is lost silently (Code Review Standard, k12ki19). A view, like the staging it filters (a unit test can mock only a model the database holds).
+#}
+{{ config(materialized=&#x27;view&#x27;) }}
+SELECT * FROM {{ ref(&#x27;stg_northfield_policy&#x27;) }} WHERE policy_number IS NOT NULL
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_pinecrest_organization.sql</summary><pre><code>{#
+  Staging view for Pinecrest Mutual&#x27;s own organization record (mart design D-11; profile P-21; guide step 57).
+  Hard rule: an empty or whitespace-only carrier code becomes NULL before hashing (design D-24&#x27;s rule).
+#}
+{{ datavault4dbt.stage(
+    source_model={&#x27;pinecrest&#x27;: &#x27;organization&#x27;},
+    ldts=&#x27;TO_TIMESTAMP_NTZ(LOADED_AT)&#x27;,
+    rsrc=&#x27;!PMC&#x27;,
+    derived_columns={
+        &#x27;carrier_code&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(carrier_code), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(16)&#x27;, &#x27;src_cols_required&#x27;: &#x27;carrier_code&#x27;}
+    },
+    hashed_columns={
+        &#x27;hk_organization_h&#x27;: [&#x27;carrier_code&#x27;],
+        &#x27;hd_organization_pinecrest_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;carrier_name&#x27;]}
+    }
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_sunbelt_client.sql</summary><pre><code>{#
+  Staging view for Sunbelt Senior Insurance&#x27;s client file (increment 1 guide step 8).
+  Hard rules, none of which changes what a value means:
+    D-5  LOADED_AT, delivered as text, is cast to a timestamp without time zone meaning UTC.
+    D-15 every row&#x27;s record source is the static code SSI.
+    D-4  an empty or whitespace-only client number becomes NULL before hashing, so it takes the
+         all-zeros key instead of hashing as a value (unit test P7: red 2026-10-23 02:11 UTC on
+         d4236cf, the toolkit hashed &#x27;&#x27; and &#x27;   &#x27; to 9d4568c0..., then green after this rule).
+  The derived column overwrites client_number; datavault4dbt computes derived columns before
+  hashed columns (macros/staging/snowflake/stage.sql, CTE order read 2026-10-22). Because an
+  overwrite removes the source column from the stage&#x27;s input, the derived column declares it
+  with src_cols_required (without it the compiled SQL referenced a missing column).
+  Increment 2 (design D-34, guide step 27): the change hash of the client&#x27;s satellite, client_sunbelt_s.
+#}
+{{ datavault4dbt.stage(
+    source_model={&#x27;sunbelt&#x27;: &#x27;client&#x27;},
+    ldts=&#x27;TO_TIMESTAMP_NTZ(LOADED_AT)&#x27;,
+    rsrc=&#x27;!SSI&#x27;,
+    derived_columns={
+        &#x27;client_number&#x27;: {
+            &#x27;value&#x27;: &quot;NULLIF(TRIM(client_number), &#x27;&#x27;)&quot;,
+            &#x27;datatype&#x27;: &#x27;VARCHAR(32)&#x27;,
+            &#x27;src_cols_required&#x27;: &#x27;client_number&#x27;
+        }
+    },
+    hashed_columns={
+        &#x27;hk_client_h&#x27;: [&#x27;client_number&#x27;],
+        &#x27;hd_client_sunbelt_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;first_name&#x27;, &#x27;last_name&#x27;, &#x27;state&#x27;]}
+    }
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_sunbelt_client_known_client.sql</summary><pre><code>{#
+  The rows of stg_sunbelt_client whose client number is known: the source of satellite client_sunbelt_s (fix to release 1, 2026-10-28).
+  A row without a client number describes no one: staging maps it to the zero key, and a satellite holding it would
+  record one false entity for every such row. It stays out of the satellite and is raised as a finding by the
+  missing-key inspector, so nothing is lost silently (Code Review Standard, k12ki19). A view, like the staging it filters (a unit test can mock only a model the database holds).
+#}
+{{ config(materialized=&#x27;view&#x27;) }}
+SELECT * FROM {{ ref(&#x27;stg_sunbelt_client&#x27;) }} WHERE client_number IS NOT NULL
+</code></pre></details><details class="file"><summary>dbt/models/staging/stg_sunbelt_policy_sale.sql</summary><pre><code>{#
+  Staging view for Sunbelt Senior&#x27;s policy sales data (design D-24, D-26, D-33, D-35, D-36; guide step 26).
+  D-24 hard rules: empty or whitespace-only policy numbers, carrier codes, client numbers and agent numbers become
+  NULL before hashing (unit tests PH7, CH3 and AG5 red 2026-10-25 01:12 UTC on beb49c9 without them, green with them).
+  Each overwrite declares src_cols_required (course record item 274, convention 5).
+#}
+{{ datavault4dbt.stage(
+    source_model={&#x27;sunbelt&#x27;: &#x27;policy_sale&#x27;},
+    ldts=&#x27;TO_TIMESTAMP_NTZ(LOADED_AT)&#x27;,
+    rsrc=&#x27;!SSI&#x27;,
+    derived_columns={
+        &#x27;policy_number&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(policy_number), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(32)&#x27;, &#x27;src_cols_required&#x27;: &#x27;policy_number&#x27;},
+        &#x27;carrier_code&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(carrier_code), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(8)&#x27;, &#x27;src_cols_required&#x27;: &#x27;carrier_code&#x27;},
+        &#x27;client_number&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(client_number), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(32)&#x27;, &#x27;src_cols_required&#x27;: &#x27;client_number&#x27;},
+        &#x27;agent_npn&#x27;: {&#x27;value&#x27;: &quot;NULLIF(TRIM(agent_npn), &#x27;&#x27;)&quot;, &#x27;datatype&#x27;: &#x27;VARCHAR(10)&#x27;, &#x27;src_cols_required&#x27;: &#x27;agent_npn&#x27;}
+    },
+    hashed_columns={
+        &#x27;hk_policy_h&#x27;: [&#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+        &#x27;hk_client_h&#x27;: [&#x27;client_number&#x27;],
+        &#x27;hk_agent_h&#x27;: [&#x27;agent_npn&#x27;],
+        &#x27;hk_client_policy_l&#x27;: [&#x27;client_number&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;, &#x27;role&#x27;],
+        &#x27;hk_agent_policy_l&#x27;: [&#x27;agent_npn&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+        &#x27;hd_client_policy_sunbelt_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;sold_on&#x27;, &#x27;agent_name&#x27;, &#x27;plan_name&#x27;]}
+    }
+) }}
+</code></pre></details></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

@@ -1,0 +1,1953 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Implementation guide | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Implementation guide</p><p class="eyebrow">Documentation · release 1</p><h1>Implementation guide</h1><p>The build, step by step, with its code and its exemplars.</p></div></header>
+<main><article class="doc"><h1>Branch Implementation Guide: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
+<h3>Implementation Guide (part 1 of 1)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Effort</strong></td>
+<td>Linear DIG-574 — DIGEST Data Vault Implementation, increments 1 (arrival and identity), 1.1 (source system seed) and 2 (the two-source raw vault) — branch <code>claude_ws/dig-574-arrival-and-identity</code>; the fix to release 1, keys and missing keys (Linear DIG-594), branch <code>claude_ws/dig-594-release-1-keys-rebased-2</code>; the same branch also builds the conformed mart of the mart design, Pilot item 302</td>
+</tr>
+<tr>
+<td><strong>Governed by</strong></td>
+<td><em>Standard: Branch Delivery Documents</em> (K#12 I#27)</td>
+</tr>
+<tr>
+<td><strong>References</strong></td>
+<td>Design: Branch Design, Pilot item 270; profiling: Branch Profile, Pilot item 267; test plan: Branch Test Plan, Pilot item 271; mart design: DIG-574 Mart Design, Pilot item 302</td>
+</tr>
+<tr>
+<td><strong>Prerequisites</strong></td>
+<td>The agreed design, profile and test plan; the workstation provisioning (the vault&rsquo;s Workstation Bootstrap note, then Provisioning - Agentic common, , with the Claude overlay, ) with dbt Fusion 2.0.9 in its virtual environment; CLAUDE_WS_ROLE with DEV_CLAUDE_WS_ROLE; the developer tier of infra/snowflake/environment_tiers.sql (DEV__LANDING__CLAUDE_WS, DEV__DV__CLAUDE_WS); for increment 2, the new landing tables of step 22 created before its first act; for the fix to release 1, a branch cut from qa after Mary&rsquo;s site (DIG-589), which brings infra/scripts/vault_ddl.py and site/build_site.py</td>
+</tr>
+<tr>
+<td><strong>Companions</strong></td>
+<td>datavault4dbt fork pinned at 694df249</td>
+</tr>
+<tr>
+<td><strong>Audience</strong></td>
+<td>The implementer of each increment, with no access to the session that wrote this guide; Ray Serrano as reviewer</td>
+</tr>
+<tr>
+<td><strong>Author</strong></td>
+<td>Ray Serrano; edited by Claude — 2026-10-22</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal — Data Management</td>
+</tr>
+<tr>
+<td><strong>Official copy method</strong></td>
+<td>Copied from this governed template by <code>AGENTIC.DATASKILLS.KNOWLEDGE_ITEM_FROM_TEMPLATE</code>; template SHA-256 recorded in the created item</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>1. Purpose and grounding recap</h2>
+<p>This guide implements the Branch Design, Pilot item 270, and does not relitigate its decisions.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Design decision</th>
+<th>Settled rule used by the implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-1, D-12</td>
+<td>LANDING holds SUNBELT and, from increment 2, NORTHFIELD (sources), STORAGE (empty in this increment) and CONFIG (DATA_FINDING, BUILD_BASELINE), created by a committed file; four generic macros serve it</td>
+</tr>
+<tr>
+<td>D-2, D-3</td>
+<td>The vault is built in its tier&rsquo;s vault database, DEV__DV__<user> in development; the hub client_h is keyed by the client number alone</td>
+</tr>
+<tr>
+<td>D-4</td>
+<td>A derived column overwrites client_number with NULLIF(TRIM(client_number), &lsquo;&rsquo;) before hashing</td>
+</tr>
+<tr>
+<td>D-5</td>
+<td>ldts is TIMESTAMP_NTZ meaning UTC (already set in dbt/dbt_project.yml at commit 1ace099)</td>
+</tr>
+<tr>
+<td>D-7, D-8, D-15</td>
+<td>Static record source code SSI; ghost records enabled; datavault4dbt hashing defaults (MD5, keys uppercased)</td>
+</tr>
+<tr>
+<td>D-9</td>
+<td>inspector_sunbelt_client_number_form writes one finding per nonconforming client number</td>
+</tr>
+<tr>
+<td>D-10</td>
+<td>auditor_sunbelt_client_hub writes one summary finding only when a usable client key of the source is missing from the hub</td>
+</tr>
+<tr>
+<td>D-11</td>
+<td>Data lands in two acts, each followed by a full build</td>
+</tr>
+<tr>
+<td>D-13</td>
+<td>Superseded 2026-10-25: course increments promote through qa to production with certification</td>
+</tr>
+<tr>
+<td>D-22, D-23</td>
+<td>Two landing tables, SUNBELT.POLICY_SALE and NORTHFIELD.POLICY, loaded by land_act in the same two acts; the seed gains NFL</td>
+</tr>
+<tr>
+<td>D-24</td>
+<td>Two staging models apply only hard rules: casts, and empty numbers (client, insured, policy, carrier code, agent) turned into NULL</td>
+</tr>
+<tr>
+<td>D-26, D-30</td>
+<td>policy_h keyed by carrier code and policy number; Northfield Life&rsquo;s staging supplies NFL; an inspector reports nonconforming policy numbers</td>
+</tr>
+<tr>
+<td>D-32, D-33</td>
+<td>client_h read from the client list and the sales data; insured_h; client_policy_l with the role as a dependent child key; insured_policy_l</td>
+</tr>
+<tr>
+<td>D-34, D-35, D-36</td>
+<td>One satellite per source on its parent; agent_h keyed by the national producer number from both sources; agent_policy_l fed by both sources</td>
+</tr>
+<tr>
+<td>D-9, D-10</td>
+<td>Layer 5 is named inspector and layer 6 auditor; the findings table&rsquo;s columns are FINDER_NAME and FINDER_TYPE, with type values inspection and audit</td>
+</tr>
+<tr>
+<td>D-42, D-43</td>
+<td>Every link&rsquo;s hub keys and every satellite&rsquo;s key carry layer 1 tests, and the vault declares its 22 keys from those tests, informational only</td>
+</tr>
+<tr>
+<td>D-44, D-45</td>
+<td>A satellite reads only rows with their key; every row without a business key is a finding, one per row and missing key</td>
+</tr>
+<tr>
+<td>D-46</td>
+<td>Production&rsquo;s four zero-key satellite rows are removed once, at the promotion that carries the fix</td>
+</tr>
+<tr>
+<td>mart design D-1</td>
+<td>Four facts, one per grain: client_policy_role_fact, agent_policy_fact, policy_terms_fact and finding_fact</td>
+</tr>
+<tr>
+<td>mart design D-2</td>
+<td>Base dimensions person_dim and organization_dim with role views over them; policy_dim; source_dim from the source system seed; day_dim, also MetricFlow&rsquo;s time spine</td>
+</tr>
+<tr>
+<td>mart design D-3</td>
+<td>The role stays on client_policy_role_fact as a degenerate code</td>
+</tr>
+<tr>
+<td>mart design D-4</td>
+<td>A version&rsquo;s valid-to day is empty while it is current; face_amount_current filters on that</td>
+</tr>
+<tr>
+<td>mart design D-5</td>
+<td>The finding&rsquo;s finder name and type, table, column, value and status stay on finding_fact as degenerate codes; only the source is a dimension key</td>
+</tr>
+<tr>
+<td>mart design D-6</td>
+<td>Every mart object a view in CONFORMED_DM (models/marts/conformed_dm); the five MART views retired in the same pull request</td>
+</tr>
+<tr>
+<td>mart design D-8</td>
+<td>Disagreement about a policy&rsquo;s agent is read from agents_named grouped by policy, not a SQL flag</td>
+</tr>
+<tr>
+<td>mart design D-9</td>
+<td>insured_dim&rsquo;s birth date and address under a secure view that mocks a masking policy: real values for the governance role, a mask for every other role</td>
+</tr>
+<tr>
+<td>mart design D-10</td>
+<td>person_dim holds one row per person record, unmatched; client_dim, insured_dim and agent_dim are role views over it</td>
+</tr>
+<tr>
+<td>mart design D-11</td>
+<td>A carrier is an organization: each carrier sends its code and name through its own feed to organization_h; carrier_dim is a role view over organization_dim</td>
+</tr>
+<tr>
+<td>mart design D-12</td>
+<td>No client_arrival_fact: source_key and first_known_date are person_dim columns for client records, shown by client_dim</td>
+</tr>
+<tr>
+<td>mart design D-13</td>
+<td>Q-15 is answered by records_not_accepted (form findings) and rows_missing_key (distinct rows named by missing-key findings); finding_fact carries finding_kind and finding_row</td>
+</tr>
+<tr>
+<td>mart design D-14</td>
+<td>Each ghost key appears once in person_dim, with no role; every role view carries its base dimension&rsquo;s two ghost rows</td>
+</tr>
+</tbody>
+</table></div>
+<p>Code in this guide is an illustrative pattern: more than pseudocode, less than shipping code. Do not copy it into the repo; implement it against the branch. Development is done when the output is shown correct against real data, per K#12 I#26.</p>
+<h3>Pattern declaration</h3>
+<ul>
+<li>Patterns instantiated: Pattern: datavault4dbt staging with hard rules and Pattern: datavault4dbt hub (course record items 274 and 275); the datavault4dbt link, dependent child key and standard satellite macros (fork documentation, pages 07, 09 and 10, shown in full at their first instance in steps 28 to 30); the merge_into materialization (dbt/macros/materializations/merge_into.sql); a single-value finding shape for the inspector; a one-finding-max reconciliation shape for the auditor; for the carrier feed (steps 57 to 59), the staging and hub patterns (course record items 274 and 275) and step 30&rsquo;s satellite pattern; the plain view over a model that the release 1 mart views show, for client_dim, agent_dim and carrier_dim (step 68) and the four facts (steps 71 to 74); day_dim&rsquo;s generated calendar, copied from dbt/models/mart/time_spine_day.sql (step 66)</li>
+<li>Patterns introduced: the datavault4dbt link and satellite patterns, new to this project; by design D-14 they are recorded as course record items from the code as built, and until then this guide carries their complete first instances; and the first instances in this repository, aligned with the reference architecture: person_dim, organization_dim, policy_dim and source_dim (steps 62 to 65), insured_dim&rsquo;s secure masking view (step 69), the semantic models, metrics and descriptions of the semantic YAML that have no counterpart in dbt/models/mart/_mart.yml (step 75, whose two release 1 metrics follow that file), and the saved queries (step 76)</li>
+</ul>
+<h2>2. Scope</h2>
+<h3>Deliverables</h3>
+<ol>
+<li>setup/infrastructure/landing.sql: database LANDING, schemas SUNBELT, STORAGE and CONFIG, tables SUNBELT.CLIENT, CONFIG.DATA_FINDING and CONFIG.BUILD_BASELINE, and their grants to CLAUDE_WS_ROLE.</li>
+<li>setup/landing/sunbelt_client_load_1.sql and sunbelt_client_load_2.sql: the two landing acts, 33 and 10 rows.</li>
+<li>Four ported macros: landing_storage, merge_into, capture_baseline, verify_build.</li>
+<li>dbt/seeds/seed_build_expectations.csv (guide decision G-3).</li>
+<li>dbt/packages.yml and dbt/dbt_project.yml changes.</li>
+<li>The source declaration, the staging view stg_sunbelt_client, the hub client_h.</li>
+<li>Twelve unit tests, two logic assertions, the inspector and the auditor, and the layer 1 and 2 tests named in the test plan.</li>
+<li>Increment 2&rsquo;s landing tables, SUNBELT.POLICY_SALE and NORTHFIELD.POLICY, in setup/infrastructure/landing.sql; the NFL seed row; land_act extended to both tables.</li>
+<li>The 39 layer 3 unit tests of the test plan&rsquo;s logic areas E to O, written and run red before their models.</li>
+<li>Two staging models, stg_sunbelt_policy_sale and stg_northfield_policy; stg_sunbelt_client gains its satellite&rsquo;s change hash.</li>
+<li>Hubs policy_h, insured_h and agent_h; client_h gains the sales data as a second source; links client_policy_l, insured_policy_l and agent_policy_l; satellites client_sunbelt_s, insured_northfield_s, policy_northfield_s and client_policy_sunbelt_s, each with its version 1 view.</li>
+<li>inspector_sunbelt_policy_number_form; auditor_sunbelt_policy_hub and auditor_northfield_policy_hub; the layer 1, 2 and 4 tests the design&rsquo;s testing plan names, written after the code; the baseline macros and seed extended to the new tables.</li>
+<li>The fix to release 1: D-42&rsquo;s 18 layer 1 tests on the links and the satellites&rsquo; keys.</li>
+<li>The macro declare_vault_keys and its on-run-end hook.</li>
+<li>Three known-key staging views, read by the three satellites whose keys can be missing.</li>
+<li>Three missing-key inspectors and their six unit tests.</li>
+<li>The production correction script and its runbook line; the vault&rsquo;s DDL regenerated with its keys; Mary&rsquo;s site rebuilt.</li>
+<li>The carrier feed (steps 52 to 59): the landing tables NORTHFIELD.ORGANIZATION and PINECREST.ORGANIZATION, the PMC seed row, land_act&rsquo;s two organization targets, the two organization sources and their tests, the staging models stg_northfield_organization and stg_pinecrest_organization, the hub organization_h, and the satellites organization_northfield_s and organization_pinecrest_s with their version 1 views, each with its unit and layer 1 tests.</li>
+<li>The conformed_dm folder and its schema entry in dbt/dbt_project.yml, and the dimensions person_dim, organization_dim, policy_dim, source_dim and day_dim, with their unit and layer 1 tests (steps 60 to 66).</li>
+<li>The role views client_dim, agent_dim, carrier_dim and insured_dim, insured_dim a secure view under the masking mock of mart design D-9, with their unit, layer 1 and layer 4 tests (steps 67 to 69).</li>
+<li>The facts client_policy_role_fact, agent_policy_fact, policy_terms_fact and finding_fact, with their unit, layer 1 and layer 4 tests (steps 70 to 74).</li>
+<li>The semantic layer: the semantic models, metrics and six saved queries in dbt/models/marts/conformed_dm/_conformed_dm.yml, the column descriptions, and the layer 6 and 7 tests (steps 75 to 77).</li>
+<li>The MART retirement: the five MART models removed with dbt/models/mart/_mart.yml, _landing_config__sources.yml moved to dbt/models/marts/conformed_dm, and infra/snowflake/drop_mart_views.sql (step 78).</li>
+</ol>
+<h3>Finance workbook delivery</h3>
+<p>For finance reporting branches, name the repository generation script, shared mart-level report query and parameters, reproducible generation/refresh steps, workbook metadata and sheets, and preservation of consumer observations under K#12 I#27. Otherwise state NA with a reason.</p>
+<p>Not applicable: this branch is not a finance reporting branch.</p>
+<h3>What stays the same</h3>
+<p>The datavault4dbt fork and its pin. The timestamp variable in dbt/dbt_project.yml. Increment 1&rsquo;s client list source table and its two acts. The client hub&rsquo;s existing rows: a second source adds keys and never changes a kept row.</p>
+<h3>Intentionally not done</h3>
+<p>No UDM structures (DD-2); no matching of the person behind client and insured (DD-5, D-29); no merging of columns across sources (D-29); nothing written to LANDING.STORAGE (DD-4); QA and promotion follow the QA, promotion and production row below, D-13 having been superseded; the agent&rsquo;s name stays in the sale&rsquo;s satellite, not on agent_h (D-35).</p>
+<h3>Identity recipes</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Natural code</th>
+<th>Surrogate-key composition</th>
+<th>Minting location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client key</td>
+<td>CLIENT_NUMBER</td>
+<td>datavault4dbt hash of the client number after D-4: CAST to text, TRIM, quote and escape, UPPER, remove line breaks and tabs, MD5, lower-case hex; NULL becomes the all-zeros key</td>
+<td>stg_sunbelt_client, hashed column hk_client_h</td>
+</tr>
+<tr>
+<td>Inspector finding</td>
+<td>The nonconforming client number</td>
+<td>dbt_utils.generate_surrogate_key over the finder name, source system, source table, source column and the value</td>
+<td>inspector_sunbelt_client_number_form</td>
+</tr>
+<tr>
+<td>Auditor finding</td>
+<td>None (one finding at most)</td>
+<td>dbt_utils.generate_surrogate_key over the finder name, source system and source table</td>
+<td>auditor_sunbelt_client_hub</td>
+</tr>
+<tr>
+<td>Policy key</td>
+<td>CARRIER_CODE with POLICY_NUMBER</td>
+<td>datavault4dbt hash of the two after D-24, each standardized like a single key; one missing part hashes the placeholder ^^ in its place; both missing give the all-zeros key</td>
+<td>stg_sunbelt_policy_sale and stg_northfield_policy (NFL supplied), column hk_policy_h</td>
+</tr>
+<tr>
+<td>Insured key</td>
+<td>INSURED_ID, renamed insured_number</td>
+<td>datavault4dbt hash after D-24; missing gives the all-zeros key</td>
+<td>stg_northfield_policy, hk_insured_h</td>
+</tr>
+<tr>
+<td>Agent key</td>
+<td>AGENT_NPN, and WRITING_AGENT_NPN renamed agent_npn</td>
+<td>datavault4dbt hash after D-24; missing gives the all-zeros key</td>
+<td>both staging models, hk_agent_h</td>
+</tr>
+<tr>
+<td>Link keys</td>
+<td>client, policy and role; insured and policy; agent and policy</td>
+<td>datavault4dbt hash over the link&rsquo;s business keys, the role included as the dependent child key</td>
+<td>hk_client_policy_l, hk_insured_policy_l, hk_agent_policy_l in the staging models</td>
+</tr>
+<tr>
+<td>Organization key</td>
+<td>CARRIER_CODE</td>
+<td>datavault4dbt hash of the carrier code after the hard rule NULLIF(TRIM(carrier_code), &lsquo;&rsquo;)</td>
+<td>stg_northfield_organization and stg_pinecrest_organization, hk_organization_h</td>
+</tr>
+<tr>
+<td>Client policy role key</td>
+<td>The client, the policy and the role</td>
+<td>client_policy_l&rsquo;s hash key hk_client_policy_l, as is (mart design section 3.2)</td>
+<td>client_policy_role_fact, client_policy_role_key</td>
+</tr>
+<tr>
+<td>Agent policy key</td>
+<td>The agent and the policy</td>
+<td>agent_policy_l&rsquo;s hash key hk_agent_policy_l, as is (mart design section 3.2)</td>
+<td>agent_policy_fact, agent_policy_key</td>
+</tr>
+<tr>
+<td>Policy terms key</td>
+<td>The policy and the load</td>
+<td>dbt_utils.generate_surrogate_key over hk_policy_h and ldts of policy_northfield_s1 (mart design section 3.2)</td>
+<td>policy_terms_fact, policy_terms_key</td>
+</tr>
+<tr>
+<td>Finding key</td>
+<td>The finding</td>
+<td>The finding&rsquo;s FINDING_PK, as is (mart design section 3.2)</td>
+<td>finding_fact, finding_key</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. Grounded in code</h2>
+<p>Every edit below names a file and object read from the stated branch.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Touched object</th>
+<th>Exact file</th>
+<th>Consumers found</th>
+<th>Verification command and clock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project configuration</td>
+<td>dbt/dbt_project.yml</td>
+<td>Every model and seed in the project</td>
+<td>git grep, branch claude_ws/dig-574-arrival-and-identity at 1ace099, 2026-10-23 01:41 UTC</td>
+</tr>
+<tr>
+<td>Package list</td>
+<td>dbt/packages.yml</td>
+<td>dbt deps; the lock file dbt/package-lock.yml</td>
+<td>read 2026-10-23 01:41 UTC: one package, datavault4dbt</td>
+</tr>
+<tr>
+<td>Every other deliverable</td>
+<td>new files</td>
+<td>None at the baseline clock; their consumers are the files this guide adds</td>
+<td>git ls-files at 1ace099 lists 8 files, none of them consumers</td>
+</tr>
+<tr>
+<td>Increment 2&rsquo;s touched objects: land_act, seed_source_system, the sunbelt source declaration, capture_baseline, verify_build, seed_build_expectations, vault_checks, client_h, stg_sunbelt_client</td>
+<td>dbt/macros/operations/land_act.sql; dbt/seeds/seed_source_system.csv; dbt/models/staging/_sunbelt__sources.yml; dbt/macros/verification/capture_baseline.sql and verify_build.sql; dbt/seeds/seed_build_expectations.csv; dbt/macros/operations/vault_checks.sql; dbt/models/raw_vault/client_h.sql; dbt/models/staging/stg_sunbelt_client.sql</td>
+<td>land_act: none. seed_source_system: vault_checks, _seeds.yml, the resolve assertion. CLIENT_H: capture_baseline, verify_build, seed_build_expectations, the QA runbook. The sources declaration and the two staging models: their hubs, the inspector and the auditor</td>
+<td>git grep -l for each name &ndash; dbt setup, branch claude_ws/dig-574-arrival-and-identity at 8e74a07, 2026-10-25 00:12 UTC</td>
+</tr>
+<tr>
+<td>Generic macros</td>
+<td>dbt/macros/landing_storage.sql, dbt/macros/materializations/merge_into.sql, dbt/macros/verification/capture_baseline.sql, dbt/macros/verification/verify_build.sql</td>
+<td>In this project: every model reading LANDING, the inspector, the auditor, the build sequence</td>
+<td>read from this repository</td>
+</tr>
+<tr>
+<td>The fix to release 1&rsquo;s touched objects: dbt_project.yml, _increment_2.yml, client_sunbelt_s, insured_northfield_s, policy_northfield_s, the production runbook</td>
+<td>dbt/dbt_project.yml; dbt/models/raw_vault/_increment_2.yml; dbt/models/raw_vault/client_sunbelt_s.sql, insured_northfield_s.sql, policy_northfield_s.sql; infra/runbooks/dbt_cloud_prod_environment.md</td>
+<td>Consumer files: dbt_project.yml 8, _increment_2.yml 2, client_sunbelt_s 11, insured_northfield_s 10, policy_northfield_s 10, the runbook 0</td>
+<td>git grep -l -w <object> &ndash; dbt infra site docs, branch claude_ws/dig-594-release-1-keys-rebased-1 at 976744e, 2026-10-28 21:20 UTC</td>
+</tr>
+<tr>
+<td>The mart&rsquo;s touched objects (steps 52 to 78)</td>
+<td>Changed: infra/snowflake/landing.sql; dbt/seeds/seed_source_system.csv; dbt/macros/operations/land_act.sql; dbt/models/staging/_sunbelt__sources.yml; dbt/dbt_project.yml. Removed: dbt/models/mart/client_policy_fact.sql, agent_policy_fact.sql, policy_fact.sql, finding_fact.sql, time_spine_day.sql and _mart.yml. Moved: dbt/models/mart/_landing_config__sources.yml to dbt/models/marts/conformed_dm. New: the organization staging, hub and satellite files and their YAML in dbt/models/staging and dbt/models/raw_vault; the thirteen models and their YAML files in dbt/models/marts/conformed_dm; the singular tests in dbt/tests; infra/snowflake/drop_mart_views.sql</td>
+<td>The retired MART objects, as step 78 states: the five views are read only by generated files, docs/build/code/infra.html, docs/build/code/semantic-layer.html, docs/documentation/*.html and infra/snowflake/ddl/dv.sql, which the site build and infra/scripts/vault_ddl.py regenerate; the metrics records_not_accepted and rows_missing_key are read by site/build_site.py and site/dev/qa_retest.py, which keep working because the metric names do not change</td>
+<td>git grep, excluding dbt/models/mart itself, at commit b54bb13</td>
+</tr>
+</tbody>
+</table></div>
+<h2>4. Baseline</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Baseline ID</th>
+<th>Behavior or value</th>
+<th>Capture command or query</th>
+<th>Captured result and clock</th>
+<th>Reconciliation condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-1</td>
+<td>Objects in DV.DEV_CLAUDE</td>
+<td>SELECT TABLE_NAME, TABLE_TYPE FROM DV.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = &lsquo;DEV_CLAUDE&rsquo;</td>
+<td>3: STUDENT (table), STG_STUDENT (view), STUDENT_H (table); 2026-10-23 01:41 UTC</td>
+<td>Still present and unchanged after both builds, plus the new objects</td>
+</tr>
+<tr>
+<td>B-2</td>
+<td>Rows in DV.DEV_CLAUDE.STUDENT_H</td>
+<td>SELECT COUNT(*) FROM DV.DEV_CLAUDE.STUDENT_H</td>
+<td>5; 2026-10-23 01:41 UTC</td>
+<td>Unchanged (5) after both builds</td>
+</tr>
+<tr>
+<td>B-3</td>
+<td>LANDING database</td>
+<td>SELECT COUNT(*) FROM SNOWFLAKE.INFORMATION_SCHEMA.DATABASES WHERE DATABASE_NAME = &lsquo;LANDING&rsquo;</td>
+<td>0; 2026-10-23 01:41 UTC</td>
+<td>1 after step 1</td>
+</tr>
+<tr>
+<td>B-5</td>
+<td>Increment 2&rsquo;s landing tables</td>
+<td>SELECT TABLE_NAME FROM DEV__LANDING__CLAUDE_WS.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;SUNBELT&rsquo;, &lsquo;NORTHFIELD&rsquo;), and the same on LANDING</td>
+<td>CLIENT only (43 rows) in both databases; 2026-10-25 00:13 UTC</td>
+<td>POLICY_SALE and POLICY present after step 22; CLIENT unchanged</td>
+</tr>
+<tr>
+<td>B-6</td>
+<td>The client hub by record source</td>
+<td>SELECT RSRC, COUNT(*) FROM DEV__DV__CLAUDE_WS.RAW_VAULT.CLIENT_H GROUP BY 1</td>
+<td>SSI 34, SYSTEM 1, ERROR 1; 2026-10-25 00:13 UTC</td>
+<td>Every kept row unchanged; new rows only for client numbers first seen in the sales data</td>
+</tr>
+<tr>
+<td>B-7</td>
+<td>Findings by finder type</td>
+<td>SELECT FINDER_TYPE, COUNT(*) FROM DEV__LANDING__CLAUDE_WS.CONFIG.DATA_FINDING GROUP BY 1</td>
+<td>inspection 2; 2026-10-25 00:13 UTC</td>
+<td>The two client-number findings unchanged; new findings only from the new inspector and auditors</td>
+</tr>
+<tr>
+<td>B-4</td>
+<td>Semantic models in the repository</td>
+<td>git ls-files, filtered for semantic and metric</td>
+<td>0; 2026-10-23 01:41 UTC</td>
+<td>Still 0 (layer 7 not applicable)</td>
+</tr>
+<tr>
+<td>B-8</td>
+<td>Production&rsquo;s zero-key source rows in client_sunbelt_s and insured_northfield_s</td>
+<td>The before query of infra/snowflake/correct_zero_key_satellite_rows.sql against DV</td>
+<td>3 and 1, as the fix&rsquo;s tests recorded them on 2026-10-28, copied into the development vault for the script&rsquo;s proof</td>
+<td>0 and 0 after the promotion&rsquo;s correction, the placeholder rows kept</td>
+</tr>
+<tr>
+<td>B-9</td>
+<td>Objects in DV_QA.MART and DV_QA.CONFORMED_DM before the mart&rsquo;s build</td>
+<td>SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE FROM DV_QA.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;MART&rsquo;, &lsquo;CONFORMED_DM&rsquo;) ORDER BY 1, 2</td>
+<td>MART: the five views, CLIENT_POLICY_FACT, AGENT_POLICY_FACT, POLICY_FACT, FINDING_FACT and TIME_SPINE_DAY; CONFORMED_DM: absent</td>
+<td>After the build, MART: none; CONFORMED_DM: the thirteen models</td>
+</tr>
+</tbody>
+</table></div>
+<h2>5. Ordered implementation steps</h2>
+<p><strong>Step 1. LANDING infrastructure.</strong> File: setup/infrastructure/landing.sql. Design D-1, D-12. The workstation runs it as SYSADMIN (G-2). Expected movement: B-3 becomes 1. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-sql">USE ROLE SYSADMIN;
+CREATE DATABASE IF NOT EXISTS LANDING;
+CREATE SCHEMA IF NOT EXISTS LANDING.SUNBELT;
+CREATE SCHEMA IF NOT EXISTS LANDING.STORAGE;
+CREATE SCHEMA IF NOT EXISTS LANDING.CONFIG;
+CREATE TABLE IF NOT EXISTS LANDING.SUNBELT.CLIENT (
+    CRM_ROW_ID NUMBER NOT NULL, CLIENT_NUMBER VARCHAR(32), FIRST_NAME VARCHAR(64),
+    LAST_NAME VARCHAR(64), STATE VARCHAR(2), LOADED_AT VARCHAR(19) NOT NULL);
+CREATE TABLE IF NOT EXISTS LANDING.CONFIG.DATA_FINDING (
+    FINDING_PK VARCHAR(128) NOT NULL, SOURCE_SYSTEM VARCHAR(32) NOT NULL,
+    SOURCE_TABLE VARCHAR(256), SOURCE_COLUMN VARCHAR(128), COLUMN_VALUE VARCHAR(512),
+    FINDER_NAME VARCHAR(128) NOT NULL, FINDER_TYPE VARCHAR(32) NOT NULL, DETAIL VARCHAR(2048),
+    STATUS VARCHAR(32) DEFAULT 'detected', FINDING_ID VARCHAR(32), NOTES VARCHAR(1024),
+    ROOT_CAUSE VARCHAR(2048), DETECTED_AT TIMESTAMP_TZ DEFAULT CURRENT_TIMESTAMP(),
+    ACKNOWLEDGED_BY VARCHAR(64), ACKNOWLEDGED_AT TIMESTAMP_TZ);
+CREATE TABLE IF NOT EXISTS LANDING.CONFIG.BUILD_BASELINE (
+    SNAPSHOT_TYPE VARCHAR(10) NOT NULL, TABLE_NAME VARCHAR(200) NOT NULL,
+    METRIC_NAME VARCHAR(200) NOT NULL, METRIC_VALUE NUMBER(38,2),
+    CAPTURED_AT TIMESTAMP_TZ(9) NOT NULL DEFAULT CURRENT_TIMESTAMP(), DATABASE_NAME VARCHAR(200) NOT NULL);
+GRANT USAGE ON DATABASE LANDING TO ROLE CLAUDE_WS_ROLE;
+GRANT USAGE ON ALL SCHEMAS IN DATABASE LANDING TO ROLE CLAUDE_WS_ROLE;
+GRANT SELECT ON ALL TABLES IN DATABASE LANDING TO ROLE CLAUDE_WS_ROLE;
+GRANT INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA LANDING.SUNBELT TO ROLE CLAUDE_WS_ROLE;
+GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA LANDING.CONFIG TO ROLE CLAUDE_WS_ROLE;
+</code></pre>
+<p><strong>Step 2. Landing acts.</strong> Files: setup/landing/sunbelt_client_load_1.sql and sunbelt_client_load_2.sql, plain INSERT statements run with snow sql as CLAUDE_WS_ROLE (G-6). Rows exactly as profile P-1 specifies. Act 1 rows take CRM row IDs 1 to 33 in file order. LOADED_AT is 2026-10-01T02:00:00 in act 1 and 2026-10-02T02:00:00 in act 2. Names and states come from the fixed lists in G-7. Act 1, 33 rows: A-1001 to A-1030; one NULL; one empty string; a-1010. Act 2, 10 rows: A-1001 and A-1002 with their act 1 CRM row IDs repeated, A-1003 with a new CRM row ID, A-1031, A-1032, a-1004, A-1005 followed by one space, A1007, A-01008, and three spaces. The first act begins: Exemplar: none in either repository; these plain INSERT files were replaced by the land_act macro (step 21).</p>
+<pre><code class="language-sql">INSERT INTO LANDING.SUNBELT.CLIENT (CRM_ROW_ID, CLIENT_NUMBER, FIRST_NAME, LAST_NAME, STATE, LOADED_AT) VALUES
+  (1, 'A-1001', 'Rosa', 'Alvarez', 'FL', '2026-10-01T02:00:00'),
+  (2, 'A-1002', 'Mark', 'Bennett', 'GA', '2026-10-01T02:00:00');
+</code></pre>
+<p>Expected movement: source rows 33 after act 1, 43 after act 2. Act 2 repeats CRM row IDs 1 and 2 for A-1001 and A-1002, so the grain is (LOADED_AT, CRM_ROW_ID), not CRM_ROW_ID alone; act 2&rsquo;s other eight rows take CRM row IDs 34 to 41, giving 41 distinct CRM row IDs across 43 rows (G-6).</p>
+<p><strong>Step 3. Packages.</strong> File: dbt/packages.yml. Add dbt-labs/dbt_utils and metaplane/dbt_expectations, pinned to the versions dbt deps resolves as Fusion compatible on the dbt package hub at the step&rsquo;s clock, and recorded in dbt/package-lock.yml. Then dbt deps. Expected movement: three packages installed. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 4. Generic macros.</strong> Files: dbt/macros/landing_storage.sql (default LANDING; environment variable DBT_LANDING_STORAGE kept), dbt/macros/materializations/merge_into.sql (unchanged), dbt/macros/verification/capture_baseline.sql and verify_build.sql (structure kept; table list replaced by G-4&rsquo;s; the expectations seed read with ref(&lsquo;seed_build_expectations&rsquo;), G-3). Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 5. Configuration and seed.</strong> dbt/dbt_project.yml gains folder settings for dbt/models/inspectors and dbt/models/auditors (no materialization at folder level; each model declares merge_into). dbt/seeds/seed_build_expectations.csv carries the expectations of G-5. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 6. Source declaration and source tests.</strong> File: dbt/models/staging/_sunbelt__sources.yml. Source sunbelt, database from env_var(&lsquo;DBT_LANDING_STORAGE&rsquo;, &lsquo;LANDING&rsquo;), schema SUNBELT, table CLIENT, with the test plan&rsquo;s layer 1 and 2 source tests (severity warn). Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 7. Unit tests first.</strong> File: dbt/models/raw_vault/_client_h.yml holds P1 to P8; dbt/models/inspectors/_inspectors.yml holds I1, I2; dbt/models/auditors/_auditors.yml holds A1, A2. Expected hash values are literals computed in Snowflake with the toolkit&rsquo;s own expression before the tests are written, never typed by hand (G-8). Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 8. Staging view, red then green.</strong> Code in steps 8 and 9 shows each macro call alone; in the model file it sits inside the Jinja expression delimiters (double braces), which the template procedure cannot carry in a document body. File: dbt/models/staging/stg_sunbelt_client.sql. First pass without D-4; run unit test P7 and record its red result as the characterization (empty and whitespace-only values hash as a value). Second pass adds D-4; P4 to P7 green. Exemplar: none in either repository, the first datavault4dbt staging model; the shape comes from the toolkit&rsquo;s documentation, recorded as course record item 274.</p>
+<pre><code class="language-sql">datavault4dbt.stage(
+    source_model={'sunbelt': 'client'},
+    ldts=&quot;TO_TIMESTAMP_NTZ(loaded_at, 'YYYY-MM-DD&quot;T&quot;HH24:MI:SS')&quot;,
+    rsrc='!SUNBELT.CLIENT',
+    derived_columns={'client_number': {'value': &quot;NULLIF(TRIM(client_number), '')&quot;, 'datatype': 'VARCHAR(32)'}},
+    hashed_columns={'hk_client_h': ['client_number']}
+)
+</code></pre>
+<p><strong>Step 9. Hub.</strong> File: dbt/models/raw_vault/client_h.sql, incremental (project default for raw_vault). P1, P2, P3, P8 green. Exemplar: none in either repository, the first datavault4dbt hub; the shape comes from the toolkit&rsquo;s documentation, page 06, recorded as course record item 275.</p>
+<pre><code class="language-sql">datavault4dbt.hub(hashkey='hk_client_h', business_keys=['client_number'], source_models='stg_sunbelt_client')
+</code></pre>
+<p><strong>Step 10. Logic assertions.</strong> Files: dbt/tests/assert_client_h_no_blank_business_key.sql and dbt/tests/assert_client_h_covers_usable_source_keys.sql, each returning offending rows, severity warn. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 11. Inspector.</strong> File: dbt/models/inspectors/inspector_sunbelt_client_number_form.sql, materialized merge_into into LANDING.CONFIG.DATA_FINDING with unique and diff key FINDING_PK and ts key DETECTED_AT, one row per distinct client number whose UPPER(TRIM(client_number)) fails the pattern ^A-[0-9]{4}$, FINDER_TYPE &lsquo;inspection&rsquo;. I1, I2 green. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 12. Auditor.</strong> File: dbt/models/auditors/auditor_sunbelt_client_hub.sql, same materialization, one summary row only when distinct usable source keys differ from non-ghost hub rows, FINDER_TYPE &lsquo;audit&rsquo;, the counts in COLUMN_VALUE and DETAIL. A1, A2 green. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Increment 1.1 steps.</strong> They implement design decisions D-15, D-17, D-20 and D-21.</p>
+<p><strong>Step 13. Source system seed.</strong> File: dbt/seeds/seed_source_system.csv, columns SOURCE_SYSTEM_CODE, SOURCE_NAME, DESCRIPTION, OWNER: SSI (Sunbelt Senior&rsquo;s client file), SYSTEM and ERROR (the vault itself: the unknown and error ghost records; owner the vault&rsquo;s team). File dbt/seeds/_seeds.yml describes it and tests its code (unique, not null, severity warn). dbt_project.yml already places seeds in REFERENCE. Design D-17, D-21. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 14. Client hub fixtures.</strong> The client hub&rsquo;s unit-test fixtures in _client_h.yml change their record source from SUNBELT.CLIENT to SSI. Increment 1.1 adds no unit test: the seed has no logic. Design D-15. Exemplar: the file itself, an edit.</p>
+<p><strong>Step 15.</strong> Superseded by step 13 (D-21); no file.</p>
+<p><strong>Step 16.</strong> Superseded by step 13 (D-21); no file.</p>
+<p><strong>Step 17. Client rows carry the code.</strong> File: dbt/models/staging/stg_sunbelt_client.sql: the static record source becomes SSI. Design D-15. Exemplar: the file itself, an edit.</p>
+<p><strong>Step 18. Resolve assertion.</strong> File: dbt/tests/assert_vault_record_sources_resolve.sql: returns any record source value in the client hub with no matching code in the source system seed; severity warn. Design D-17. Exemplar: dbt/tests/assert_client_h_no_blank_business_key.sql.</p>
+<p><strong>Step 19. Development rebuild script.</strong> File: setup/scripts/dev_scoped_rebuild.sh, taking one model name and running dbt&rsquo;s full refresh for that model and everything downstream of it; it refuses to run unless the target is a developer database (its name starts with DEV__). Design D-20. Used once here: the client hub and its downstream, so existing development rows take SSI. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 20. The live rename.</strong> Commit the seed at version 1, build; then change SSI&rsquo;s row to version 2 (SSI: Sunbelt Senior client file; owner Digest Insurance Distributors; new description), commit, seed and build again. The seed&rsquo;s git history holds both versions; no vault row changes. Design D-21. Exemplar: none: an operation with no file.</p>
+<p><strong>Step 21. Operations as dbt macros.</strong> Files: dbt/macros/development/dev_drop_orphans.sql (lists, then drops, objects in a developer database that the project no longer defines); dbt/macros/operations/land_act.sql (the landing acts, rows moved verbatim from setup/landing, which is removed); dbt/macros/operations/vault_checks.sql (read-only counts). Each refuses databases outside its environments and defaults to a dry run where it changes data. Standard: Operations as dbt Macros. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Increment 2 steps.</strong> They implement design decisions D-22 to D-36. Steps 26 to 31 follow the TDD standard: each model&rsquo;s unit tests (step 25) run red before the model exists in its final form, then green.</p>
+<p><strong>Step 22. Landing tables.</strong> File: setup/infrastructure/landing.sql, the existing script, extended. Pattern: its own SUNBELT.CLIENT block. Design D-22; profile 2.1.3 and 2.1.4. The workstation runs the added statements as SYSADMIN against LANDING, then refreshes the developer clone with part B of setup/infrastructure/environment_tiers.sql. Expected movement: B-5 shows both tables in both databases, empty. Exemplar: its own SUNBELT.CLIENT block.</p>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS LANDING.SUNBELT.POLICY_SALE (
+    SALE_ROW_ID NUMBER NOT NULL, POLICY_NUMBER VARCHAR(32), CLIENT_NUMBER VARCHAR(32), CARRIER_CODE VARCHAR(8),
+    ROLE VARCHAR(16), SOLD_ON VARCHAR(10), AGENT_NAME VARCHAR(64), AGENT_NPN VARCHAR(10), PLAN_NAME VARCHAR(64),
+    LOADED_AT VARCHAR(19) NOT NULL);
+CREATE SCHEMA IF NOT EXISTS LANDING.NORTHFIELD;
+CREATE TABLE IF NOT EXISTS LANDING.NORTHFIELD.POLICY (
+    POLICY_NUMBER VARCHAR(32), INSURED_ID VARCHAR(16), INSURED_NAME VARCHAR(64), BIRTH_DATE VARCHAR(10),
+    ADDRESS VARCHAR(128), FACE_AMOUNT NUMBER(12,2), STATUS VARCHAR(2), EFFECTIVE_DATE VARCHAR(10),
+    WRITING_AGENT_NPN VARCHAR(10), LOADED_AT VARCHAR(19) NOT NULL);
+GRANT INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA LANDING.NORTHFIELD TO ROLE CLAUDE_WS_ROLE;
+</code></pre>
+<p><strong>Step 23. The NFL seed row.</strong> File: dbt/seeds/seed_source_system.csv. Design D-23. One row appended: Exemplar: the file itself, an edit.</p>
+<pre><code class="language-csv">NFL,Northfield Life policy data,&quot;Policy data Northfield Life, a carrier, sends to Digest Insurance Distributors&quot;,Northfield Life
+</code></pre>
+<p><strong>Step 24. Landing acts for both tables.</strong> File: dbt/macros/operations/land_act.sql. Pattern: the macro itself (Standard: Operations as dbt Macros); delta: a table argument (client, policy_sale or policy), one values block per table and act, and the target table and column list chosen by the argument. Guards unchanged. Design D-22; rows exactly as profile P-16, with descriptive values from guide decision G-16. Invocation: dbt run-operation land_act &ndash;args &lsquo;{act: 1, table: policy_sale, dry_run: false}&rsquo;. The policy_sale block of act 1, in full: Exemplar: the macro itself, an edit.</p>
+<pre><code class="language-sql">(1, 'NF-100001', 'A-1001', 'NFL', 'owner', '2026-09-02', 'Dana Whitaker', '17001001', 'Senior Term 20', '2026-10-01T02:00:00'),
+(2, 'NF-100005', 'A-1005', NULL, 'owner', '2026-09-03', 'Marcus Reyes', '17001006', 'Final Expense 10K', '2026-10-01T02:00:00'),
+(3, 'NF-100006', 'A-1006', 'NFL', 'owner', '2026-09-04', 'Marcus Reyes', '17001006', 'Senior Term 20', '2026-10-01T02:00:00'),
+(4, 'NF-100006', 'A-1008', 'NFL', 'insured', '2026-09-04', 'Marcus Reyes', '17001006', 'Senior Term 20', '2026-10-01T02:00:00'),
+(5, 'NF-100007', 'A-1007', 'NFL', 'insured', '2026-09-05', 'Dana Whitaker', '17001001', 'Guaranteed Whole Life', '2026-10-01T02:00:00'),
+(6, 'NF-100010', 'A-1010', 'NFL', 'owner', '2026-09-08', 'Marcus Reyes', '17001006', 'Final Expense 10K', '2026-10-01T02:00:00'),
+(7, 'NF-100010', 'A-1010', 'NFL', 'insured', '2026-09-08', 'Marcus Reyes', '17001006', 'Final Expense 10K', '2026-10-01T02:00:00'),
+(8, '', 'A-1013', NULL, 'owner', '2026-09-09', 'Marcus Reyes', '17001006', 'Senior Term 20', '2026-10-01T02:00:00'),
+(9, 'NF-100014', '', 'NFL', 'owner', '2026-09-10', 'Dana Whitaker', '', 'Guaranteed Whole Life', '2026-10-01T02:00:00')
+</code></pre>
+<p>Act 2&rsquo;s policy_sale block, LOADED_AT 2026-10-02T02:00:00: (10, NF-100012, A-1033, NFL, owner, 2026-09-28, Priya Natarajan, 17001007, Senior Term 20); (11, NF-100011, A-1011, NFL, owner, 2026-09-12, Owen Fitch, 17001004, Final Expense 10K); (12, nf-100001, A-1001, NFL, owner, 2026-09-02, Dana Whitaker, 17001001, Senior Term 20); (13, NF100009, A-1009, NFL, owner, 2026-09-11, Marcus Reyes, 17001006, Final Expense 10K); (14, NF-100001, A-1001, NFL, payor, 2026-09-02, Dana Whitaker, 17001001, Senior Term 20).</p>
+<p>The policy blocks, columns POLICY_NUMBER, INSURED_ID, INSURED_NAME, BIRTH_DATE, ADDRESS, FACE_AMOUNT, STATUS, EFFECTIVE_DATE, WRITING_AGENT_NPN. Act 1: (NF-100001, NLI-55001, Alvarez, Rosa, 1952-03-14, 41 Palm Ave Tampa FL, 25000, IF, 2026-09-15, 17001001); (NF-100002, NLI-55001, Alvarez, Rosa, 1952-03-14, 41 Palm Ave Tampa FL, 10000, IF, 2026-08-20, 17002001); (NF-100003, NLI-55003, Brennan, Ada, 1949-07-02, 9 Oak St Savannah GA, 15000, IF, 2026-07-01, 17002001); (NF-100005, NLI-55005, Ellison, Grace, 1955-11-23, 300 Mesa Rd Tucson AZ, 10000, IF, 2026-09-18, 17001006); (NF-100007, NLI-55007, Garrity, Irene, 1950-05-09, 12 Birch Ln Erie PA, 20000, IF, 2026-09-19, 17001001); (NF-100008, NLI-55008, Lowe, Martin, 1947-01-30, 12 Elm St Flint MI, 15000, IF, 2026-06-10, 17002001); (NF-100009, NLI-55009, Ibarra, Nadia, 1953-08-17, 7 River Rd Knoxville TN, 10000, IF, 2026-09-22, 17001006); (NF-100011, NLI-55011, Kowalski, Elena, 1951-12-05, 88 Bay Dr Naples FL, 10000, IF, 2026-09-25, 17001005); (NF-100013, an empty string, Duarte, Felipe, 1948-04-11, 5 Hill Ct Mesa AZ, 10000, IF, 2026-05-15, 17002001). Act 2: NF-100002 exactly as in act 1; NF-100003 as in act 1 with STATUS LP; NF-100008 as in act 1 with ADDRESS 12 ELM ST FLINT MI. Expected movement: 9 and 9 rows after act 1, 14 and 12 after act 2.</p>
+<p><strong>Step 25. Unit tests first.</strong> Files: dbt/models/staging/_stg_sunbelt_policy_sale.yml, _stg_northfield_policy.yml, and one YAML per vault model in dbt/models/raw_vault, holding the 39 tests of the test plan&rsquo;s logic areas E to O; inspector and auditor tests join _inspectors.yml and _auditors.yml. Shape in section 6. Expected hash literals are computed first with the toolkit&rsquo;s own expression (G-8). Each test runs red before its model&rsquo;s step: missing behavior red for its content reason, never for a missing object (TDD standard, section 1). Exemplar: dbt/models/raw_vault/_client_h.yml.</p>
+<p><strong>Step 26. Staging, Sunbelt Senior&rsquo;s sales data.</strong> File: dbt/models/staging/stg_sunbelt_policy_sale.sql. Pattern: datavault4dbt staging with hard rules (course record item 274); deltas: four derived NULLIF columns, five hash keys, one change hash. Design D-24, D-26, D-33, D-35, D-36. Unit tests PH5 to PH8, CH3 and AG5 green. Exemplar: dbt/models/staging/stg_sunbelt_client.sql.</p>
+<pre><code class="language-sql">datavault4dbt.stage(
+    source_model={'sunbelt': 'policy_sale'},
+    ldts='TO_TIMESTAMP_NTZ(LOADED_AT)',
+    rsrc='!SSI',
+    derived_columns={
+        'policy_number': {'value': &quot;NULLIF(TRIM(policy_number), '')&quot;, 'datatype': 'VARCHAR(32)', 'src_cols_required': 'policy_number'},
+        'carrier_code':  {'value': &quot;NULLIF(TRIM(carrier_code), '')&quot;,  'datatype': 'VARCHAR(8)',  'src_cols_required': 'carrier_code'},
+        'client_number': {'value': &quot;NULLIF(TRIM(client_number), '')&quot;, 'datatype': 'VARCHAR(32)', 'src_cols_required': 'client_number'},
+        'agent_npn':     {'value': &quot;NULLIF(TRIM(agent_npn), '')&quot;,     'datatype': 'VARCHAR(10)', 'src_cols_required': 'agent_npn'}
+    },
+    hashed_columns={
+        'hk_policy_h': ['carrier_code', 'policy_number'],
+        'hk_client_h': ['client_number'],
+        'hk_agent_h': ['agent_npn'],
+        'hk_client_policy_l': ['client_number', 'carrier_code', 'policy_number', 'role'],
+        'hk_agent_policy_l': ['agent_npn', 'carrier_code', 'policy_number'],
+        'hd_client_policy_sunbelt_s': {'is_hashdiff': true, 'columns': ['sold_on', 'agent_name', 'plan_name']}
+    }
+)
+</code></pre>
+<p><strong>Step 27. Staging, Northfield Life&rsquo;s data, and the client list&rsquo;s change hash.</strong> File: dbt/models/staging/stg_northfield_policy.sql; pattern as step 26; deltas: rsrc &lsquo;!NFL&rsquo;; derived columns carrier_code with the constant value &lsquo;NFL&rsquo;, insured_number from NULLIF(TRIM(insured_id), &lsquo;&rsquo;), agent_npn from NULLIF(TRIM(writing_agent_npn), &lsquo;&rsquo;), policy_number as in step 26; hash keys hk_policy_h, hk_insured_h, hk_agent_h, hk_insured_policy_l over insured_number, carrier_code and policy_number, hk_agent_policy_l as in step 26; change hashes hd_insured_northfield_s over insured_name, birth_date and address, and hd_policy_northfield_s over face_amount, status and effective_date. File dbt/models/staging/stg_sunbelt_client.sql gains one change hash, hd_client_sunbelt_s over first_name, last_name and state; its keys are unchanged. Design D-23, D-24, D-26, D-32, D-34, D-35. Unit test IH4 green; increment 1&rsquo;s P4 to P7 stay green. Exemplar: dbt/models/staging/stg_sunbelt_client.sql.</p>
+<p><strong>Step 28. Hubs.</strong> Files: dbt/models/raw_vault/policy_h.sql, insured_h.sql, agent_h.sql; client_h.sql changed. Pattern: datavault4dbt hub (course record item 275); delta for several sources: source_models becomes a list, each with rsrc_static, so the high-water mark runs per source (fork documentation, page 06). Design D-26, D-32, D-35. Unit tests PH1 to PH4, CH1, CH2, IH1 to IH3 and AG1 to AG4 green. Exemplar: dbt/models/raw_vault/client_h.sql.</p>
+<pre><code class="language-sql">datavault4dbt.hub(
+    hashkey='hk_policy_h',
+    business_keys=['carrier_code', 'policy_number'],
+    source_models=[
+        {'name': 'stg_sunbelt_policy_sale', 'rsrc_static': 'SSI'},
+        {'name': 'stg_northfield_policy', 'rsrc_static': 'NFL'}
+    ]
+)
+</code></pre>
+<p>agent_h is the same with hk_agent_h and agent_npn. insured_h is single-source, as increment 1&rsquo;s client_h: hk_insured_h, insured_number, stg_northfield_policy. client_h lists stg_sunbelt_client and stg_sunbelt_policy_sale without rsrc_static, because both carry SSI (G-14). Every new hub&rsquo;s first real build runs with full refresh (item 275, convention 2).</p>
+<p><strong>Step 29. Links.</strong> Files: dbt/models/raw_vault/client_policy_l.sql, insured_policy_l.sql, agent_policy_l.sql. Pattern introduced here in full, from the fork&rsquo;s documentation, pages 07 and 09: a link takes its hash key and the hub keys it joins; a dependent child key is listed among foreign_hashkeys and is part of the link&rsquo;s hash key in staging. Design D-33, D-36. Unit tests L1 to L6, LA2 and LA3 green. Exemplar: none in either repository, the first datavault4dbt links; the shape comes from the toolkit&rsquo;s documentation, pages 07 and 09.</p>
+<pre><code class="language-sql">datavault4dbt.link(
+    link_hashkey='hk_client_policy_l',
+    foreign_hashkeys=['hk_client_h', 'hk_policy_h', 'role'],
+    source_models='stg_sunbelt_policy_sale'
+)
+</code></pre>
+<p>insured_policy_l: hk_insured_policy_l with hk_insured_h and hk_policy_h, from stg_northfield_policy. agent_policy_l: hk_agent_policy_l with hk_agent_h and hk_policy_h, source_models as in step 28&rsquo;s policy_h, with rsrc_static SSI and NFL.</p>
+<p><strong>Step 30. Satellites.</strong> Files: one version 0 satellite and its version 1 view each: client_sunbelt_s, insured_northfield_s, policy_northfield_s, client_policy_sunbelt_s, with views named per G-15. Pattern introduced here in full, from the fork&rsquo;s documentation, page 10: the version 0 satellite is insert-only and incremental; the version 1 view adds the load end date. Design D-34. Unit tests ST1 to ST5 green. Exemplar: none in either repository, the first datavault4dbt satellites; the shape comes from the toolkit&rsquo;s documentation, page 10.</p>
+<pre><code class="language-sql">datavault4dbt.sat_v0(
+    parent_hashkey='hk_policy_h',
+    src_hashdiff='hd_policy_northfield_s',
+    src_payload=['face_amount', 'status', 'effective_date'],
+    source_model='stg_northfield_policy'
+)
+</code></pre>
+<pre><code class="language-sql">datavault4dbt.sat_v1(
+    sat_v0='policy_northfield_s',
+    hashkey='hk_policy_h',
+    hashdiff='hd_policy_northfield_s'
+)
+</code></pre>
+<p><strong>Step 31. Inspector and auditors.</strong> Files: dbt/models/inspectors/inspector_sunbelt_policy_number_form.sql, pattern inspector_sunbelt_client_number_form with deltas: reads stg_sunbelt_policy_sale, pattern ^NF-[0-9]{6}$ on UPPER(TRIM(policy_number)), source table SUNBELT.POLICY_SALE, column POLICY_NUMBER. dbt/models/auditors/auditor_sunbelt_policy_hub.sql and auditor_northfield_policy_hub.sql, pattern auditor_sunbelt_client_hub with deltas: each checks that every distinct usable policy key of its staging model exists in policy_h, whichever record source the hub kept, and writes one summary finding only when a key is missing. Existence, not record source, is the test, because a key both sources send in one load is kept under one of them (path PH3). Design D-30, D-10. Unit tests I3, I4 and A3 to A6 green. Exemplar: dbt/models/inspectors/inspector_sunbelt_client_number_form.sql and dbt/models/auditors/auditor_sunbelt_client_hub.sql.</p>
+<p><strong>Step 32. Facility and checks.</strong> Files: capture_baseline.sql and verify_build.sql measure the two new source tables and every new hub, link and satellite by row count (rule 5 of the baseline standard); seed_build_expectations.csv gains inc2 rows that hold after both acts (G-17); vault_checks.sql reports the new tables&rsquo; counts; assert_vault_record_sources_resolve.sql reads every hub and link, not only client_h. Layers 1, 2 and 4 are written after the code, from the branch&rsquo;s diff (TDD standard, section 1, step 4). Exemplar: the files themselves, edits; dbt/macros/verification/baseline_metrics.sql holds the measured set the two macros share, taken out of capture_baseline.sql.</p>
+<p><strong>Lab 1-2: Pinecrest Mutual&rsquo;s policy data, from landing into the vault&rsquo;s sources.</strong> Design D-37 to D-39; profile 2.1.5 and P-20; test plan 2.2. The vault starts at landing; populating landing is outside it (Ray, 2026-10-25), so steps 33 and 34 are the teacher&rsquo;s, as the stand-in source, and steps 35 and 36 are Ray&rsquo;s lab. Done on 2026-10-25: steps 33 and 34 (commit 0a83a38), the table and its twelve rows delivered to LANDING, and Ray&rsquo;s landing clone, DEV__LANDING__RAYSERRANO, refreshed from LANDING with its grants. The test expect_pinecrest_policy_rows_as_profiled, on Ray&rsquo;s branch since commit 751f153, passes against LANDING. Ray works on a short lab branch from rayserrano/dig-574-labs, in his developer tier: DEV__DV__RAYSERRANO over DEV__LANDING__RAYSERRANO.</p>
+<p><strong>Step 33. The Pinecrest landing table (the teacher, as the stand-in source; done).</strong> File: setup/infrastructure/landing.sql, the existing script, extended. Design D-37. Add a schema PINECREST and a table POLICY with seven columns, every one VARCHAR: POLICY_NUMBER, PLAN_NAME, FACE_AMOUNT, STATUS, EFFECTIVE_DATE, WRITING_AGENT_NPN, LOADED_AT. Run first in a developer landing clone, then in LANDING; QA and developer landing receive it by cloning LANDING. Verify: the table exists, empty, with seven text columns. Exemplar: its own NORTHFIELD block, in the same file.</p>
+<p><strong>Step 34. Pinecrest&rsquo;s landing acts (the teacher, as the stand-in source; done).</strong> File: dbt/macros/operations/land_act.sql. Design D-38. Add a fourth table, pinecrest_policy, to the macro&rsquo;s targets (relation PINECREST.POLICY and its seven columns), and one values block per act carrying profile P-20&rsquo;s rows exactly: 8 rows in act 1, 4 in act 2, LOADED_AT as text. Guards unchanged. Proved live in the teacher&rsquo;s developer clone, which the macro allows for proving a change to itself, then delivered to LANDING: the dry run lists 0 rows present, then the load leaves 8 and then 4; a second load of an act is refused; with DBT_LANDING_STORAGE=LANDING_QA it is refused. Exemplar: the macro&rsquo;s policy table, its NORTHFIELD.POLICY block.</p>
+<p><strong>Step 35. Declare the source, with its tests (Ray&rsquo;s Lab 1-2).</strong> File: dbt/models/staging/_sunbelt__sources.yml. Design D-39. Add a source pinecrest (database from the same environment variable, schema PINECREST) with its table policy; on LOADED_AT, not_null named nn_pinecrest_policy_loaded_at; on the table, dbt_utils.unique_combination_of_columns over LOADED_AT and POLICY_NUMBER named uqc_pinecrest_policy_loaded_at_policy_number; both at severity warn. Exemplar: the northfield source in the same file.</p>
+<p><strong>Step 36. Prove and submit (Ray&rsquo;s Lab 1-2).</strong> Run the three Lab 1-2 tests: expect_pinecrest_policy_rows_as_profiled returns no rows, and the two built-ins pass. Run the full build in the developer tier: every test passes, 107 in all. Open one pull request from the lab branch into rayserrano/dig-574-labs; the teacher reviews it. The source declaration reaches qa and production through the QA, promotion and production steps in section 10.</p>
+<p><strong>Step 37. Relationship tests for the satellites (done).</strong> File: dbt/models/raw_vault/<em>increment_2.yml. Design D-40; test plan layer 1. Declare each satellite in the file and, on its hash key, a dbt relationships test to its parent: rel_client_sunbelt_s_hk_client_h to client_h, rel_client_policy_sunbelt_s_hk_client_policy_l to client_policy_l, rel_insured_northfield_s_hk_insured_h to insured_h and rel_policy_northfield_s_hk_policy_h to policy_h. Each at severity warn, with to and field under arguments. The links get no such test: assert_increment_2_link_hub_keys_exist already proves their six hub keys. Expected movement: none in the data; dbt ls returns 108 tests. Exemplar: the uq</em> and nn_ tests in the same file, and the arguments block of uqc_sunbelt_client_loaded_at_crm_row_id in dbt/models/staging/_sunbelt__sources.yml.</p>
+<pre><code class="language-yaml">  - name: client_sunbelt_s
+    columns:
+      - name: hk_client_h
+        tests:
+          - relationships:
+              name: rel_client_sunbelt_s_hk_client_h
+              arguments:
+                to: ref('client_h')
+                field: hk_client_h
+              config: {severity: warn}
+</code></pre>
+<p>The other three satellites follow the same shape, each with its own key and parent.</p>
+<p><strong>Step 38. Case-sensitive hashdiffs on every engine (done).</strong> Files: dbt/dbt_project.yml and dbt/tests/assert_hashdiff_keeps_case_only_change.sql. Design D-41; test plan layer 4. Under vars, set <code>datavault4dbt.hashdiff_input_case_sensitive: true</code> with a comment naming D-41. Add the assertion: it pairs each insured&rsquo;s staged versions and returns any two that differ only in case yet share a hashdiff, at severity error, tagged layer_4. Expected movement: none on the development tier, whose hashdiffs were already case-sensitive; in QA, after DV_QA is cleared and rebuilt, insured_northfield_s holds 11 rows. Exemplar: assert_client_h_no_blank_business_key in the same folder.</p>
+<p><strong>Fix to release 1 steps.</strong> They implement design decisions D-42 to D-52 (Linear DIG-594), on branch claude_ws/dig-594-release-1-keys-rebased-2, cut from qa after Mary&rsquo;s site (DIG-589) brought the DDL generator.</p>
+<p><strong>Step 39. Layer 1 tests on the links and the satellites&rsquo; keys.</strong> File: dbt/models/raw_vault/<em>increment_2.yml. Design D-42; test plan layer 1. On each link&rsquo;s two hub keys, a relationships test to its hub, named rel</em><link><em><hub key>; on each satellite, a unique-combination test over its parent hash key and its load time, named uq</em><satellite><em>pk, and a not-null test on each of the two columns, named nn</em><satellite><em><parent key> and nn</em><satellite>_ldts. Every test at severity warn. Expected movement: none in the data; 18 more tests, and the first run of uq_client_sunbelt_s_pk fails on a vault built before the fix. Exemplar: step 37&rsquo;s relationships tests in the same file.</p>
+<pre><code class="language-yaml">  - name: client_policy_l
+    columns:
+      - name: hk_client_h
+        tests:
+          - relationships:
+              name: rel_client_policy_l_hk_client_h
+              arguments:
+                to: ref('client_h')
+                field: hk_client_h
+              config: {severity: warn}
+  - name: client_sunbelt_s
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          name: uq_client_sunbelt_s_pk
+          arguments:
+            combination_of_columns: [hk_client_h, ldts]
+          config: {severity: warn}
+    columns:
+      - name: hk_client_h
+        tests:
+          - not_null:
+              name: nn_client_sunbelt_s_hk_client_h
+              config: {severity: warn}
+</code></pre>
+<p>The other five link keys and three satellites follow the same shape, each with its own key and parent; nn_<satellite>_ldts sits on the ldts column.</p>
+<p><strong>Step 40. Keys declared from the tests.</strong> Files: dbt/macros/declare_vault_keys.sql and the on-run-end hook in dbt/dbt_project.yml. Design D-43. The macro reads the project graph after the build: each unique test on one column, or unique_combination_of_columns, becomes its table&rsquo;s primary key; each relationships test becomes a foreign key to the table it names, when that table is keyed. Only tables, incremental models and seeds are keyed, since views cannot be, and a key already present in the information schema is left alone, so the hook is safe after every build. Expected movement: 22 keys on the first build, 12 primary and 10 foreign, and none on a rerun. Exemplar: dbt/macros/operations/vault_checks.sql, the project&rsquo;s macro that runs warehouse statements through run_query and reports through log.</p>
+<pre><code class="language-sql">-- dbt/dbt_project.yml
+on-run-end:
+  - declare_vault_keys()
+
+-- dbt/macros/declare_vault_keys.sql, the load-bearing lines
+if t.test_metadata.name == 'unique' and kw.column_name: pks[owner.name] = [kw.column_name]
+elif t.test_metadata.name == 'unique_combination_of_columns': pks[owner.name] = kw.combination_of_columns
+elif t.test_metadata.name == 'relationships': fks.append(table, column, to, field)
+-- for each key not yet in &lt;database&gt;.information_schema.table_constraints:
+alter table &lt;relation&gt; add constraint pk_&lt;table&gt; primary key (&lt;columns&gt;)
+alter table &lt;relation&gt; add constraint fk_&lt;table&gt;_&lt;column&gt; foreign key (&lt;column&gt;) references &lt;target relation&gt; (&lt;field&gt;)
+</code></pre>
+<p><strong>Step 41. Satellites read only rows with their key.</strong> Files: dbt/models/staging/stg_sunbelt_client_known_client.sql, stg_northfield_policy_known_insured.sql and stg_northfield_policy_known_policy.sql, three views; the source_model of client_sunbelt_s, insured_northfield_s and policy_northfield_s points to them. Design D-44. Each view keeps the rows of its staging model whose business key is not NULL; the links keep reading the staging models whole. Expected movement: no satellite row on the zero key from any source. A developer vault built before the fix rebuilds the three satellites with infra/scripts/dev_scoped_rebuild.sh <satellite>; QA&rsquo;s reset rebuilds them anyway. Exemplar: dbt/models/mart/policy_fact.sql, the project&rsquo;s plain view over a vault model.</p>
+<pre><code class="language-sql">-- dbt/models/staging/stg_sunbelt_client_known_client.sql
+config(materialized='view')
+SELECT * FROM ref('stg_sunbelt_client') WHERE client_number IS NOT NULL
+
+-- dbt/models/raw_vault/client_sunbelt_s.sql, the one changed argument
+source_model='stg_sunbelt_client_known_client'
+</code></pre>
+<p>stg_northfield_policy_known_insured filters on insured_number and feeds insured_northfield_s; stg_northfield_policy_known_policy filters on policy_number and feeds policy_northfield_s.</p>
+<p><strong>Step 42. Missing-key inspectors.</strong> Files: dbt/models/inspectors/inspector_sunbelt_client_key_missing.sql, inspector_sunbelt_policy_sale_key_missing.sql and inspector_northfield_policy_key_missing.sql, each materialized merge_into into LANDING.CONFIG.DATA_FINDING, and their six unit tests in dbt/models/inspectors/_inspectors.yml. Design D-45; test plan area Z. Each reads its landing table, the persistent staging that keeps every row as sent, applies staging&rsquo;s rule NULLIF(TRIM(key), &lsquo;&rsquo;) to the raw column, and writes one finding per source row and missing key, the row named in COLUMN_VALUE so it can be found in landing, FINDER_TYPE &lsquo;inspection&rsquo;. Expected movement: 7 findings on the planted data, beside the 3 form findings. Exemplar: dbt/models/inspectors/inspector_sunbelt_client_number_form.sql.</p>
+<pre><code class="language-sql">-- inspector_sunbelt_policy_sale_key_missing, the shaping CTE
+missing AS (
+    SELECT 'POLICY_NUMBER' AS source_column, row_name AS column_value,
+           'Sale without a policy number: its roles and agent are joined to the unknown policy.' AS detail
+    FROM sales WHERE policy_number IS NULL
+    UNION ALL
+    SELECT 'CLIENT_NUMBER', row_name, 'Sale without a client number: its role is joined to the unknown client.' FROM sales WHERE client_number IS NULL
+    UNION ALL
+    SELECT 'AGENT_NPN', row_name, 'Sale without an agent number: its policy is joined to the unknown agent.' FROM sales WHERE agent_npn IS NULL
+)
+</code></pre>
+<p>The CTE before it reads landing: sales AS (SELECT NULLIF(TRIM(policy_number), &lsquo;&rsquo;) AS policy_number, NULLIF(TRIM(client_number), &lsquo;&rsquo;) AS client_number, NULLIF(TRIM(agent_npn), &lsquo;&rsquo;) AS agent_npn, the row&rsquo;s name FROM source(&lsquo;sunbelt&rsquo;, &lsquo;policy_sale&rsquo;)). The client and carrier inspectors take the same shape over their own landing tables and keys.</p>
+<p><strong>Step 43. The production correction.</strong> Files: infra/snowflake/correct_zero_key_satellite_rows.sql, and its line under step 4 of the promotion steps in infra/runbooks/dbt_cloud_prod_environment.md. Design D-46. Run once, as SYSADMIN, after the production build of the promotion that carries the fix, naming the vault database: snow sql &hellip; -D vault=DV, with the script on standard input. It refuses any database other than DV, DV_QA or a developer&rsquo;s DEV__DV__<USER>; counts the zero-key source rows of client_sunbelt_s and insured_northfield_s; deletes them, keeping the placeholder rows of record source SYSTEM or ERROR; and counts again. Expected movement: 3 and 1 before, 0 and 0 after in production; nothing in a vault built after the fix. Exemplar: infra/snowflake/refresh_landing_tier.sql, the project&rsquo;s guarded script that refuses an unknown tier before it changes anything.</p>
+<p><strong>Step 44. The vault&rsquo;s DDL with its keys.</strong> File: infra/snowflake/ddl/dv.sql, regenerated by infra/scripts/vault_ddl.py from the developer&rsquo;s vault right after the build. Design D-43. Command: python3 infra/scripts/vault_ddl.py &ndash;database DEV__DV__<USER> &ndash;landing DEV__LANDING__<USER> &ndash; <snow options>, then the same with &ndash;check, which must report a match. Expected movement against qa&rsquo;s file: 22 constraint lines added, 12 primary and 10 foreign, every reference written as DV; the column lines they follow gain only a trailing comma. Exemplar: Mary&rsquo;s site implementation guide, section 7, row 6.</p>
+<p><strong>Step 45. Mary&rsquo;s site rebuilt.</strong> Command: python3 site/build_site.py <preview path>, from the repository root, after the three branch documents are current in Pilot. Its guards run after the build: every internal address resolves, no page is wider than a phone, no secret pattern in the published files. Expected movement: the documentation pages carry the fix, the design card names decisions D-1 to D-46, and the Build page&rsquo;s DDL is the keyed dv.sql. Exemplar: Mary&rsquo;s site implementation guide, section 7, rows 1 and 2.</p>
+<p><strong>Step 46. The meaning of a finding in the semantic layer.</strong> Files: dbt/models/mart/_landing_config__sources.yml (new: the landing&rsquo;s CONFIG schema as a source, so finding_fact can be unit-tested); dbt/models/mart/finding_fact.sql (reads that source, and adds finding_kind from the finder that wrote the finding: audit when finder_type is audit, missing_key for a finder name ending _key_missing, form for one ending _form; and finding_row, the source table and the name of the row); dbt/models/mart/_mart.yml (the two dimensions; the metric records_not_accepted, findings whose finding_kind is form; the metric rows_missing_key, the distinct rows named by findings whose finding_kind is missing_key; the unit test unit_finding_fact_kind_and_row); site/build_site.py and site/dev/qa_retest.py (Q-15&rsquo;s prompt and expectation read records_not_accepted). Design D-47. Test first: the unit test fails before the model change and passes after. Expected movement in dev: records_not_accepted 3, rows_missing_key 6, from 7 missing keys on 6 rows. Exemplar: the findings metric in the same _mart.yml for the two metrics, and unit_inspector_sunbelt_client_key_missing_one_finding_per_row for the unit test.</p>
+<p><strong>Step 47. Nothing from the reference architecture.</strong> Files: the comments of infra/runbooks/github_machine_account.md, infra/snowflake/admin_separation.sql, environment_tiers.sql, landing.sql and refresh_landing_tier.sql, and of the other files the build&rsquo;s code pages show, with no code changed; site/excluded_terms.txt (new: one regular expression per line, matched without case); site/build_site.py (pages held in memory and written only when no built page, code views included, carries a listed term; the reader&rsquo;s output built outside docs/). Design D-48. Test first: the build run before the removal refuses, naming each page and line. Expected movement: 120 hits in 11 pages before, none after, 22 pages written. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<p><strong>Step 48. The executive summary.</strong> File: site/build_site.py (exec_summary, first in the home page&rsquo;s body; DATABRICKS_SOON, False). Design D-49. Expected movement: the summary first on the home page, word for word as approved; with the switch on, the Databricks line appears. Exemplar: the home page&rsquo;s own blocks in the same file.</p>
+<p><strong>Step 49. The release page sends readers to the Ask page.</strong> File: site/build_site.py (the release page&rsquo;s lede and its prompts). Design D-50. Expected movement: no connector instruction on any built page. Exemplar: the Ask page&rsquo;s suggestions in the same file.</p>
+<p><strong>Step 50. The QA retest inside the workstation container.</strong> File: site/dev/qa_retest.py (the browser accepts the gateway&rsquo;s certificate only where /etc/ssl/certs/egress-gateway-ca-production.pem exists; has_number counts digits or the number spelled out). Design D-51. Expected movement: 26 of 26 from the container against the QA function. Exemplar: the same script&rsquo;s own checks.</p>
+<p><strong>Step 51. The site&rsquo;s counts read from their sources.</strong> File: site/build_site.py (design_decision_ids reads the design&rsquo;s decision table, the rows that open with | D-n |; check_model_count counts the models in dbt/models/inspectors and dbt/models/auditors; the guard count_mismatches compares each shown count with its source and refuses to write the site on a mismatch). Design D-52. Expected movement: before the code, the guard refuses the build with 6 counts that differ; after it, the Documentation page shows 52 design decisions and the design card names D-1 to D-52, and the Build page shows 8 finders and auditors. Exemplar: the excluded-terms guard in the same script (Step 45).</p>
+<p><strong>Step 52. The carriers&rsquo; organization landing tables.</strong> File: infra/snowflake/landing.sql, the existing script, extended. Design: mart design D-11; profile P-21. Add to the schema NORTHFIELD a table ORGANIZATION, and to the schema PINECREST a table ORGANIZATION, each with three text columns, CARRIER_CODE, CARRIER_NAME and LOADED_AT, and the grants on both schemas&rsquo; tables. The workstation runs the added statements as SYSADMIN, first in a developer landing clone, then in LANDING; QA and developer landing receive them by cloning LANDING. Exemplar: its own PINECREST block, in the same file.</p>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS LANDING.NORTHFIELD.ORGANIZATION (
+    CARRIER_CODE VARCHAR, CARRIER_NAME VARCHAR, LOADED_AT VARCHAR);
+CREATE TABLE IF NOT EXISTS LANDING.PINECREST.ORGANIZATION (
+    CARRIER_CODE VARCHAR, CARRIER_NAME VARCHAR, LOADED_AT VARCHAR);
+GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA LANDING.NORTHFIELD TO ROLE CLAUDE_WS_ROLE;
+GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA LANDING.PINECREST TO ROLE CLAUDE_WS_ROLE;
+</code></pre>
+<p>Expected movement: both tables exist, empty, with three text columns each, in the developer landing clone and then in LANDING; every existing landing table keeps its rows.</p>
+<p><strong>Step 53. The PMC seed row.</strong> File: dbt/seeds/seed_source_system.csv. Design: mart design D-11; profile P-21; on the precedent of step 23&rsquo;s NFL row (branch design D-23). One row appended, for Pinecrest Mutual&rsquo;s data, owner Pinecrest Mutual, so that the record source PMC, which Pinecrest Mutual&rsquo;s organization records carry into the vault, resolves like every other record source. Exemplar: the file itself, an edit.</p>
+<pre><code class="language-csv">PMC,Pinecrest Mutual policy data,&quot;Policy data Pinecrest Mutual, a carrier, sends to Digest Insurance Distributors&quot;,Pinecrest Mutual
+</code></pre>
+<p>Expected movement: dbt seed loads the PMC row; uq_seed_source_system_code and nn_seed_source_system_code pass; assert_vault_record_sources_resolve still passes, every record source in the vault resolving to a seed code.</p>
+<p><strong>Step 54. Landing acts for the organization records.</strong> File: dbt/macros/operations/land_act.sql. Design: mart design D-11; profile P-21. Add two targets, northfield_organization (relation NORTHFIELD.ORGANIZATION) and pinecrest_organization (relation PINECREST.ORGANIZATION), each with the columns CARRIER_CODE, CARRIER_NAME and LOADED_AT, and one values block per table and act carrying exactly P-21&rsquo;s rows, LOADED_AT as text: act 1, NFL, Northfield Life; act 2, NFL, Northfield Life again, and PMC, Pinecrest Mutual. pinecrest_organization has no act 1 row. Guards unchanged. Proved live in a developer landing clone, then delivered to LANDING. Invocation: dbt run-operation land_act &ndash;args &lsquo;{act: 1, table: northfield_organization, dry_run: false}&rsquo;. Exemplar: the macro&rsquo;s pinecrest_policy target (step 34).</p>
+<pre><code class="language-sql">-- northfield_organization, act 1
+('NFL', 'Northfield Life', '2026-10-01T02:00:00')
+-- northfield_organization, act 2
+('NFL', 'Northfield Life', '2026-10-02T02:00:00')
+-- pinecrest_organization, act 2
+('PMC', 'Pinecrest Mutual', '2026-10-02T02:00:00')
+</code></pre>
+<p>Expected movement: the dry run lists 0 rows present; NORTHFIELD.ORGANIZATION holds 1 row after act 1 and 2 after act 2; PINECREST.ORGANIZATION holds 0 after act 1 and 1 after act 2; a second load of an act is refused, as is a run with DBT_LANDING_STORAGE=LANDING_QA.</p>
+<p><strong>Step 55. The organization sources and their landing tests.</strong> File: dbt/models/staging/_sunbelt__sources.yml. Design: mart design D-11; profile P-21; test plan 2.3.1, paths OL1 and OL2. Add the table organization under the source northfield. On this branch the file has no pinecrest source yet: step 35, which declares it with its table policy, is Ray&rsquo;s Lab 1-2, on his own branch. So step 55 adds the source pinecrest (database from the same environment variable, schema PINECREST) with its table organization alone and that table&rsquo;s tests. Lab 1-2 adds the table policy to the same source on Ray&rsquo;s branch, and the two merge without conflict. On each table&rsquo;s CARRIER_NAME, not_null, named nn_northfield_organization_carrier_name and nn_pinecrest_organization_carrier_name (layer 1, path OL2); on each table, dbt_utils.unique_combination_of_columns over LOADED_AT and CARRIER_CODE, named uqc_northfield_organization_loaded_at_carrier_code and uqc_pinecrest_organization_loaded_at_carrier_code (layer 2, path OL1); all four at severity warn. Expected movement: none in the data; four more tests, each passing against the rows step 54 lands. Exemplar: the northfield source in the same file.</p>
+<p><strong>Step 56. Unit tests first, the carrier feed.</strong> Files: dbt/models/staging/_stg_northfield_organization.yml, dbt/models/staging/_stg_pinecrest_organization.yml and dbt/models/raw_vault/_organization.yml, holding the feed&rsquo;s unit tests of test plan section 2.3.1. Path OS1 in each staging file: unit_stg_northfield_organization_os1_arrival_code_and_name and unit_stg_pinecrest_organization_os1_arrival_code_and_name. In _organization.yml, paths OH1 to OH4: unit_organization_h_oh1_new_key, unit_organization_h_oh2_repeat_keeps_first, unit_organization_h_oh3_later_load_inserts and unit_organization_h_oh4_both_carrier_feeds; and paths OT1 to OT3 for each satellite: unit_organization_northfield_s_ot1_first_version, unit_organization_northfield_s_ot2_unchanged_resend, unit_organization_northfield_s_ot3_changed_name_new_version, unit_organization_pinecrest_s_ot1_first_version, unit_organization_pinecrest_s_ot2_unchanged_resend and unit_organization_pinecrest_s_ot3_changed_name_new_version. Design: mart design D-11; profile P-21; test plan 2.3.1. Expected hash literals are computed first with the toolkit&rsquo;s own expression (G-8). Each test runs red for its content reason before its model exists. Expected movement: none in the data from the tests themselves; once steps 57 to 59 are built, P-21&rsquo;s: after act 1, one hub row in organization_h (NFL) beside the two ghost records, and one version in organization_northfield_s; after act 2, PMC added to the hub, a first version in organization_pinecrest_s, and no new version for NFL. Exemplar: dbt/models/staging/_stg_northfield_policy.yml and dbt/models/raw_vault/_client_h.yml.</p>
+<p><strong>Step 57. Staging, the carriers&rsquo; organization records.</strong> Files: dbt/models/staging/stg_northfield_organization.sql and stg_pinecrest_organization.sql. Pattern: datavault4dbt staging with hard rules (course record item 274); deltas: static record source &lsquo;!NFL&rsquo; in stg_northfield_organization and &lsquo;!PMC&rsquo; in stg_pinecrest_organization; the derived column carrier_code from the hard rule NULLIF(TRIM(carrier_code), &lsquo;&rsquo;); the hash key hk_organization_h over carrier_code; one change hash per model over carrier_name. Design: mart design D-11; profile P-21. Unit tests OS1 of both models green. Expected movement: the two staging views carry P-21&rsquo;s rows to the vault, so that, once steps 58 and 59 are built, after act 1 organization_h holds one hub row (NFL) beside the two ghost records and organization_northfield_s one version; after act 2, PMC is added to the hub, organization_pinecrest_s holds a first version, and NFL gets no new version. Exemplar: dbt/models/staging/stg_northfield_policy.sql.</p>
+<p><strong>Step 58. The organization hub.</strong> File: dbt/models/raw_vault/organization_h.sql. Pattern: datavault4dbt hub (course record item 275); delta for several sources, as step 28: source_models becomes a list of the two staging models, each with rsrc_static, NFL for stg_northfield_organization and PMC for stg_pinecrest_organization. Design: mart design D-11; profile P-21. Unit tests OH1 to OH4 green. Its first real build runs with full refresh (item 275, convention 2). Expected movement: after act 1, one hub row (NFL) beside the two ghost records; after act 2, PMC added to the hub, NFL&rsquo;s first sighting kept. Exemplar: dbt/models/raw_vault/policy_h.sql (step 28).</p>
+<pre><code class="language-sql">datavault4dbt.hub(
+    hashkey='hk_organization_h',
+    business_keys=['carrier_code'],
+    source_models=[
+        {'name': 'stg_northfield_organization', 'rsrc_static': 'NFL'},
+        {'name': 'stg_pinecrest_organization', 'rsrc_static': 'PMC'}
+    ]
+)
+</code></pre>
+<p><strong>Step 59. The organization satellites and their keys.</strong> Files: dbt/models/raw_vault/organization_northfield_s.sql and organization_pinecrest_s.sql, each a version 0 satellite on hk_organization_h with the carrier&rsquo;s name, read from its carrier&rsquo;s staging model, and its version 1 view, organization_northfield_s1 and organization_pinecrest_s1 (G-15), as step 30; and in dbt/models/raw_vault/_organization.yml the layer 1 tests of test plan 2.3.1&rsquo;s path rows OK1 to OK4, named as that section names them, each at severity warn. On organization_h (OK1, OK2): uq_organization_h_hk_organization_h and nn_organization_h_hk_organization_h. On organization_northfield_s (OK1 to OK4): uq_organization_northfield_s_pk, nn_organization_northfield_s_hk_organization_h, nn_organization_northfield_s_ldts and rel_organization_northfield_s_hk_organization_h. On organization_pinecrest_s (OK1 to OK4): uq_organization_pinecrest_s_pk, nn_organization_pinecrest_s_hk_organization_h, nn_organization_pinecrest_s_ldts and rel_organization_pinecrest_s_hk_organization_h. Design: mart design D-11; profile P-21; test plan 2.3.1. Unit tests OT1 to OT3 of both satellites green. Expected movement: after act 1, one version in organization_northfield_s; after act 2, a first version in organization_pinecrest_s and no new version for NFL; ten more tests. Exemplar: dbt/models/raw_vault/policy_northfield_s.sql, policy_northfield_s1.sql, and step 39&rsquo;s tests in dbt/models/raw_vault/_increment_2.yml.</p>
+<p><strong>Step 60. The conformed_dm folder and its schema.</strong> Files: the new folder dbt/models/marts/conformed_dm, and its entry in dbt/dbt_project.yml. Pattern: the folder entries already in dbt/dbt_project.yml, each placing its folder&rsquo;s models in one schema with one materialization; delta: the folder marts/conformed_dm, its models placed in the schema CONFORMED_DM as views. Design: mart design D-6; section 5.6. Exemplar: the dbt_project.yml entries of the existing folders, in dbt/dbt_project.yml.</p>
+<pre><code class="language-yaml">models:
+  &lt;project name&gt;:
+    marts:
+      conformed_dm:
+        +schema: CONFORMED_DM
+        +materialized: view
+</code></pre>
+<p>Expected movement: none in the data; the folder holds no model until step 62, and no object appears in CONFORMED_DM until then.</p>
+<p><strong>Step 61. Unit tests first, the dimensions.</strong> File: dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml, holding the dimensions&rsquo; unit tests of test plan section 2.3.2, logic areas U and V. Paths DG1 to DG3: unit_person_dim_dg1_ghost_members_kept, unit_organization_dim_dg2_ghost_members_kept and unit_policy_dim_dg3_ghost_members_kept; paths DL1 and DL2: unit_person_dim_dl1_agent_name_from_latest_sale and unit_policy_dim_dl2_plan_name_from_latest_sale. DG1 follows mart design D-14 and the test plan&rsquo;s DG1: each ghost key of client_h, insured_h and agent_h appears once in person_dim, with no role. DG3 also gives a sale with a blank policy number, joined to the unknown policy, whose carrier reads (unknown). Design: mart design D-2, D-10, D-11, D-14; test plan 2.3.2. Each test runs red for its content reason before its model exists. Exemplar: dbt/models/mart/_mart.yml, its unit test unit_finding_fact_kind_and_row.</p>
+<pre><code class="language-yaml">unit_tests:
+  - name: unit_person_dim_dg1_ghost_members_kept
+    model: person_dim
+    given:
+      - input: ref('client_h')
+        rows:
+          - {hk_client_h: '00000000000000000000000000000000', client_number: null, rsrc: 'SYSTEM'}
+          - {hk_client_h: 'ffffffffffffffffffffffffffffffff', client_number: null, rsrc: 'ERROR'}
+          - {hk_client_h: '&lt;the hash of A-1001, computed per G-8&gt;', client_number: 'A-1001', rsrc: 'SSI'}
+      - input: ref('insured_h')
+        rows: [the same two ghost rows, keyed hk_insured_h]
+      - input: ref('agent_h')
+        rows: [the same two ghost rows, keyed hk_agent_h]
+    expect:
+      rows:
+        - {person_key: '00000000000000000000000000000000', person_role: null}
+        - {person_key: 'ffffffffffffffffffffffffffffffff', person_role: null}
+        - {person_key: '&lt;the hash of A-1001&gt;', person_role: 'client'}
+</code></pre>
+<p>person_dim&rsquo;s other inputs, the satellite views and agent_policy_l, are given with no rows. The other four tests are this shape with the scenarios and expected rows of their test plan rows. Expected movement: none in the data; five unit tests, each red before its model&rsquo;s step (steps 62 to 64).</p>
+<p><strong>Step 62. person_dim.</strong> File: dbt/models/marts/conformed_dm/person_dim.sql, a view. Design: mart design D-2, D-10, D-12, D-14; section 3.3. One row per person record the raw vault receives, unmatched. Client records from client_h, client_number as person_number, the hub&rsquo;s record source as source_key and its load day as first_known_date, with first_name, last_name and state from the current version of client_sunbelt_s1. Insured records from insured_h and the current version of insured_northfield_s1: insured_name as full_name, birth_date and address. Agent records from agent_h, agent_npn as person_number, full_name the agent name of the most recent sale (client_policy_sunbelt_s1.agent_name) of a policy that agent_policy_l joins to the agent. Each ghost key appears once, with no role (mart design D-14). A current version is the one whose load end date is 8888-12-31 23:59:59. Unit tests DG1 and DL1 green. Layer 1, in dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml: uq_person_dim_person_key (path DU1), at severity warn. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-sql">config(materialized='view')
+WITH ghosts AS (
+    SELECT hk_client_h AS person_key, CAST(NULL AS VARCHAR) AS person_role, rsrc AS source_key
+    FROM ref('client_h') WHERE rsrc IN ('SYSTEM', 'ERROR')
+),
+clients AS (
+    SELECT h.hk_client_h AS person_key, 'client' AS person_role, h.rsrc AS source_key,
+           TO_DATE(h.ldts) AS first_known_date, h.client_number AS person_number,
+           s.first_name, s.last_name, s.state
+    FROM ref('client_h') h
+    LEFT JOIN ref('client_sunbelt_s1') s
+      ON s.hk_client_h = h.hk_client_h AND s.ledts = '8888-12-31 23:59:59'
+    WHERE h.rsrc NOT IN ('SYSTEM', 'ERROR')
+),
+latest_agent_name AS (
+    SELECT ap.hk_agent_h, s.agent_name
+    FROM ref('agent_policy_l') ap
+    JOIN ref('client_policy_l') cp ON cp.hk_policy_h = ap.hk_policy_h
+    JOIN ref('client_policy_sunbelt_s1') s ON s.hk_client_policy_l = cp.hk_client_policy_l
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY ap.hk_agent_h ORDER BY s.ldts DESC) = 1
+)
+-- insureds: insured_h with insured_northfield_s1's current version, as clients above;
+-- agents: agent_h joined to latest_agent_name; the four sets unioned, each with the full column list
+</code></pre>
+<pre><code class="language-yaml">models:
+  - name: person_dim
+    columns:
+      - name: person_key
+        tests:
+          - unique:
+              name: uq_person_dim_person_key
+              config: {severity: warn}
+</code></pre>
+<p>Expected movement: person_dim holds one row per non-ghost key of client_h, insured_h and agent_h, and the two ghost keys once each; uq_person_dim_person_key passes.</p>
+<p><strong>Step 63. organization_dim.</strong> File: dbt/models/marts/conformed_dm/organization_dim.sql, a view. Design: mart design D-2, D-11; section 3.3. One row per organization in organization_h: its hash key as organization_key, carrier_code as organization_code, the carrier&rsquo;s name from the current version of its own carrier&rsquo;s satellite view (organization_northfield_s1 or organization_pinecrest_s1) as organization_name, and the hub&rsquo;s record source as source_key; the ghost rows kept as unknown and error members. Unit test DG2 green. Layer 1, in dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml: uq_organization_dim_organization_key (path DU2), at severity warn, the shape of step 62&rsquo;s. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-sql">config(materialized='view')
+SELECT h.hk_organization_h AS organization_key, h.carrier_code AS organization_code,
+       COALESCE(n.carrier_name, p.carrier_name) AS organization_name, h.rsrc AS source_key
+FROM ref('organization_h') h
+LEFT JOIN ref('organization_northfield_s1') n
+  ON n.hk_organization_h = h.hk_organization_h AND n.ledts = '8888-12-31 23:59:59'
+LEFT JOIN ref('organization_pinecrest_s1') p
+  ON p.hk_organization_h = h.hk_organization_h AND p.ledts = '8888-12-31 23:59:59'
+</code></pre>
+<p>Expected movement: after act 1, NFL beside the two ghost rows; after act 2, NFL and PMC beside them; uq_organization_dim_organization_key passes.</p>
+<p><strong>Step 64. policy_dim.</strong> File: dbt/models/marts/conformed_dm/policy_dim.sql, a view. Design: mart design D-2, D-11; section 3.3. One row per policy number per carrier in policy_h: its hash key as policy_key; carrier_key, the organization_key of the policy&rsquo;s carrier code in organization_h; policy_number; plan_name from the most recent client_policy_sunbelt_s1 row for the policy; the hub&rsquo;s record source as first_named_by_source_key. The ghost rows are kept as unknown and error members, the unknown policy&rsquo;s carrier reading (unknown). Unit tests DG3 and DL2 green. Layer 1, in dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml: uq_policy_dim_policy_key (path DU3), at severity warn, the shape of step 62&rsquo;s. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-sql">config(materialized='view')
+WITH latest_plan AS (
+    SELECT cp.hk_policy_h, s.plan_name
+    FROM ref('client_policy_l') cp
+    JOIN ref('client_policy_sunbelt_s1') s ON s.hk_client_policy_l = cp.hk_client_policy_l
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY cp.hk_policy_h ORDER BY s.ldts DESC) = 1
+)
+SELECT p.hk_policy_h AS policy_key,
+       COALESCE(o.hk_organization_h, '00000000000000000000000000000000') AS carrier_key,
+       p.policy_number, lp.plan_name, p.rsrc AS first_named_by_source_key
+FROM ref('policy_h') p
+LEFT JOIN ref('organization_h') o
+  ON o.carrier_code = p.carrier_code AND o.rsrc NOT IN ('SYSTEM', 'ERROR')
+LEFT JOIN latest_plan lp ON lp.hk_policy_h = p.hk_policy_h
+</code></pre>
+<p>Expected movement: policy_dim holds one row per policy_h row, the two ghost rows included; uq_policy_dim_policy_key passes.</p>
+<p><strong>Step 65. source_dim.</strong> File: dbt/models/marts/conformed_dm/source_dim.sql, a view over the source system seed. Design: mart design D-2; section 3.3. One row per source system: SOURCE_SYSTEM_CODE as source_key, SOURCE_NAME as source_name, OWNER as owner. Layer 1, in dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml: uq_source_dim_source_key (path DU4), at severity warn, the shape of step 62&rsquo;s. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-sql">config(materialized='view')
+SELECT source_system_code AS source_key, source_name, owner
+FROM ref('seed_source_system')
+</code></pre>
+<p>Expected movement: one row per seed row, SSI, SYSTEM, ERROR, NFL and PMC; uq_source_dim_source_key passes.</p>
+<p><strong>Step 66. day_dim.</strong> File: dbt/models/marts/conformed_dm/day_dim.sql, a view generating one row per calendar day of 2026 and 2027, with its properties in dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml. Design: mart design D-2; section 3.3. day_dim replaces MART.time_spine_day as MetricFlow&rsquo;s time spine: its properties declare it the time spine, with date_day as its column at day granularity. Layer 1: uq_day_dim_date_day (path DU5), at severity warn. Exemplar: dbt/models/mart/time_spine_day.sql.</p>
+<pre><code class="language-sql">config(materialized='view')
+SELECT DATEADD(day, ROW_NUMBER() OVER (ORDER BY SEQ4()) - 1, DATE '2026-01-01') AS date_day
+FROM TABLE(GENERATOR(ROWCOUNT =&gt; 730))
+</code></pre>
+<pre><code class="language-yaml">models:
+  - name: day_dim
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
+        tests:
+          - unique:
+              name: uq_day_dim_date_day
+              config: {severity: warn}
+</code></pre>
+<p>Expected movement: 730 rows, 2026-01-01 to 2027-12-31; uq_day_dim_date_day passes; MetricFlow reads day_dim as its time spine.</p>
+<p><strong>Step 67. Unit tests first, the role views.</strong> File: dbt/models/marts/conformed_dm/_conformed_dm_role_views.yml, holding the role views&rsquo; unit tests of test plan section 2.3.2, logic area W. Paths DS1 to DS4: unit_client_dim_ds1_client_role_only, unit_insured_dim_ds2_insured_role_only, unit_agent_dim_ds3_agent_role_only and unit_carrier_dim_ds4_carrier_feed_organizations_only. DS1 to DS3 give person_dim holding A-1001 as client, NLI-55001 as insured and 17001001 as agent, beside the two ghost rows; each view returns only its own role&rsquo;s record and the two ghost rows (mart design D-14). DS1 also expects the client&rsquo;s source_key and first_known_date (mart design D-12). DS2 expects insured_key and full_name; the masked columns are proved by SM1 and SM2 (step 69). DS4 gives organization_dim holding NFL, sent through Northfield Life&rsquo;s carrier feed, an organization sent through no carrier feed, and the two ghost rows; carrier_dim returns only NFL and the two ghost rows. Design: mart design D-10, D-11, D-12, D-14; test plan 2.3.2. Each test runs red for its content reason before its view exists. Exemplar: dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml, its unit test unit_person_dim_dg1_ghost_members_kept (step 61).</p>
+<pre><code class="language-yaml">unit_tests:
+  - name: unit_client_dim_ds1_client_role_only
+    model: client_dim
+    given:
+      - input: ref('person_dim')
+        rows:
+          - {person_key: '00000000000000000000000000000000', person_role: null, source_key: 'SYSTEM'}
+          - {person_key: 'ffffffffffffffffffffffffffffffff', person_role: null, source_key: 'ERROR'}
+          - {person_key: '&lt;the hash of A-1001, computed per G-8&gt;', person_role: 'client', person_number: 'A-1001', source_key: 'SSI', first_known_date: '2026-10-01'}
+          - {person_key: '&lt;the hash of NLI-55001, computed per G-8&gt;', person_role: 'insured', source_key: 'NFL'}
+          - {person_key: '&lt;the hash of 17001001, computed per G-8&gt;', person_role: 'agent', person_number: '17001001', source_key: 'SSI'}
+    expect:
+      rows:
+        - {client_key: '00000000000000000000000000000000', client_number: null, source_key: 'SYSTEM', first_known_date: null}
+        - {client_key: 'ffffffffffffffffffffffffffffffff', client_number: null, source_key: 'ERROR', first_known_date: null}
+        - {client_key: '&lt;the hash of A-1001&gt;', client_number: 'A-1001', source_key: 'SSI', first_known_date: '2026-10-01'}
+</code></pre>
+<p>The other three tests are this shape with the scenarios and expected rows of their test plan rows. Expected movement: none in the data; four unit tests, each red before its view&rsquo;s step (steps 68 and 69).</p>
+<p><strong>Step 68. client_dim, agent_dim and carrier_dim.</strong> Files: dbt/models/marts/conformed_dm/client_dim.sql, agent_dim.sql and carrier_dim.sql, each a plain view over its base dimension, and their layer 1 tests in dbt/models/marts/conformed_dm/_conformed_dm_role_views.yml. Design: mart design D-10, D-11, D-12, D-14; section 3.3. client_dim: person_dim&rsquo;s rows whose person_role is client, person_key as client_key, person_number as client_number, with first_name, last_name, state, source_key and first_known_date. agent_dim: person_dim&rsquo;s rows whose person_role is agent, person_key as agent_key, person_number as agent_npn, with full_name. carrier_dim: organization_dim&rsquo;s rows sent through a carrier feed, those whose source_key is a carrier&rsquo;s record source (NFL or PMC), organization_key as carrier_key, organization_code as carrier_code and organization_name as carrier_name. Each view also returns its base dimension&rsquo;s two ghost rows, those whose source_key is SYSTEM or ERROR (mart design D-14). Unit tests DS1, DS3 and DS4 green. Layer 1, in dbt/models/marts/conformed_dm/_conformed_dm_role_views.yml: uq_client_dim_client_key (path DU6), uq_agent_dim_agent_key (path DU8) and uq_carrier_dim_carrier_key (path DU9), each at severity warn, the shape of step 62&rsquo;s. Exemplar: dbt/models/mart/policy_fact.sql, the project&rsquo;s plain view over a vault model (step 41).</p>
+<pre><code class="language-sql">-- dbt/models/marts/conformed_dm/client_dim.sql
+config(materialized='view')
+SELECT person_key AS client_key, person_number AS client_number, first_name, last_name, state,
+       source_key, first_known_date
+FROM ref('person_dim')
+WHERE person_role = 'client'
+   OR source_key IN ('SYSTEM', 'ERROR')   -- the two ghost rows, mart design D-14
+
+-- dbt/models/marts/conformed_dm/carrier_dim.sql
+config(materialized='view')
+SELECT organization_key AS carrier_key, organization_code AS carrier_code, organization_name AS carrier_name
+FROM ref('organization_dim')
+WHERE source_key IN ('NFL', 'PMC')        -- organizations sent through a carrier feed
+   OR source_key IN ('SYSTEM', 'ERROR')   -- the two ghost rows, mart design D-14
+</code></pre>
+<p>agent_dim is client_dim&rsquo;s shape with person_role &lsquo;agent&rsquo;, person_key as agent_key, person_number as agent_npn and full_name.</p>
+<pre><code class="language-yaml">models:
+  - name: client_dim
+    columns:
+      - name: client_key
+        tests:
+          - unique:
+              name: uq_client_dim_client_key
+              config: {severity: warn}
+</code></pre>
+<p>Expected movement: client_dim holds one row per client record of person_dim and agent_dim one per agent record, each beside the two ghost rows; carrier_dim holds NFL beside the two ghost rows after act 1, and NFL and PMC after act 2; the three uq_ tests pass.</p>
+<p><strong>Step 69. insured_dim.</strong> File: dbt/models/marts/conformed_dm/insured_dim.sql, a secure view over person_dim&rsquo;s insured rows, with its layer 1 test in dbt/models/marts/conformed_dm/_conformed_dm_role_views.yml and two layer 4 assertions in dbt/tests. Design: mart design D-9, D-10, D-14; section 3.3. person_key as insured_key, with full_name, birth_date and address: a session holding SYSADMIN reads birth_date and address as sent; every other role reads the mask of mart design D-9, birth_date reduced to the birth year only and address to its state. A comment in the view says it mocks a masking policy until the Snowflake edition allows one. The view also returns person_dim&rsquo;s two ghost rows, those whose source_key is SYSTEM or ERROR (mart design D-14). Unit test DS2 green. Layer 1: uq_insured_dim_insured_key (path DU7), at severity warn, the shape of step 62&rsquo;s. Layer 4: assert_insured_dim_masking_governance_role_real_values (SM1), run in a session holding SYSADMIN, and assert_insured_dim_masking_other_role_masked (SM2), run in a session without it, each returning offending rows, at severity warn. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-sql">-- dbt/models/marts/conformed_dm/insured_dim.sql
+config(materialized='view', secure=true)
+-- Mocks a Snowflake masking policy (mart design D-9) until the Snowflake edition allows one:
+-- this edition refuses CREATE MASKING POLICY. SYSADMIN reads the values as sent; every other role reads the mask.
+SELECT person_key AS insured_key, full_name,
+       CASE WHEN IS_ROLE_IN_SESSION('SYSADMIN') THEN CAST(birth_date AS VARCHAR)
+            ELSE LEFT(CAST(birth_date AS VARCHAR), 4) END AS birth_date,   -- the birth year only
+       CASE WHEN IS_ROLE_IN_SESSION('SYSADMIN') THEN address
+            ELSE RIGHT(TRIM(address), 2) END AS address                    -- the address reduced to its state
+FROM ref('person_dim')
+WHERE person_role = 'insured'
+   OR source_key IN ('SYSTEM', 'ERROR')   -- the two ghost rows, mart design D-14
+</code></pre>
+<pre><code class="language-sql">-- dbt/tests/assert_insured_dim_masking_governance_role_real_values.sql (SM1)
+SELECT i.insured_key
+FROM ref('insured_dim') i
+JOIN ref('person_dim') p ON p.person_key = i.insured_key
+WHERE NOT IS_ROLE_IN_SESSION('SYSADMIN')
+   OR i.birth_date IS DISTINCT FROM CAST(p.birth_date AS VARCHAR)
+   OR i.address IS DISTINCT FROM p.address
+
+-- dbt/tests/assert_insured_dim_masking_other_role_masked.sql (SM2)
+SELECT i.insured_key
+FROM ref('insured_dim') i
+JOIN ref('person_dim') p ON p.person_key = i.insured_key
+WHERE IS_ROLE_IN_SESSION('SYSADMIN')
+   OR i.birth_date IS DISTINCT FROM LEFT(CAST(p.birth_date AS VARCHAR), 4)
+   OR i.address IS DISTINCT FROM RIGHT(TRIM(p.address), 2)
+</code></pre>
+<p>Expected movement: insured_dim holds one row per insured record of person_dim beside the two ghost rows; NLI-55001 reads birth_date 1952 and address FL in a session without SYSADMIN, and 1952-03-14 and 41 Palm Ave Tampa FL in one holding it; uq_insured_dim_insured_key passes, and SM1 and SM2 return no rows.</p>
+<p><strong>Step 70. Unit tests first, the facts.</strong> File: dbt/models/marts/conformed_dm/_conformed_dm_facts.yml, holding the facts&rsquo; unit tests of test plan section 2.3.3, logic area X. Paths FV1 and FV2: unit_policy_terms_fact_fv1_current_version_valid_to_empty and unit_policy_terms_fact_fv2_earlier_version_valid_to_set. FV1 gives one version of a policy, current, its load end date 8888-12-31 23:59:59, and expects its valid_to_date empty. FV2 gives NF-100003&rsquo;s two versions, IF loaded 2026-10-01 02:00 and LP loaded 2026-10-02 02:00, and expects the first valid from 2026-10-01 to 2026-10-02 and the second valid from 2026-10-02 with valid_to_date empty. Design: mart design D-1, D-4; test plan 2.3.3. Expected hash literals are computed first with the toolkit&rsquo;s own expression (G-8). Each test runs red for its content reason before its model exists. Exemplar: dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml, its unit test unit_person_dim_dg1_ghost_members_kept (step 61).</p>
+<pre><code class="language-yaml">unit_tests:
+  - name: unit_policy_terms_fact_fv2_earlier_version_valid_to_set
+    model: policy_terms_fact
+    given:
+      - input: ref('policy_northfield_s1')
+        rows:
+          - {hk_policy_h: '&lt;the hash of NFL and NF-100003, computed per G-8&gt;', ldts: '2026-10-01 02:00:00', ledts: '2026-10-02 01:59:59.999999', rsrc: 'NFL', face_amount: 15000.00, status: 'IF', effective_date: '2026-07-01'}
+          - {hk_policy_h: '&lt;the same hash&gt;', ldts: '2026-10-02 02:00:00', ledts: '8888-12-31 23:59:59', rsrc: 'NFL', face_amount: 15000.00, status: 'LP', effective_date: '2026-07-01'}
+    expect:
+      rows:
+        - {policy_key: '&lt;the same hash&gt;', valid_from_date: '2026-10-01', valid_to_date: '2026-10-02', status: 'IF'}
+        - {policy_key: '&lt;the same hash&gt;', valid_from_date: '2026-10-02', valid_to_date: null, status: 'LP'}
+</code></pre>
+<p>FV1 is this shape with one current version, its ledts 8888-12-31 23:59:59, expecting valid_to_date null. Expected movement: none in the data; two unit tests, each red before policy_terms_fact&rsquo;s step (step 73).</p>
+<p><strong>Step 71. client_policy_role_fact.</strong> File: dbt/models/marts/conformed_dm/client_policy_role_fact.sql, a view, with its layer 1 tests in dbt/models/marts/conformed_dm/_conformed_dm_facts.yml. Pattern: a plain view over vault models, as the release 1 mart&rsquo;s fact views; deltas: the role kept as a degenerate code, and each event date carried as a day. Design: mart design D-1, D-2, D-3, D-10; section 3.2. One row per client_policy_l row, one role a Sunbelt Senior client has on one policy: hk_client_policy_l as client_policy_role_key; hk_client_h as client_key and hk_policy_h as policy_key, the unknown policy&rsquo;s ghost key kept for a sale with a blank policy number; role as sent, owner, insured or payor (mart design D-3); sold_date, the sold_on of the current version of client_policy_sunbelt_s1 as a date, empty when the sale gives none; first_known_date, client_policy_l&rsquo;s ldts as a date. Layer 1, each at severity warn: uq_client_policy_role_fact_client_policy_role_key (path FG1); rel_client_policy_role_fact_client_key to client_dim (FK1); rel_client_policy_role_fact_policy_key to policy_dim (FK2); rel_client_policy_role_fact_sold_date (FD1) and rel_client_policy_role_fact_first_known_date (FD2) to day_dim&rsquo;s date_day, an empty sold_date not checked, since a relationships test skips an empty value. Exemplar: dbt/models/mart/client_policy_fact.sql, the release 1 mart&rsquo;s fact view over the vault; for the tests, step 39&rsquo;s relationships tests in dbt/models/raw_vault/_increment_2.yml.</p>
+<pre><code class="language-sql">config(materialized='view')
+SELECT l.hk_client_policy_l AS client_policy_role_key,
+       l.hk_client_h AS client_key, l.hk_policy_h AS policy_key,
+       l.role,                                              -- degenerate code, mart design D-3
+       TO_DATE(s.sold_on) AS sold_date,                     -- empty when the sale gives none
+       TO_DATE(l.ldts) AS first_known_date
+FROM ref('client_policy_l') l
+LEFT JOIN ref('client_policy_sunbelt_s1') s
+  ON s.hk_client_policy_l = l.hk_client_policy_l AND s.ledts = '8888-12-31 23:59:59'
+</code></pre>
+<pre><code class="language-yaml">models:
+  - name: client_policy_role_fact
+    columns:
+      - name: client_policy_role_key
+        tests:
+          - unique:
+              name: uq_client_policy_role_fact_client_policy_role_key
+              config: {severity: warn}
+      - name: client_key
+        tests:
+          - relationships:
+              name: rel_client_policy_role_fact_client_key
+              arguments:
+                to: ref('client_dim')
+                field: client_key
+              config: {severity: warn}
+</code></pre>
+<p>The other three relationships tests are this shape: policy_key to policy_dim&rsquo;s policy_key, and sold_date and first_known_date to day_dim&rsquo;s date_day. Expected movement: client_policy_role_fact holds one row per client_policy_l row (13 in DV_QA at 2026-10-27 01:04 UTC, mart design 2.1); the five tests pass. Steps 71 to 78 land in one commit and build together, because dbt cannot load the conformed facts while the MART models of the same names exist.</p>
+<p><strong>Step 72. agent_policy_fact.</strong> File: dbt/models/marts/conformed_dm/agent_policy_fact.sql, a view, with its layer 1 tests in dbt/models/marts/conformed_dm/_conformed_dm_facts.yml. Pattern: step 71&rsquo;s plain view; deltas: it reads agent_policy_l alone, with no satellite, and carries the first source to name the pair as a source_dim key. Design: mart design D-1, D-10; section 3.2. One row per agent_policy_l row, one agent named by at least one source for one policy: hk_agent_policy_l as agent_policy_key; hk_agent_h as agent_key and hk_policy_h as policy_key; rsrc as first_named_by_source_key, the first source to name the pair; first_known_date, agent_policy_l&rsquo;s ldts as a date. Layer 1, each at severity warn, the shape of step 71&rsquo;s: uq_agent_policy_fact_agent_policy_key (path FG2); rel_agent_policy_fact_agent_key to agent_dim (FK3); rel_agent_policy_fact_policy_key to policy_dim (FK4); rel_agent_policy_fact_first_named_by_source_key to source_dim&rsquo;s source_key (FK5); rel_agent_policy_fact_first_known_date to day_dim&rsquo;s date_day (FD3). Exemplar: dbt/models/mart/agent_policy_fact.sql, the release 1 mart&rsquo;s fact view over the vault; for the tests, step 72&rsquo;s in the same file.</p>
+<pre><code class="language-sql">config(materialized='view')
+SELECT hk_agent_policy_l AS agent_policy_key,
+       hk_agent_h AS agent_key, hk_policy_h AS policy_key,
+       rsrc AS first_named_by_source_key,                   -- the first source to name the pair
+       TO_DATE(ldts) AS first_known_date
+FROM ref('agent_policy_l')
+</code></pre>
+<p>Expected movement: agent_policy_fact holds one row per agent_policy_l row (17 in DV_QA at 2026-10-27 01:04 UTC, first named by SSI 10 and NFL 7, mart design 2.1); the five tests pass.</p>
+<p><strong>Step 73. policy_terms_fact.</strong> File: dbt/models/marts/conformed_dm/policy_terms_fact.sql, a view, with its layer 1 tests in dbt/models/marts/conformed_dm/_conformed_dm_facts.yml and one layer 4 assertion in dbt/tests. Pattern: step 72&rsquo;s plain view, over a satellite&rsquo;s version 1 view; deltas: the row key hashed from the policy key and the load, and the valid-to day empty while the version is current. Design: mart design D-1, D-4; sections 3.2 and 3.5. One row per version of a carrier&rsquo;s terms for one policy, from policy_northfield_s1: policy_terms_key, the hash of hk_policy_h and ldts; hk_policy_h as policy_key; valid_from_date, ldts as a date; valid_to_date, ledts as a date, empty when ledts is 8888-12-31 23:59:59 (mart design D-4); effective_date as a date; face_amount, the measure, US dollars as sent and empty when not sent; status as sent. The satellite&rsquo;s ghost rows, record source SYSTEM or ERROR, are dimension members and never fact rows (section 3.5). Unit tests FV1 and FV2 green. Layer 1, each at severity warn, the shape of step 71&rsquo;s: uq_policy_terms_fact_policy_terms_key (path FG3); rel_policy_terms_fact_policy_key to policy_dim (FK6); rel_policy_terms_fact_valid_from_date (FD4), rel_policy_terms_fact_valid_to_date (FD5) and rel_policy_terms_fact_effective_date (FD6) to day_dim&rsquo;s date_day, an empty valid_to_date, the current version, not checked. Layer 4: assert_policy_terms_fact_face_amount_conserved (path FM1), returning a row when face_amount summed over policy_terms_fact differs from its sum over policy_northfield_s1, at severity warn. Exemplar: dbt/models/mart/policy_fact.sql, the project&rsquo;s plain view over a vault model (step 41); for the assertion, dbt/tests/assert_client_h_covers_usable_source_keys.sql.</p>
+<pre><code class="language-sql">-- dbt/models/marts/conformed_dm/policy_terms_fact.sql
+config(materialized='view')
+SELECT dbt_utils.generate_surrogate_key(['hk_policy_h', 'ldts']) AS policy_terms_key,   -- the policy key and the load
+       hk_policy_h AS policy_key,
+       TO_DATE(ldts) AS valid_from_date,
+       CASE WHEN ledts = '8888-12-31 23:59:59' THEN NULL
+            ELSE TO_DATE(ledts) END AS valid_to_date,       -- empty while current, mart design D-4
+       TO_DATE(effective_date) AS effective_date,
+       face_amount,                                         -- the measure, US dollars as sent
+       status
+FROM ref('policy_northfield_s1')
+WHERE rsrc NOT IN ('SYSTEM', 'ERROR')                       -- ghost rows are never fact rows (section 3.5)
+</code></pre>
+<pre><code class="language-sql">-- dbt/tests/assert_policy_terms_fact_face_amount_conserved.sql (FM1)
+config(severity='warn')
+WITH fact AS (SELECT SUM(face_amount) AS total FROM ref('policy_terms_fact')),
+     satellite AS (SELECT SUM(face_amount) AS total FROM ref('policy_northfield_s1'))
+SELECT fact.total AS fact_total, satellite.total AS satellite_total
+FROM fact CROSS JOIN satellite
+WHERE fact.total IS DISTINCT FROM satellite.total
+</code></pre>
+<p>Expected movement: policy_terms_fact holds one row per non-ghost policy_northfield_s1 version (10 in DV_QA at 2026-10-27 01:04 UTC, 9 of them current, mart design 2.1), NF-100003 with two; the five layer 1 tests pass and FM1 returns no rows.</p>
+<p><strong>Step 74. finding_fact.</strong> File: dbt/models/marts/conformed_dm/finding_fact.sql, a view, with its layer 1 tests in dbt/models/marts/conformed_dm/_conformed_dm_facts.yml. Pattern: the release 1 mart&rsquo;s finding_fact (step 46); deltas: the findings&rsquo; source names mapped to source system codes, and the detected day. Design: mart design D-1, D-5, D-13; sections 3.2 and 3.4. One row per finding in the landing&rsquo;s CONFIG.DATA_FINDING, read through the source step 46 declares: finding_pk as finding_key; source_key, the finding&rsquo;s source_system mapped as section 3.4 says, SUNBELT to SSI and NORTHFIELD to NFL; detected_date, detected_at as a UTC day; finder_name, finder_type, source_table, source_column, column_value and status as degenerate codes and identifiers of the flagged record (mart design D-5); finding_kind, audit when finder_type is audit, missing_key for a finder name ending _key_missing and form for one ending _form, and finding_row, the source table and column_value, the name of the row (mart design D-13). Layer 1, each at severity warn, the shape of step 71&rsquo;s: uq_finding_fact_finding_key (path FG4); rel_finding_fact_source_key to source_dim&rsquo;s source_key (FK7); rel_finding_fact_detected_date to day_dim&rsquo;s date_day (FD7). Exemplar: dbt/models/mart/finding_fact.sql, whose finding_kind and finding_row this view keeps.</p>
+<pre><code class="language-sql">config(materialized='view')
+SELECT finding_pk AS finding_key,
+       CASE source_system WHEN 'SUNBELT' THEN 'SSI'
+                          WHEN 'NORTHFIELD' THEN 'NFL'
+                          ELSE source_system END AS source_key,     -- mart design 3.4; any other name fails rel_finding_fact_source_key
+       TO_DATE(CONVERT_TIMEZONE('UTC', detected_at)) AS detected_date,
+       finder_name, finder_type, source_table, source_column, column_value, status,
+       CASE WHEN finder_type = 'audit' THEN 'audit'
+            WHEN ENDSWITH(finder_name, '_key_missing') THEN 'missing_key'
+            WHEN ENDSWITH(finder_name, '_form') THEN 'form' END AS finding_kind,   -- mart design D-13
+       source_table || ' ' || column_value AS finding_row                          -- the row a finding names
+FROM source('landing_config', 'data_finding')
+</code></pre>
+<p>Expected movement: finding_fact holds one row per finding, in dev at commit 2a921a1 3 form findings and 7 missing-key findings naming 6 rows (mart design D-13); every source_key is SSI or NFL; the three tests pass.</p>
+<p><strong>Step 75. The semantic YAML.</strong> Files: dbt/models/marts/conformed_dm/_conformed_dm.yml, new, holding the conformed mart&rsquo;s semantic models and metrics (and step 76&rsquo;s saved queries); and the column descriptions in the property files where each model is already declared, dbt/models/marts/conformed_dm/_conformed_dm_dimensions.yml, _conformed_dm_role_views.yml and _conformed_dm_facts.yml. Design: mart design section 4.1, section 4.1a, D-2, D-4, D-8, D-13; section 4.2, no SQL exception. The mart design&rsquo;s semantic YAML is the conformed mart&rsquo;s YAML files together: _conformed_dm.yml holds the semantic models, metrics and saved queries and declares no model a property file already declares; every column of sections 3.2 and 3.3 gets its description in the property file that declares its model, where SD3 checks it (step 77).</p>
+<p>Ten semantic models. Over the four facts: client_policy_role_fact, primary entity client_policy_role (client_policy_role_key), foreign entities client (client_key) and policy (policy_key), dimensions role (categorical), first_known_date and sold_date (time, day), measures held_policy_count (count_distinct policy_key) and client_policy_role_count (count_distinct client_policy_role_key), aggregation time dimension first_known_date; agent_policy_fact, primary entity agent_policy (agent_policy_key), foreign entities agent (agent_key), policy (policy_key) and source (first_named_by_source_key), dimension first_known_date (time, day), measures sold_policy_count (count_distinct policy_key) and named_agent_count (count_distinct agent_key), aggregation time dimension first_known_date; policy_terms_fact, primary entity policy_terms (policy_terms_key), foreign entity policy (policy_key), dimensions status (categorical), valid_from_date, valid_to_date and effective_date (time, day), measures face_amount_total (sum face_amount) and policy_terms_count (count_distinct policy_terms_key), aggregation time dimension valid_from_date; finding_fact, shown below. Over the dimensions and role views the saved queries group by, each with its entity and dimensions, so MetricFlow can group by them: client_dim (entity client, client_key; client_number, first_name, last_name, state, source_key, and first_known_date as time at day), agent_dim (agent, agent_key; agent_npn, full_name), carrier_dim (carrier, carrier_key; carrier_code, carrier_name), policy_dim (policy, policy_key, with the foreign entity carrier, carrier_key; policy_number, plan_name, first_named_by_source_key), source_dim (source, source_key; source_name, owner) and person_dim (person, person_key; person_role, person_number, source_key, first_known_date, first_name, last_name, full_name, state; birth_date and address stay out of the semantic layer, shown only through insured_dim&rsquo;s mask, mart design D-9). day_dim stays the time spine as step 66 declares it.</p>
+<p>Nine metrics, section 4.1&rsquo;s, each simple over one measure: policies_held (held_policy_count), client_policy_roles (client_policy_role_count), policies_sold (sold_policy_count), agents_named (named_agent_count; a policy where it reads 2 or more is where the sources disagree, with no SQL flag, mart design D-8), face_amount_current (face_amount_total filtered to an empty valid_to_date, mart design D-4), face_amount (face_amount_total), policy_versions (policy_terms_count), and records_not_accepted and rows_missing_key as mart design D-13 defines them: the findings whose finding_kind is form, and the distinct rows named by findings whose finding_kind is missing_key. Each semantic model&rsquo;s description states what one row is and which questions it serves; each metric&rsquo;s states what it counts, how to read it, what it leaves out, what to pair it with and the decision that defined it; each column&rsquo;s states what it holds, including when it is empty or unknown (section 4.1a). A metric filter&rsquo;s Dimension reference sits inside the Jinja expression delimiters, which this document cannot carry (step 8).</p>
+<p>This step and step 78 land in one commit: dbt/models/mart/_mart.yml also defines records_not_accepted and rows_missing_key until step 78 deletes it. Exemplar: dbt/models/mart/_mart.yml (step 46), for the two release 1 metrics; for the semantic models, metrics and descriptions with no counterpart there, first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-yaml"># dbt/models/marts/conformed_dm/_conformed_dm.yml
+semantic_models:
+  - name: finding_fact
+    description: &gt;
+      One row per record an inspector or auditor flagged at arrival, read from the landing's CONFIG.DATA_FINDING.
+      Serves Q-15: how many records arrive in a form the vault does not accept, and from which source.
+    model: ref('finding_fact')
+    defaults:
+      agg_time_dimension: detected_date
+    entities:
+      - name: finding
+        type: primary
+        expr: finding_key
+      - name: source
+        type: foreign
+        expr: source_key
+    dimensions:
+      - name: finding_kind
+        type: categorical
+        description: form, missing_key or audit, from the finder that wrote the finding (mart design D-13).
+      - name: finder_type
+        type: categorical
+        description: inspection or audit, as the finder wrote it.
+      - name: detected_date
+        type: time
+        type_params:
+          time_granularity: day
+        description: The UTC day the finding was detected.
+      # source_table, source_column, status and finder_name: categorical, each with its description
+    measures:
+      - name: finding_count
+        agg: count_distinct
+        expr: finding_key
+      - name: finding_row_count
+        agg: count_distinct
+        expr: finding_row
+
+metrics:
+  - name: records_not_accepted
+    label: Records not accepted
+    description: &gt;
+      Counts the records that arrived in a form the vault does not accept: the findings whose finding_kind is form.
+      Read it by source and finder type; a source with no such finding is absent, not zero. It leaves out rows
+      without a business key and the auditors' findings; pair it with rows_missing_key. Defined by mart design D-13.
+    type: simple
+    type_params:
+      measure: finding_count
+    filter: |
+      Dimension('finding__finding_kind') = 'form'
+  - name: rows_missing_key
+    label: Rows missing a key
+    description: &gt;
+      Counts the rows that arrived without a business key, kept and flagged: the distinct rows named by findings
+      whose finding_kind is missing_key. One row can miss two keys and is counted once, so it does not add across
+      columns. Pair it with records_not_accepted. Defined by mart design D-13.
+    type: simple
+    type_params:
+      measure: finding_row_count
+    filter: |
+      Dimension('finding__finding_kind') = 'missing_key'
+</code></pre>
+<pre><code class="language-yaml"># dbt/models/marts/conformed_dm/_conformed_dm_facts.yml, the model step 74 declares, gaining its column descriptions
+models:
+  - name: finding_fact
+    columns:
+      - name: finding_row
+        description: The source table and the name of the row a finding names; two findings for one row missing two keys share it.
+      - name: source_key
+        description: The source system's code in source_dim, SSI or NFL, mapped from the finding's source name.
+</code></pre>
+<p>The other semantic models are finding_fact&rsquo;s shape with the entities, dimensions and measures above; the other seven metrics are records_not_accepted&rsquo;s shape, only face_amount_current carrying a filter, the valid_to_date time dimension empty. Expected movement: none in the data; the semantic manifest validates with ten semantic models and nine metrics; MetricFlow lists the nine; in dev records_not_accepted reads 3 and rows_missing_key 6, as release 1&rsquo;s did (step 46).</p>
+<p><strong>Step 76. The six saved queries.</strong> File: dbt/models/marts/conformed_dm/_conformed_dm.yml, its saved_queries block, beside step 75&rsquo;s semantic models and metrics. Design: mart design section 4.1a. One saved query for each question release 1 answers, each with a description naming its question: q09_client_policies, policies_held and client_policy_roles by client, carrier, policy and role (Q-9); q10_coverage_by_carrier, face_amount_current by carrier (Q-10); q11_agent_per_policy, policies_sold and agents_named by agent and policy, a policy with agents_named of 2 or more being where the sources disagree (Q-11); q13_client_arrivals, policies_held and client_policy_roles by the client&rsquo;s source and first-known date (Q-13); q14_policy_versions, policy_versions and face_amount by policy, valid-from day, valid-to day and status (Q-14); q15_records_not_accepted, records_not_accepted and rows_missing_key by source and finder type (Q-15). Each group-by reference sits inside the Jinja expression delimiters, as step 75&rsquo;s filters do. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
+<pre><code class="language-yaml">saved_queries:
+  - name: q09_client_policies
+    description: &quot;Mary's Q-9: for each client, which policies are they on, with which carrier, and in what role?&quot;
+    query_params:
+      metrics: [policies_held, client_policy_roles]
+      group_by:
+        - Dimension('client__client_number')
+        - Dimension('carrier__carrier_name')
+        - Dimension('policy__policy_number')
+        - Dimension('client_policy_role__role')
+  - name: q15_records_not_accepted
+    description: &quot;Mary's Q-15: how many records arrive in a form we don't accept, from which source? Read beside rows_missing_key.&quot;
+    query_params:
+      metrics: [records_not_accepted, rows_missing_key]
+      group_by:
+        - Entity('source')
+        - Dimension('finding__finder_type')
+</code></pre>
+<p>The other four are this shape: q10_coverage_by_carrier groups by Dimension(&lsquo;carrier__carrier_name&rsquo;); q11_agent_per_policy by Dimension(&lsquo;agent__agent_npn&rsquo;) and Dimension(&lsquo;policy__policy_number&rsquo;); q13_client_arrivals by Dimension(&lsquo;client__source_key&rsquo;) and TimeDimension(&lsquo;client__first_known_date&rsquo;, &lsquo;day&rsquo;); q14_policy_versions by Dimension(&lsquo;policy__policy_number&rsquo;), TimeDimension(&lsquo;policy_terms__valid_from_date&rsquo;, &lsquo;day&rsquo;), TimeDimension(&lsquo;policy_terms__valid_to_date&rsquo;, &lsquo;day&rsquo;) and Dimension(&lsquo;policy_terms__status&rsquo;). Expected movement: none in the data; MetricFlow lists six saved queries, and each runs and returns its grouped rows; SQ1 to SQ6 check their answers (step 77).</p>
+<p><strong>Step 77. The semantic layer&rsquo;s tests, layers 6 and 7.</strong> Files: one singular test per name in dbt/tests, each in dbt/tests/<name>.sql. Layer 6, the nine reconciliations of paths SR1 to SR9: recon_policies_held_two_routes, recon_client_policy_roles_two_routes, recon_policies_sold_two_routes, recon_agents_named_two_routes, recon_face_amount_current_two_routes, recon_face_amount_two_routes, recon_policy_versions_two_routes, recon_records_not_accepted_two_routes and recon_rows_missing_key_two_routes. Layer 7, the saved-query answers of paths SQ1 to SQ6: sq_q09_client_policies_answer, sq_q10_coverage_by_carrier_answer, sq_q11_agent_per_policy_answer, sq_q13_client_arrivals_answer, sq_q14_policy_versions_answer and sq_q15_records_not_accepted_answer; and the description checks of paths SD1 to SD3: desc_semantic_models_described, desc_metrics_described and desc_columns_described. Design: test plan section 2.3.4; mart design sections 4.1, 4.1a and 5.3, D-4, D-8, D-13. Each returns offending rows, at severity warn. A reconciliation sets the answer MetricFlow compiles for its metric and grouping beside the direct query its test plan row names, on the vault or on CONFIG.DATA_FINDING, and returns every group where the two differ. A saved-query test sets its saved query&rsquo;s answer beside the figures on Mary&rsquo;s release page for its question, copied into the test with the page&rsquo;s build clock, and returns every difference. The description checks read the project graph: SD1 returns every semantic model in _conformed_dm.yml without a description, SD2 every metric without one, SD3 every column of the conformed mart&rsquo;s views, read from the warehouse&rsquo;s information schema, that the property file declaring its model leaves undescribed. Exemplar: dbt/tests/assert_client_h_no_blank_business_key.sql.</p>
+<pre><code class="language-sql">-- dbt/tests/recon_rows_missing_key_two_routes.sql (SR9)
+config(severity='warn')
+WITH metricflow_answer AS (
+    -- the SQL MetricFlow compiles for rows_missing_key grouped by source and finder name,
+    -- pasted with the commit and clock of its compile, its database written as target.database
+    &lt;compiled SQL: columns source, finding__finder_name, rows_missing_key&gt;
+),
+vault_answer AS (
+    SELECT CASE source_system WHEN 'SUNBELT' THEN 'SSI'
+                              WHEN 'NORTHFIELD' THEN 'NFL'
+                              ELSE source_system END AS source,
+           finder_name AS finding__finder_name,
+           COUNT(DISTINCT source_table || ' ' || column_value) AS rows_missing_key   -- the rows named, once each
+    FROM source('landing_config', 'data_finding')
+    WHERE finder_type &lt;&gt; 'audit' AND ENDSWITH(finder_name, '_key_missing')
+    GROUP BY 1, 2
+)
+SELECT COALESCE(m.source, v.source) AS source,
+       COALESCE(m.finding__finder_name, v.finding__finder_name) AS finder_name,
+       m.rows_missing_key AS metricflow_value, v.rows_missing_key AS vault_value
+FROM metricflow_answer m
+FULL OUTER JOIN vault_answer v
+  ON v.source = m.source AND v.finding__finder_name = m.finding__finder_name
+WHERE m.rows_missing_key IS DISTINCT FROM v.rows_missing_key
+</code></pre>
+<pre><code class="language-sql">-- dbt/tests/desc_columns_described.sql (SD3)
+config(severity='warn')
+WITH described AS (
+    -- one (model, column) pair per described column, written at compile time by a loop over graph.nodes:
+    -- each model under marts/conformed_dm, each column whose description is not empty
+    SELECT column1 AS model_name, column2 AS column_name
+    FROM VALUES &lt;the pairs&gt;
+)
+SELECT LOWER(c.table_name) AS model_name, LOWER(c.column_name) AS column_name
+FROM &lt;target.database&gt;.INFORMATION_SCHEMA.COLUMNS c
+LEFT JOIN described d
+  ON d.model_name = LOWER(c.table_name) AND d.column_name = LOWER(c.column_name)
+WHERE c.table_schema = 'CONFORMED_DM' AND d.column_name IS NULL
+</code></pre>
+<p>The other reconciliations are SR9&rsquo;s shape with their own metric, grouping and direct query: SR1 to SR4 on client_policy_l and agent_policy_l, SR5 to SR7 on policy_northfield_s1, SR5 keeping the current versions only (load end date 8888-12-31 23:59:59), SR8 on CONFIG.DATA_FINDING&rsquo;s form findings. A saved-query test is the same shape with the saved query&rsquo;s compiled answer on one side and a VALUES list of the release page&rsquo;s figures on the other. SD1 and SD2 loop over the graph&rsquo;s semantic models and metrics and return each name whose description is empty. Expected movement: none in the data; 18 more tests, layer 6 nine and layer 7 nine, each returning no rows: the two routes agree, each saved query equals its figure on Mary&rsquo;s release page, and every semantic model, metric and column is described.</p>
+<p><strong>Step 78. The MART retirement.</strong> Files: dbt/models/mart/client_policy_fact.sql, agent_policy_fact.sql, policy_fact.sql, finding_fact.sql and time_spine_day.sql, removed with their file dbt/models/mart/_mart.yml; dbt/models/mart/_landing_config__sources.yml, moved with git mv to dbt/models/marts/conformed_dm/_landing_config__sources.yml, since finding_fact still reads the landing&rsquo;s CONFIG schema through it (step 74); infra/snowflake/drop_mart_views.sql, new. Design: mart design D-6; section 4.4. Step 75 and this step land in one commit, because _mart.yml and _conformed_dm.yml would both define records_not_accepted and rows_missing_key until this step deletes _mart.yml. Steps 71 to 78 land in one commit and build together, because dbt cannot load the conformed facts while the MART models of the same names exist. The complete reader set, from git grep at commit b54bb13, excluding dbt/models/mart itself: the five views are read only by generated files, docs/build/code/infra.html, docs/build/code/semantic-layer.html, docs/documentation/*.html and infra/snowflake/ddl/dv.sql, which the site build and infra/scripts/vault_ddl.py regenerate; the metrics records_not_accepted and rows_missing_key are read by site/build_site.py and site/dev/qa_retest.py, which keep working because the metric names do not change. The QA build&rsquo;s DV_QA.MART views are dropped by infra/snowflake/drop_mart_views.sql, and production&rsquo;s at the promotion. The script is guarded like infra/snowflake/refresh_landing_tier.sql: it refuses any database other than DV_QA, DV or a developer&rsquo;s DEV__DV__<USER>, lists the MART views before it drops them, and lists them again after. Run as SYSADMIN, naming the vault database: snow sql &hellip; -D vault=DV_QA, with the script on standard input; in production, -D vault=DV, at the promotion. Exemplar: infra/snowflake/refresh_landing_tier.sql, the project&rsquo;s guarded script that refuses an unknown tier before it changes anything.</p>
+<pre><code class="language-sql">-- infra/snowflake/drop_mart_views.sql (mart design D-6, section 4.4)
+USE ROLE SYSADMIN;
+-- 1. Refuse any database but DV_QA, DV or a developer's DEV__DV__&lt;USER&gt;, before anything changes
+SELECT IFF('&lt;% vault %&gt;' IN ('DV_QA', 'DV') OR STARTSWITH('&lt;% vault %&gt;', 'DEV__DV__'),
+           'accepted: &lt;% vault %&gt;',
+           TO_NUMBER('refused: &lt;% vault %&gt;')) AS guard;      -- the failed cast stops the script
+-- 2. List the MART views before the drop
+SELECT table_name FROM &lt;% vault %&gt;.INFORMATION_SCHEMA.VIEWS WHERE table_schema = 'MART' ORDER BY table_name;
+-- 3. Drop the five
+DROP VIEW IF EXISTS &lt;% vault %&gt;.MART.CLIENT_POLICY_FACT;
+DROP VIEW IF EXISTS &lt;% vault %&gt;.MART.AGENT_POLICY_FACT;
+DROP VIEW IF EXISTS &lt;% vault %&gt;.MART.POLICY_FACT;
+DROP VIEW IF EXISTS &lt;% vault %&gt;.MART.FINDING_FACT;
+DROP VIEW IF EXISTS &lt;% vault %&gt;.MART.TIME_SPINE_DAY;
+-- 4. List again: expect none of the five
+SELECT table_name FROM &lt;% vault %&gt;.INFORMATION_SCHEMA.VIEWS WHERE table_schema = 'MART' ORDER BY table_name;
+</code></pre>
+<p>Expected movement: dbt ls lists none of the five MART models, and finding_fact reads the same source from its new folder; the tests _mart.yml holds go with it, uq_client_policy_fact_client_policy_key, uq_agent_policy_fact_agent_policy_key and uq_policy_fact_policy_key, while unit_finding_fact_kind_and_row is kept: it moves to dbt/models/marts/conformed_dm/_conformed_dm_facts.yml, with the conformed finding_fact as its model and its rows and expectations unchanged (mart design D-13; the test plan&rsquo;s logic area Y), so the test count does not fall; records_not_accepted and rows_missing_key are defined once, in _conformed_dm.yml, and read 3 and 6 in dev; in DV_QA the script&rsquo;s first list shows the five views and its second none of them, and a run naming any other database is refused before any drop; the generated files lose the five views when the site build and infra/scripts/vault_ddl.py next regenerate them.</p>
+<p>Each step states the exact file, object, pattern citation, design or profiling citation, literal first-pass code, expected movement, and any required target rebuild.</p>
+<h2>6. Tests</h2>
+<h3>Existing-test dispositions</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Layer</th>
+<th>Disposition: keep, rewrite, or delete</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none, for increments 1 and 1.1</td>
+<td></td>
+<td>Not applicable</td>
+<td>The repository had no tests at their baseline clock (git ls-files at 1ace099)</td>
+</tr>
+<tr>
+<td>Increment 1&rsquo;s twelve unit tests, P1 to P8, I1, I2, A1, A2</td>
+<td>3</td>
+<td>Keep</td>
+<td>Step 27 adds a change hash to stg_sunbelt_client and step 28 a second source to client_h; neither changes the keys or rows these tests expect, and they must stay green</td>
+</tr>
+<tr>
+<td>uq_client_h_hk_client_h, nn_client_h_hk_client_h, the source tests of SUNBELT.CLIENT</td>
+<td>1, 2</td>
+<td>Keep</td>
+<td>Unchanged models and source</td>
+</tr>
+<tr>
+<td>assert_client_h_no_blank_business_key, assert_client_h_covers_usable_source_keys, assert_client_h_ghost_keys_belong_to_ghosts</td>
+<td>4</td>
+<td>Keep</td>
+<td>client_h&rsquo;s truths still hold with a second source</td>
+</tr>
+<tr>
+<td>assert_vault_record_sources_resolve</td>
+<td>4</td>
+<td>Rewrite</td>
+<td>It reads client_h only; step 32 extends it to every hub and link, so NFL is checked</td>
+</tr>
+<tr>
+<td>The ten satellite unit tests of area M (client_sunbelt_s, insured_northfield_s, policy_northfield_s)</td>
+<td>3</td>
+<td>Rewrite</td>
+<td>Their given input becomes the known-key view (step 41); their rows and expectations are unchanged</td>
+</tr>
+<tr>
+<td>assert_increment_2_link_hub_keys_exist</td>
+<td>4</td>
+<td>Keep</td>
+<td>It checks the links&rsquo; hub keys a second way beside D-42&rsquo;s relationships tests</td>
+</tr>
+<tr>
+<td>uq_client_policy_fact_client_policy_key</td>
+<td>1</td>
+<td>Delete</td>
+<td>Step 78 deletes it with dbt/models/mart/client_policy_fact.sql; the conformed fact has its own FG1 test, and the five MART views retire in the same pull request (mart design D-6).</td>
+</tr>
+<tr>
+<td>uq_agent_policy_fact_agent_policy_key</td>
+<td>1</td>
+<td>Delete</td>
+<td>Step 78 deletes it with dbt/models/mart/agent_policy_fact.sql; the conformed fact has its own FG2 test, and the five MART views retire in the same pull request (mart design D-6).</td>
+</tr>
+<tr>
+<td>uq_policy_fact_policy_key</td>
+<td>1</td>
+<td>Delete</td>
+<td>Step 78 deletes it with dbt/models/mart/policy_fact.sql; policy_terms_fact has its own FG3 test at the designed version grain, and the five MART views retire in the same pull request (mart design D-6).</td>
+</tr>
+<tr>
+<td>unit_finding_fact_kind_and_row</td>
+<td>3</td>
+<td>Rewrite</td>
+<td>Step 78 moves it to dbt/models/marts/conformed_dm/_conformed_dm_facts.yml, with the conformed finding_fact as its model and its rows and expectations unchanged (mart design D-13).</td>
+</tr>
+</tbody>
+</table></div>
+<h3>New and changed tests</h3>
+<p>The mart&rsquo;s tests are named in the test plan&rsquo;s section 2.3 and carried by the steps that build each object.</p>
+<p>The test plan names every new test. Their shape, illustrated by P7 and A2:</p>
+<pre><code class="language-yaml">unit_tests:
+  - name: unit_stg_sunbelt_client_p7_blank_zero_key
+    model: stg_sunbelt_client
+    given:
+      - input: source('sunbelt', 'client')
+        rows:
+          - {crm_row_id: 1, client_number: '', first_name: 'X', last_name: 'Y', state: 'FL', loaded_at: '2026-10-01T02:00:00'}
+          - {crm_row_id: 2, client_number: '   ', first_name: 'X', last_name: 'Y', state: 'FL', loaded_at: '2026-10-02T02:00:00'}
+    expect:
+      rows:
+        - {crm_row_id: 1, hk_client_h: '00000000000000000000000000000000'}
+        - {crm_row_id: 2, hk_client_h: '00000000000000000000000000000000'}
+  - name: unit_auditor_sunbelt_client_hub_disagree_one_finding
+    model: auditor_sunbelt_client_hub
+    given:
+      - input: ref('stg_sunbelt_client')
+        rows: [three usable client keys]
+      - input: ref('client_h')
+        rows: [two non-ghost rows plus the two ghost records]
+    expect:
+      rows: [one finding, FINDER_TYPE audit, counts 3 and 2]
+</code></pre>
+<p>Severity: unit tests error; layers 1, 2 and 4 warn, each stated in its YAML or config block.</p>
+<p>Each test file and the exemplar it copies:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Test files</th>
+<th>Exemplar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source tests: dbt/models/staging/_sunbelt__sources.yml</td>
+<td>First instance in this repository, aligned with the reference architecture</td>
+</tr>
+<tr>
+<td>Unit tests: dbt/models/raw_vault/_client_h.yml; _increment_2.yml, _stg_sunbelt_policy_sale.yml, _stg_northfield_policy.yml, _inspectors.yml and _auditors.yml</td>
+<td>None for _client_h.yml, the first instance in this repository, aligned with the reference architecture; _client_h.yml for the others</td>
+</tr>
+<tr>
+<td>Seed tests: dbt/seeds/_seeds.yml</td>
+<td>First instance in this repository, aligned with the reference architecture</td>
+</tr>
+<tr>
+<td>Logic assertions: the five assert_ files in dbt/tests</td>
+<td>None for the first, the first instance in this repository, aligned with the reference architecture; dbt/tests/assert_client_h_no_blank_business_key.sql for the rest</td>
+</tr>
+<tr>
+<td>Expectations: dbt/tests/expect_sunbelt_client_row_count.sql and expect_increment_2_staging_keeps_every_landed_row.sql</td>
+<td>None for the first, the first instance in this repository, aligned with the reference architecture; the first for the second</td>
+</tr>
+</tbody>
+</table></div>
+<p>Increment 2&rsquo;s layers 1, 2 and 4 were written after the code on 2026-10-25, from the branch&rsquo;s diff, as step 32 states; the test plan names each.</p>
+<p>Increment 2&rsquo;s 62 unit tests take two shapes: 39 written with the code, and 23 added on 2026-10-25 (Ray, answer 1a) for client_sunbelt_s, client_policy_sunbelt_s, insured_northfield_s, the four version 1 views and the three staging change hashes. A staging test gives source rows and expects hash keys, as P4 above. A vault model test gives staging rows and expects vault rows; for incremental paths it overrides is_incremental and gives the model&rsquo;s existing rows as this (course record item 275, convention 4). A test that fails on dbt v1 is tagged fusion_only; one that passes on dbt 1.12.6 carries no tag, so the v1 QA job runs it (Ray, 2026-10-26). The shape of a vault model test, path AG1:</p>
+<pre><code class="language-yaml">unit_tests:
+  - name: unit_agent_h_ag1_both_sources_one_row
+    model: agent_h
+    config:
+      tags: ['fusion_only']
+    given:
+      - input: ref('stg_sunbelt_policy_sale')
+        rows:
+          - {hk_agent_h: '&lt;the hash of 17001001, computed per G-8&gt;', agent_npn: '17001001', ldts: '2026-10-01 02:00:00', rsrc: 'SSI'}
+      - input: ref('stg_northfield_policy')
+        rows:
+          - {hk_agent_h: '&lt;the same hash&gt;', agent_npn: '17001001', ldts: '2026-10-01 02:00:00', rsrc: 'NFL'}
+    expect:
+      rows:
+        - {hk_agent_h: '&lt;the same hash&gt;', agent_npn: '17001001'}
+</code></pre>
+<p>The other vault tests are this shape with the deltas their test plan rows state: the model, the given rows taken from profile P-16, and the expected rows. The link test of path L3 gives two sale rows for A-1010 on NF-100010, roles owner and insured, and expects two rows of client_policy_l whose hk_client_policy_l differ and whose hk_client_h and hk_policy_h are equal.</p>
+<p>The fix to release 1 adds 18 layer 1 tests (step 39, shape shown there) and six unit tests for the missing-key inspectors, two per inspector: one with every key present, expecting no finding, and one with keys missing, expecting one finding per row and missing key. The ten satellite unit tests of area M keep their rows and take the known-key views as their given input. The shape, path Z2 on the client list:</p>
+<pre><code class="language-yaml">unit_tests:
+  - name: unit_inspector_sunbelt_client_key_missing_one_finding_per_row
+    model: inspector_sunbelt_client_key_missing
+    given:
+      - input: source('sunbelt', 'client')
+        rows: [one row with client_number NULL, one with a blank client_number, one with A-1001]
+    expect:
+      rows: [two findings, SOURCE_COLUMN CLIENT_NUMBER, naming the two rows without a number]
+</code></pre>
+<h2>7. Build sequence and verification</h2>
+<p><strong>The dev rehearsal comes before any pull request into qa (Ray, 2026-11-01: nothing is supposed to fail in QA).</strong> Development runs everything QA will run, on QA&rsquo;s engine, from fresh data, in this order: refresh the developer landing from LANDING (infra/snowflake/refresh_landing_tier.sql) and clear the developer vault&rsquo;s built schemas; run the QA job&rsquo;s four steps on dbt-core, QA&rsquo;s engine (capture_baseline; dbt build excluding unit tests; dbt build &ndash;selector qa_build; verify_build), and the same build on Fusion; drop the MART views (infra/snowflake/drop_mart_views.sql) and run the structure check against dv.sql; compile the consumer&rsquo;s questions with MetricFlow as the connector does; run the connector&rsquo;s unit tests and the site build; and ask the consumer&rsquo;s questions through the development Ask function. A unit test one engine cannot run carries the fusion_only tag with its reason, and runs under Fusion in development. dbt-core is installed beside Fusion by infra/scripts/workstation_setup.sh. A pull request goes to qa only when every step passes; its proof section cites the rehearsal&rsquo;s runs.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Order</th>
+<th>Literal command</th>
+<th>Expected result</th>
+<th>Baseline reconciliation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Ray runs setup/infrastructure/landing.sql in Snowsight or snow sql</td>
+<td>Objects created; B-3 reads 1</td>
+<td>B-1, B-2 unchanged</td>
+</tr>
+<tr>
+<td>2</td>
+<td>snow sql -f setup/landing/sunbelt_client_load_1.sql (CLAUDE_WS_ROLE)</td>
+<td>33 source rows</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>dbt deps, then dbt seed</td>
+<td>Three packages; seed loaded</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>dbt test, selecting the unit tests only</td>
+<td>Unit tests per step 7 and 8: P7 red first, recorded; then all green after D-4</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>dbt run-operation capture_baseline</td>
+<td>Before snapshot written</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>dbt build</td>
+<td>Clean; hub 32 rows: 30 client keys (a-1010 resolves to A-1010; NULL and blank land on the unknown ghost record) plus the 2 ghost records; no inspector or auditor finding</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>dbt run-operation verify_build</td>
+<td>Expectations for act 1 pass</td>
+<td>B-1, B-2 unchanged</td>
+</tr>
+<tr>
+<td>8</td>
+<td>snow sql -f setup/landing/sunbelt_client_load_2.sql</td>
+<td>43 source rows</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>capture_baseline, dbt build, verify_build</td>
+<td>Hub 36 rows (34 keys plus 2 ghosts); two inspector findings; no auditor finding</td>
+<td>B-1, B-2 unchanged; B-4 still 0</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Increment 1.1, workstation development tier: dbt seed, then dbt build</td>
+<td>30 of 30; the seed&rsquo;s two built-in tests pass</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>setup/scripts/dev_scoped_rebuild.sh stg_sunbelt_client (the model that changed), then the resolve assertion</td>
+<td>Every client hub row carries SSI; the resolve assertion passes</td>
+<td>Hub still 36 rows, 34 keys</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Change SSI&rsquo;s row in the seed to version 2, commit, dbt seed, dbt build</td>
+<td>The seed shows the new name; its git log shows both versions</td>
+<td>No client hub row changes</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Run step 22&rsquo;s statements as SYSADMIN on LANDING; refresh the developer clone with part B of setup/infrastructure/environment_tiers.sql</td>
+<td>Both new tables exist, empty, in LANDING and DEV__LANDING__CLAUDE_WS</td>
+<td>B-5 moves as stated; SUNBELT.CLIENT keeps its 43 rows</td>
+</tr>
+<tr>
+<td>14</td>
+<td>dbt seed; then dbt test, selecting increment 2&rsquo;s unit tests only</td>
+<td>The seed carries NFL; the 39 tests run red for their content reasons, recorded on the course issue with the commit and clock</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>dbt run-operation land_act for act 1 of policy_sale and of policy, dry_run false; capture_baseline; dbt build &ndash;select the new models and their parents, with &ndash;full-refresh on each new hub, link and satellite; verify_build</td>
+<td>9 and 9 landed rows; unit tests green; build clean</td>
+<td>B-6: every kept client hub row unchanged; B-7: the two client-number findings unchanged</td>
+</tr>
+<tr>
+<td>16</td>
+<td>land_act for act 2 of both tables; capture_baseline; dbt build of the same selection without full refresh; verify_build</td>
+<td>14 and 12 landed rows; the second build runs the incremental paths</td>
+<td>Kept rows of every hub, link and satellite unchanged</td>
+</tr>
+<tr>
+<td>17</td>
+<td>The full build of the branch, one command per stroke, wrapped by the facility</td>
+<td>Clean; every warning named</td>
+<td>Every baseline reconciles</td>
+</tr>
+<tr>
+<td>18</td>
+<td>dbt test, the full suite, after step 37</td>
+<td>108 tests pass: 34 data tests and 74 unit tests, no warning</td>
+<td>Data unchanged; the four rel_ tests find no orphan</td>
+</tr>
+<tr>
+<td>19</td>
+<td>On the fix&rsquo;s branch: dbt build, the full project</td>
+<td>Clean, with every test passing and no warning beyond the semantic manifest notice; the hook reports 22 keys defined</td>
+<td>Every hub and link count unchanged; no satellite row on the zero key from a source</td>
+</tr>
+<tr>
+<td>20</td>
+<td>python3 infra/scripts/vault_ddl.py &ndash;database DEV__DV__<USER> &ndash;landing DEV__LANDING__<USER> &ndash; <snow options>, then with &ndash;check</td>
+<td>dv.sql written; the check reports a match</td>
+<td>Against qa&rsquo;s dv.sql, only the 22 constraint lines and their trailing commas</td>
+</tr>
+<tr>
+<td>21</td>
+<td>python3 site/build_site.py <preview path>, then its guards</td>
+<td>The site built; every address resolves, no wide page, no secret found</td>
+<td>The design card names D-1 to D-46</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Run step 52&rsquo;s statements as SYSADMIN, first in a developer landing clone and then in LANDING; dbt run-operation land_act &ndash;args &lsquo;{act: 1, table: northfield_organization, dry_run: false}&rsquo;; dbt run-operation land_act &ndash;args &lsquo;{act: 2, table: northfield_organization, dry_run: false}&rsquo;; dbt run-operation land_act &ndash;args &lsquo;{act: 2, table: pinecrest_organization, dry_run: false}&rsquo;</td>
+<td>Both ORGANIZATION tables exist, empty before the acts; NORTHFIELD.ORGANIZATION has one and then two rows, PINECREST.ORGANIZATION one after act 2; a replay is refused</td>
+<td>Every existing landing table keeps its rows; B-9 still shows the five MART views and no CONFORMED_DM.</td>
+</tr>
+<tr>
+<td>23</td>
+<td>dbt seed &ndash;select seed_source_system</td>
+<td>The PMC row loads; its two seed tests and assert_vault_record_sources_resolve pass</td>
+<td>The existing seed codes and every vault row are unchanged; B-9 is unchanged.</td>
+</tr>
+<tr>
+<td>24</td>
+<td>At each of steps 56, 61, 67 and 70, before its models: dbt test &ndash;select test_type:unit</td>
+<td>The mart&rsquo;s 23 unit tests run red for their content reasons at their own steps, each recorded with its commit and clock; a missing object is never accepted as the red reason</td>
+<td>The tests move no warehouse data; every previous build&rsquo;s baselines and B-9 are unchanged.</td>
+</tr>
+<tr>
+<td>25</td>
+<td>dbt build &ndash;select stg_northfield_organization stg_pinecrest_organization organization_h organization_northfield_s organization_northfield_s1 organization_pinecrest_s organization_pinecrest_s1 &ndash;full-refresh</td>
+<td>The two staging views, the hub, two satellites and two version 1 views build; OS1, OH1 to OH4, OT1 to OT3 and the models&rsquo; layer 1 tests pass</td>
+<td>Every pre-mart vault row is unchanged; the organization keys and versions reconcile to the landed acts; B-9 is unchanged.</td>
+</tr>
+<tr>
+<td>26</td>
+<td>dbt build &ndash;select person_dim organization_dim policy_dim source_dim day_dim</td>
+<td>Five views build; DG1 to DG3, DL1, DL2 and DU1 to DU5 pass; day_dim covers 2026 and 2027 and is MetricFlow&rsquo;s time spine</td>
+<td>The raw vault is unchanged; B-9 now stands partway: MART still has its five views and CONFORMED_DM has only these five dimensions.</td>
+</tr>
+<tr>
+<td>27</td>
+<td>dbt build &ndash;select client_dim insured_dim agent_dim carrier_dim; dbt test &ndash;select assert_insured_dim_masking_governance_role_real_values, in a session holding SYSADMIN; dbt test &ndash;select assert_insured_dim_masking_other_role_masked, in a session without it</td>
+<td>Four role views build, insured_dim secure; DS1 to DS4 and DU6 to DU9 pass, and SM1 and SM2 return no rows</td>
+<td>The base dimensions are unchanged; B-9 remains partway: MART still has its five views and CONFORMED_DM has the nine dimensions and role views.</td>
+</tr>
+<tr>
+<td>28</td>
+<td>git diff &ndash;check &ndash; dbt/models/marts/conformed_dm dbt/models/mart dbt/tests infra/snowflake/drop_mart_views.sql</td>
+<td>The four fact models and their tests join steps 75 to 78 in one working tree; there is no separate fact commit or build</td>
+<td>No warehouse object moves; B-9 still shows five MART views and the nine CONFORMED_DM views.</td>
+</tr>
+<tr>
+<td>29</td>
+<td>dbt parse</td>
+<td>The same working tree of steps 71 to 78 parses with ten semantic models, nine metrics and six saved queries, and records_not_accepted and rows_missing_key defined once; there is no separate semantic-layer commit or build</td>
+<td>No warehouse object moves; B-9 still shows five MART views and the nine CONFORMED_DM views.</td>
+</tr>
+<tr>
+<td>30</td>
+<td>git add dbt/models/marts/conformed_dm dbt/models/mart dbt/tests infra/snowflake/drop_mart_views.sql &amp;&amp; git commit -m &ldquo;Build the conformed mart and retire MART&rdquo;; in the QA build job, dbt run-operation capture_baseline, then dbt build, then dbt run-operation verify_build; snow sql -f infra/snowflake/drop_mart_views.sql -D vault=DV_QA</td>
+<td>The one commit of steps 71 to 78 builds once; dbt ls lists none of the five MART models, the thirteen conformed views and their tests build, and the guarded drop script lists the five old MART views before the drop and none after; a run naming another database is refused</td>
+<td>B-9 reconciles after the build and drop: MART has none of the five views and CONFORMED_DM has the thirteen models; all earlier landing and vault baselines reconcile.</td>
+</tr>
+<tr>
+<td>31</td>
+<td>dbt run-operation capture_baseline; dbt build; dbt run-operation verify_build</td>
+<td>The full QA build is clean on rerun, every mart test and saved-query check passes, no MART model returns, and verify_build names every warning</td>
+<td>Every baseline reconciles; B-9 remains MART none and CONFORMED_DM thirteen, and all pre-mart landing and vault rows are unchanged.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Verification queries</h3>
+<ol>
+<li>Hub after act 2: SELECT COUNT(*), COUNT_IF(rsrc = &lsquo;SSI&rsquo;) FROM the hub. Expected 36 and 34 after increment 1&rsquo;s acts, when the code was still SUNBELT.CLIENT (increment 1.1 made it SSI); 37 and 35 after increment 2&rsquo;s acts, A-1033 arriving from the sales data.</li>
+<li>First sightings: A-1031 and A-1032 carry the act 2 load timestamp; every other client key carries act 1&rsquo;s.</li>
+<li>Findings: SELECT finder_name, finder_type, column_value FROM LANDING.CONFIG.DATA_FINDING. Expected two inspection rows (A1007, A-01008) and no audit row.</li>
+<li>B-1 and B-2 read again, unchanged.</li>
+<li>Increment 1.1: SELECT RSRC, COUNT(*) FROM the client hub GROUP BY RSRC; expected SSI 34, SYSTEM 1, ERROR 1, and no SUNBELT.CLIENT.</li>
+<li>Increment 1.1: git log of dbt/seeds/seed_source_system.csv shows both versions of SSI; the seed shows the new name.</li>
+<li>Increment 1.1: probe Q-4, the client hub joined to the source system seed: every row names its source. dbt run-operation vault_checks reports the same counts in any environment.</li>
+<li>Increment 2, the policy hub against its sources: distinct usable policy keys in each staging model against the policy_h rows of that record source; the two auditors report nothing.</li>
+<li>Increment 2, identity: probe Q-6 of the design, the policy hub row of NF-100007 with every link row that reaches it, shows one client_policy_l row to A-1007, one insured_policy_l row to NLI-55007 and one agent_policy_l row to 17001001 fed by both sources.</li>
+<li>Increment 2, versions: the satellite rows of NF-100003 and NF-100008 hold two versions each; NF-100002 holds one.</li>
+<li>The fix to release 1, the declared keys: SELECT CONSTRAINT_TYPE, COUNT(*) FROM <vault database>.INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE IN (&lsquo;PRIMARY KEY&rsquo;, &lsquo;FOREIGN KEY&rsquo;) GROUP BY 1. Expected 12 and 10.</li>
+<li>The fix to release 1, the findings: SELECT FINDER_NAME, COUNT(*) FROM <landing database>.CONFIG.DATA_FINDING GROUP BY 1. Expected the two form inspectors&rsquo; 2 and 1, and the missing-key inspectors&rsquo; 1, 3 and 3 on the planted data.</li>
+<li>The fix to release 1, no false entity: for each satellite, the count of rows on the all-zeros key whose record source is neither SYSTEM nor ERROR. Expected 0 in every satellite.</li>
+<li>The conformed mart, fact keys: for each of client_policy_role_fact (client_policy_role_key), agent_policy_fact (agent_policy_key), policy_terms_fact (policy_terms_key) and finding_fact (finding_key), SELECT COUNT(*) and COUNT(DISTINCT <its key>); the two counts are equal in each of the four facts.</li>
+<li>Q-15: read records_not_accepted through the conformed mart&rsquo;s semantic layer and compare it with SELECT COUNT(*) FROM <landing database>.CONFIG.DATA_FINDING WHERE ENDSWITH(FINDER_NAME, &lsquo;_form&rsquo;); the semantic-layer value equals the number of form findings in CONFIG.DATA_FINDING.
+Each count is read from the warehouse at its stroke, never asserted from this guide.</li>
+</ol>
+<h2>8. Decisions recorded in this guide</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Weed-level choice</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G-1</td>
+<td>Folders dbt/models/inspectors and dbt/models/auditors</td>
+<td>Mirrors the two layer names</td>
+</tr>
+<tr>
+<td>G-2</td>
+<td>landing.sql runs as SYSADMIN and grants LANDING&rsquo;s privileges to CLAUDE_WS_ROLE directly</td>
+<td>The project has one workstation user, and no landing roles are needed</td>
+</tr>
+<tr>
+<td>G-3</td>
+<td>verify_build reads the expectations seed through ref(), and the seed file joins the branch</td>
+<td>This project had no fixed REFERENCE schema at the time; the test plan&rsquo;s file list grows from 19 to 20 at reconciliation</td>
+</tr>
+<tr>
+<td>G-4</td>
+<td>capture_baseline and verify_build measure SUNBELT.CLIENT rows, client_h rows, and DATA_FINDING rows by FINDER_TYPE</td>
+<td>They are this vault&rsquo;s own tables</td>
+</tr>
+<tr>
+<td>G-5</td>
+<td>Seed expectations that hold after both acts: the hub&rsquo;s row count increased; audit findings below 1. The act-specific numbers (32, then 36 hub rows; 0, then 2 inspection findings) are read by the verification queries</td>
+<td>An expectation fixed at 36 would fail the act 1 verification, where the hub holds 32</td>
+</tr>
+<tr>
+<td>G-6</td>
+<td>Landing by committed INSERT files; grain (LOADED_AT, CRM_ROW_ID)</td>
+<td>Small, readable, replayable; act 2 repeats two CRM row IDs by design (P2)</td>
+</tr>
+<tr>
+<td>G-7</td>
+<td>Names and states from fixed invented lists</td>
+<td>Deterministic and free of real people</td>
+</tr>
+<tr>
+<td>G-8</td>
+<td>Expected hash literals computed in Snowflake with the toolkit&rsquo;s expression</td>
+<td>A hand-typed MD5 would test the typist</td>
+</tr>
+<tr>
+<td>G-9</td>
+<td>dbt_utils added</td>
+<td>The finding keys use generate_surrogate_key; the package was not installed</td>
+</tr>
+<tr>
+<td>G-10</td>
+<td>Superseded by D-21</td>
+<td>See D-21</td>
+</tr>
+<tr>
+<td>G-11</td>
+<td>Superseded by D-21</td>
+<td>See D-21</td>
+</tr>
+<tr>
+<td>G-12</td>
+<td>dev_scoped_rebuild.sh refuses targets outside developer databases</td>
+<td>Design D-20 forbids rebuilds in QA and production; the script enforces it instead of relying on care</td>
+</tr>
+<tr>
+<td>G-13</td>
+<td>Operational SQL is packaged as dbt macros, guarded, dry run by default</td>
+<td>They run the same in dbt Studio, on a workstation and in a deployment job</td>
+</tr>
+<tr>
+<td>G-14</td>
+<td>client_h lists its two staging models without rsrc_static, so it loads without the high-water mark</td>
+<td>Both of its sources carry SSI, so a per-source mark cannot tell them apart; the toolkit disables the mark when rsrc_static is absent (fork documentation, page 07), and the course&rsquo;s volumes need none</td>
+</tr>
+<tr>
+<td>G-15</td>
+<td>A version 1 satellite view takes its satellite&rsquo;s name with 1 appended: policy_northfield_s1</td>
+<td>The course&rsquo;s naming rule names version 0 objects only; the increment 1.1 reference satellite&rsquo;s view used the same suffix</td>
+</tr>
+<tr>
+<td>G-16</td>
+<td>Descriptive values of the new tables come from fixed invented lists: agents Dana Whitaker, Marcus Reyes, Priya Natarajan and Owen Fitch; plans Senior Term 20, Final Expense 10K and Guaranteed Whole Life; the insureds&rsquo; names, birth dates and addresses of step 24</td>
+<td>Deterministic and free of real people, as G-7</td>
+</tr>
+<tr>
+<td>G-17</td>
+<td>inc2 expectations that hold after both acts: each new hub, link and satellite has more rows than before the act; audit findings below 1</td>
+<td>An act-specific count would fail the other act, as G-5</td>
+</tr>
+<tr>
+<td>G-18</td>
+<td>client_h, read by 18 repository files, gains the sales data as a second source (step 28)</td>
+<td>Ratified by Ray on 2026-10-25, answer 1y, after the change: every test that reads it passed and the build was 129 of 129</td>
+</tr>
+<tr>
+<td>G-19</td>
+<td>stg_sunbelt_client, read by 9 repository files, gains the change hash for client_sunbelt_s (step 27), keys and rows unchanged</td>
+<td>Ratified by Ray on 2026-10-25, answer 2y, after the change</td>
+</tr>
+<tr>
+<td>G-20</td>
+<td>Steps 8, 9, 29 and 30 take their shape from the toolkit&rsquo;s documentation, no repository holding an exemplar; their files are the exemplars for later increments</td>
+<td>Ratified by Ray on 2026-10-25, answer 3y</td>
+</tr>
+<tr>
+<td>G-21</td>
+<td>Step 40&rsquo;s exemplar is vault_checks.sql, the project&rsquo;s only macro that runs warehouse statements through run_query</td>
+<td>No repository holds a macro that declares keys; vault_checks.sql shares its shape: run_query, then a log line with the counts</td>
+</tr>
+<tr>
+<td>G-22</td>
+<td>client_sunbelt_s (11 consumer files by git grep), insured_northfield_s (10) and policy_northfield_s (10) change their source to the known-key views (step 41)</td>
+<td>Each has more than five consumers, so each went to Ray as its own decision line; approved on 2026-10-28 (answer 1y), with the missing-key inspectors reading landing</td>
+</tr>
+<tr>
+<td>G-23</td>
+<td>The governance role of mart design D-9 is SYSADMIN, a role that already exists; no role is created or granted at this point</td>
+<td>Ray, 2026-11-01: no need to keep separating roles this early</td>
+</tr>
+</tbody>
+</table></div>
+<h2>9. Rollback</h2>
+<p>Everything in this branch is additive. To roll back increment 2: dbt run-operation dev_drop_orphans after removing its models drops their objects from the developer database; land_act cannot unload, and LANDING&rsquo;s delivered rows stay, since delivered source data is never rolled back; a developer clone is emptied of them by recreating it from a LANDING state before the delivery, through Time Travel; the NFL seed row is removed by a commit; client_h is rebuilt with the scoped rebuild script from stg_sunbelt_client. To roll back the whole branch, it is abandoned without merging, and Ray drops LANDING if no other branch uses it. To roll back the fix to release 1: revert its commits and rebuild the three satellites with the scoped rebuild script; the declared keys are dropped with ALTER TABLE &hellip; DROP CONSTRAINT, and they never affect a load; the production correction&rsquo;s way back is Snowflake Time Travel on the two satellites.</p>
+<p>To roll back the conformed mart: revert its commits, drop CONFORMED_DM&rsquo;s views, and restore the MART views from the qa branch&rsquo;s models.</p>
+<h2>10. What this guide does not cover</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Exclusion</th>
+<th>Canonical home</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QA, promotion and production</td>
+<td>D-13 superseded on 2026-10-25. 1. Ray reviews pull request #2 and merges it into qa; an agent never merges to qa. 2. The QA cycle runs from the QA item : fresh clones of LANDING_QA and DV_QA by the authorized routine, the dbt Cloud job &ldquo;QA build&rdquo; (setup/runbooks/dbt_cloud_qa_environment.md), the branch battery, regression inside QA, probes, operations, and the certification verdict per gate. 3. Production does not exist yet for this repository: a production environment building DV on LANDING from main, the promotion pull request from qa, a production build with baseline capture and verification, and the release answers pair (words and HTML) are each written as a runbook step and authorized by Ray before the first promotion. 4. Landing data flows down, the opposite of code (Ray, 2026-10-25): land_act, the stand-in source system, delivers to LANDING, and QA and developer landing receive the data only by cloning LANDING. Increment 2&rsquo;s acts were delivered to LANDING on 2026-10-25 (commit 0472975); land_act&rsquo;s own code is still proven first in a developer clone</td>
+</tr>
+<tr>
+<td>Matching the person behind client and insured</td>
+<td>Design DD-5, D-29</td>
+</tr>
+<tr>
+<td>The test plan&rsquo;s layers 1, 2 and 4 to 7 for increment 2</td>
+<td>Test plan, written after the code</td>
+</tr>
+<tr>
+<td>UDM structures</td>
+<td>Design DD-2</td>
+</tr>
+<tr>
+<td>Pragmatic Data Platform history in LANDING.STORAGE</td>
+<td>Design DD-4</td>
+</tr>
+<tr>
+<td>Recording the datavault4dbt patterns as course items</td>
+<td>Design D-14, after this increment ships</td>
+</tr>
+<tr>
+<td>Running the production correction</td>
+<td>The promotion steps, infra/runbooks/dbt_cloud_prod_environment.md, step 4</td>
+</tr>
+<tr>
+<td>GOVERNANCE_DM</td>
+<td>Release 2 (mart design D-7).</td>
+</tr>
+<tr>
+<td>Q-12</td>
+<td>Until C-1 is answered (mart design DD-1).</td>
+</tr>
+<tr>
+<td>Matching people across roles</td>
+<td>Release 2&rsquo;s business vault (mart design D-10).</td>
+</tr>
+</tbody>
+</table></div>
+<h2>11. Compliance record</h2>
+<p>Built by the author against the implementation guide template and Standard: Branch Delivery Documents (, implementation guide section), at 2026-11-01 03:06Z, on the text above. Verdict: <strong>compliant</strong>: every requirement below is met. Steps 52 to 78 carry the thirteen build decisions of the mart design and every deliverable of its section 5.6 handoff; mart design D-7 decides against a release 1 workgroup datamart, and section 10 records GOVERNANCE_DM for release 2. G-22&rsquo;s three decision lines were approved on 2026-10-28. Lab 1-2&rsquo;s steps 33 to 36 each name their file, design decision and exemplar (landing.sql&rsquo;s NORTHFIELD block, land_act&rsquo;s policy table, the northfield source); the test step names the three tests of test plan 2.2. The fix to release 1&rsquo;s steps 39 to 51 and the mart&rsquo;s steps 52 to 78 each name their file, design decision and exemplar.</p>
+<h3>11.1 Template and structure</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Header: every field present and filled, Prerequisites and Companions included</td>
+<td>Yes. The author line reads &ldquo;Ray Serrano; edited by Claude&rdquo;, overriding the template&rsquo;s fixed text (Ray, 2026-10-22)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Every section of the template</td>
+<td>Yes, 19 of 19: 1 to 10 with the pattern declaration, scope parts, test dispositions and verification queries</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The implementer preamble, verbatim; the pattern declaration; the grounding command</td>
+<td>Yes, all three; the grounding command is git grep</td>
+</tr>
+</tbody>
+</table></div>
+<h3>11.2 Steps and tests</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Each step names its exact file</td>
+<td>Yes for every live code step; steps 15 and 16 are superseded, step 20 is an operation, and steps 44 and 45 are commands that write their files</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Each step names its pattern, cited in knowledge 14</td>
+<td>Deviation by D-14: pattern citations go to course items 274 and 275 and the datavault4dbt fork&rsquo;s pages, not knowledge 14</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Each step and each test file names its repository exemplar, by path</td>
+<td>Yes, by the standard&rsquo;s first-instance rule: steps 1, 3 to 7, 10 to 13, 19 and 21, and the first source, unit, seed, assertion and expectation test files, were the repository&rsquo;s first of their classification, aligned with the reference architecture, and name no exemplar; every later step and test file names one of them. Steps 8, 9, 29 and 30 had no file of their classification in either place, the first datavault4dbt staging model, hub, links and satellites, and copied the toolkit&rsquo;s documentation; that gap went to Ray as a decision line on 2026-10-25, ratified as G-20 (answer 3y). Steps 39 to 45 name theirs: step 37&rsquo;s tests, vault_checks.sql (G-21), policy_fact.sql, inspector_sunbelt_client_number_form.sql, refresh_landing_tier.sql, and Mary&rsquo;s site guide; step 46 names the findings metric and unit_inspector_sunbelt_client_key_missing_one_finding_per_row</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Tests: dispositions of existing tests, and the new tests as literal code</td>
+<td>Yes: both parts present</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Every live design decision carried by a step</td>
+<td>Branch design: yes for 44 of 45; D-31 decides to build nothing. D-42 to D-46 by steps 39 to 43, D-43 also by step 44, D-47 by step 46, D-48 to D-52 by steps 47 to 51. Mart design: not met; no step carries its D-1 to D-12</td>
+</tr>
+</tbody>
+</table></div>
+<h3>11.3 Shared objects, decisions and accuracy</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>A change to an object with more than five repository consumers presented to Ray as its own decision line, with the count</td>
+<td>Put to Ray on 2026-10-25, after the change: client_h (18 consumers by git grep) and stg_sunbelt_client (9), ratified as G-18 and G-19 (answers 1y and 2y). For the fix to release 1: client_sunbelt_s (11), insured_northfield_s (10) and policy_northfield_s (10), recorded as G-22 and approved on 2026-10-28 (answer 1y)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Decisions recorded in this guide, numbered</td>
+<td>Yes: G-1 to G-22</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Rollback and exclusions stated</td>
+<td>Yes: sections 9 and 10</td>
+</tr>
+<tr>
+<td>4</td>
+<td>The text agrees with the code it guides</td>
+<td>Yes since 2026-10-25: step 31 describes the key-existence check, verification query 1 filters on SSI with both increments&rsquo; counts, the recap rows of D-1 and D-10 match the design, and the tests section counts 62 unit tests for increment 2. Steps 39 to 45 were written from the branch at 976744e, steps 46 to 50 from fd68751, each code block read from its file</td>
+</tr>
+</tbody>
+</table></div></article><section class="cta bleed"><h2>Next: Post-implementation guide</h2><p>What shipped, the evidence, and every difference from the plan, with why.</p><a class="btn" href="post-implementation.html">Read the post-implementation guide</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

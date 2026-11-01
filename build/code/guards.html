@@ -1,0 +1,1171 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inspectors, auditors and tests | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../ask/index.html">Ask</a><a href="../../guide/index.html">Guide</a><a href="../../releases/index.html">Releases</a><a href="../../documentation/index.html">Documentation</a><a href="../../learn/index.html">Learn</a><a href="../../model/index.html">Model</a><a href="../index.html" class="on">Build</a></nav></div>
+<div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>Inspectors, auditors and tests</h1><p>What checks the data on every build. 42 files.</p></div></header>
+<main><details class="file"><summary>dbt/models/auditors/_auditors.yml</summary><pre><code>version: 2
+
+# Layer 3 unit tests for the layer 6 auditor (test plan paths A1, A2). A1 carries a hub key from another source
+# (k9): since increment 2, client_h also reads the sales data, so the hub may hold keys the client list never sent.
+unit_tests:
+  - name: unit_auditor_sunbelt_client_hub_agree_no_finding
+    model: auditor_sunbelt_client_hub
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {client_number: &#x27;A-1001&#x27;, hk_client_h: &#x27;k1&#x27;}
+          - {client_number: &#x27;A-1002&#x27;, hk_client_h: &#x27;k2&#x27;}
+          - {client_number: &#x27;a-1002&#x27;, hk_client_h: &#x27;k2&#x27;}
+          - {client_number: &#x27;(unknown)&#x27;, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+      - input: ref(&#x27;client_h&#x27;)
+        rows:
+          - {hk_client_h: &#x27;k1&#x27;}
+          - {hk_client_h: &#x27;k2&#x27;}
+          - {hk_client_h: &#x27;k9&#x27;}
+          - {hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+          - {hk_client_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_auditor_sunbelt_client_hub_disagree_one_finding
+    model: auditor_sunbelt_client_hub
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {client_number: &#x27;A-1001&#x27;, hk_client_h: &#x27;k1&#x27;}
+          - {client_number: &#x27;A-1002&#x27;, hk_client_h: &#x27;k2&#x27;}
+          - {client_number: &#x27;A-1003&#x27;, hk_client_h: &#x27;k3&#x27;}
+      - input: ref(&#x27;client_h&#x27;)
+        rows:
+          - {hk_client_h: &#x27;k1&#x27;}
+          - {hk_client_h: &#x27;k2&#x27;}
+          - {hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+          - {hk_client_h: &#x27;ffffffffffffffffffffffffffffffff&#x27;}
+    expect:
+      rows:
+        - {finder_type: &#x27;audit&#x27;, column_value: &#x27;3 source keys, 2 found in the hub&#x27;}
+
+  # Layer 3, test plan logic area O (paths A3 to A6): every usable key of each new source table is in the policy hub,
+  # whichever record source the hub kept (a key both sources send in one load is kept under one of them, path PH3).
+  - name: unit_auditor_sunbelt_policy_hub_agree_no_finding
+    model: auditor_sunbelt_policy_hub
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;}
+          - {hk_policy_h: &#x27;p2&#x27;}
+          - {hk_policy_h: &#x27;p3&#x27;}
+          - {hk_policy_h: &#x27;00000000000000000000000000000000&#x27;}
+      - input: ref(&#x27;policy_h&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_policy_h: &#x27;p2&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_policy_h: &#x27;p3&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_policy_h: &#x27;00000000000000000000000000000000&#x27;, rsrc: &#x27;SYSTEM&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_auditor_sunbelt_policy_hub_disagree_one_finding
+    model: auditor_sunbelt_policy_hub
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;}
+          - {hk_policy_h: &#x27;p2&#x27;}
+          - {hk_policy_h: &#x27;p3&#x27;}
+      - input: ref(&#x27;policy_h&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;, rsrc: &#x27;SSI&#x27;}
+          - {hk_policy_h: &#x27;p2&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {finder_type: &#x27;audit&#x27;, column_value: &#x27;3 source keys, 2 found in the hub&#x27;}
+
+  - name: unit_auditor_northfield_policy_hub_agree_no_finding
+    model: auditor_northfield_policy_hub
+    given:
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;}
+          - {hk_policy_h: &#x27;p2&#x27;}
+          - {hk_policy_h: &#x27;p3&#x27;}
+      - input: ref(&#x27;policy_h&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;, rsrc: &#x27;NFL&#x27;}
+          - {hk_policy_h: &#x27;p2&#x27;, rsrc: &#x27;NFL&#x27;}
+          - {hk_policy_h: &#x27;p3&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_auditor_northfield_policy_hub_disagree_one_finding
+    model: auditor_northfield_policy_hub
+    given:
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;}
+          - {hk_policy_h: &#x27;p2&#x27;}
+          - {hk_policy_h: &#x27;p3&#x27;}
+      - input: ref(&#x27;policy_h&#x27;)
+        rows:
+          - {hk_policy_h: &#x27;p1&#x27;, rsrc: &#x27;NFL&#x27;}
+          - {hk_policy_h: &#x27;p4&#x27;, rsrc: &#x27;SSI&#x27;}
+    expect:
+      rows:
+        - {finder_type: &#x27;audit&#x27;, column_value: &#x27;3 source keys, 1 found in the hub&#x27;}
+</code></pre></details><details class="file"><summary>dbt/models/auditors/auditor_northfield_policy_hub.sql</summary><pre><code>{#
+  Layer 6 auditor (design D-10; guide step 31). Compares one system against another: every distinct usable policy key staged from NORTHFIELD.POLICY must be in
+  the policy hub, whichever record source the hub kept (path PH3: a key both sources send in one load is kept
+  under one of them). A first version compared the hub rows of its own record source and raised a false
+  finding at act 1 (2026-10-25); reduced to unit tests A4 to A6, red, then fixed.
+  Its disagree test was red 2026-10-25 01:12 UTC on beb49c9 before the comparison, green with it. Writes one summary finding, carrying both counts, only when they disagree.
+  Pattern: a reconciliation writes at most one finding.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH source_keys AS (
+    SELECT DISTINCT hk_policy_h
+    FROM {{ ref(&#x27;stg_northfield_policy&#x27;) }}
+    WHERE hk_policy_h NOT IN (&#x27;00000000000000000000000000000000&#x27;, &#x27;ffffffffffffffffffffffffffffffff&#x27;)
+),
+
+counts AS (
+    SELECT COUNT(*) AS n, COUNT(h.hk_policy_h) AS found
+    FROM source_keys k
+    LEFT JOIN (SELECT DISTINCT hk_policy_h FROM {{ ref(&#x27;policy_h&#x27;) }}) h ON h.hk_policy_h = k.hk_policy_h
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;auditor_northfield_policy_hub&#x27;&quot;, &quot;&#x27;NORTHFIELD&#x27;&quot;, &quot;&#x27;NORTHFIELD.POLICY&#x27;&quot;]) }} AS finding_pk,
+    &#x27;NORTHFIELD&#x27; AS source_system,
+    &#x27;NORTHFIELD.POLICY&#x27; AS source_table,
+    &#x27;POLICY_NUMBER&#x27; AS source_column,
+    c.n || &#x27; source keys, &#x27; || c.found || &#x27; found in the hub&#x27; AS column_value,
+    &#x27;auditor_northfield_policy_hub&#x27; AS finder_name,
+    &#x27;audit&#x27; AS finder_type,
+    &#x27;Not every policy key of NORTHFIELD.POLICY is in the policy hub: &#x27; || c.n || &#x27; distinct usable keys staged, &#x27; || c.found || &#x27; found in policy_h.&#x27; AS detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM counts c
+WHERE c.n &lt;&gt; c.found
+</code></pre></details><details class="file"><summary>dbt/models/auditors/auditor_sunbelt_client_hub.sql</summary><pre><code>{#
+  Layer 6 auditor (design D-10). Compares one system against another: every distinct usable client key staged
+  from the client list must be in client_h. Since increment 2 the hub also reads the sales data (design D-32), so
+  it may hold keys the client list never sent; a first version compared counts and raised a false finding at
+  increment 2&#x27;s act 2 (2026-10-25), reduced to unit tests A1 and A2, red, then fixed.
+  Writes one summary finding, carrying both counts, only when a key is missing.
+  Pattern: a reconciliation writes at most one finding.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH source_keys AS (
+    SELECT DISTINCT hk_client_h
+    FROM {{ ref(&#x27;stg_sunbelt_client&#x27;) }}
+    WHERE client_number IS NOT NULL
+      AND hk_client_h NOT IN (&#x27;00000000000000000000000000000000&#x27;, &#x27;ffffffffffffffffffffffffffffffff&#x27;)
+),
+
+counts AS (
+    SELECT COUNT(*) AS n, COUNT(h.hk_client_h) AS found
+    FROM source_keys k
+    LEFT JOIN (SELECT DISTINCT hk_client_h FROM {{ ref(&#x27;client_h&#x27;) }}) h ON h.hk_client_h = k.hk_client_h
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;auditor_sunbelt_client_hub&#x27;&quot;, &quot;&#x27;SUNBELT&#x27;&quot;, &quot;&#x27;SUNBELT.CLIENT&#x27;&quot;]) }} AS finding_pk,
+    &#x27;SUNBELT&#x27; AS source_system,
+    &#x27;SUNBELT.CLIENT&#x27; AS source_table,
+    &#x27;CLIENT_NUMBER&#x27; AS source_column,
+    c.n || &#x27; source keys, &#x27; || c.found || &#x27; found in the hub&#x27; AS column_value,
+    &#x27;auditor_sunbelt_client_hub&#x27; AS finder_name,
+    &#x27;audit&#x27; AS finder_type,
+    &#x27;Not every client key of SUNBELT.CLIENT is in client_h: &#x27; || c.n || &#x27; distinct usable keys staged, &#x27; || c.found || &#x27; found in client_h.&#x27; AS detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM counts c
+WHERE c.n &lt;&gt; c.found
+</code></pre></details><details class="file"><summary>dbt/models/auditors/auditor_sunbelt_policy_hub.sql</summary><pre><code>{#
+  Layer 6 auditor (design D-10; guide step 31). Compares one system against another: every distinct usable policy key staged from SUNBELT.POLICY_SALE must be in
+  the policy hub, whichever record source the hub kept (path PH3: a key both sources send in one load is kept
+  under one of them). A first version compared the hub rows of its own record source and raised a false
+  finding at act 1 (2026-10-25); reduced to unit tests A4 to A6, red, then fixed.
+  Its disagree test was red 2026-10-25 01:12 UTC on beb49c9 before the comparison, green with it. Writes one summary finding, carrying both counts, only when they disagree.
+  Pattern: a reconciliation writes at most one finding.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH source_keys AS (
+    SELECT DISTINCT hk_policy_h
+    FROM {{ ref(&#x27;stg_sunbelt_policy_sale&#x27;) }}
+    WHERE hk_policy_h NOT IN (&#x27;00000000000000000000000000000000&#x27;, &#x27;ffffffffffffffffffffffffffffffff&#x27;)
+),
+
+counts AS (
+    SELECT COUNT(*) AS n, COUNT(h.hk_policy_h) AS found
+    FROM source_keys k
+    LEFT JOIN (SELECT DISTINCT hk_policy_h FROM {{ ref(&#x27;policy_h&#x27;) }}) h ON h.hk_policy_h = k.hk_policy_h
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;auditor_sunbelt_policy_hub&#x27;&quot;, &quot;&#x27;SUNBELT&#x27;&quot;, &quot;&#x27;SUNBELT.POLICY_SALE&#x27;&quot;]) }} AS finding_pk,
+    &#x27;SUNBELT&#x27; AS source_system,
+    &#x27;SUNBELT.POLICY_SALE&#x27; AS source_table,
+    &#x27;POLICY_NUMBER&#x27; AS source_column,
+    c.n || &#x27; source keys, &#x27; || c.found || &#x27; found in the hub&#x27; AS column_value,
+    &#x27;auditor_sunbelt_policy_hub&#x27; AS finder_name,
+    &#x27;audit&#x27; AS finder_type,
+    &#x27;Not every policy key of SUNBELT.POLICY_SALE is in the policy hub: &#x27; || c.n || &#x27; distinct usable keys staged, &#x27; || c.found || &#x27; found in policy_h.&#x27; AS detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM counts c
+WHERE c.n &lt;&gt; c.found
+</code></pre></details><details class="file"><summary>dbt/models/inspectors/_inspectors.yml</summary><pre><code>version: 2
+
+# Layer 3 unit tests for the layer 5 inspector (test plan paths I1, I2). New model, no prior
+# behavior to characterize, so the tests are written with the model and expected green.
+unit_tests:
+  - name: unit_inspector_sunbelt_client_number_form_conforming_no_finding
+    model: inspector_sunbelt_client_number_form
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {client_number: &#x27;A-1001&#x27;, hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;}
+          - {client_number: &#x27;a-1004&#x27;, hk_client_h: &#x27;d451d5e07e1297d40e4e211e07d63c87&#x27;}
+          - {client_number: &#x27;(unknown)&#x27;, hk_client_h: &#x27;00000000000000000000000000000000&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_inspector_sunbelt_client_number_form_nonconforming_one_finding_each
+    model: inspector_sunbelt_client_number_form
+    given:
+      - input: ref(&#x27;stg_sunbelt_client&#x27;)
+        rows:
+          - {client_number: &#x27;A-1001&#x27;, hk_client_h: &#x27;2eec4d22ff4ec7df061cc883ac8d1b04&#x27;}
+          - {client_number: &#x27;A1007&#x27;, hk_client_h: &#x27;9b015df670245d76e164c5313771bad8&#x27;}
+          - {client_number: &#x27;A-01008&#x27;, hk_client_h: &#x27;x&#x27;}
+    expect:
+      rows:
+        - {column_value: &#x27;A1007&#x27;, finder_type: &#x27;inspection&#x27;}
+        - {column_value: &#x27;A-01008&#x27;, finder_type: &#x27;inspection&#x27;}
+
+  # Layer 3, test plan logic area N (paths I3, I4).
+  - name: unit_inspector_sunbelt_policy_number_form_conforming_no_finding
+    model: inspector_sunbelt_policy_number_form
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100001&#x27;, hk_policy_h: &#x27;p1&#x27;}
+          - {policy_number: &#x27;nf-100001&#x27;, hk_policy_h: &#x27;p1&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_inspector_sunbelt_policy_number_form_nonconforming_one_finding
+    model: inspector_sunbelt_policy_number_form
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100009&#x27;, hk_policy_h: &#x27;p9&#x27;}
+          - {policy_number: &#x27;NF100009&#x27;, hk_policy_h: &#x27;p9x&#x27;}
+    expect:
+      rows:
+        - {finder_type: &#x27;inspection&#x27;, column_value: &#x27;NF100009&#x27;}
+
+  # Layer 3, the missing-key inspectors (fix to release 1, 2026-10-28): every key present raises nothing; each
+  # missing key raises one finding per row, named so the row can be found in landing storage.
+  - name: unit_inspector_sunbelt_client_key_missing_none_missing
+    model: inspector_sunbelt_client_key_missing
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 1, client_number: &#x27;A-1001&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_inspector_sunbelt_client_key_missing_one_finding_per_row
+    model: inspector_sunbelt_client_key_missing
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;client&#x27;)
+        rows:
+          - {crm_row_id: 1, client_number: &#x27;A-1001&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 31, client_number: null, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {crm_row_id: 32, client_number: &#x27;   &#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {source_column: &#x27;CLIENT_NUMBER&#x27;, column_value: &#x27;CRM row 31, loaded 2026-10-01&#x27;}
+        - {source_column: &#x27;CLIENT_NUMBER&#x27;, column_value: &#x27;CRM row 32, loaded 2026-10-01&#x27;}
+
+  - name: unit_inspector_sunbelt_policy_sale_key_missing_none_missing
+    model: inspector_sunbelt_policy_sale_key_missing
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 1, policy_number: &#x27;NF-100001&#x27;, client_number: &#x27;A-1001&#x27;, agent_npn: &#x27;17001001&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_inspector_sunbelt_policy_sale_key_missing_one_finding_per_missing_key
+    model: inspector_sunbelt_policy_sale_key_missing
+    given:
+      - input: source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;)
+        rows:
+          - {sale_row_id: 7, policy_number: null, client_number: &#x27;A-1013&#x27;, agent_npn: &#x27;17001006&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+          - {sale_row_id: 8, policy_number: &#x27;NF-100014&#x27;, client_number: &#x27;&#x27;, agent_npn: null, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {source_column: &#x27;POLICY_NUMBER&#x27;, column_value: &#x27;Sale row 7, loaded 2026-10-01&#x27;}
+        - {source_column: &#x27;CLIENT_NUMBER&#x27;, column_value: &#x27;Sale row 8, loaded 2026-10-01&#x27;}
+        - {source_column: &#x27;AGENT_NPN&#x27;, column_value: &#x27;Sale row 8, loaded 2026-10-01&#x27;}
+
+  - name: unit_inspector_northfield_policy_key_missing_none_missing
+    model: inspector_northfield_policy_key_missing
+    given:
+      - input: source(&#x27;northfield&#x27;, &#x27;policy&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100001&#x27;, insured_id: &#x27;NLI-55001&#x27;, writing_agent_npn: &#x27;17001001&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows: []
+
+  - name: unit_inspector_northfield_policy_key_missing_one_finding_per_missing_key
+    model: inspector_northfield_policy_key_missing
+    given:
+      - input: source(&#x27;northfield&#x27;, &#x27;policy&#x27;)
+        rows:
+          - {policy_number: &#x27;NF-100013&#x27;, insured_id: null, writing_agent_npn: &#x27;17002001&#x27;, loaded_at: &#x27;2026-10-01T02:00:00&#x27;}
+    expect:
+      rows:
+        - {source_column: &#x27;INSURED_ID&#x27;, column_value: &#x27;Policy row NF-100013, loaded 2026-10-01&#x27;}
+</code></pre></details><details class="file"><summary>dbt/models/inspectors/inspector_northfield_policy_key_missing.sql</summary><pre><code>{#
+  Layer 5 inspector (fix to release 1, 2026-10-28; Code Review Standard k12ki19: no silent record loss).
+  Discloses each row of LANDING.NORTHFIELD.POLICY, the persistent staging that keeps every row as sent, that arrived without a
+  policy number, an insured id or a writing agent&#x27;s number, missing or blank by staging&#x27;s rule NULLIF(TRIM(...), &#x27;&#x27;). Staging
+  maps each such key to the zero key and the satellites keep the row out (design D-44), so the finding keeps it in view (D-45). One finding per row and missing
+  key (POLICY_NUMBER, INSURED_ID, WRITING_AGENT_NPN); the column value names the row so it can be found in landing storage. Never filters or corrects.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH policies AS (
+    SELECT NULLIF(TRIM(policy_number), &#x27;&#x27;) AS policy_number, NULLIF(TRIM(insured_id), &#x27;&#x27;) AS insured_number,
+           NULLIF(TRIM(writing_agent_npn), &#x27;&#x27;) AS agent_npn,
+           &#x27;Policy row &#x27; || COALESCE(NULLIF(TRIM(policy_number), &#x27;&#x27;), &#x27;(no policy number)&#x27;) || &#x27;, loaded &#x27;
+               || TO_VARCHAR(TO_TIMESTAMP_NTZ(loaded_at), &#x27;YYYY-MM-DD&#x27;) AS row_name
+    FROM {{ source(&#x27;northfield&#x27;, &#x27;policy&#x27;) }}
+),
+missing AS (
+    SELECT &#x27;POLICY_NUMBER&#x27; AS source_column, row_name AS column_value,
+           &#x27;Policy row without a policy number: it stays out of the policy satellite.&#x27; AS detail
+    FROM policies WHERE policy_number IS NULL
+    UNION ALL
+    SELECT &#x27;INSURED_ID&#x27;, row_name, &#x27;Policy row without an insured id: it stays out of the insured satellite, and its policy links to the unknown insured.&#x27; FROM policies WHERE insured_number IS NULL
+    UNION ALL
+    SELECT &#x27;WRITING_AGENT_NPN&#x27;, row_name, &#x27;Policy row without a writing agent&#x27;&#x27;s number: its policy links to the unknown agent.&#x27; FROM policies WHERE agent_npn IS NULL
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;inspector_northfield_policy_key_missing&#x27;&quot;, &quot;&#x27;NORTHFIELD&#x27;&quot;, &quot;&#x27;NORTHFIELD.POLICY&#x27;&quot;, &quot;source_column&quot;, &quot;column_value&quot;]) }} AS finding_pk,
+    &#x27;NORTHFIELD&#x27; AS source_system,
+    &#x27;NORTHFIELD.POLICY&#x27; AS source_table,
+    source_column,
+    LEFT(column_value, 500) AS column_value,
+    &#x27;inspector_northfield_policy_key_missing&#x27; AS finder_name,
+    &#x27;inspection&#x27; AS finder_type,
+    detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM missing
+</code></pre></details><details class="file"><summary>dbt/models/inspectors/inspector_sunbelt_client_key_missing.sql</summary><pre><code>{#
+  Layer 5 inspector (fix to release 1, 2026-10-28; Code Review Standard k12ki19: no silent record loss).
+  Discloses each row of LANDING.SUNBELT.CLIENT, the persistent staging that keeps every row as sent, that arrived without a
+  client number, missing or blank by staging&#x27;s rule NULLIF(TRIM(client_number), &#x27;&#x27;). Staging maps such a row to the zero key
+  and the client satellite keeps it out (design D-44), so this finding is what keeps it in view (D-45). One finding per row and missing
+  key (CLIENT_NUMBER); the column value names the row so it can be found in landing storage. Never filters or corrects.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH missing AS (
+    SELECT &#x27;CLIENT_NUMBER&#x27; AS source_column,
+           &#x27;CRM row &#x27; || crm_row_id || &#x27;, loaded &#x27; || TO_VARCHAR(TO_TIMESTAMP_NTZ(loaded_at), &#x27;YYYY-MM-DD&#x27;) AS column_value,
+           &#x27;Client row without a client number: it names no client, so it stays out of the client satellite (it would merge into one false client).&#x27; AS detail
+    FROM {{ source(&#x27;sunbelt&#x27;, &#x27;client&#x27;) }}
+    WHERE NULLIF(TRIM(client_number), &#x27;&#x27;) IS NULL
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;inspector_sunbelt_client_key_missing&#x27;&quot;, &quot;&#x27;SUNBELT&#x27;&quot;, &quot;&#x27;SUNBELT.CLIENT&#x27;&quot;, &quot;source_column&quot;, &quot;column_value&quot;]) }} AS finding_pk,
+    &#x27;SUNBELT&#x27; AS source_system,
+    &#x27;SUNBELT.CLIENT&#x27; AS source_table,
+    source_column,
+    LEFT(column_value, 500) AS column_value,
+    &#x27;inspector_sunbelt_client_key_missing&#x27; AS finder_name,
+    &#x27;inspection&#x27; AS finder_type,
+    detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM missing
+</code></pre></details><details class="file"><summary>dbt/models/inspectors/inspector_sunbelt_client_number_form.sql</summary><pre><code>{#
+  Layer 5 inspector (design D-9; layer 5 is named inspector in this project, Ray 2026-10-22).
+  Discloses each distinct client number whose trimmed, uppercased form does not match the designed
+  form (the letter A, a hyphen, four digits). One finding per value; never filters or corrects.
+  Pattern: one finding per nonconforming value.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH nonconforming AS (
+    SELECT DISTINCT client_number AS column_value
+    FROM {{ ref(&#x27;stg_sunbelt_client&#x27;) }}
+    WHERE client_number IS NOT NULL
+      AND hk_client_h NOT IN (&#x27;00000000000000000000000000000000&#x27;, &#x27;ffffffffffffffffffffffffffffffff&#x27;)
+      AND NOT REGEXP_LIKE(UPPER(TRIM(client_number)), &#x27;^A-[0-9]{4}$&#x27;)
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;inspector_sunbelt_client_number_form&#x27;&quot;, &quot;&#x27;SUNBELT&#x27;&quot;, &quot;&#x27;SUNBELT.CLIENT&#x27;&quot;, &quot;&#x27;CLIENT_NUMBER&#x27;&quot;, &quot;column_value&quot;]) }} AS finding_pk,
+    &#x27;SUNBELT&#x27; AS source_system,
+    &#x27;SUNBELT.CLIENT&#x27; AS source_table,
+    &#x27;CLIENT_NUMBER&#x27; AS source_column,
+    LEFT(column_value, 500) AS column_value,
+    &#x27;inspector_sunbelt_client_number_form&#x27; AS finder_name,
+    &#x27;inspection&#x27; AS finder_type,
+    &#x27;Client number not in the designed form (A, hyphen, four digits); it may name an existing client under another key (profile P-3).&#x27; AS detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM nonconforming
+</code></pre></details><details class="file"><summary>dbt/models/inspectors/inspector_sunbelt_policy_number_form.sql</summary><pre><code>{#
+  Layer 5 inspector (design D-30; guide step 31). Discloses each distinct policy number in Sunbelt Senior&#x27;s
+  sales data whose trimmed, uppercased form does not match the carrier&#x27;s form (NF, a hyphen, six digits).
+  Unit test I4 red 2026-10-25 01:12 UTC on beb49c9 before the filter, green with it. One finding per value; never filters or corrects.
+  Pattern: one finding per nonconforming value.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH nonconforming AS (
+    SELECT DISTINCT policy_number AS column_value
+    FROM {{ ref(&#x27;stg_sunbelt_policy_sale&#x27;) }}
+    WHERE policy_number IS NOT NULL
+      AND hk_policy_h NOT IN (&#x27;00000000000000000000000000000000&#x27;, &#x27;ffffffffffffffffffffffffffffffff&#x27;)
+      AND NOT REGEXP_LIKE(UPPER(TRIM(policy_number)), &#x27;^NF-[0-9]{6}$&#x27;)
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;inspector_sunbelt_policy_number_form&#x27;&quot;, &quot;&#x27;SUNBELT&#x27;&quot;, &quot;&#x27;SUNBELT.POLICY_SALE&#x27;&quot;, &quot;&#x27;POLICY_NUMBER&#x27;&quot;, &quot;column_value&quot;]) }} AS finding_pk,
+    &#x27;SUNBELT&#x27; AS source_system,
+    &#x27;SUNBELT.POLICY_SALE&#x27; AS source_table,
+    &#x27;POLICY_NUMBER&#x27; AS source_column,
+    LEFT(column_value, 500) AS column_value,
+    &#x27;inspector_sunbelt_policy_number_form&#x27; AS finder_name,
+    &#x27;inspection&#x27; AS finder_type,
+    &#x27;Policy number not in the carrier&#x27;&#x27;s form (NF, hyphen, six digits); it may name an existing policy under another key (profile P-12, path PH6).&#x27; AS detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM nonconforming
+</code></pre></details><details class="file"><summary>dbt/models/inspectors/inspector_sunbelt_policy_sale_key_missing.sql</summary><pre><code>{#
+  Layer 5 inspector (fix to release 1, 2026-10-28; Code Review Standard k12ki19: no silent record loss).
+  Discloses each row of LANDING.SUNBELT.POLICY_SALE, the persistent staging that keeps every row as sent, that arrived without a
+  policy number, a client number or an agent number, missing or blank by staging&#x27;s rule NULLIF(TRIM(...), &#x27;&#x27;). Staging maps
+  each such key to the zero key, so the finding is what keeps the gap in view (design D-45). One finding per row and missing
+  key (POLICY_NUMBER, CLIENT_NUMBER, AGENT_NPN); the column value names the row so it can be found in landing storage. Never filters or corrects.
+#}
+{{ config(
+    materialized=&#x27;merge_into&#x27;,
+    meta={
+        &#x27;target_database&#x27;: landing_storage(),
+        &#x27;target_schema&#x27;: &#x27;CONFIG&#x27;,
+        &#x27;target_table&#x27;: &#x27;DATA_FINDING&#x27;,
+        &#x27;unique_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;diff_key&#x27;: &#x27;FINDING_PK&#x27;,
+        &#x27;ts_key&#x27;: &#x27;DETECTED_AT&#x27;
+    }
+) }}
+
+WITH sales AS (
+    SELECT NULLIF(TRIM(policy_number), &#x27;&#x27;) AS policy_number, NULLIF(TRIM(client_number), &#x27;&#x27;) AS client_number,
+           NULLIF(TRIM(agent_npn), &#x27;&#x27;) AS agent_npn,
+           &#x27;Sale row &#x27; || sale_row_id || &#x27;, loaded &#x27; || TO_VARCHAR(TO_TIMESTAMP_NTZ(loaded_at), &#x27;YYYY-MM-DD&#x27;) AS row_name
+    FROM {{ source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;) }}
+),
+missing AS (
+    SELECT &#x27;POLICY_NUMBER&#x27; AS source_column, row_name AS column_value,
+           &#x27;Sale without a policy number: its roles and agent link to the unknown policy.&#x27; AS detail
+    FROM sales WHERE policy_number IS NULL
+    UNION ALL
+    SELECT &#x27;CLIENT_NUMBER&#x27;, row_name, &#x27;Sale without a client number: its role links to the unknown client.&#x27; FROM sales WHERE client_number IS NULL
+    UNION ALL
+    SELECT &#x27;AGENT_NPN&#x27;, row_name, &#x27;Sale without an agent number: its policy links to the unknown agent.&#x27; FROM sales WHERE agent_npn IS NULL
+)
+
+SELECT
+    {{ dbt_utils.generate_surrogate_key([&quot;&#x27;inspector_sunbelt_policy_sale_key_missing&#x27;&quot;, &quot;&#x27;SUNBELT&#x27;&quot;, &quot;&#x27;SUNBELT.POLICY_SALE&#x27;&quot;, &quot;source_column&quot;, &quot;column_value&quot;]) }} AS finding_pk,
+    &#x27;SUNBELT&#x27; AS source_system,
+    &#x27;SUNBELT.POLICY_SALE&#x27; AS source_table,
+    source_column,
+    LEFT(column_value, 500) AS column_value,
+    &#x27;inspector_sunbelt_policy_sale_key_missing&#x27; AS finder_name,
+    &#x27;inspection&#x27; AS finder_type,
+    detail,
+    &#x27;detected&#x27; AS status,
+    CAST(NULL AS VARCHAR(32)) AS finding_id,
+    CAST(NULL AS VARCHAR(1024)) AS notes,
+    CAST(NULL AS VARCHAR(2048)) AS root_cause,
+    CURRENT_TIMESTAMP() AS detected_at,
+    CAST(NULL AS VARCHAR(64)) AS acknowledged_by,
+    CAST(NULL AS TIMESTAMP_TZ) AS acknowledged_at
+FROM missing
+</code></pre></details><details class="file"><summary>dbt/seeds/_seeds.yml</summary><pre><code>version: 2
+
+seeds:
+  - name: seed_source_system
+    description: &gt;
+      The source system seed: one row per source system the vault receives data from, giving each
+      permanent code (on every vault row as its record source) its current name, description and owner.
+      Authored by the team; every change is a reviewed commit, so its history is the file&#x27;s git history.
+    columns:
+      - name: SOURCE_SYSTEM_CODE
+        description: Permanent short code, never changed; the value vault rows carry as their record source.
+        tests:
+          - unique:
+              name: uq_seed_source_system_code
+              config: {severity: warn}
+          - not_null:
+              name: nn_seed_source_system_code
+              config: {severity: warn}
+      - name: SOURCE_NAME
+        description: The source system&#x27;s current name.
+      - name: DESCRIPTION
+        description: What the source system is.
+      - name: OWNER
+        description: Who owns the source system.
+</code></pre></details><details class="file"><summary>dbt/seeds/seed_build_expectations.csv</summary><pre><code>version_tag,table_name,metric_name,condition,description
+inc1,CLIENT_H,row_count,increased,Each landing act adds client keys to the hub (guide G-5)
+inc1,DATA_FINDING,row_count|audit,&lt; 1,The auditor finds no disagreement between source and hub (design D-10)
+inc2,POLICY_H,row_count,increased,Each landing act adds policy keys (guide G-17)
+inc2,AGENT_POLICY_L,row_count,increased,Each landing act adds agent-policy rows (guide G-17)
+inc2,DATA_FINDING,row_count|audit,&lt; 1,The auditors find no disagreement between the sources and the hubs (design D-10)
+</code></pre></details><details class="file"><summary>dbt/seeds/seed_source_system.csv</summary><pre><code>SOURCE_SYSTEM_CODE,SOURCE_NAME,DESCRIPTION,OWNER
+SSI,Sunbelt Senior client file,&quot;Nightly client file of Sunbelt Senior, an agency of Digest Insurance Distributors&quot;,Digest Insurance Distributors
+SYSTEM,The vault itself: unknown ghost record,&quot;Created by the vault, not sent by any source: the row that missing keys join to&quot;,The vault&#x27;s team
+ERROR,The vault itself: error ghost record,&quot;Created by the vault, not sent by any source: the row that broken keys join to&quot;,The vault&#x27;s team
+NFL,Northfield Life policy data,&quot;Policy data Northfield Life, a carrier, sends to Digest Insurance Distributors&quot;,Northfield Life
+PMC,Pinecrest Mutual policy data,&quot;Policy data Pinecrest Mutual, a carrier, sends to Digest Insurance Distributors&quot;,Pinecrest Mutual
+</code></pre></details><details class="file"><summary>dbt/tests/assert_client_h_covers_usable_source_keys.sql</summary><pre><code>{{ config(severity=&#x27;warn&#x27;, tags=[&#x27;layer_4&#x27;]) }}
+{# Layer 4 (design D-3, D-4): every staged row with a usable client number has its key in the hub. Returns offending keys. #}
+SELECT DISTINCT s.hk_client_h, s.client_number
+FROM {{ ref(&#x27;stg_sunbelt_client&#x27;) }} s
+WHERE s.client_number IS NOT NULL
+  AND s.hk_client_h NOT IN (&#x27;00000000000000000000000000000000&#x27;, &#x27;ffffffffffffffffffffffffffffffff&#x27;)
+  AND NOT EXISTS (SELECT 1 FROM {{ ref(&#x27;client_h&#x27;) }} h WHERE h.hk_client_h = s.hk_client_h)
+</code></pre></details><details class="file"><summary>dbt/tests/assert_client_h_ghost_keys_belong_to_ghosts.sql</summary><pre><code>{{ config(severity=&#x27;warn&#x27;, tags=[&#x27;layer_4&#x27;]) }}
+{#
+  Layer 4 (profile P-5, design D-7; added as deviation DEV-5, Ray 2026-10-23).
+  The all-zeros key must belong to the unknown ghost record (record source SYSTEM) and the all-f key
+  to the error ghost record (ERROR). Any other owner means a business row took a ghost&#x27;s key, as
+  happened when the hub first ran in incremental mode and Sunbelt Senior Insurance&#x27;s NULL client number claimed the
+  all-zeros key. Returns offending rows.
+#}
+SELECT hk_client_h, client_number, ldts, rsrc
+FROM {{ ref(&#x27;client_h&#x27;) }}
+WHERE (hk_client_h = &#x27;00000000000000000000000000000000&#x27; AND rsrc &lt;&gt; &#x27;SYSTEM&#x27;)
+   OR (hk_client_h = &#x27;ffffffffffffffffffffffffffffffff&#x27; AND rsrc &lt;&gt; &#x27;ERROR&#x27;)
+</code></pre></details><details class="file"><summary>dbt/tests/assert_client_h_no_blank_business_key.sql</summary><pre><code>{{ config(severity=&#x27;warn&#x27;, tags=[&#x27;layer_4&#x27;]) }}
+{# Layer 4 (design D-4): no hub row may carry an empty or whitespace-only business key. Returns offending rows. #}
+SELECT hk_client_h, client_number
+FROM {{ ref(&#x27;client_h&#x27;) }}
+WHERE TRIM(client_number) = &#x27;&#x27;
+</code></pre></details><details class="file"><summary>dbt/tests/assert_hashdiff_keeps_case_only_change.sql</summary><pre><code>{{ config(severity=&#x27;error&#x27;, tags=[&#x27;layer_4&#x27;]) }}
+{#
+  Layer 4, D-41 (Ray, 2026-10-26): a hashdiff is case-sensitive, so a change only in letter case is a change and the
+  satellite keeps it as a new version (unit test st3_case_only_new_version). Returns each pair of staged rows for one
+  insured whose payload differs only in case yet carries the same hashdiff: proof the hashdiff ignored case. The
+  2026-10-26 QA build on dbt Cloud upper-cased the hashdiff input and lost Martin Lowe&#x27;s &quot;12 ELM ST&quot; version; this
+  catches that on any engine, at error severity because it loses history.
+#}
+WITH staged AS (
+    SELECT hk_insured_h, hd_insured_northfield_s, ldts,
+           CONCAT_WS(&#x27;|&#x27;, insured_name, TO_VARCHAR(birth_date), address) AS payload
+    FROM {{ ref(&#x27;stg_northfield_policy&#x27;) }}
+    WHERE hk_insured_h NOT IN (&#x27;00000000000000000000000000000000&#x27;, &#x27;ffffffffffffffffffffffffffffffff&#x27;)
+)
+SELECT a.hk_insured_h, a.ldts AS earlier_ldts, b.ldts AS later_ldts, a.payload AS earlier_payload, b.payload AS later_payload
+FROM staged a
+JOIN staged b
+  ON b.hk_insured_h = a.hk_insured_h
+ AND b.ldts &gt; a.ldts
+WHERE b.hd_insured_northfield_s = a.hd_insured_northfield_s
+  AND UPPER(b.payload) = UPPER(a.payload)
+  AND b.payload &lt;&gt; a.payload
+</code></pre></details><details class="file"><summary>dbt/tests/assert_increment_2_link_hub_keys_exist.sql</summary><pre><code>{{ config(severity=&#x27;warn&#x27;, tags=[&#x27;layer_4&#x27;]) }}
+{#
+  Layer 4, increment 2 (design section 8): every link row&#x27;s hub keys exist in their hubs.
+  Returns each link row whose hub key is missing from its hub, with the link, the hub and the key.
+#}
+{%- set pairs = [
+    (&#x27;client_policy_l&#x27;, &#x27;hk_client_h&#x27;, &#x27;client_h&#x27;), (&#x27;client_policy_l&#x27;, &#x27;hk_policy_h&#x27;, &#x27;policy_h&#x27;),
+    (&#x27;insured_policy_l&#x27;, &#x27;hk_insured_h&#x27;, &#x27;insured_h&#x27;), (&#x27;insured_policy_l&#x27;, &#x27;hk_policy_h&#x27;, &#x27;policy_h&#x27;),
+    (&#x27;agent_policy_l&#x27;, &#x27;hk_agent_h&#x27;, &#x27;agent_h&#x27;), (&#x27;agent_policy_l&#x27;, &#x27;hk_policy_h&#x27;, &#x27;policy_h&#x27;)
+] -%}
+{%- for link, key, hub in pairs %}
+SELECT &#x27;{{ link }}&#x27; AS link_table, &#x27;{{ hub }}&#x27; AS hub_table, l.{{ key }} AS missing_key
+FROM {{ ref(link) }} l
+LEFT JOIN {{ ref(hub) }} h ON h.{{ key }} = l.{{ key }}
+WHERE h.{{ key }} IS NULL
+{{ &#x27;UNION ALL&#x27; if not loop.last }}
+{%- endfor %}
+</code></pre></details><details class="file"><summary>dbt/tests/assert_insured_dim_masking_governance_role_real_values.sql</summary><pre><code>{# Layer 4, test plan SM1 (mart design D-9; guide step 69): in a session holding SYSADMIN, insured_dim shows the values
+   as sent. It checks only in such a session and returns no row in any other, where SM2 applies. #}
+{{ config(severity=&#x27;warn&#x27;) }}
+SELECT i.insured_key
+FROM {{ ref(&#x27;insured_dim&#x27;) }} i
+JOIN {{ ref(&#x27;person_dim&#x27;) }} p ON p.person_key = i.insured_key
+WHERE IS_ROLE_IN_SESSION(&#x27;SYSADMIN&#x27;)
+  AND (i.birth_date IS DISTINCT FROM p.birth_date OR i.address IS DISTINCT FROM p.address)
+</code></pre></details><details class="file"><summary>dbt/tests/assert_insured_dim_masking_other_role_masked.sql</summary><pre><code>{# Layer 4, test plan SM2 (mart design D-9; guide step 69): in a session without SYSADMIN, insured_dim shows the mask,
+   the birth year only and the address reduced to its state. It checks only in such a session. #}
+{{ config(severity=&#x27;warn&#x27;) }}
+SELECT i.insured_key
+FROM {{ ref(&#x27;insured_dim&#x27;) }} i
+JOIN {{ ref(&#x27;person_dim&#x27;) }} p ON p.person_key = i.insured_key
+WHERE NOT IS_ROLE_IN_SESSION(&#x27;SYSADMIN&#x27;)
+  AND (i.birth_date IS DISTINCT FROM LEFT(p.birth_date, 4) OR i.address IS DISTINCT FROM RIGHT(TRIM(p.address), 2))
+</code></pre></details><details class="file"><summary>dbt/tests/assert_policy_terms_fact_face_amount_conserved.sql</summary><pre><code>{# Layer 4, test plan FM1 (mart design D-1, section 5.3; guide step 73): face_amount summed over policy_terms_fact
+   equals its sum over the satellite&#x27;s non-ghost versions. Returns a row when they differ. #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH fact AS (SELECT SUM(face_amount) AS total FROM {{ ref(&#x27;policy_terms_fact&#x27;) }}),
+     satellite AS (SELECT SUM(face_amount) AS total FROM {{ ref(&#x27;policy_northfield_s1&#x27;) }} WHERE rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;))
+SELECT fact.total AS fact_total, satellite.total AS satellite_total
+FROM fact CROSS JOIN satellite
+WHERE fact.total IS DISTINCT FROM satellite.total
+</code></pre></details><details class="file"><summary>dbt/tests/assert_vault_record_sources_resolve.sql</summary><pre><code>{{ config(severity=&#x27;warn&#x27;, tags=[&#x27;layer_4&#x27;]) }}
+{#
+  Layer 4 (design D-17, D-23; profile P-9, P-10): every record source value in every hub and link resolves to a
+  code in the source system seed. Returns each unresolved value with its table and row count (guide step 32).
+#}
+{%- set vault = [&#x27;client_h&#x27;, &#x27;policy_h&#x27;, &#x27;insured_h&#x27;, &#x27;agent_h&#x27;, &#x27;client_policy_l&#x27;, &#x27;insured_policy_l&#x27;, &#x27;agent_policy_l&#x27;] -%}
+WITH sources AS (
+{%- for m in vault %}
+    SELECT &#x27;{{ m }}&#x27; AS vault_table, rsrc FROM {{ ref(m) }}{{ &#x27; UNION ALL&#x27; if not loop.last }}
+{%- endfor %}
+)
+SELECT v.vault_table, v.rsrc, COUNT(*) AS rows_without_a_source_system_code
+FROM sources v
+LEFT JOIN {{ ref(&#x27;seed_source_system&#x27;) }} s ON s.SOURCE_SYSTEM_CODE = v.rsrc
+WHERE s.SOURCE_SYSTEM_CODE IS NULL
+GROUP BY v.vault_table, v.rsrc
+</code></pre></details><details class="file"><summary>dbt/tests/desc_columns_described.sql</summary><pre><code>{# Layer 7, test plan SD3 (mart design 4.1a; guide step 77): every column of the conformed mart&#x27;s views, read from the
+   warehouse, has a description in the property file that declares its model. Returns each undescribed column. #}
+{{ config(severity=&#x27;warn&#x27;) }}
+{%- set pairs = [] -%}
+{%- if execute -%}
+  {%- for n in graph.nodes.values() if n.resource_type == &#x27;model&#x27; and &#x27;conformed_dm&#x27; in n.original_file_path -%}
+    {%- for c in n.columns.values() if (c.description | trim) -%}
+      {%- do pairs.append((n.name | lower, c.name | lower)) -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endif %}
+WITH described AS (
+    SELECT column1 AS model_name, column2 AS column_name FROM VALUES (&#x27;-&#x27;, &#x27;-&#x27;)
+    {%- for p in pairs %}, (&#x27;{{ p[0] }}&#x27;, &#x27;{{ p[1] }}&#x27;){% endfor %}
+)
+SELECT LOWER(c.table_name) AS model_name, LOWER(c.column_name) AS column_name
+FROM {{ target.database }}.INFORMATION_SCHEMA.COLUMNS c
+LEFT JOIN described d ON d.model_name = LOWER(c.table_name) AND d.column_name = LOWER(c.column_name)
+WHERE c.table_schema = &#x27;CONFORMED_DM&#x27; AND d.column_name IS NULL
+</code></pre></details><details class="file"><summary>dbt/tests/desc_metrics_described.sql</summary><pre><code>{# Layer 7, test plan SD2 (mart design 4.1a; guide step 77): every metric carries a description. Returns each metric
+   without one. #}
+{{ config(severity=&#x27;warn&#x27;) }}
+{%- set missing = [] -%}
+{%- if execute -%}
+  {%- for m in (graph.metrics or {}).values() if not (m.description | trim) -%}
+    {%- do missing.append(m.name) -%}
+  {%- endfor -%}
+{%- endif %}
+SELECT column1 AS metric_name FROM VALUES (&#x27;-&#x27;) WHERE FALSE
+{%- for m in missing %}
+UNION ALL SELECT &#x27;{{ m }}&#x27;
+{%- endfor %}
+</code></pre></details><details class="file"><summary>dbt/tests/desc_semantic_models_described.sql</summary><pre><code>{# Layer 7, test plan SD1 (mart design 4.1a; guide step 77): every model of the conformed mart, the semantic models among
+   them, carries a description. Returns each model without one. #}
+{{ config(severity=&#x27;warn&#x27;) }}
+{%- set missing = [] -%}
+{%- if execute -%}
+  {%- for n in graph.nodes.values() if n.resource_type == &#x27;model&#x27; and &#x27;conformed_dm&#x27; in n.original_file_path and not (n.description | trim) -%}
+    {%- do missing.append(n.name) -%}
+  {%- endfor -%}
+{%- endif %}
+SELECT column1 AS model_name FROM VALUES (&#x27;-&#x27;) WHERE FALSE
+{%- for m in missing %}
+UNION ALL SELECT &#x27;{{ m }}&#x27;
+{%- endfor %}
+</code></pre></details><details class="file"><summary>dbt/tests/expect_increment_2_staging_keeps_every_landed_row.sql</summary><pre><code>{{ config(severity=&#x27;warn&#x27;, tags=[&#x27;layer_2&#x27;]) }}
+{#
+  Layer 2, increment 2 (design section 8: row counts as a source query against a target query, never a fixed number).
+  Each staging model holds every landed row of its source table plus the toolkit&#x27;s two ghost records.
+  Returns a row for each source table whose staging count differs.
+#}
+WITH counts AS (
+    SELECT &#x27;SUNBELT.POLICY_SALE&#x27; AS source_table,
+           (SELECT COUNT(*) FROM {{ source(&#x27;sunbelt&#x27;, &#x27;policy_sale&#x27;) }}) AS landed_rows,
+           (SELECT COUNT(*) FROM {{ ref(&#x27;stg_sunbelt_policy_sale&#x27;) }}) AS staged_rows
+    UNION ALL
+    SELECT &#x27;NORTHFIELD.POLICY&#x27;,
+           (SELECT COUNT(*) FROM {{ source(&#x27;northfield&#x27;, &#x27;policy&#x27;) }}),
+           (SELECT COUNT(*) FROM {{ ref(&#x27;stg_northfield_policy&#x27;) }})
+)
+SELECT source_table, landed_rows, staged_rows
+FROM counts
+WHERE staged_rows &lt;&gt; landed_rows + 2
+</code></pre></details><details class="file"><summary>dbt/tests/expect_sunbelt_client_row_count.sql</summary><pre><code>{{ config(severity=&#x27;warn&#x27;, tags=[&#x27;layer_2&#x27;]) }}
+{#
+  Layer 2 row count (deviation DEV-2: a singular test in place of dbt_expectations).
+  Returns a row when the landed count differs from what the profile specifies for the
+  landing acts present: 33 after act 1, 43 after act 2 (Pilot item 267, P-1).
+#}
+WITH landed AS (
+    SELECT COUNT(*) AS row_count, COUNT(DISTINCT loaded_at) AS acts
+    FROM {{ source(&#x27;sunbelt&#x27;, &#x27;client&#x27;) }}
+)
+SELECT row_count, acts
+FROM landed
+WHERE NOT ((acts = 1 AND row_count = 33) OR (acts = 2 AND row_count = 43))
+</code></pre></details><details class="file"><summary>dbt/tests/recon_agents_named_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR4 (mart design D-8; guide step 77): agents_named by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT policy_key AS k1, COUNT(DISTINCT agent_key) AS n FROM {{ ref(&#x27;agent_policy_fact&#x27;) }} GROUP BY 1
+),
+v AS (
+    SELECT hk_policy_h AS k1, COUNT(DISTINCT hk_agent_h) AS n FROM {{ ref(&#x27;agent_policy_l&#x27;) }} WHERE rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) GROUP BY 1
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_client_policy_roles_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR2 (mart design D-1; guide step 77): client_policy_roles by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT client_key AS k1, policy_key AS k2, role AS k3, COUNT(DISTINCT client_policy_role_key) AS n FROM {{ ref(&#x27;client_policy_role_fact&#x27;) }} GROUP BY 1, 2, 3
+),
+v AS (
+    SELECT hk_client_h AS k1, hk_policy_h AS k2, role AS k3, COUNT(DISTINCT hk_client_policy_l) AS n FROM {{ ref(&#x27;client_policy_l&#x27;) }} WHERE rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) GROUP BY 1, 2, 3
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, COALESCE(f.k2, v.k2) AS k2, COALESCE(f.k3, v.k3) AS k3, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1 AND f.k2 IS NOT DISTINCT FROM v.k2 AND f.k3 IS NOT DISTINCT FROM v.k3
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_face_amount_current_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR5 (mart design D-4; guide step 77): face_amount_current by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT c.carrier_code AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;policy_dim&#x27;) }} p ON p.policy_key = t.policy_key JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = p.carrier_key WHERE t.valid_to_date IS NULL GROUP BY 1
+),
+v AS (
+    SELECT h.carrier_code AS k1, SUM(s.face_amount) AS n FROM {{ ref(&#x27;policy_northfield_s1&#x27;) }} s JOIN {{ ref(&#x27;policy_h&#x27;) }} h ON h.hk_policy_h = s.hk_policy_h WHERE s.rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) AND s.ledts = &#x27;8888-12-31 23:59:59&#x27; GROUP BY 1
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_face_amount_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR6 (mart design D-1; guide step 77): face_amount by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT policy_key AS k1, valid_from_date AS k2, SUM(face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} GROUP BY 1, 2
+),
+v AS (
+    SELECT hk_policy_h AS k1, TO_DATE(ldts) AS k2, SUM(face_amount) AS n FROM {{ ref(&#x27;policy_northfield_s1&#x27;) }} WHERE rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) GROUP BY 1, 2
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, COALESCE(f.k2, v.k2) AS k2, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1 AND f.k2 IS NOT DISTINCT FROM v.k2
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_policies_held_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR1 (mart design D-1; guide step 77): policies_held by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT client_key AS k1, policy_key AS k2, role AS k3, COUNT(DISTINCT policy_key) AS n FROM {{ ref(&#x27;client_policy_role_fact&#x27;) }} GROUP BY 1, 2, 3
+),
+v AS (
+    SELECT hk_client_h AS k1, hk_policy_h AS k2, role AS k3, COUNT(DISTINCT hk_policy_h) AS n FROM {{ ref(&#x27;client_policy_l&#x27;) }} WHERE rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) GROUP BY 1, 2, 3
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, COALESCE(f.k2, v.k2) AS k2, COALESCE(f.k3, v.k3) AS k3, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1 AND f.k2 IS NOT DISTINCT FROM v.k2 AND f.k3 IS NOT DISTINCT FROM v.k3
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_policies_sold_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR3 (mart design D-1; guide step 77): policies_sold by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT agent_key AS k1, policy_key AS k2, first_named_by_source_key AS k3, COUNT(DISTINCT policy_key) AS n FROM {{ ref(&#x27;agent_policy_fact&#x27;) }} GROUP BY 1, 2, 3
+),
+v AS (
+    SELECT hk_agent_h AS k1, hk_policy_h AS k2, rsrc AS k3, COUNT(DISTINCT hk_policy_h) AS n FROM {{ ref(&#x27;agent_policy_l&#x27;) }} WHERE rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) GROUP BY 1, 2, 3
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, COALESCE(f.k2, v.k2) AS k2, COALESCE(f.k3, v.k3) AS k3, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1 AND f.k2 IS NOT DISTINCT FROM v.k2 AND f.k3 IS NOT DISTINCT FROM v.k3
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_policy_versions_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR7 (mart design D-1; guide step 77): policy_versions by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT policy_key AS k1, COUNT(DISTINCT policy_terms_key) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} GROUP BY 1
+),
+v AS (
+    SELECT hk_policy_h AS k1, COUNT(*) AS n FROM {{ ref(&#x27;policy_northfield_s1&#x27;) }} WHERE rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) GROUP BY 1
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_records_not_accepted_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR8 (mart design D-13; guide step 77): records_not_accepted by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{# It reads the findings the inspectors and auditors write in the same build, so it runs after them: on a fresh landing
+   the findings exist only once they have run (found by the dev rehearsal, 2026-11-01). #}
+-- depends_on: {{ ref(&#x27;inspector_northfield_policy_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_client_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_client_number_form&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_policy_number_form&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_policy_sale_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_northfield_policy_hub&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_sunbelt_client_hub&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_sunbelt_policy_hub&#x27;) }}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT source_key AS k1, finder_type AS k2, COUNT(DISTINCT finding_key) AS n FROM {{ ref(&#x27;finding_fact&#x27;) }} WHERE finding_kind = &#x27;form&#x27; GROUP BY 1, 2
+),
+v AS (
+    SELECT CASE source_system WHEN &#x27;SUNBELT&#x27; THEN &#x27;SSI&#x27; WHEN &#x27;NORTHFIELD&#x27; THEN &#x27;NFL&#x27; ELSE source_system END AS k1, finder_type AS k2, COUNT(DISTINCT finding_pk) AS n FROM {{ source(&#x27;landing_config&#x27;, &#x27;data_finding&#x27;) }} WHERE finder_type &lt;&gt; &#x27;audit&#x27; AND ENDSWITH(finder_name, &#x27;_form&#x27;) GROUP BY 1, 2
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, COALESCE(f.k2, v.k2) AS k2, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1 AND f.k2 IS NOT DISTINCT FROM v.k2
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/recon_rows_missing_key_two_routes.sql</summary><pre><code>{# Layer 6, test plan SR9 (mart design D-13; guide step 77): rows_missing_key by two routes, the conformed fact&#x27;s aggregation and a
+   direct query on the vault, returning every group where they differ. In development the first route is the fact&#x27;s own
+   SQL, since the workstation cannot compile MetricFlow; the MetricFlow route is proven at QA by Mary&#x27;s connector
+   probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
+{# It reads the findings the inspectors and auditors write in the same build, so it runs after them: on a fresh landing
+   the findings exist only once they have run (found by the dev rehearsal, 2026-11-01). #}
+-- depends_on: {{ ref(&#x27;inspector_northfield_policy_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_client_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_client_number_form&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_policy_number_form&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_policy_sale_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_northfield_policy_hub&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_sunbelt_client_hub&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_sunbelt_policy_hub&#x27;) }}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH f AS (
+    SELECT source_key AS k1, finder_name AS k2, COUNT(DISTINCT finding_row) AS n FROM {{ ref(&#x27;finding_fact&#x27;) }} WHERE finding_kind = &#x27;missing_key&#x27; GROUP BY 1, 2
+),
+v AS (
+    SELECT CASE source_system WHEN &#x27;SUNBELT&#x27; THEN &#x27;SSI&#x27; WHEN &#x27;NORTHFIELD&#x27; THEN &#x27;NFL&#x27; ELSE source_system END AS k1, finder_name AS k2, COUNT(DISTINCT source_table || &#x27;: &#x27; || column_value) AS n FROM {{ source(&#x27;landing_config&#x27;, &#x27;data_finding&#x27;) }} WHERE finder_type &lt;&gt; &#x27;audit&#x27; AND ENDSWITH(finder_name, &#x27;_key_missing&#x27;) GROUP BY 1, 2
+)
+SELECT COALESCE(f.k1, v.k1) AS k1, COALESCE(f.k2, v.k2) AS k2, f.n AS fact_value, v.n AS vault_value
+FROM f FULL OUTER JOIN v ON f.k1 IS NOT DISTINCT FROM v.k1 AND f.k2 IS NOT DISTINCT FROM v.k2
+WHERE f.n IS DISTINCT FROM v.n
+</code></pre></details><details class="file"><summary>dbt/tests/sq_q09_client_policies_answer.sql</summary><pre><code>{# Layer 7, test plan SQ1 (Q-9; guide step 77): the saved query&#x27;s answer beside the figures on Mary&#x27;s release page, docs/releases/v2026-10-1.html, as of the production build of 2026-10-27 18:46 UTC, returning every
+   difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH a AS (
+    SELECT role AS k1, COUNT(DISTINCT policy_key) AS n FROM {{ ref(&#x27;client_policy_role_fact&#x27;) }} GROUP BY 1
+),
+e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;owner&#x27;, 9), (&#x27;insured&#x27;, 3), (&#x27;payor&#x27;, 1))
+SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected
+FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1
+WHERE a.n IS DISTINCT FROM e.n
+</code></pre></details><details class="file"><summary>dbt/tests/sq_q10_coverage_by_carrier_answer.sql</summary><pre><code>{# Layer 7, test plan SQ2 (Q-10; guide step 77): the saved query&#x27;s answer beside the figures on Mary&#x27;s release page, docs/releases/v2026-10-1.html, as of the production build of 2026-10-27 18:46 UTC, returning every
+   difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH a AS (
+    SELECT c.carrier_name AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;policy_dim&#x27;) }} p ON p.policy_key = t.policy_key JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = p.carrier_key WHERE t.valid_to_date IS NULL GROUP BY 1
+),
+e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;Northfield Life&#x27;, 125000))
+SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected
+FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1
+WHERE a.n IS DISTINCT FROM e.n
+</code></pre></details><details class="file"><summary>dbt/tests/sq_q11_agent_per_policy_answer.sql</summary><pre><code>{# Layer 7, test plan SQ3 (Q-11; guide step 77): the saved query&#x27;s answer beside the figures on Mary&#x27;s release page, docs/releases/v2026-10-1.html, as of the production build of 2026-10-27 18:46 UTC, returning every
+   difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH a AS (
+    SELECT IFF(n_agents &gt;= 2, &#x27;disagree&#x27;, &#x27;agree&#x27;) AS k1, COUNT(*) AS n FROM (SELECT policy_key, COUNT(DISTINCT agent_key) AS n_agents FROM {{ ref(&#x27;agent_policy_fact&#x27;) }} GROUP BY 1) GROUP BY 1
+),
+e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;agree&#x27;, 15), (&#x27;disagree&#x27;, 1))
+SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected
+FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1
+WHERE a.n IS DISTINCT FROM e.n
+</code></pre></details><details class="file"><summary>dbt/tests/sq_q13_client_arrivals_answer.sql</summary><pre><code>{# Layer 7, test plan SQ4 (Q-13; guide step 77): the saved query&#x27;s answer beside the direct vault query&#x27;s figures read in development at 2026-11-01 04:36 UTC, until the release page shows this question (Ray, 2026-11-01, answer 2a), returning every
+   difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH a AS (
+    SELECT c.source_key AS k1, c.first_known_date AS k2, COUNT(DISTINCT f.policy_key) AS n FROM {{ ref(&#x27;client_policy_role_fact&#x27;) }} f JOIN {{ ref(&#x27;client_dim&#x27;) }} c ON c.client_key = f.client_key GROUP BY 1, 2
+),
+e AS (SELECT column1 AS k1, column2 AS k2, column3 AS n FROM VALUES (&#x27;SSI&#x27;, &#x27;2026-10-01&#x27;::DATE, 8), (&#x27;SSI&#x27;, &#x27;2026-10-02&#x27;::DATE, 1), (&#x27;SYSTEM&#x27;, NULL, 1))
+SELECT COALESCE(a.k1, e.k1) AS k1, COALESCE(a.k2, e.k2) AS k2, a.n AS answer, e.n AS expected
+FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1 AND a.k2 IS NOT DISTINCT FROM e.k2
+WHERE a.n IS DISTINCT FROM e.n
+</code></pre></details><details class="file"><summary>dbt/tests/sq_q14_policy_versions_answer.sql</summary><pre><code>{# Layer 7, test plan SQ5 (Q-14; guide step 77): the saved query&#x27;s answer beside the direct vault query&#x27;s figures read in development at 2026-11-01 04:36 UTC, until the release page shows this question (Ray, 2026-11-01, answer 2a), returning every
+   difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH a AS (
+    SELECT p.policy_number AS k1, COUNT(DISTINCT t.policy_terms_key) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;policy_dim&#x27;) }} p ON p.policy_key = t.policy_key GROUP BY 1
+),
+e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;NF-100001&#x27;, 1), (&#x27;NF-100002&#x27;, 1), (&#x27;NF-100003&#x27;, 2), (&#x27;NF-100005&#x27;, 1), (&#x27;NF-100007&#x27;, 1), (&#x27;NF-100008&#x27;, 1), (&#x27;NF-100009&#x27;, 1), (&#x27;NF-100011&#x27;, 1), (&#x27;NF-100013&#x27;, 1))
+SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected
+FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1
+WHERE a.n IS DISTINCT FROM e.n
+</code></pre></details><details class="file"><summary>dbt/tests/sq_q15_records_not_accepted_answer.sql</summary><pre><code>{# Layer 7, test plan SQ6 (Q-15; guide step 77): the saved query&#x27;s answer beside the figures on Mary&#x27;s release page, docs/releases/v2026-10-1.html, as of the production build of 2026-10-27 18:46 UTC, returning every
+   difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
+{# It reads the findings the inspectors and auditors write in the same build, so it runs after them: on a fresh landing
+   the findings exist only once they have run (found by the dev rehearsal, 2026-11-01). #}
+-- depends_on: {{ ref(&#x27;inspector_northfield_policy_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_client_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_client_number_form&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_policy_number_form&#x27;) }}
+-- depends_on: {{ ref(&#x27;inspector_sunbelt_policy_sale_key_missing&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_northfield_policy_hub&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_sunbelt_client_hub&#x27;) }}
+-- depends_on: {{ ref(&#x27;auditor_sunbelt_policy_hub&#x27;) }}
+{{ config(severity=&#x27;warn&#x27;) }}
+WITH a AS (
+    SELECT source_key AS k1, COUNT(DISTINCT finding_key) AS n FROM {{ ref(&#x27;finding_fact&#x27;) }} WHERE finding_kind = &#x27;form&#x27; GROUP BY 1
+),
+e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;SSI&#x27;, 3))
+SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected
+FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1
+WHERE a.n IS DISTINCT FROM e.n
+</code></pre></details></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

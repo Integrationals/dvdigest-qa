@@ -1,0 +1,925 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Post-implementation guide | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Post-implementation guide</p><p class="eyebrow">Documentation · release 1</p><h1>Post-implementation guide</h1><p>What shipped, the evidence, and every difference from the plan, with why.</p></div></header>
+<main><article class="doc"><h1>Branch Post-Implementation Guide: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
+<h3>Post-Implementation Guide</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Effort</strong></td>
+<td>Linear DIG-574; DIGEST Data Vault Implementation, increments 1 (arrival and identity), 1.1 (source system seed) and 2 (two sources: policies, roles, agents and satellites); branch <code>claude_ws/dig-574-arrival-and-identity</code></td>
+</tr>
+<tr>
+<td><strong>Governed by</strong></td>
+<td><em>Standard: Branch Delivery Documents</em> (K#12 I#27)</td>
+</tr>
+<tr>
+<td><strong>References</strong></td>
+<td>Design: Pilot item 270; implementation guide: Pilot item 272; test plan: Pilot item 271; QA certification: , open, QA not begun (design D-13 superseded on 2026-10-25)</td>
+</tr>
+<tr>
+<td><strong>Audience</strong></td>
+<td>Ray Serrano as reviewer; the author of increment 2; the course textbook&rsquo;s part 1</td>
+</tr>
+<tr>
+<td><strong>Author</strong></td>
+<td>Ray Serrano; edited by Claude, 2026-10-23 and 2026-10-25</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal — Data Management</td>
+</tr>
+<tr>
+<td><strong>Official copy method</strong></td>
+<td>Copied from this governed template by <code>AGENTIC.DATASKILLS.KNOWLEDGE_ITEM_FROM_TEMPLATE</code>; template SHA-256 recorded in the created item</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>1. What shipped</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Planned deliverable</th>
+<th>Shipped object or behavior</th>
+<th>Repository evidence</th>
+<th>Warehouse evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LANDING infrastructure</td>
+<td>Database LANDING; schemas SUNBELT, STORAGE, CONFIG; tables CLIENT, DATA_FINDING (FINDER_NAME, FINDER_TYPE), BUILD_BASELINE; direct grants to CLAUDE_WS_ROLE</td>
+<td>setup/infrastructure/landing.sql, commit c55b4ff</td>
+<td>Database present; 3 tables visible to CLAUDE_WS_ROLE and, through secondary roles, to DV_ROLE</td>
+</tr>
+<tr>
+<td>Two landing acts</td>
+<td>33 then 10 rows of Sunbelt Senior&rsquo;s client file, planting paths P1 to P8</td>
+<td>setup/landing/sunbelt_client_load_1.sql and _2.sql, d6b2f5a</td>
+<td>LANDING.SUNBELT.CLIENT: 43 rows, 41 distinct CRM row IDs</td>
+</tr>
+<tr>
+<td>Packages</td>
+<td>datavault4dbt fork (pinned); dbt_utils 1.4.1 from GitHub</td>
+<td>dbt/packages.yml, dbt/package-lock.yml, 96a53dc</td>
+<td>dbt deps: 2 packages installed</td>
+</tr>
+<tr>
+<td>Ported macros and seed</td>
+<td>landing_storage (default LANDING), merge_into (unchanged), capture_baseline and verify_build (measured set replaced), seed_build_expectations</td>
+<td>macros/, seeds/, 9bf1ae3, ae65b16</td>
+<td>Baselines written to LANDING.CONFIG.BUILD_BASELINE for both acts</td>
+</tr>
+<tr>
+<td>Source, staging view, hub</td>
+<td>Source sunbelt.client with layer 1 and 2 tests; stg_sunbelt_client with hard rules D-4, D-5, D-6; client_h</td>
+<td>dbt/models/staging, dbt/models/raw_vault, d4236cf, 06a39fe</td>
+<td>DV.DEV_CLAUDE.STG_SUNBELT_CLIENT (view), DV.DEV_CLAUDE.CLIENT_H (36 rows)</td>
+</tr>
+<tr>
+<td>Assertions, inspector, auditor</td>
+<td>Three logic assertions; inspector_sunbelt_client_number_form; auditor_sunbelt_client_hub</td>
+<td>dbt/tests/, dbt/models/inspectors, dbt/models/auditors, 858e6c8, 4ae7be9</td>
+<td>Two inspection findings, no audit finding in LANDING.CONFIG.DATA_FINDING</td>
+</tr>
+<tr>
+<td>Source system seed (increment 1.1)</td>
+<td>Seed seed_source_system (SSI, SYSTEM, ERROR) with its description and two built-in tests; client rows stamped with the code SSI; resolve assertion joining the seed. The first version built Data Vault reference objects (commits 29f7412, 8b111f7); they were removed when the design was simplified (D-21, commit 1fae2e7)</td>
+<td>dbt/seeds, dbt/tests; commits 29f7412, 5958c9b, 1fae2e7</td>
+<td>DEV__DV__CLAUDE_WS.REFERENCE.SEED_SOURCE_SYSTEM, 3 rows</td>
+</tr>
+<tr>
+<td>Development rebuild script and selectors (increment 1.1)</td>
+<td>setup/scripts/dev_scoped_rebuild.sh, refusing any database not starting with DEV__; dbt/selectors.yml with v1_safe and qa_build</td>
+<td>commits 29f7412, 9fc7f00</td>
+<td>Script tested on developer, QA and production names; selectors list 4 and 0 student objects as intended</td>
+</tr>
+<tr>
+<td>Operational macros (increment 1.1)</td>
+<td>dev_drop_orphans, land_act (the landing acts, from setup/landing, which is removed), vault_checks (Standard: Operations as dbt Macros, )</td>
+<td>dbt/macros/development, dbt/macros/operations; commits b184b8e, a8705e5</td>
+<td>Tested as recorded in the test plan&rsquo;s coverage</td>
+</tr>
+<tr>
+<td>Landing tables and acts (increment 2)</td>
+<td>LANDING.SUNBELT.POLICY_SALE and LANDING.NORTHFIELD.POLICY; land_act extended to three tables with the 26 planted rows; the NFL row of the source system seed</td>
+<td>setup/infrastructure/landing.sql, dbt/macros/operations/land_act.sql, dbt/seeds/seed_source_system.csv; commits beb49c9, 23b3d31</td>
+<td>DEV__LANDING__CLAUDE_WS: 14 sales rows and 12 carrier rows over two acts; LANDING: both tables present, empty</td>
+</tr>
+<tr>
+<td>Staging (increment 2)</td>
+<td>stg_sunbelt_policy_sale and stg_northfield_policy with D-24&rsquo;s hard rules; the client list&rsquo;s change hash for its satellite</td>
+<td>dbt/models/staging; commit 23b3d31</td>
+<td>Views in DEV__DV__CLAUDE_WS.STAGING: 16 and 14 rows, each its landed rows and the two ghost records</td>
+</tr>
+<tr>
+<td>Hubs and links (increment 2)</td>
+<td>policy_h, insured_h and agent_h; client_h with the sales data as a second source; client_policy_l with the role as a dependent child key, insured_policy_l, agent_policy_l</td>
+<td>dbt/models/raw_vault; commit 23b3d31</td>
+<td>Rows: policy_h 17, insured_h 9, agent_h 8, client_h 37; client_policy_l 15, insured_policy_l 11, agent_policy_l 19</td>
+</tr>
+<tr>
+<td>Satellites and version 1 views (increment 2)</td>
+<td>client_sunbelt_s, client_policy_sunbelt_s, insured_northfield_s and policy_northfield_s, each with its version 1 view</td>
+<td>dbt/models/raw_vault; commit 23b3d31</td>
+<td>Rows: 39, 15, 11 and 12</td>
+</tr>
+<tr>
+<td>Finders, facility and tests (increment 2)</td>
+<td>inspector_sunbelt_policy_number_form; auditor_sunbelt_policy_hub and auditor_northfield_policy_hub; increment 1&rsquo;s auditor corrected; the baseline facility over every vault table; the after-code layers 1, 2 and 4; 23 unit tests added for logic first left unproven</td>
+<td>dbt/models/inspectors, dbt/models/auditors, dbt/macros/verification, dbt/tests; commits 23b3d31, e34dc13, 9ec06e9, 905955d, 105b22f, 94639b4</td>
+<td>LANDING.CONFIG.DATA_FINDING in the developer tier: three inspection findings and two retained audit findings (delta 25)</td>
+</tr>
+<tr>
+<td>Release 1, The Acquired Book (Mary&rsquo;s Q-9, Q-10, Q-11, Q-15), product definition</td>
+<td>Semantic layer: MART.client_policy_fact, agent_policy_fact, policy_fact, finding_fact and time_spine_day, with seven metrics in the latest metrics spec (built before Data Product Design; rebuilt in release 2, DIG-588); D-40&rsquo;s relationship tests; D-41&rsquo;s case-sensitive hashdiffs; the QA identity split (DV_QA_DEPLOY with DV_QA_ROLE) and production&rsquo;s (DV_DEPLOY with DV_ROLE)</td>
+<td>Pull requests #2 to #7; main f48c24b, tagged v2026.10.1; setup/infrastructure/service_users.sql, dv_qa_role.sql, clone_landing_to_landing_qa.sql, reset_dv_qa.sql; developer_keys/DV_QA_DEPLOY.sql and DV_DEPLOY.sql</td>
+<td>QA certified on all six gates; production built by Prod Build run 70403230861868 and identical to QA; served to Mary by DV Digest (DIG-583), the tower&rsquo;s connector as the interim production connector</td>
+</tr>
+</tbody>
+</table></div>
+<h2>2. Verified live output</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Verification</th>
+<th>Environment and clock</th>
+<th>Result</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub rows and client keys</td>
+<td>DV.DEV_CLAUDE, 2026-10-23 02:34 UTC</td>
+<td>36 rows, 34 client keys (design expects 36 and 34)</td>
+<td>SELECT COUNT(*), COUNT_IF(rsrc = &lsquo;SUNBELT.CLIENT&rsquo;) FROM CLIENT_H</td>
+</tr>
+<tr>
+<td>First sightings</td>
+<td>same</td>
+<td>30 keys at the act 1 load time; A-1031, A-1032, A1007, A-01008 at act 2</td>
+<td>GROUP BY ldts on CLIENT_H</td>
+</tr>
+<tr>
+<td>Zero key ownership</td>
+<td>same</td>
+<td>The all-zeros key belongs to the SYSTEM ghost record</td>
+<td>assert_client_h_ghost_keys_belong_to_ghosts passes</td>
+</tr>
+<tr>
+<td>Findings</td>
+<td>LANDING.CONFIG, 02:34 UTC</td>
+<td>Two inspection findings (A1007, A-01008); no audit finding</td>
+<td>SELECT FROM DATA_FINDING</td>
+</tr>
+<tr>
+<td>Build verification</td>
+<td>act 2, 02:33 UTC</td>
+<td>LOOKOUT, zero warnings; CLIENT_H 32 to 36; inspection findings 0 to 2</td>
+<td>dbt run-operation verify_build</td>
+</tr>
+<tr>
+<td>Baselines B-1, B-2</td>
+<td>02:34 UTC</td>
+<td>The three exploratory objects remain; STUDENT_H still 5 rows</td>
+<td>SELECT on DV.INFORMATION_SCHEMA.TABLES and STUDENT_H</td>
+</tr>
+<tr>
+<td>Record sources, increment 1.1</td>
+<td>Workstation DEV__DV__CLAUDE_WS, 2026-10-23 18:2x UTC</td>
+<td>Client hub: SSI 34, SYSTEM 1, ERROR 1; none SUNBELT.CLIENT; resolve assertion passes</td>
+<td>SELECT RSRC, COUNT(*) FROM CLIENT_H GROUP BY RSRC</td>
+</tr>
+<tr>
+<td>The live rename</td>
+<td>same</td>
+<td>SSI&rsquo;s row changed between two commits of the seed (29f7412 as acquired; 5958c9b Sunbelt Senior client file, owner Digest Insurance Distributors); every client hub row still carries SSI</td>
+<td>git log of the seed; SELECT RSRC, COUNT(*) FROM CLIENT_H</td>
+</tr>
+<tr>
+<td>Probe Q-4</td>
+<td>same, after the simplification</td>
+<td>Every client hub row names its source: 34 Sunbelt Senior client file; ghosts the vault itself</td>
+<td>Client hub joined to the source system seed; vault_checks</td>
+</tr>
+<tr>
+<td>Ray&rsquo;s environment</td>
+<td>DEV__DV__RAYSERRANO (dbt Cloud, v1), 2026-10-23 18:3x UTC</td>
+<td>Client hub SSI 34, SYSTEM 1, ERROR 1, matching the workstation</td>
+<td>Ray&rsquo;s query</td>
+</tr>
+<tr>
+<td>The policy as the meeting point (increment 2, probe Q-6)</td>
+<td>DEV__DV__CLAUDE_WS, 2026-10-25 11:1x UTC</td>
+<td>NF-100007 has one client_policy_l row, one insured_policy_l row and one agent_policy_l row; Irene Garrity stays two keys, A-1007 and NLI-55007, joined only through the policy</td>
+<td>Each link joined to policy_h on NF-100007</td>
+</tr>
+<tr>
+<td>Versions (increment 2)</td>
+<td>same</td>
+<td>NF-100003 has two versions in policy_northfield_s (status IF, then LP); NLI-55008 two in insured_northfield_s (address in letter case only)</td>
+<td>GROUP BY parent key HAVING COUNT(*) &gt; 1 on each satellite</td>
+</tr>
+<tr>
+<td>Roles and agents (increment 2, probe Q-5)</td>
+<td>same</td>
+<td>client_policy_l roles: owner 9, insured 3, payor 1; A-1010 owner and insured on NF-100010; NF-100011 holds two agent rows, the sources disagreeing (path LA2)</td>
+<td>GROUP BY role; agent_policy_l joined to policy_h</td>
+</tr>
+<tr>
+<td>Findings (increment 2)</td>
+<td>same</td>
+<td>Inspections: A1007, A-01008, NF100009. Audits: the two findings of the auditors&rsquo; first versions, retained (delta 25); the current auditors write none</td>
+<td>SELECT FROM DATA_FINDING GROUP BY finder</td>
+</tr>
+<tr>
+<td>Build verification (increment 2)</td>
+<td>same, commit 94639b4</td>
+<td>Full build 129 of 129; verify_build: 5 named warnings, no lookout: three rebuilds over unchanged acts and two audit expectations reading the retained findings</td>
+<td>dbt build; dbt run-operation verify_build</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. Test outcome</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Test scope</th>
+<th>Planned</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Disposition or evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layer 1 built-ins</td>
+<td>6</td>
+<td>6</td>
+<td>0</td>
+<td>Two source not-null tests, hub unique and not-null; increment 1.1: the source system seed&rsquo;s code unique and not-null</td>
+</tr>
+<tr>
+<td>Layer 2 expectations</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>Compound uniqueness (dbt_utils) and the source row count (singular test); the hub row count was not built as a test and is read by the verification queries instead (delta 2)</td>
+</tr>
+<tr>
+<td>Layer 3 unit tests</td>
+<td>12</td>
+<td>12</td>
+<td>0</td>
+<td>P7 red at 02:11:15 UTC on d4236cf (blank client numbers hashed to 9d4568c0&hellip;, a real key), green at 02:13:59 after D-4; increment 1.1: R1 to R3 pass on Fusion, written after their models, so characterization tests rather than a red-to-green cycle (delta 11)</td>
+</tr>
+<tr>
+<td>Layer 4 logic assertions</td>
+<td>4</td>
+<td>4</td>
+<td>0</td>
+<td>Increment 1 added the ghost-key assertion after delta 5; increment 1.1 added the resolve assertion, which caught delta 9 before passing</td>
+</tr>
+<tr>
+<td>Layer 5 inspector</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>Two findings, as specified</td>
+</tr>
+<tr>
+<td>Layer 6 auditor</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>No finding, as specified</td>
+</tr>
+<tr>
+<td>Layer 7 semantic surface</td>
+<td>not applicable</td>
+<td></td>
+<td></td>
+<td>No semantic models in the repository</td>
+</tr>
+<tr>
+<td>Full build, act 2</td>
+<td>26 nodes</td>
+<td>26</td>
+<td>0</td>
+<td>dbt build, 02:33 UTC</td>
+</tr>
+<tr>
+<td>Full build, increment 1.1</td>
+<td>30 nodes</td>
+<td>30</td>
+<td>0</td>
+<td>dbt build on the workstation after the simplification (38 before it, with the reference objects)</td>
+</tr>
+<tr>
+<td>Increment 2, layer 1</td>
+<td>14</td>
+<td>14</td>
+<td>0</td>
+<td>Written after the code from the branch&rsquo;s diff (commit 905955d): LOADED_AT not null on both new sources; unique and not null on the hash keys of the six new hubs and links</td>
+</tr>
+<tr>
+<td>Increment 2, layer 2</td>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+<td>The grain of each new source; staging keeps every landed row, a source query against a target query</td>
+</tr>
+<tr>
+<td>Increment 2, layer 3</td>
+<td>62</td>
+<td>62</td>
+<td>0</td>
+<td>39 written first: red at 01:12 UTC on beb49c9 (seven for their content reasons, four setup errors in increment 1&rsquo;s client_h tests), green on 23b3d31. 23 added on 2026-10-25 (Ray, answer 1a): each red for its content under a planted defect, then green (delta 24)</td>
+</tr>
+<tr>
+<td>Increment 2, layers 4 to 6</td>
+<td>1 new and 1 rewritten assertion; 1 inspector; 2 new auditors and 1 corrected</td>
+<td>All pass</td>
+<td>0</td>
+<td>assert_increment_2_link_hub_keys_exist; the resolve assertion reads every hub and link; NF100009 inspected; the auditors&rsquo; false findings reduced to unit tests A1 to A6, red, then fixed (delta 21)</td>
+</tr>
+<tr>
+<td>Full build, increment 2</td>
+<td>129 nodes</td>
+<td>129</td>
+<td>0</td>
+<td>dbt build on the workstation at 94639b4</td>
+</tr>
+<tr>
+<td>D-40, layer 1 relationship tests</td>
+<td>4</td>
+<td>4</td>
+<td>0</td>
+<td>One per satellite, to its parent; each passes on the development tier, and rel_client_sunbelt_s_hk_client_h, run read-only with a planted orphan key, returns that row. Full suite on 2026-10-26 at commit 5d5c59d: 108 of 108 pass, 34 data tests and 74 unit tests (delta 27)</td>
+</tr>
+<tr>
+<td>D-41, layer 4 case-only assertion</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>Passes on the development tier on v2 and on dbt v1 1.12.6; run read-only against QA&rsquo;s upper-cased staging, it returns Martin Lowe&rsquo;s &ldquo;12 ELM ST&rdquo; pair. Both engines compile all four hashdiffs case-sensitive with the root setting. Full suites on 2026-10-26: v2 109 of 109, v1 QA selection 58 of 58 (delta 29)</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Finance workbook delivery and UAT evidence</h3>
+<p>For finance reporting branches, record delivered workbook revision/location, reporting period, repository generation script, query/build references, technical reconciliation evidence and consumer acceptance or pending cases under K#12 I#27. Otherwise state NA with a reason.</p>
+<p>Not applicable: this branch is not a finance reporting branch.</p>
+<h2>4. Deltas from the plan</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Delta</th>
+<th>Planned</th>
+<th>Actual</th>
+<th>Why</th>
+<th>Canonical document or standard updated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Three LANDING roles, run by Ray (guide G-2)</td>
+<td>No roles; SYSADMIN grants LANDING privileges directly to CLAUDE_WS_ROLE</td>
+<td>The Corteza connector runs as ALBA with ALBA_ROLE and cannot create roles; one-user project (Ray, answer 3b)</td>
+<td>Implementation record, knowledge 35 (via this document)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>dbt_expectations from the dbt hub for layer 2</td>
+<td>dbt_utils from GitHub; source row count as a singular test; hub row count left to the verification queries</td>
+<td>The container&rsquo;s egress gateway re-signs TLS and the local Fusion engine cannot download from the hub; dbt_expectations depends on dbt_date through the hub (Ray, answer 1b with fallback)</td>
+<td>Workstation canonical (Corteza knowledge 336), lessons (a)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Unit tests with explicit severity error</td>
+<td>No severity key on unit tests</td>
+<td>Fusion rejects it; unit tests always fail as errors</td>
+<td>This document</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Staging derived column as written in guide step 8</td>
+<td>The overwrite of client_number also declares src_cols_required</td>
+<td>An overwrite removes the source column from the stage&rsquo;s input; without the declaration the compiled SQL referenced a missing column</td>
+<td>This document; a course pattern item (design D-14)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Build order: unit tests, then capture and build</td>
+<td>Both models were first built empty for the unit tests, so the hub&rsquo;s first real build ran incrementally, dropped its unknown ghost, and let Sunbelt Senior&rsquo;s NULL client number own the all-zeros key. Rebuilt with full refresh; assertion assert_client_h_ghost_keys_belong_to_ghosts added (Ray, answer 1y)</td>
+<td>Claude&rsquo;s sequencing error, caught by verification</td>
+<td>Workstation canonical, lessons (b)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ported finder counts</td>
+<td>COALESCE around COUNT_IF in the baseline metrics</td>
+<td>COUNT_IF returned NULL on the empty findings table, so an expectation read NOT FOUND</td>
+<td>This document</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Coverage: 19 planned files</td>
+<td>23 files changed against main</td>
+<td>Added: dbt/package-lock.yml, dbt/seeds/seed_build_expectations.csv (G-3), dbt/tests/expect_sunbelt_client_row_count.sql (delta 2), dbt/tests/assert_client_h_ghost_keys_belong_to_ghosts.sql (delta 5); the ported macros live in dbt/macros/verification and dbt/macros/materializations instead of the macros root</td>
+<td>Test plan coverage table, amendment pending Ray&rsquo;s approval</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Reference table on the version-0 reference satellite (guide G-11)</td>
+<td>A version-1 view, record_source_rs1, added between them</td>
+<td>datavault4dbt&rsquo;s reference table reads load-end dates and a current flag, which only the version-1 satellite provides (Ray, answer 1y)</td>
+<td>Guide G-11 reversed</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Rebuild the client hub with the scoped script (guide step 19)</td>
+<td>The first run named client_h and rebuilt it from the old staging view, so 34 rows kept SUNBELT.CLIENT; rerun from stg_sunbelt_client it was correct</td>
+<td>A scoped rebuild must start from the model that changed, not from the table holding stale rows; the resolve assertion caught it</td>
+<td>This document; the lesson on development rebuilds</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Rebuild script&rsquo;s database check</td>
+<td>Its first parsing found nothing and refused every database, failing safe; replaced with an exact match and tested on developer, QA and production names before use</td>
+<td>Claude&rsquo;s text-matching error</td>
+<td>This document</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Unit tests R1 to R3 before their models (test-driven development)</td>
+<td>Written after the staging view, reference hub and satellite</td>
+<td>Claude&rsquo;s ordering error in step 14</td>
+<td>This document. The tests were later removed with the reference objects (delta 14)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Rebuild command for Ray&rsquo;s v1 environment</td>
+<td>The command omitted the fusion_only exclusion, so v1 ran unit tests it cannot run</td>
+<td>Claude&rsquo;s instruction error; fixed by the selectors v1_safe and qa_build, so exclusions live in the repository</td>
+<td>dbt/selectors.yml; the QA runbook</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Coverage for increment 1.1: eight added files and two changed</td>
+<td>Ten added (the version-1 satellite view and dbt/selectors.yml beyond the plan) and two changed; the branch differs from qa in 48 files</td>
+<td>Deltas 8 and 12</td>
+<td>The test plan&rsquo;s coverage table, amendment pending</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Data Vault reference objects for the source names (design D-16, D-18, D-19)</td>
+<td>One source system seed; history in git; reference hub, satellites, dated view, reference table and unit tests R1 to R3 removed</td>
+<td>Ray: the six objects only mapped a code to a name; a three-row file the team edits needs no vault objects to keep its history</td>
+<td>Design D-21; the pragmatic principle in the course record</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Removed models leave their objects behind</td>
+<td>Objects of removed models were dropped by hand in both developer databases; then the macro dev_drop_orphans was added</td>
+<td>A build never drops what the project no longer defines</td>
+<td>Standard: Operations as dbt Macros</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Words: &ldquo;registry&rdquo; for the seed; &ldquo;link&rdquo; for a Data Vault link</td>
+<td>&ldquo;registry&rdquo; replaced by the source system seed; one exception added to the project instructions&rsquo; struck-words list: &ldquo;link&rdquo; for the Data Vault object, in this course only</td>
+<td>The project instructions&rsquo; struck-words list</td>
+<td>The course record and acceptance log, entry 19</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Landing acts as SQL scripts run with the Snowflake command line</td>
+<td>The macro land_act, with the rows moved verbatim and the scripts removed</td>
+<td>Ray: operational SQL against the warehouse is a dbt macro</td>
+<td></td>
+</tr>
+<tr>
+<td>18</td>
+<td>Step 22&rsquo;s landing statements run against LANDING and the developer clone</td>
+<td>Run in the workstation&rsquo;s clone only (Ray, answer 1b); LANDING&rsquo;s block ran from a temporary extract file, against the transport rule</td>
+<td>Claude&rsquo;s transport error for the second part</td>
+<td>This document</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Increment 1&rsquo;s twelve unit tests kept unchanged (guide section 6)</td>
+<td>Four client_h tests rewritten to mock the hub&rsquo;s second source</td>
+<td>The hub gained a source, so its fixtures must give the sales data&rsquo;s staging model too; their setup errors at 01:12 UTC showed it</td>
+<td>This document; the guide&rsquo;s disposition is superseded here</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Path ST4 tested on the insured satellite</td>
+<td>Tested on stg_northfield_policy&rsquo;s change hash; since 2026-10-25 the satellite side is proven by insured_northfield_s&rsquo;s own ST3</td>
+<td>The reason for the first move was not recorded</td>
+<td>Test plan v4, logic area M</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Auditors comparing the counts of their own record source</td>
+<td>Each checks that every usable source key exists in its hub, whichever record source the hub kept</td>
+<td>A key both sources send in one load is kept under one of them (path PH3), so the count comparison raised false findings at both acts</td>
+<td>Design D-10 and guide step 31, reworded 2026-10-25</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Guide G-17&rsquo;s build expectations for the landing tables</td>
+<td>Dropped from seed_build_expectations</td>
+<td>The reason was not recorded</td>
+<td>This document</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Incremental unit tests dated inside the loaded acts</td>
+<td>Dated 2099-01-01</td>
+<td>The toolkit&rsquo;s satellite reads the latest load time from the live table, not from the mocked one, so a fixture dated inside the loaded acts is filtered out</td>
+<td>A note proposed for the layered testing methodology (DIG-574 handover, not enacted)</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Unit tests as the test plan v3 named them</td>
+<td>23 more, for the client satellites, insured_northfield_s, the four version 1 views and the three staging change hashes; layers 1, 2 and 4 written after the code</td>
+<td>Logic left unproven by v3, found by the test plan&rsquo;s compliance check (Ray, answer 1a)</td>
+<td>Test plan v4, agreed 2026-10-25</td>
+</tr>
+<tr>
+<td>25</td>
+<td>No audit finding after the build</td>
+<td>Two findings of the auditors&rsquo; first versions remain in DATA_FINDING with status detected</td>
+<td>Ray, answer 1b: they stay, disclosed here; a finder that agrees returns no row, so merge_into never revisits its earlier finding</td>
+<td>This document</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Landing acts load developer clones only (land_act refused every other database), and increment 2&rsquo;s acts ran in development only (answer 1b)</td>
+<td>land_act delivers to LANDING, as the stand-in source system; QA and developer landing receive the data by cloning LANDING. Increment 2&rsquo;s acts were delivered to LANDING on 2026-10-25 and match the development clone row for row</td>
+<td>Landing data flows down while code flows up (Ray, 2026-10-25, answer 1y); the old guard had the direction backward</td>
+<td>Implementation guide, QA, promotion and production, step 4; QA item , section 1.3; land_act&rsquo;s header, commit 0472975</td>
+</tr>
+<tr>
+<td>27</td>
+<td>D-40 as first agreed: ten relationship tests, one per line of the design&rsquo;s ERD, including six from the links&rsquo; hub keys</td>
+<td>Four, on the satellites only; the six link tests were written, passed, and removed (commits df44975 and 5d5c59d)</td>
+<td>The links&rsquo; six hub keys were already proved by the layer 4 assertion assert_increment_2_link_hub_keys_exist, which the author missed by searching only the YAML files; the test plan rule reuses existing proof (Ray, 2026-10-26, answer 1a)</td>
+<td>Design D-40 and the test plan&rsquo;s layer 1, amended</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Every vault unit test tagged fusion_only, run only on v2 (64 of 74; v1 ran 10)</td>
+<td>51 tagged; the 13 that pass on dbt 1.12.6 untagged, so v1 runs 23 (commit f17b983, pull request #3)</td>
+<td>Run on dbt v1 1.12.6 on 2026-10-26, 13 of the 64 passed; the tag was wider than the failure, which is datavault4dbt&rsquo;s hub macro describing a unit test&rsquo;s fixed input (Ray, answer 1b)</td>
+<td>Implementation guide&rsquo;s tagging sentence; the QA item&rsquo;s scope</td>
+</tr>
+<tr>
+<td>29</td>
+<td>One build behavior on every engine</td>
+<td>dbt Cloud&rsquo;s QA build (version 2026.10.14+638bb1a) compiled every hashdiff upper-cased, while the workstation&rsquo;s v1 1.12.6 and v2 compiled them case-sensitive from the same code and package pin; QA lost one case-only version</td>
+<td>Found by comparing DV_QA with the development vault, table by table; the cause in dbt Cloud is not known (Ray, 2026-10-26, answer 1y)</td>
+<td>Design D-41; test plan layer 4; implementation guide step 38</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Release 1 reviewed by Ray as part 1&rsquo;s exam before it reached qa</td>
+<td>Pull request #2 merged into qa without the review, 2026-10-26</td>
+<td>Expedited for time to market: the consumer could ask at any moment (Ray, answer 1b); release 2 follows the full process, its review being part 1&rsquo;s exam (Ray, 2026-10-27)</td>
+<td>Lesson 8, note 7; product definition , section 5; acceptance log entry 41</td>
+</tr>
+<tr>
+<td>31</td>
+<td>One identity for QA and production (DBT_DEPLOY)</td>
+<td>Split by data product: DV_QA_DEPLOY with DV_QA_ROLE, which holds nothing on DV or LANDING, and DV_DEPLOY with DV_ROLE</td>
+<td>A QA job pointed at production by mistake must fail on privileges, not write there (Ray, answers 1b and 2y)</td>
+<td>Object Naming standard rule 7 (, v1.3); QA item , section 3.2</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Promotion by swapping QA into production</td>
+<td>Production built from main by its own job, after squash-merging qa into main and converging qa with main</td>
+<td>The minimal route for a first release with an empty production; the swap waits for a later release (Ray, 2026-10-26 and 27)</td>
+<td>QA item , sections 10 and 11</td>
+</tr>
+</tbody>
+</table></div>
+<h2>5. Known characteristics</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Design disclosure</th>
+<th>Operational meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The A-1010 key&rsquo;s stored spelling depends on the build: a-1010 in increment 1&rsquo;s build, A-1010 in the build of 2026-10-25</td>
+<td>Design 6.3: the hub keeps the first sighting</td>
+<td>When two spellings of one key arrive in the same load with the same load time, the hub keeps one and the data does not decide which; the stored spelling can be a typo</td>
+</tr>
+<tr>
+<td>A1007 and A-01008 are separate hub keys</td>
+<td>Profile P-3, open by design</td>
+<td>They may name clients A-1007 and A-1008; the vault cannot tell; the inspector discloses both until an identity increment resolves them</td>
+</tr>
+<tr>
+<td>The hub grows only</td>
+<td>Design D-3, insert-only</td>
+<td>A client absent from a later load stays in the hub; disappearance is not tracked in this increment</td>
+</tr>
+<tr>
+<td>A record source&rsquo;s name is current in the seed; earlier names are in git</td>
+<td>Design D-21</td>
+<td>Asking what a source was called at a past date means reading the seed&rsquo;s git history, not a vault table</td>
+</tr>
+<tr>
+<td>verify_build&rsquo;s increased expectation fails on a rebuild over unchanged data</td>
+<td>Guide G-5</td>
+<td>Expected; it is written for landing acts</td>
+</tr>
+<tr>
+<td>A sale sent with no carrier code is its own policy key</td>
+<td>Design D-26; path PH8</td>
+<td>NF-100005&rsquo;s sale and Northfield Life&rsquo;s NF-100005 are two hub rows; the placeholder keeps the known part</td>
+</tr>
+<tr>
+<td>NF100009 and NF-100009 are separate policy keys</td>
+<td>Path PH6; design D-30</td>
+<td>The inspector discloses the nonconforming form; nothing unifies them</td>
+</tr>
+<tr>
+<td>One person under two role keys</td>
+<td>Design D-29, D-32; path L4</td>
+<td>Irene Garrity is A-1007 and NLI-55007, joined only through the policy; matching the person is later work</td>
+</tr>
+<tr>
+<td>Disagreeing sources keep both agent rows</td>
+<td>Design D-36; path LA2</td>
+<td>NF-100011 has two agent_policy_l rows; deciding which agent is right belongs after the raw vault</td>
+</tr>
+</tbody>
+</table></div>
+<h2>6. Where this feeds</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Downstream consumer or process</th>
+<th>Dependency</th>
+<th>Handoff reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DIGEST Data Vault Course, textbook part 1 (arrival and identity)</td>
+<td>The built staging view, hub, findings and the deltas above, as real instances</td>
+<td>Course record, Pilot knowledge 34</td>
+</tr>
+<tr>
+<td>Increment 2 (relationships)</td>
+<td>client_h as one of the hubs a link connects: shipped in this branch, sections 1 to 3</td>
+<td>Master issue DIG-574</td>
+</tr>
+<tr>
+<td>Lessons 3 to 7 and part 2, then the milestone diagram</td>
+<td>The two-source raw vault as built: the policy as the meeting point, the role keys kept apart, the satellites&rsquo; versions</td>
+<td>Course record, Pilot knowledge 34; DIG-574 session goal</td>
+</tr>
+<tr>
+<td>Course pattern items for the link and the satellite (design D-14)</td>
+<td>Steps 29 and 30 as built, the exemplars for later increments (guide G-20)</td>
+<td>Course record, Pilot knowledge 34</td>
+</tr>
+<tr>
+<td>Course pattern items (design D-14)</td>
+<td>The datavault4dbt stage and hub as built, including delta 4</td>
+<td>Course record, Pilot knowledge 34</td>
+</tr>
+<tr>
+<td>Part 1, lesson 7</td>
+<td>The source system seed as built, including the live rename and the side-by-side of the Data Vault way and the pragmatic way</td>
+<td>Course record, Pilot knowledge 34</td>
+</tr>
+<tr>
+<td>Part 1, lesson 2 (amended)</td>
+<td>The record source as a code, named in the source system seed</td>
+<td>Course record, Pilot knowledge 34</td>
+</tr>
+</tbody>
+</table></div>
+<h2>7. Follow-up work</h2>
+<p>Follow-up issues live in the post-production document; this section contains references only.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Follow-up</th>
+<th>Post-production reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Record the datavault4dbt patterns as course items (design D-14)</td>
+<td>DIG-574</td>
+</tr>
+<tr>
+<td>Amend the test plan&rsquo;s coverage table to the shipped files (deltas 7 and 13)</td>
+<td>Done: test plan v4, agreed 2026-10-25</td>
+</tr>
+<tr>
+<td>Satellite rows on the unknown key: real people&rsquo;s details are versions of the all-zeros key (Felipe Duarte in insured_northfield_s; Pia Esposito, Karl Falk and Dina Guerrero in client_sunbelt_s), so the version 1 views end-date one person with the next. No document discloses it</td>
+<td>DIG-574, logged for a later increment (Ray, answer 2b)</td>
+</tr>
+<tr>
+<td>Finders that clear their own findings once the condition no longer holds (delta 25)</td>
+<td>DIG-574, logged off the goal&rsquo;s path</td>
+</tr>
+<tr>
+<td>Pull request #2 into qa, made mergeable</td>
+<td>DIG-574, the build goal&rsquo;s step 5</td>
+</tr>
+<tr>
+<td>Register the workstation&rsquo;s Fusion engine within 14 days of first use</td>
+<td>Workstation canonical, open item</td>
+</tr>
+<tr>
+<td>Rebuild the PILOT layer: insert procedures without status or version, the template procedure&rsquo;s placeholder check that rejects dbt Jinja, the missing passage-edit procedures</td>
+<td>DIG-576</td>
+</tr>
+</tbody>
+</table></div>
+<h2>8. Compliance record</h2>
+<p>Built by the author against the post-implementation guide template and Standard: Branch Delivery Documents (, post-implementation guide section), at 2026-10-25 11:15Z, on v3. Verdict: <strong>compliant for increments 1, 1.1 and 2</strong>; v3 agreed by Ray on 2026-10-25, answer 1y. Since design D-13 was superseded the same day, QA certification applies: its record, , is open, and this guide gains the QA evidence when the cycle completes.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Header with references to the design, implementation guide, test plan and QA certification; every template section present; the write time in the Status cell</td>
+<td>Yes: items 270, 272 and 271; QA certification , open; sections 1 to 7; the Status cell carries the write time</td>
+</tr>
+<tr>
+<td>2</td>
+<td>What shipped: every planned deliverable with repository and warehouse evidence</td>
+<td>Yes for all three increments: every increment 2 deliverable with its commits and its rows in the developer tier</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Verified live output with environment and clock; test outcome reconciling planned, passed, failed and dispositioned</td>
+<td>Yes: increment 2 read back in DEV__DV__CLAUDE_WS on 2026-10-25, every figure regenerated from the vault for this write; test outcome per layer, 129 of 129</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Deltas from the plan, each with why and the document that absorbed it; known characteristics limited to disclosed behavior; where this feeds; follow-up</td>
+<td>Yes: deltas 1 to 25, two of them stating that the reason was not recorded; characteristics cite their design disclosures; the undisclosed satellite rows on the unknown key are follow-up, not a characteristic</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Covers the branch as built</td>
+<td>Yes, at commit 94639b4</td>
+</tr>
+</tbody>
+</table></div></article><section class="cta bleed"><h2>Next: QA certification</h2><p>The QA cycle: preparation, the build, the tests, the comparisons, and the verdict on six gates.</p><a class="btn" href="qa-certification.html">Read the qa certification</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

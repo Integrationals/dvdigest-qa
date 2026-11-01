@@ -1,0 +1,612 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Post-implementation guide | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Post-implementation guide</p><p class="eyebrow">Documentation · next release, in QA</p><h1>Post-implementation guide</h1><p>What the next release shipped, the evidence, and every difference from the plan, with why.</p></div></header>
+<main><article class="doc"><h1>Branch Post-Implementation Guide: the fix to release 1 and the conformed mart</h1>
+<h3>Post-Implementation Guide</h3>
+<p><em>Branch Delivery Document</em> — <strong>Validation Evidence — Post-Implementation Guide</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Effort</strong></td>
+<td>Linear DIG-594 — The fix to release 1, keys and missing keys, and the conformed mart of Mary&rsquo;s questions — branch <code>claude_ws/dig-594-release-1-keys-rebased-2</code></td>
+</tr>
+<tr>
+<td><strong>Governed by</strong></td>
+<td><em>Standard: Branch Delivery Documents</em> (K#12 I#27)</td>
+</tr>
+<tr>
+<td><strong>References</strong></td>
+<td>Design: branch design  (D-42 to D-52); mart design  (D-1 to D-14) — implementation guide:  (steps 39 to 78) — test plan:  — QA certification: , QA not yet run</td>
+</tr>
+<tr>
+<td><strong>Audience</strong></td>
+<td>Ray Serrano as reviewer; the QA tester; whoever builds the next release from here</td>
+</tr>
+<tr>
+<td><strong>Author</strong></td>
+<td>Ray Serrano; edited by Claude — 2026-11-01</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal — Data Management</td>
+</tr>
+<tr>
+<td><strong>Official copy method</strong></td>
+<td>Copied from this governed template by <code>AGENTIC.DATASKILLS.KNOWLEDGE_ITEM_FROM_TEMPLATE</code>; template SHA-256 recorded in the created item</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>1. What shipped</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Planned deliverable</th>
+<th>Shipped object or behavior</th>
+<th>Repository evidence</th>
+<th>Warehouse evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The fix to release 1, keys and missing keys (D-42 to D-46)</td>
+<td>18 layer 1 tests, the declare_vault_keys hook, three known-key views, three missing-key inspectors, the production correction script</td>
+<td>Commits before b54bb13 on this branch</td>
+<td>27 keys declared in DEV__DV__CLAUDE_WS (15 primary, 12 foreign); 7 missing-key findings</td>
+</tr>
+<tr>
+<td>Release 1&rsquo;s findings, site and checks (D-47 to D-52)</td>
+<td>finding_kind and finding_row, the excluded-terms guard, the executive summary, the Ask page, the QA retest, counts read from their sources</td>
+<td>Commits before b54bb13</td>
+<td>records_not_accepted 3 and rows_missing_key 6 in dev</td>
+</tr>
+<tr>
+<td>The carrier feed (guide steps 52 to 59; mart design D-11)</td>
+<td>Two organization landing tables, the PMC seed row, land_act&rsquo;s two organization targets, the organization sources, two staging models, organization_h, organization_northfield_s and organization_pinecrest_s</td>
+<td>5cdaa99, 1770f7c, 9ee10b2</td>
+<td>organization_h: NFL, PMC and the two ghost rows; one version per carrier</td>
+</tr>
+<tr>
+<td>The conformed mart&rsquo;s dimensions and role views (steps 60 to 69)</td>
+<td>person_dim, organization_dim, policy_dim, source_dim, day_dim; client_dim, agent_dim, carrier_dim and the secure insured_dim</td>
+<td>9293bf5, a4e550e</td>
+<td>Nine views in DEV__DV__CLAUDE_WS.CONFORMED_DM</td>
+</tr>
+<tr>
+<td>The facts, semantic layer and MART retirement (steps 70 to 78)</td>
+<td>Four facts, ten semantic models, nine metrics, six saved queries, 18 semantic tests; the five MART views removed, and infra/snowflake/drop_mart_views.sql</td>
+<td>eda74c8, c27fef2</td>
+<td>Thirteen views in CONFORMED_DM; DEV__DV__CLAUDE_WS.MART emptied</td>
+</tr>
+<tr>
+<td>Production landing for the organization records (steps 52, 54)</td>
+<td>LANDING.NORTHFIELD.ORGANIZATION and LANDING.PINECREST.ORGANIZATION with P-21&rsquo;s rows</td>
+<td>landing.sql and land_act.sql at 5cdaa99</td>
+<td>2 rows (NFL, acts 1 and 2) and 1 row (PMC, act 2), loaded 2026-11-01 04:44 UTC</td>
+</tr>
+<tr>
+<td>The structure record and Mary&rsquo;s surfaces (pull requests 22, 23)</td>
+<td>dv.sql records CONFORMED_DM; nine measures and 39 groupings labeled and defined by meaning; the release page and Ask tags in business language; Q-11 counted by policy number, 14 and 1</td>
+<td>3edb0ff, 693ef67</td>
+<td>Labels in MetricFlow&rsquo;s manifest; no layer name on any page</td>
+</tr>
+<tr>
+<td>Everything QA runs, proven in dev first (24)</td>
+<td>Three unit tests tagged fusion_only; fixtures with one column set; findings tests after the inspectors; seeds transient; reset_vault_tier.sql; the setup script installs dbt-core; the Ask function&rsquo;s instructions in business language</td>
+<td>f9a6778</td>
+<td>The dev rehearsal from fresh clones on dbt-core and Fusion</td>
+</tr>
+<tr>
+<td>The structure check, the Ask deploy and the connector&rsquo;s access (25, 26, 27)</td>
+<td>The check ignores dbt&rsquo;s signature; run.sh packed for every environment; the connector&rsquo;s session without secondary roles and its read-only grant on the conformed mart</td>
+<td>569f337, 3c3e15d, 67e0f6f</td>
+<td>QA runs 3 to 5</td>
+</tr>
+<tr>
+<td>The rollback and the promotion acts (28)</td>
+<td>rollback_vault_to_time.sql by Time Travel; the production runbook&rsquo;s restore point, MART drop, connector grant, functions after the data, and rollback</td>
+<td>4ad7057</td>
+<td>Rehearsed in dev and in DV_QA</td>
+</tr>
+</tbody>
+</table></div>
+<h2>2. Verified live output</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Where and when</th>
+<th>Value</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q-9: roles by type</td>
+<td>QA run 6, through QA&rsquo;s Ask page, 2026-11-01 16:44 UTC</td>
+<td>owner 9, insured 3, payor 1</td>
+<td>retest 34 of 34; QA record , 9.1</td>
+</tr>
+<tr>
+<td>Q-10: current coverage by carrier</td>
+<td>same</td>
+<td>Northfield Life 125,000.00 dollars</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Q-11: agents per policy, by policy number</td>
+<td>same</td>
+<td>14 policies agree, 1 disagrees; NF-100005 counted once</td>
+<td>same; code review F-8</td>
+</tr>
+<tr>
+<td>Q-13 and Q-14</td>
+<td>DV_QA through QA&rsquo;s semantic manifest</td>
+<td>Arrivals in 3 groups; 10 versions of terms</td>
+<td>QA record 8.3</td>
+</tr>
+<tr>
+<td>Q-15: records not accepted; rows missing a key</td>
+<td>QA run 6</td>
+<td>3, all Sunbelt Senior; 6 rows</td>
+<td>QA record 7.3, 9.1</td>
+</tr>
+<tr>
+<td>The insured mask through the connector&rsquo;s session</td>
+<td>QA run 6, 16:44 UTC</td>
+<td>1952 and FL</td>
+<td>QA record 10</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. Test outcome</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Test scope</th>
+<th>Planned</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Disposition or evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full dev build of the branch</td>
+<td>271</td>
+<td>271</td>
+<td>0</td>
+<td>dbt build, 2026-11-01 04:43 UTC</td>
+</tr>
+<tr>
+<td>The conformed mart&rsquo;s unit, key and date tests</td>
+<td>43</td>
+<td>43</td>
+<td>0</td>
+<td>Steps 61 to 74</td>
+</tr>
+<tr>
+<td>The semantic layer&rsquo;s tests (layers 6 and 7)</td>
+<td>18</td>
+<td>18</td>
+<td>0</td>
+<td>Step 77; the dev route is the facts&rsquo; own SQL (answer 1a)</td>
+</tr>
+<tr>
+<td>The carrier feed&rsquo;s tests</td>
+<td>26</td>
+<td>26</td>
+<td>0</td>
+<td>12 unit, 10 key, 4 source tests</td>
+</tr>
+<tr>
+<td>QA runs 1 to 5</td>
+<td>the QA job, then the after-build checks</td>
+<td>run 1 failed on 3 unit tests; runs 2 to 5 built clean and failed in turn on the structure check, the Ask deploy and the connector&rsquo;s role</td>
+<td>—</td>
+<td>, section 5; each fixed by pull requests 24 to 27</td>
+</tr>
+<tr>
+<td>QA run 6, certified</td>
+<td>168 and 211 nodes, 34 retest checks, the rollback rehearsal</td>
+<td>all</td>
+<td>0</td>
+<td>, all six gates, qa at 4ad7057</td>
+</tr>
+<tr>
+<td>The dev rehearsal, before pull requests 24 to 28</td>
+<td>the QA job on dbt-core, Fusion, structure, connector, retest</td>
+<td>all</td>
+<td>0</td>
+<td>implementation guide , section 7</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Finance workbook delivery and UAT evidence</h3>
+<p>For finance reporting branches, record delivered workbook revision/location, reporting period, repository generation script, query/build references, technical reconciliation evidence and consumer acceptance or pending cases under K#12 I#27. Otherwise state NA with a reason.</p>
+<p>Not applicable: this branch is not a finance reporting branch.</p>
+<h2>4. Deltas from the plan</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Delta</th>
+<th>Planned</th>
+<th>Actual</th>
+<th>Why</th>
+<th>Canonical document or standard updated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Landing grants</td>
+<td>Grants to CLAUDE_WS_ROLE</td>
+<td>Ownership to LANDING_ROLE, reads to DV_ROLE and LANDING_READ_ROLE</td>
+<td>The file&rsquo;s own pattern, its exemplar</td>
+<td>none</td>
+</tr>
+<tr>
+<td>land_act on an empty act</td>
+<td>One INSERT per act</td>
+<td>An act with no profiled rows logs that it has none</td>
+<td>Pinecrest has no act 1 row; an empty INSERT fails</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Organization staging&rsquo;s carrier_code</td>
+<td>VARCHAR(8), as the exemplar</td>
+<td>VARCHAR(16)</td>
+<td>VARCHAR(8) cut the unknown ghost&rsquo;s code to u</td>
+<td>none; policy_h keeps the cut code until release 2 (answer 3b)</td>
+</tr>
+<tr>
+<td>Carrier feed&rsquo;s OT2 and OT3 tests</td>
+<td>Load times of the real acts</td>
+<td>Staging rows loaded 2099-01-01</td>
+<td>The toolkit&rsquo;s newest-load filter reads the real table, which the release 1 satellite tests also guard against</td>
+<td>none</td>
+</tr>
+<tr>
+<td>day_dim</td>
+<td>GENERATOR in the guide&rsquo;s illustration</td>
+<td>dbt_utils.date_spine</td>
+<td>Its exemplar, time_spine_day.sql</td>
+<td>none</td>
+</tr>
+<tr>
+<td>organization_dim</td>
+<td>Names from both satellite views</td>
+<td>Each view filtered by its own record source; a ghost&rsquo;s code as its name</td>
+<td>A ghost row appears in both views</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Masking assertions SM1 and SM2</td>
+<td>Run in their sessions</td>
+<td>Each checks only in its own session</td>
+<td>CLAUDE_WS_ROLE holds SYSADMIN; SM2 proven as DEV_CLAUDE_WS_ROLE, granted read on the dev CONFORMED_DM</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Semantic YAML</td>
+<td>Semantic models and metrics in _conformed_dm.yml</td>
+<td>In each model&rsquo;s property file, release 1&rsquo;s form; _conformed_dm.yml holds the saved queries</td>
+<td>The repository&rsquo;s form</td>
+<td>none</td>
+</tr>
+<tr>
+<td>finding_row</td>
+<td>table, a space, the value</td>
+<td>table, a colon, the value</td>
+<td>Release 1&rsquo;s form, which its moved unit test expects</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Reconciliations and saved-query tests</td>
+<td>MetricFlow&rsquo;s compiled answer</td>
+<td>The facts&rsquo; own SQL in dev; Q-13 and Q-14 pinned to vault figures</td>
+<td>MetricFlow cannot compile on the workstation (answers 1a and 2a)</td>
+<td>test plan 2.3.4 to follow at agreement</td>
+</tr>
+<tr>
+<td>Facts and ghost rows</td>
+<td>Facts read their links whole</td>
+<td>Facts leave out the links&rsquo; ghost rows</td>
+<td>Ghost rows are dimension members, never fact rows (mart design 3.5)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Commits for steps 70 to 78</td>
+<td>One commit</td>
+<td>Three: eda74c8, c27fef2, 9ee10b2</td>
+<td>The name collision the rule guards against was resolved in the first</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Production landing</td>
+<td>At promotion</td>
+<td>Delivered 2026-11-01, after the dev proof</td>
+<td>So QA can clone LANDING (answer 2y)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Unit tests on QA&rsquo;s engine</td>
+<td>Every unit test runs on both engines</td>
+<td>Three tagged fusion_only, run under Fusion in dev</td>
+<td>dbt-core cannot run them as written; Ray&rsquo;s exception, answer 2b</td>
+<td>none</td>
+</tr>
+<tr>
+<td>The dev rehearsal</td>
+<td>Development built on Fusion</td>
+<td>Development runs the QA job on dbt-core, from fresh clones, before any pull request</td>
+<td>QA run 1 found what Fusion alone had hidden; Ray, nothing is supposed to fail in QA</td>
+<td>guide section 7</td>
+</tr>
+<tr>
+<td>The structure check</td>
+<td>dv.sql compared as written</td>
+<td>dbt&rsquo;s signature stripped before comparing</td>
+<td>The signature differs between engines and on every run</td>
+<td>none</td>
+</tr>
+<tr>
+<td>The Ask function</td>
+<td>Streaming in dev</td>
+<td>Streaming in every environment, run.sh packed for each</td>
+<td>Running dev differently from QA or production is a process violation (Ray)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>The connector&rsquo;s access</td>
+<td>Its user&rsquo;s default session</td>
+<td>Secondary roles off; read-only grant on the conformed mart</td>
+<td>The session carried SYSADMIN, lifting the insured mask</td>
+<td>release 2: its own user (answer 2y)</td>
+</tr>
+<tr>
+<td>The rollback</td>
+<td>Rebuild release 1&rsquo;s MART</td>
+<td>Time Travel clone at the restore point, swapped in</td>
+<td>Ray: we have time travel; rehearsed in dev and QA</td>
+<td>the production runbook</td>
+</tr>
+<tr>
+<td>Reconciliations&rsquo; route</td>
+<td>The facts&rsquo; own SQL in dev (answer 1a)</td>
+<td>Also MetricFlow, the connector&rsquo;s version, compiled and run in dev and on QA&rsquo;s manifest</td>
+<td>My claim that MetricFlow could not run here was wrong</td>
+<td>none</td>
+</tr>
+</tbody>
+</table></div>
+<h2>5. Known characteristics</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Decision</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The unknown policy&rsquo;s carrier code reads u in policy_h</td>
+<td>answer 3b</td>
+<td>policy_dim maps it to the unknown organization; corrected in release 2</td>
+</tr>
+<tr>
+<td>Three unit tests run only under Fusion</td>
+<td>Ray&rsquo;s exception, answer 2b</td>
+<td>Covered in development; QA&rsquo;s engine skips them</td>
+</tr>
+<tr>
+<td>The rollback reaches back one day</td>
+<td>DV&rsquo;s Time Travel retention</td>
+<td>A rollback must start within 24 hours of the promotion</td>
+</tr>
+<tr>
+<td>The connector signs in as Claude&rsquo;s user</td>
+<td>answer 2y</td>
+<td>Read-only on the conformed mart now; its own user in release 2</td>
+</tr>
+<tr>
+<td>The functions deploy from the workstation</td>
+<td>Ray&rsquo;s exception to the promotion standard&rsquo;s section 13, answer 2a</td>
+<td>Until GitHub Actions deploy each environment&rsquo;s stack</td>
+</tr>
+</tbody>
+</table></div>
+<h2>6. Where this feeds</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Downstream consumer or process</th>
+<th>Dependency</th>
+<th>Handoff reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DV Digest, Mary&rsquo;s connector</td>
+<td>Reads the semantic manifest of the QA and production builds</td>
+<td>QA record ; probes P-9 to P-15</td>
+</tr>
+<tr>
+<td>Mary&rsquo;s site</td>
+<td>site/build_site.py and site/dev/qa_retest.py read records_not_accepted, whose name is unchanged</td>
+<td>Release page rebuild with Q-13 and Q-14</td>
+</tr>
+<tr>
+<td>The promotion</td>
+<td>infra/runbooks/dbt_cloud_prod_environment.md in order: the restore point, the Prod Build, the zero-key correction, the MART drop, the connector&rsquo;s grant and the structure check on DV, then production&rsquo;s connector and Ask function from main; the rollback by rollback_vault_to_time.sql within one day</td>
+<td>The runbook; the QA record , section 11</td>
+</tr>
+</tbody>
+</table></div>
+<h2>7. Follow-up work</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>policy_h&rsquo;s ghost carrier code</td>
+<td>Release 2 (answer 3b)</td>
+</tr>
+<tr>
+<td>The connector&rsquo;s own Snowflake user and read-only role</td>
+<td>Release 2 (answer 2y)</td>
+</tr>
+<tr>
+<td>The Ask pages&rsquo; own Anthropic workspace and key</td>
+<td>Release 2 (answer 2a)</td>
+</tr>
+<tr>
+<td>GitHub Actions deploying each environment&rsquo;s stack</td>
+<td>The promotion standard&rsquo;s section 13</td>
+</tr>
+<tr>
+<td>The user&rsquo;s guide, the architecture and agentic sections of the site, the exemplar library, tuning the agents</td>
+<td>Release 2, on DIG-594&rsquo;s list</td>
+</tr>
+<tr>
+<td>Why dbt-core misplaces two tests&rsquo; ghost values</td>
+<td>Recorded in each test&rsquo;s description</td>
+</tr>
+</tbody>
+</table></div></article><section class="cta bleed"><h2>Next: QA certification</h2><p>The next release's QA cycle: preparation, the build, the tests and the verdict, filled in as it runs.</p><a class="btn" href="qa-certification-next.html">Read the qa certification</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

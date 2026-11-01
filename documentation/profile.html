@@ -1,0 +1,1900 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Profile | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Profile</p><p class="eyebrow">Documentation · release 1</p><h1>Profile</h1><p>What the source data actually holds, measured before anything was designed.</p></div></header>
+<main><article class="doc"><h1>Branch Profile: Sunbelt Senior Insurance and Northfield Life Source Data, and the Source System Seed (Scope Statement)</h1>
+<h3>Branch Data Profiling</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Effort</strong></td>
+<td>DIGEST Data Vault Implementation (Pilot knowledge 35), increments 1 (arrival and identity) 1.1 (source system seed) and 2 (the two-source raw vault), which elaborate this single document set (Ray, 2026-10-23); and Ray&rsquo;s labs from Lab 1-2 on, on branch rayserrano/dig-574-labs, which extend the same documents, shared at the level of the Linear issue (Ray, 2026-10-25). Master issue Linear DIG-574. Branch claude_ws/dig-574-arrival-and-identity.</td>
+</tr>
+<tr>
+<td><strong>Governed by</strong></td>
+<td><em>Standard: Profiling</em> (K#10 I#15)</td>
+</tr>
+<tr>
+<td><strong>Official copy method</strong></td>
+<td><code>AGENTIC.DATASKILLS.KNOWLEDGE_ITEM_FROM_TEMPLATE</code></td>
+</tr>
+<tr>
+<td><strong>Template source</strong></td>
+<td>K#10 I#186 — updated 2026-10-03T11:48:30.428Z — SHA-256 a3058fbe0b39b88803187e991e2b6201b027c49f52e9dfe812c5c109ded86216</td>
+</tr>
+<tr>
+<td><strong>Source system</strong></td>
+<td>Sunbelt Senior client management system. Synthetic: generated for the DIGEST Data Vault course; Sunbelt Senior stands for one acquired agency of an insurance distributor. Second source (increment 1.1): the source system seed, authored by the team as reference data. Increment 2 adds Sunbelt Senior&rsquo;s policy sales data and a carrier&rsquo;s source data: Northfield Life&rsquo;s policy data, a carrier invented for the course. Ray&rsquo;s labs add a second carrier&rsquo;s policy data: Pinecrest Mutual, also invented for the course.</td>
+</tr>
+<tr>
+<td><strong>Source location</strong></td>
+<td>LANDING.SUNBELT.CLIENT, created by the increment&rsquo;s committed setup script. The source system seed: the dbt seed seeds/seed_source_system.csv in the repository (section 2.1.2). Increment 2: LANDING.SUNBELT.POLICY_SALE and LANDING.NORTHFIELD.POLICY, loaded by the landing-act macro.</td>
+</tr>
+<tr>
+<td><strong>Profile date</strong></td>
+<td>2026-10-22</td>
+</tr>
+<tr>
+<td><strong>Profiler</strong></td>
+<td>Claude, for Ray Serrano</td>
+</tr>
+<tr>
+<td><strong>Scope</strong></td>
+<td>One table, six columns, two daily loads. For a synthetic source this profile specifies the data instead of measuring it: it decides which table exists and which scenarios the rows carry (Ray, 2026-10-22). The scenarios are the eight distinct behavioral paths found by the Permutation Coverage Method (testing methodology, layer 3), adopted by Ray on 2026-10-22. Increment 1.1 adds the source system seed: one table, four columns, three codes, with one rename written between two commits. Increment 2 adds two tables over the same two acts, carrying the 33 behavioral paths of results P-11 to P-16 and P-19, found by the reverse use of the Permutation Coverage Method: one row set per path (Ray, 2026-10-24).</td>
+</tr>
+<tr>
+<td><strong>Population</strong></td>
+<td>Client file: 43 rows, 33 in load 1 (2026-10-01) and 10 in load 2 (2026-10-02). Source system seed: three rows (SSI, SYSTEM, ERROR); the SSI row changes once, between two commits (P-8). Policy sales data: 14 rows (9 in act 1, 5 in act 2). Northfield Life&rsquo;s policy data: 12 rows (9 in act 1, 3 in act 2).</td>
+</tr>
+<tr>
+<td><strong>Author</strong></td>
+<td>Ray Serrano; edited by Claude</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal — Data Management</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>1. Quality standard</h2>
+<p>This profile follows <em>Standard: Profiling</em> (K#10 I#15): field intent, value discipline, and population for every column, and a verdict of Integrate, Defer, or Reject for each, naming its check. It does not redefine the criteria.</p>
+<h2>2. Data profile</h2>
+<h3>Source ERD</h3>
+<p>The branch&rsquo;s source tables as they land, with their real columns: Sunbelt Senior&rsquo;s client list and policy sales data, Northfield Life&rsquo;s policy data, Pinecrest Mutual&rsquo;s policy data for Lab 1-2, and the team&rsquo;s source system seed. No source declares a relationship to another table&rsquo;s rows, so every relationship is dashed and carries its match rate, counted in LANDING on 2026-10-26: 10 of the sales data&rsquo;s 11 client numbers are in the client list (A-1033 is not); 3 of its 9 Northfield policy numbers are in Northfield Life&rsquo;s data; and of 7 producer numbers across the sources, the sales data&rsquo;s 5 include 4 found in another source, Northfield Life&rsquo;s 4 are all found elsewhere, and Pinecrest Mutual&rsquo;s 6 are all found elsewhere. The agent is an entity no source sends. No landed column refers to the seed; the vault uses its codes as record sources.</p>
+<figure class="diagram" tabindex="0" role="button" aria-label="Open this diagram full screen"><svg width="100%" viewBox="0 0 680 740" role="img" xmlns="http://www.w3.org/2000/svg"><title>Source ERD: the branch's source tables as they land</title><desc>Four landed source tables and the team's source system seed, with real columns. No source declares a relationship to another table's rows, so each relationship is dashed and carries its match rate, counted in LANDING on 2026-10-26. The agent is an entity no source sends. The seed is referred to by no landed column.</desc><g class="c-teal"><rect x="20" y="20" width="280" height="152" rx="7" stroke-width="1"/></g><text class="th" x="30" y="39">Sunbelt Senior's client list</text><text class="ts" x="30" y="56">SUNBELT.CLIENT</text><line class="arr" x1="20" y1="64" x2="300" y2="64" stroke-width="0.6"/><text class="ts" x="30" y="81">CRM_ROW_ID</text><text class="ts" x="30" y="98">CLIENT_NUMBER</text><text class="ts" x="30" y="115">FIRST_NAME</text><text class="ts" x="30" y="132">LAST_NAME</text><text class="ts" x="30" y="149">STATE</text><text class="ts" x="30" y="166">LOADED_AT</text><g class="c-teal"><rect x="380" y="20" width="280" height="220" rx="7" stroke-width="1"/></g><text class="th" x="390" y="39">Sunbelt Senior's policy sales</text><text class="ts" x="390" y="56">SUNBELT.POLICY_SALE</text><line class="arr" x1="380" y1="64" x2="660" y2="64" stroke-width="0.6"/><text class="ts" x="390" y="81">SALE_ROW_ID</text><text class="ts" x="390" y="98">POLICY_NUMBER</text><text class="ts" x="390" y="115">CLIENT_NUMBER</text><text class="ts" x="390" y="132">CARRIER_CODE</text><text class="ts" x="390" y="149">ROLE</text><text class="ts" x="390" y="166">SOLD_ON</text><text class="ts" x="390" y="183">AGENT_NAME</text><text class="ts" x="390" y="200">AGENT_NPN</text><text class="ts" x="390" y="217">PLAN_NAME</text><text class="ts" x="390" y="234">LOADED_AT</text><g class="c-gray"><rect x="380" y="292" width="280" height="44" rx="7" stroke-width="1" stroke-dasharray="5 4"/></g><text class="th" x="390" y="311">Agent, sent by no source</text><text class="ts" x="390" y="328">7 producer numbers across the sources</text><g class="c-coral"><rect x="20" y="300" width="280" height="220" rx="7" stroke-width="1"/></g><text class="th" x="30" y="319">Northfield Life's policy data</text><text class="ts" x="30" y="336">NORTHFIELD.POLICY</text><line class="arr" x1="20" y1="344" x2="300" y2="344" stroke-width="0.6"/><text class="ts" x="30" y="361">POLICY_NUMBER</text><text class="ts" x="30" y="378">INSURED_ID</text><text class="ts" x="30" y="395">INSURED_NAME</text><text class="ts" x="30" y="412">BIRTH_DATE</text><text class="ts" x="30" y="429">ADDRESS</text><text class="ts" x="30" y="446">FACE_AMOUNT</text><text class="ts" x="30" y="463">STATUS</text><text class="ts" x="30" y="480">EFFECTIVE_DATE</text><text class="ts" x="30" y="497">WRITING_AGENT_NPN</text><text class="ts" x="30" y="514">LOADED_AT</text><g class="c-purple"><rect x="380" y="396" width="280" height="169" rx="7" stroke-width="1"/></g><text class="th" x="390" y="415">Pinecrest Mutual's policy data</text><text class="ts" x="390" y="432">PINECREST.POLICY, Lab 1-2</text><line class="arr" x1="380" y1="440" x2="660" y2="440" stroke-width="0.6"/><text class="ts" x="390" y="457">POLICY_NUMBER</text><text class="ts" x="390" y="474">PLAN_NAME</text><text class="ts" x="390" y="491">FACE_AMOUNT</text><text class="ts" x="390" y="508">STATUS</text><text class="ts" x="390" y="525">EFFECTIVE_DATE</text><text class="ts" x="390" y="542">WRITING_AGENT_NPN</text><text class="ts" x="390" y="559">LOADED_AT</text><g class="c-gray"><rect x="20" y="560" width="280" height="118" rx="7" stroke-width="1"/></g><text class="th" x="30" y="579">Source system seed</text><text class="ts" x="30" y="596">seeds/seed_source_system.csv</text><line class="arr" x1="20" y1="604" x2="300" y2="604" stroke-width="0.6"/><text class="ts" x="30" y="621">SOURCE_SYSTEM_CODE</text><text class="ts" x="30" y="638">SOURCE_NAME</text><text class="ts" x="30" y="655">DESCRIPTION</text><text class="ts" x="30" y="672">OWNER</text><line class="arr" x1="300.0" y1="96.0" x2="380.0" y2="96.0" stroke-dasharray="5 4"/><line class="arr" x1="307.0" y1="89.0" x2="307.0" y2="103.0"/><circle class="arr" cx="317.0" cy="96.0" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="368.0" y1="96.0" x2="380.0" y2="104.0"/><line class="arr" x1="368.0" y1="96.0" x2="380.0" y2="96.0"/><line class="arr" x1="368.0" y1="96.0" x2="380.0" y2="88.0"/><circle class="arr" cx="361.0" cy="96.0" r="4.5" style="fill:var(--paper)"/><text class="ts" x="340" y="80" text-anchor="middle">client number</text><text class="ts" x="340" y="122" text-anchor="middle">10 of 11</text><text class="ts" x="340" y="138" text-anchor="middle">match</text><line class="arr" x1="380.0" y1="200.0" x2="240.0" y2="300.0" stroke-dasharray="5 4"/><line class="arr" x1="370.2" y1="207.0" x2="384.6" y2="206.5"/><line class="arr" x1="370.2" y1="207.0" x2="380.0" y2="200.0"/><line class="arr" x1="370.2" y1="207.0" x2="375.4" y2="193.5"/><circle class="arr" cx="364.5" cy="211.0" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="241.6" y1="290.2" x2="249.8" y2="301.6"/><circle class="arr" cx="253.8" cy="290.1" r="4.5" style="fill:var(--paper)"/><text class="ts" x="313" y="236" text-anchor="end">carrier and policy number: 3 of 9 match</text><line class="arr" x1="520.0" y1="240.0" x2="520.0" y2="292.0" stroke-dasharray="5 4"/><line class="arr" x1="520.0" y1="252.0" x2="528.0" y2="240.0"/><line class="arr" x1="520.0" y1="252.0" x2="520.0" y2="240.0"/><line class="arr" x1="520.0" y1="252.0" x2="512.0" y2="240.0"/><circle class="arr" cx="520.0" cy="259.0" r="4.5" style="fill:var(--paper)"/><line class="arr" x1="513.0" y1="285.0" x2="527.0" y2="285.0"/><line class="arr" x1="513.0" y1="280.0" x2="527.0" y2="280.0"/><text class="ts" x="532" y="270" text-anchor="start">4 of 5 shared</text><line class="arr" x1="380.0" y1="324.0" x2="300.0" y2="380.0" stroke-dasharray="5 4"/><line class="arr" x1="378.3" y1="333.7" x2="370.3" y2="322.3"/><line class="arr" x1="374.2" y1="336.6" x2="366.2" y2="325.1"/><line class="arr" x1="309.8" y1="373.1" x2="295.4" y2="373.4"/><line class="arr" x1="309.8" y1="373.1" x2="300.0" y2="380.0"/><line class="arr" x1="309.8" y1="373.1" x2="304.6" y2="386.6"/><circle class="arr" cx="315.6" cy="369.1" r="4.5" style="fill:var(--paper)"/><text class="ts" x="340" y="373" text-anchor="start">4 of 4 shared</text><line class="arr" x1="520.0" y1="336.0" x2="520.0" y2="396.0" stroke-dasharray="5 4"/><line class="arr" x1="527.0" y1="343.0" x2="513.0" y2="343.0"/><line class="arr" x1="527.0" y1="348.0" x2="513.0" y2="348.0"/><line class="arr" x1="520.0" y1="384.0" x2="512.0" y2="396.0"/><line class="arr" x1="520.0" y1="384.0" x2="520.0" y2="396.0"/><line class="arr" x1="520.0" y1="384.0" x2="528.0" y2="396.0"/><circle class="arr" cx="520.0" cy="377.0" r="4.5" style="fill:var(--paper)"/><text class="ts" x="532" y="370" text-anchor="start">6 of 6 shared</text><text class="ts" x="320" y="610">No landed column refers to the seed;</text><text class="ts" x="320" y="627">the vault uses its codes as record sources.</text><g class="c-teal"><rect x="20" y="700" width="16" height="16" rx="4" stroke-width="1"/></g><text class="ts" x="42" y="712">Sunbelt Senior (SSI)</text><g class="c-coral"><rect x="208.0" y="700" width="16" height="16" rx="4" stroke-width="1"/></g><text class="ts" x="230.0" y="712">Northfield Life (NFL)</text><g class="c-purple"><rect x="403.20000000000005" y="700" width="16" height="16" rx="4" stroke-width="1"/></g><text class="ts" x="425.20000000000005" y="712">Pinecrest Mutual</text></svg><span class="zoom-hint">Tap to enlarge</span></figure>
+<h3>2.0 Population context</h3>
+<p>The rows are the clients of one fictional agency that an insurance distributor has acquired. Load 1 is the agency&rsquo;s first full extract. Load 2 is a delta: it carries only new clients and rows that changed or reappeared, so a client absent from load 2 has not left the agency. That matters in a later increment, because an effectivity satellite can read absence as departure only from full extracts.</p>
+<p>Names are invented and belong to no real person. There is no test data to filter: every unusual row is a scenario written for the course, listed in profile result P-1 with the path it exercises. The base population for every percentage below is the 43 rows.</p>
+<h3>2.1 Tables</h3>
+<p>One subsection per table. Each opens with its grain and, for a history, its freshness, volume trend, change rate, and disappearance; then one subsection per column with the analyses section 5 of the standard requires.</p>
+<h4>2.1.1 Table SUNBELT.CLIENT</h4>
+<p><strong>Grain.</strong> One row per CRM row per load: the pair (LOADED_AT, CRM_ROW_ID) is unique. Specified duplicate count: 0. Check: grain-unique on that pair.</p>
+<p><strong>History measures.</strong> Two loads, one day apart; freshness: the latest load is 2026-10-02 02:00 UTC, and the lag behind the source cannot be measured, because the extract carries no source change time. Volume: 33 rows, then 10. Change rate: 2 CRM rows arrive in both loads, and neither changed (0 of 2). Disappearance does not apply to a delta extract, which sends only what it sends, and is stated here as not applicable for that reason.</p>
+<h5>2.1.1.1 CRM_ROW_ID</h5>
+<p>Field intent: technical key, a number the agency&rsquo;s CRM assigns to each row. Populated 43 of 43 (100 percent); distinct 41, because path P2 repeats the CRM row IDs of A-1001 and A-1002 in load 2. It identifies the CRM row, not the client: client A-1003 arrives in load 2 under a new CRM row ID (path P2). Reversal risk: none; the verdict follows from what the column identifies.</p>
+<h5>2.1.1.2 CLIENT_NUMBER</h5>
+<p>Field intent: business key, the number the agency uses to identify a client, designed as the letter A, a hyphen, and four digits. Populated: 42 of 43 non-null (97.7 percent); 40 of 43 carry a value after trimming (93.0 percent). Distinct raw values: 40. Discipline, read as conformance to the designed form among the 40 values: 35 conform exactly (87.5 percent, the mixed tier). The five nonconforming values are a-1004 and a-1010 (case), the trailing-space value A-1005 (surrounding space), and A1007 and A-01008 (internal form).
+Reversal risk: case and synonym variants (Standard: Profiling, section 4). Case and surrounding-space variants unify at hashing, because the toolkit trims and uppercases every business key before hashing. Internal-form variants do not unify and stay separate keys; whether they name the same client is an identity question this increment does not answer.
+Samples: A-1001, a-1004, A-1005 followed by a space, A1007, A-01008, an empty string, three spaces, NULL.</p>
+<h5>2.1.1.3 FIRST_NAME, 2.1.1.4 LAST_NAME</h5>
+<p>Field intent: genuinely free text, invented names. Populated 43 of 43; distinct up to 43. Not analyzed further: the descriptive columns wait for the satellites increment.</p>
+<h5>2.1.1.5 STATE</h5>
+<p>Field intent: controlled discrete, two-letter US state codes. Populated 43 of 43; clean tier by construction (every value is a valid code). Not analyzed further, for the same reason.</p>
+<h5>2.1.1.6 LOADED_AT</h5>
+<p>Field intent: the time the row arrived in the agency&rsquo;s extract, delivered as text in the form YYYY-MM-DDTHH:MI:SS. Populated 43 of 43; distinct 2 (2026-10-01T02:00:00 and 2026-10-02T02:00:00), which are its minimum and maximum. Not near-unique: every row of a load carries that load&rsquo;s one time. Parseability: 43 of 43 (100 percent). Missing-value semantics: none occur. The text type is deliberate: staging enforces the timestamp type, which is a hard business rule: Data Vault&rsquo;s hard rules are technical changes such as type casting, formatting and null handling, while changes made for business requirements are soft rules, applied later (VaultSpeed, Data Vault 2.0 concepts, <a href="https://docs.vaultspeed.com/space/VPD/3011870744.md" target="_blank" rel="noopener">https://docs.vaultspeed.com/space/VPD/3011870744.md</a>, read 2026-10-23).</p>
+<h4>2.1.2 Table SEED_SOURCE_SYSTEM (increment 1.1)</h4>
+<p><strong>What it is.</strong> The source system seed: one row per source system the vault receives data from, giving each source&rsquo;s permanent code its current name, description and owner. It is reference data authored by the team, kept in the repository as the dbt seed seed_source_system.csv (Ray, 2026-10-23). The vault rows carry only the code.</p>
+<p><strong>Grain.</strong> One row per code: three codes, SSI for Sunbelt Senior&rsquo;s client file and SYSTEM and ERROR for the vault&rsquo;s own ghost records (P-9). Specified duplicate count: 0. Check: grain-unique on SOURCE_SYSTEM_CODE.</p>
+<p><strong>History.</strong> The seed holds the source systems as they stand. Its history is the file&rsquo;s history in git: every change is a reviewed commit, with who, when and why (Ray, 2026-10-23: a file the team edits is not data that arrives, so it needs no vault objects to keep its history). To show that a rename touches no vault row, the SSI row changes once, between two commits:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>First commit (as acquired)</th>
+<th>Second commit (after integration)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SOURCE_SYSTEM_CODE</td>
+<td>SSI</td>
+<td>SSI</td>
+</tr>
+<tr>
+<td>SOURCE_NAME</td>
+<td>Sunbelt Senior Insurance client file</td>
+<td>Sunbelt Senior client file</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Nightly client file of Sunbelt Senior Insurance, an insurance agency acquired by Digest Insurance Distributors</td>
+<td>Nightly client file of Sunbelt Senior, an agency of Digest Insurance Distributors</td>
+</tr>
+<tr>
+<td>OWNER</td>
+<td>Sunbelt Senior Insurance</td>
+<td>Digest Insurance Distributors</td>
+</tr>
+</tbody>
+</table></div>
+<h5>2.1.2.1 SOURCE_SYSTEM_CODE</h5>
+<p>Field intent: controlled discrete, the permanent identifier of a source system; short, upper case, never changed. Populated 3 of 3 (100 percent); distinct 3. Value discipline: clean by construction. Reversal risk: none; a code is assigned once.</p>
+<h5>2.1.2.2 SOURCE_NAME, 2.1.2.3 DESCRIPTION, 2.1.2.4 OWNER</h5>
+<p>Field intent: free text describing the source; allowed to change. Populated 3 of 3. For SSI each changes between the two commits, which is the rename written for the course; SYSTEM and ERROR do not change.</p>
+<h4>2.1.3 Table SUNBELT.POLICY_SALE (increment 2)</h4>
+<p><strong>What it is.</strong> Sunbelt Senior&rsquo;s record of the policies its agents sold: one row per person per policy, saying which Sunbelt Senior client holds which carrier&rsquo;s policy and in what role. It is the second table of the same source system, so it carries the same record source code as the client file, SSI: one code per source system (Ray, 2026-10-23).</p>
+<p><strong>Grain.</strong> One row per policy, client and role. Specified duplicate count: 0. Check: grain-unique on POLICY_NUMBER, CLIENT_NUMBER and ROLE within a load.</p>
+<p><strong>Columns.</strong> SALE_ROW_ID (the source&rsquo;s row number); POLICY_NUMBER (issued by the carrier, as the carrier writes it, for example NF-100003); CLIENT_NUMBER (Sunbelt Senior&rsquo;s own, the same namespace as the client file); CARRIER_CODE (the carrier that issued the policy, NFL for Northfield Life, because a policy number is unique only within its issuing carrier&rsquo;s namespace; Ray, 2026-10-23); ROLE (owner or insured, the documented values; act 2 also carries one undocumented value, payor, path L5); SOLD_ON (date, as text); AGENT_NAME; AGENT_NPN (the selling agent&rsquo;s national producer number, assigned through the National Insurance Producer Registry and the same in every source); PLAN_NAME (Sunbelt Senior&rsquo;s name for the product); LOADED_AT (text, as in the client file).</p>
+<p><strong>Population.</strong> Act 1 (2026-10-01): 9 rows. Act 2 (2026-10-02): 5 rows. Every row exercises at least one path (P-16).</p>
+<p><strong>History measures.</strong> Freshness: the latest load is 2026-10-02 02:00 UTC; the lag behind the source cannot be measured, because the extract carries no source change time. Volume: 9 rows, then 5. Change rate: one sale (NF-100001, A-1001, owner) arrives in both loads, unchanged (0 of 1). Disappearance does not apply to a delta extract.</p>
+<p>The base population for every percentage below is the table&rsquo;s 14 rows.</p>
+<h5>2.1.3.1 SALE_ROW_ID</h5>
+<p>Field intent: technical key, the source&rsquo;s row number. Populated 14 of 14 (100 percent); distinct 14. It identifies a row, not a sale. Reversal risk: none.</p>
+<h5>2.1.3.2 POLICY_NUMBER</h5>
+<p>Field intent: business key, issued by the carrier, designed as NF, a hyphen and six digits. Populated 13 of 14 (92.9 percent): one row carries an empty string (path PH7). Distinct raw values: 10. Discipline, read as conformance to the designed form among the 13 values: 11 conform (84.6 percent, the mixed tier); the two nonconforming values are nf-100001 (case) and NF100009 (internal form). Reversal risk: case and synonym variants. The case variant unifies at hashing; the internal-form variant stays a separate key and is disclosed by an inspector. Samples: NF-100001, nf-100001, NF100009, NF-100012, an empty string.</p>
+<h5>2.1.3.3 CLIENT_NUMBER</h5>
+<p>Field intent: business key, Sunbelt Senior&rsquo;s client number, the same namespace and form as the client list&rsquo;s. Populated 13 of 14 (92.9 percent): one row carries an empty string (path CH3). Distinct 10. Discipline: 13 of 13 conform to the designed form (100 percent, clean). Overlap with the client list: 9 of the 10 numbers are in it; A-1033 is first seen here (path CH2). Reversal risk: none in this data. Samples: A-1001, A-1008, A-1033, an empty string.</p>
+<h5>2.1.3.4 CARRIER_CODE</h5>
+<p>Field intent: controlled discrete, the code of the carrier that issued the policy. Populated 12 of 14 (85.7 percent): one row has no code (path PH8) and one has neither code nor policy number (path PH7). Distinct 1, NFL; clean. Reversal risk: a single-value column. It is integrated anyway, as part of the policy&rsquo;s key, because a policy number is unique only within its carrier; the single value reflects this increment&rsquo;s one carrier, not the column&rsquo;s meaning. Samples: NFL, NULL.</p>
+<h5>2.1.3.5 ROLE</h5>
+<p>Field intent: controlled discrete, what the client is on the policy; the source documents owner and insured. Populated 14 of 14; distinct 3: owner 10 rows (71.4 percent), insured 3 (21.4 percent), payor 1 (7.1 percent). Discipline: 13 of 14 in the documented set (92.9 percent, predominantly controlled). The one other value, payor, is a role the source added without documenting it (path L5); it is kept exactly as sent, because a role code is data, not spillover. Reversal risk: none from the catalog; the undocumented code is the case written for it.</p>
+<h5>2.1.3.6 SOLD_ON, 2.1.3.7 AGENT_NAME, 2.1.3.8 PLAN_NAME</h5>
+<p>Field intent: SOLD_ON is a date delivered as text; AGENT_NAME is free text, a person&rsquo;s name; PLAN_NAME is free text, Sunbelt Senior&rsquo;s name for the product. Populated 14 of 14 each. SOLD_ON parses for 14 of 14 and falls on or before its row&rsquo;s load date; earliest 2026-09-02, latest 2026-09-28; 10 distinct dates in 14 rows, so dates repeat and are not near-unique; no NULL occurs, and a NULL would mean the sale date was not sent. Values come from the implementation guide&rsquo;s fixed invented lists. Reversal risk: none.</p>
+<h5>2.1.3.9 AGENT_NPN</h5>
+<p>Field intent: business key of the agent, a national producer number: up to ten digits, no leading zeros, assigned through the National Insurance Producer Registry, so the same agent carries the same number in every source. Populated 13 of 14 (92.9 percent): the row of NF-100014 carries an empty string (path AG5). Distinct 4; 13 of 13 conform (clean). Overlap with Northfield Life&rsquo;s WRITING_AGENT_NPN: 17001001 and 17001006 appear in both; on NF-100011 the two sources name different agents (path LA2). Reversal risk: none. Samples: 17001001, 17001007, an empty string.</p>
+<h5>2.1.3.10 LOADED_AT</h5>
+<p>Field intent: the time the row arrived, as text in the form YYYY-MM-DDTHH:MI:SS. Populated 14 of 14; distinct 2 (2026-10-01T02:00:00 and 2026-10-02T02:00:00), which are its minimum and maximum. Parseability 14 of 14. Not near-unique: every row of a load carries that load&rsquo;s one time. No NULL occurs; a NULL would mean a row with no load.</p>
+<h4>2.1.4 Table NORTHFIELD.POLICY (increment 2)</h4>
+<p><strong>What it is.</strong> Northfield Life&rsquo;s policy data, as a carrier sends it to the distributor: one row per policy, with the insured person described the carrier&rsquo;s way. Northfield Life is a carrier invented for the course. It is a new source system with its own record source code, NFL, added to the source system seed (Ray, 2026-10-23).</p>
+<p><strong>Grain.</strong> One row per policy. Specified duplicate count: 0. Check: grain-unique on POLICY_NUMBER within a load.</p>
+<p><strong>Columns.</strong> POLICY_NUMBER (Northfield Life issues it: NF-, a hyphen, six digits); INSURED_ID (Northfield Life&rsquo;s own number for the insured person: NLI-, a hyphen, five digits); INSURED_NAME (one field, &ldquo;Last, First&rdquo;); BIRTH_DATE; ADDRESS (one field); FACE_AMOUNT (the death benefit, in dollars); STATUS (Northfield Life&rsquo;s codes: IF in force, LP lapsed, TR terminated); EFFECTIVE_DATE; WRITING_AGENT_NPN (the selling agent&rsquo;s national producer number); LOADED_AT.</p>
+<p><strong>Population.</strong> Act 1 (2026-10-01): 9 policies. Act 2 (2026-10-02): 3 rows: one unchanged resend, one status change and one change in letter case only (P-15).</p>
+<p><strong>History measures.</strong> Freshness: the latest load is 2026-10-02 02:00 UTC; the lag behind the source cannot be measured, because the extract carries no source change time. Volume: 9 rows, then 3. Change rate: 3 policies arrive in both loads (NF-100002, NF-100003, NF-100008), and 2 of them changed (67 percent). Disappearance does not apply to a delta extract.</p>
+<p>The base population for every percentage below is the table&rsquo;s 12 rows.</p>
+<h5>2.1.4.1 POLICY_NUMBER</h5>
+<p>Field intent: business key, issued by Northfield Life, NF, a hyphen and six digits. Populated 12 of 12; distinct 9; 12 of 12 conform (clean). Reversal risk: none. Samples: NF-100001, NF-100013.</p>
+<h5>2.1.4.2 INSURED_ID</h5>
+<p>Field intent: business key, Northfield Life&rsquo;s number for the insured person, NLI, a hyphen and five digits. Populated 11 of 12 (91.7 percent): the row of NF-100013 carries an empty string (path IH4). Distinct 7; 11 of 11 conform (clean). NLI-55001 is the insured on two policies (path IH3). Reversal risk: none. Samples: NLI-55001, NLI-55007, an empty string.</p>
+<h5>2.1.4.3 INSURED_NAME, 2.1.4.4 BIRTH_DATE, 2.1.4.5 ADDRESS</h5>
+<p>Field intent: INSURED_NAME is free text in the form Last, First; BIRTH_DATE is a date as text; ADDRESS is free text in one field. Populated 12 of 12 each; BIRTH_DATE parses for 12 of 12; earliest 1947-01-30, latest 1955-11-23; 8 distinct in 12 rows, not near-unique; no NULL occurs, and a NULL would mean the carrier did not send the birth date. ADDRESS carries one case variant on purpose: NF-100008&rsquo;s address is 12 Elm St in act 1 and 12 ELM ST in act 2 (path ST4). Reversal risk: case variants. Treatment: kept as sent; a change in letter case alone is a new satellite version, because change hashes are case-sensitive. Samples: Alvarez, Rosa; Garrity, Irene; 12 Elm St; 12 ELM ST.</p>
+<h5>2.1.4.6 FACE_AMOUNT, 2.1.4.7 EFFECTIVE_DATE</h5>
+<p>Field intent: FACE_AMOUNT is a number of dollars, the death benefit; EFFECTIVE_DATE is a date as text. Populated 12 of 12 each; both parse for 12 of 12; no zero amounts. Values come from the implementation guide&rsquo;s fixed invented lists. Reversal risk: none.</p>
+<p>FACE_AMOUNT, in dollars, over the 12 rows (4 distinct values):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Minimum</th>
+<th>P10</th>
+<th>P25</th>
+<th>Median</th>
+<th>P75</th>
+<th>P90</th>
+<th>Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10,000</td>
+<td>10,000</td>
+<td>10,000</td>
+<td>12,500</td>
+<td>15,000</td>
+<td>19,500</td>
+<td>25,000</td>
+</tr>
+</tbody>
+</table></div>
+<p>Mean 13,750; standard deviation 4,826.54; zero count 0; parseability 12 of 12. The spread is a small set of round death benefits, as a senior final-expense and term book would show; no unit ambiguity or outlier.</p>
+<p>EFFECTIVE_DATE: earliest 2026-05-15, latest 2026-09-25; 9 distinct in 12 rows, not near-unique; no NULL occurs, and a NULL would mean the policy has no effective date yet.</p>
+<h5>2.1.4.8 STATUS</h5>
+<p>Field intent: controlled discrete, Northfield Life&rsquo;s codes IF (in force), LP (lapsed) and TR (terminated). Populated 12 of 12; distinct 2 in this data: IF 11 rows, LP 1 (NF-100003 in act 2, path ST3). Clean. Reversal risk: none.</p>
+<h5>2.1.4.9 WRITING_AGENT_NPN</h5>
+<p>Field intent: business key of the agent who wrote the policy, the same national producer number as the sales data&rsquo;s AGENT_NPN. Populated 12 of 12; distinct 4; 12 of 12 conform (clean). 17002001 is an independent agent Sunbelt Senior&rsquo;s data never names (path AG2). Reversal risk: none once the number keys its own hub (P-18). Samples: 17001001, 17002001, 17001005.</p>
+<h5>2.1.4.10 LOADED_AT</h5>
+<p>As in 2.1.3.10: populated 12 of 12; distinct 2, the same two load times as minimum and maximum; parseability 12 of 12; not near-unique, one time per load; no NULL occurs.</p>
+<p><strong>The two sources&rsquo; data are shaped differently on purpose.</strong> Sunbelt Senior names a person in two fields under its own number; Northfield Life names the same person in one field under its own number, inline in the policy row. The paths below decide what the vault can and cannot match.</p>
+<h4>2.1.5 Table PINECREST.POLICY (Ray&rsquo;s labs, from Lab 1-2)</h4>
+<p><strong>What it is.</strong> Pinecrest Mutual&rsquo;s policy data, as a carrier sends it to the distributor: one row per policy. Pinecrest Mutual is a carrier invented for the course, shown in the course guide&rsquo;s figure A2-1, and a new source system with its own record source code, PMC. Its rows are written for Ray&rsquo;s labs, one group for each of lessons 2 to 7 (result P-20).</p>
+<p><strong>Grain.</strong> One row per policy. Specified duplicate count: 0. Check: grain-unique on POLICY_NUMBER within a load, rows with no usable number excepted.</p>
+<p><strong>Columns.</strong> POLICY_NUMBER (Pinecrest Mutual issues it: PM, a hyphen, six digits); PLAN_NAME; FACE_AMOUNT (the death benefit in dollars, sent as text); STATUS (IF in force, LP lapsed); EFFECTIVE_DATE (a date, as text); WRITING_AGENT_NPN (the selling agent&rsquo;s national producer number); LOADED_AT.</p>
+<p><strong>Population.</strong> Act 1 (2026-10-01): 8 rows. Act 2 (2026-10-02): 4 rows: one unchanged resend, one status change, one with no usable number and one new policy (P-20).</p>
+<p><strong>History measures.</strong> Freshness: the latest load is 2026-10-02 02:00 UTC; the lag behind the source cannot be measured, because the extract carries no source change time. Volume: 8 rows, then 4. Change rate: 2 policies arrive in both loads (PM-300001, PM-300002), and 1 of them changed (50 percent). Disappearance does not apply to a delta extract.</p>
+<p>The base population for every percentage below is the table&rsquo;s 12 rows.</p>
+<h5>2.1.5.1 POLICY_NUMBER</h5>
+<p>Field intent: business key, issued by Pinecrest Mutual, PM, a hyphen and six digits. Populated with a usable number 10 of 12 (one empty, one only spaces); distinct usable numbers after trimming and capitals, 8; conforming to the form, 9 of 10 (PM300006 has no hyphen). Lower case (pm-300003) and a trailing space (PM-300004 followed by a space) are hard-rule variants that hash to the conforming key. Reversal risk: none; the nonconforming form is disclosed by an inspector (P-20, path PM5). Samples: PM-300001, PM-300009.</p>
+<h5>2.1.5.2 PLAN_NAME, 2.1.5.3 STATUS</h5>
+<p>Field intent: PLAN_NAME is free text naming Pinecrest Mutual&rsquo;s product; STATUS is controlled discrete, IF or LP. Populated 12 of 12 each. Distinct plan names 3; STATUS: IF 11 rows, LP 1 (PM-300002 in act 2, path PM7). Clean. Reversal risk: none.</p>
+<h5>2.1.5.4 FACE_AMOUNT</h5>
+<p>Field intent: a number of dollars, sent as text. Populated 12 of 12; parses as a number for 12 of 12; no zero amounts; 8 distinct values. The cast from text to a number is a hard rule (P-20, path PM8).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Minimum</th>
+<th>P10</th>
+<th>P25</th>
+<th>Median</th>
+<th>P75</th>
+<th>P90</th>
+<th>Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8,000</td>
+<td>9,100</td>
+<td>10,000</td>
+<td>13,500</td>
+<td>18,500</td>
+<td>24,500</td>
+<td>25,000</td>
+</tr>
+</tbody>
+</table></div>
+<p>Mean 14,750; standard deviation 6,047.16; zero count 0. Reversal risk: none.</p>
+<h5>2.1.5.5 EFFECTIVE_DATE</h5>
+<p>Field intent: a date as text. Populated 12 of 12; parses for 12 of 12; earliest 2026-08-12, latest 2026-09-30; 10 distinct in 12 rows, not near-unique (a resent policy repeats its date); no NULL occurs, and a NULL would mean the policy has no effective date yet. Reversal risk: none.</p>
+<h5>2.1.5.6 WRITING_AGENT_NPN</h5>
+<p>Field intent: the selling agent&rsquo;s national producer number, the key agent_h already uses. Populated 12 of 12; distinct 6; 12 of 12 conform. Landed but not used by Labs 1-2 to 1-7, which stay with the policy; a later lab may feed agent_h from it. Reversal risk: none.</p>
+<h5>2.1.5.7 LOADED_AT</h5>
+<p>As in 2.1.4.10: populated 12 of 12; distinct 2, the two load times, which are its minimum and maximum; parseability 12 of 12; not near-unique, one time per load; no NULL occurs.</p>
+<h3>2.2 Overlap with existing sources</h3>
+<p>Increment 2&rsquo;s two new source tables overlap on purpose, and only as far as the paths need: they share policies (paths PH3, PH4, PH5), differ in one written form (PH6) and in one missing carrier code (PH8), and each holds policies the other does not (PH1, PH2). One person appears under both issuers&rsquo; unrelated numbers (L4). Agents are the opposite case: both tables carry the national producer number, so an agent sold through both sources matches (AG1), while the two sources disagree about one policy&rsquo;s agent (LA2). A second acquired agency arrives in a later increment.</p>
+<p><strong>Join path between the three tables</strong>, measured on the landed rows with blank keys excluded:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Hop</th>
+<th>Joined on</th>
+<th>Cardinality</th>
+<th>Match rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales data to the client list</td>
+<td>CLIENT_NUMBER, trimmed and in capitals</td>
+<td>N:1; a client holds up to 3 sales, and a client number appears on up to 2 client list rows</td>
+<td>12 of 13 sales rows; A-1033 is in no client list row (path CH2)</td>
+</tr>
+<tr>
+<td>Sales data to Northfield Life&rsquo;s policies</td>
+<td>POLICY_NUMBER, trimmed and in capitals</td>
+<td>N:1; a policy holds up to 3 sales rows</td>
+<td>6 of 13 sales rows, 4 of Northfield Life&rsquo;s 9 policies. On the number alone: the vault&rsquo;s policy key adds the carrier code, so NF-100005&rsquo;s sale, sent with no carrier, joins in this measure and not in the vault (path PH8)</td>
+</tr>
+<tr>
+<td>Sales agents to Northfield Life&rsquo;s writing agents</td>
+<td>The national producer number</td>
+<td>N:M through policies</td>
+<td>2 of the 4 agents in each table: 17001001 and 17001006</td>
+</tr>
+<tr>
+<td>Pinecrest Mutual&rsquo;s policies to the policy hub (Ray&rsquo;s labs)</td>
+<td>The policy number, qualified by the carrier code PMC</td>
+<td>1:1 per usable number</td>
+<td>10 of 12 rows carry a usable number, giving 8 keys; none matches a Northfield Life or Sunbelt Senior policy, since the carrier code keeps every carrier&rsquo;s numbers apart</td>
+</tr>
+</tbody>
+</table></div>
+<h3>2.3 Machine-assisted analyses</h3>
+<p>Not applicable: no column in scope is free text or degraded discrete with more than 50 distinct values, and the data is synthetic, so no panel trigger applies.</p>
+<h2>3. Profile results</h2>
+<p>Numbered P-1, P-2, &hellip; in one series. An anomaly carries SOLUTION NEEDED and closes with RESOLVED, the resolver, the date, and the solution, in that order.</p>
+<p><strong>P-1. The eight paths and their rows.</strong> The Permutation Coverage Method enumerated five input dimensions (client number presence; form relative to an existing number; arrival across loads; technical key across loads; rows per key within a load): 4 x 4 x 3 x 2 x 2 = 192 combinations, collapsing to 8 distinct behaviors of the staging model and the hub.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Input</th>
+<th>Rows</th>
+<th>Expected hub behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td>Present number, first load only</td>
+<td>load 1: A-1001 to A-1030 (30 rows, three of them also P2)</td>
+<td>new hub row stamped with load 1</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Present number in both loads</td>
+<td>load 2: A-1001 and A-1002 with the same CRM row ID, A-1003 with a new one (3 rows)</td>
+<td>one hub row; first sighting kept</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Present number first seen in load 2</td>
+<td>load 2: A-1031, A-1032 (2 rows)</td>
+<td>new hub row stamped with load 2</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>Case or surrounding-space variant of an existing number</td>
+<td>load 2: a-1004, A-1005 with a trailing space (2 rows)</td>
+<td>same key; no new row</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>Internal-form variant</td>
+<td>load 2: A1007, A-01008 (2 rows)</td>
+<td>a different key; a separate hub row</td>
+</tr>
+<tr>
+<td>P6</td>
+<td>NULL number</td>
+<td>load 1 (1 row)</td>
+<td>all-zeros key; the unknown ghost record; no new row</td>
+</tr>
+<tr>
+<td>P7</td>
+<td>Empty or whitespace-only number</td>
+<td>load 1 empty string, load 2 three spaces (2 rows)</td>
+<td>see P-4</td>
+</tr>
+<tr>
+<td>P8</td>
+<td>Two rows in one load hashing to one key</td>
+<td>load 1: a-1010 beside A-1010 (1 extra row)</td>
+<td>one hub row</td>
+</tr>
+</tbody>
+</table></div>
+<p>Totals: 43 rows; expected hub rows 34 (A-1001 to A-1032 and the two internal-form keys) plus the two ghost records. Check: hub row count equals 36 after the build, and distinct non-ghost keys equal 34.</p>
+<p><strong>P-2. Case and surrounding-space variants unify; internal-form variants do not.</strong> Rows: a-1004, A-1005 with a trailing space and a-1010 resolve to existing keys; A1007 and A-01008 become new keys. Basis: the toolkit&rsquo;s hash pipeline (CAST, TRIM, UPPER, removal of line breaks and tabs), read in its code on 2026-10-22. Check: the P4, P5 and P8 unit tests.</p>
+<p><strong>P-3. Internal-form variants leave a possible duplicate client. SOLUTION NEEDED.</strong> A1007 may be client A-1007 and A-01008 may be A-1008; the vault keeps both as separate keys and cannot tell. This is deliberate and stays open: resolving identity is integration work that later increments address. Disclosure until then: an inspector writes one finding for each client number that does not match the designed form. Check: the inspector writes two findings for this data, one for A1007 and one for A-01008.</p>
+<p><strong>P-4. Empty and whitespace-only client numbers would hash as a real value. SOLUTION NEEDED.</strong> Inferred from the hash code: only NULL maps to the missing-value marker, so an empty string after trimming is hashed as a value and would create a hub row whose business key is empty. RESOLVED by Ray Serrano, 2026-10-22: a staging hard rule turns empty and whitespace-only client numbers into NULL, so they take the all-zeros key. Confirmation pending: the P7 characterization unit test is written and run first, to show the current behavior before the rule is coded.</p>
+<p><strong>P-5. A NULL client number takes the all-zeros key and lands on the unknown ghost record.</strong> Check: the P6 unit test; after the build, no hub row has a NULL business key other than the ghost records.</p>
+<p><strong>P-6. A changed technical key does not change identity.</strong> A-1003 arrives in load 2 under a new CRM row ID and still resolves to the same hub key. Check: the P2 unit test.</p>
+<p><strong>P-7. LOADED_AT parses for every row.</strong> 43 of 43 values cast to a timestamp. Check: parse count equals populated count.</p>
+<p><strong>P-8. The rename (increment 1.1).</strong> Code SSI keeps its code while its name, description and owner change between two commits of the seed. Expected: the seed&rsquo;s git history holds both versions; no client-file or hub row changes. Check: the seed&rsquo;s git log shows the change; every client hub row still carries SSI.</p>
+<p><strong>P-9. The ghost records carry record sources that are not source systems. RESOLVED by Ray Serrano, 2026-10-23: add them to the seed.</strong> The toolkit gives its unknown ghost record the record source SYSTEM and its error ghost record ERROR (its variables default_unknown_rsrc and default_error_rsrc, not overridden by this project). Neither is a source system, so a join from vault rows to the seed would find no name for them, and every consumer naming sources would need a special case. The seed therefore holds two more rows, describing the vault itself: SYSTEM (the unknown ghost record) and ERROR (the error ghost record), with the vault&rsquo;s team as owner. Check: every record source value in the vault resolves to a seed code.</p>
+<p><strong>P-10. Every client-file row&rsquo;s record source becomes the code SSI (increment 1.1).</strong> Today the staging view stamps the name SUNBELT.CLIENT; after increment 1.1 it stamps the code SSI, and the name lives in the source system seed. The workstation&rsquo;s development vault is rebuilt with dbt&rsquo;s scoped full refresh (Ray, 2026-10-23), never by dropping schemas. Check: after the build, every hub row from the client file carries SSI, and none carries SUNBELT.CLIENT.</p>
+<p><strong>P-11. Increment 2&rsquo;s paths, by the reverse use of the Permutation Coverage Method (Ray, 2026-10-24).</strong> The dimensions of the two new source tables were enumerated against the models that read them and collapsed to 33 distinct behavioral paths. Each path has its own row set; a row set carries several paths only where one real instance naturally does. Results P-12 to P-15 and P-19 list the paths by model; P-16 lists the rows.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Paths</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Policy hub, keyed by the issuing carrier&rsquo;s code and the policy number</td>
+<td>8</td>
+<td>P-12</td>
+</tr>
+<tr>
+<td>Two role hubs at their sources&rsquo; grains: Sunbelt Senior&rsquo;s clients (client number) and Northfield Life&rsquo;s insureds (insured number)</td>
+<td>3 and 4</td>
+<td>P-13</td>
+</tr>
+<tr>
+<td>The role hubs&rsquo; relationships to the policy, with the role</td>
+<td>6</td>
+<td>P-14</td>
+</tr>
+<tr>
+<td>Satellites</td>
+<td>5</td>
+<td>P-15</td>
+</tr>
+<tr>
+<td>The agent hub, keyed by the national producer number, and its link to the policy</td>
+<td>7</td>
+<td>P-19</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P-12. Policy hub paths.</strong> By source and load:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PH1 Sales data only</td>
+<td>Act 2 sale of NF-100012</td>
+<td>One hub row from SSI, until the carrier sends the policy</td>
+</tr>
+<tr>
+<td>PH2 Carrier data only</td>
+<td>Act 1 carrier row NF-100002, Rosa Alvarez&rsquo;s second policy, sold by an independent agent</td>
+<td>One hub row from NFL</td>
+</tr>
+<tr>
+<td>PH3 Both sources, same load</td>
+<td>Act 1 sale and carrier row of NF-100001</td>
+<td>One hub row; which record source it keeps is not decided by the data</td>
+</tr>
+<tr>
+<td>PH4 Both sources, different loads</td>
+<td>Carrier row NF-100011 in act 1; its sale in act 2</td>
+<td>One hub row; the first sighting (NFL, act 1) is kept</td>
+</tr>
+</tbody>
+</table></div>
+<p>By key form:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PH5 Letter-case variant</td>
+<td>Act 2 sale writes nf-100001</td>
+<td>Same key as NF-100001; no new row</td>
+</tr>
+<tr>
+<td>PH6 Internal-form variant</td>
+<td>Carrier writes NF-100009 (act 1); the sale writes NF100009 (act 2)</td>
+<td>Two hub rows; an inspector reports NF100009</td>
+</tr>
+<tr>
+<td>PH7 Every key part missing</td>
+<td>Act 1 sale with neither a policy number nor a carrier code</td>
+<td>The all-zeros key: the unknown ghost record</td>
+</tr>
+<tr>
+<td>PH8 One key part missing</td>
+<td>Act 1 sale of NF-100005 without its carrier code; carrier row NF-100005</td>
+<td>Two hub rows. A key missing one part hashes a placeholder (^^) in that part; only a key missing every part takes the all-zeros key (datavault4dbt code, hash and hash_standardization macros, read 2026-10-24)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P-13. Role hub paths.</strong> Each number identifies one instance of a role at its source&rsquo;s grain: a Sunbelt Senior client, a Northfield Life insured. The person behind the roles, and any matching between them, is built later, outside the raw vault. Sunbelt Senior&rsquo;s client hub, now also read from the sales data:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CH1 Client number already in the hub from the client list</td>
+<td>Act 1 sale for A-1001, Rosa Alvarez</td>
+<td>No new row; the first sighting is kept</td>
+</tr>
+<tr>
+<td>CH2 Client number first seen in the sales data</td>
+<td>Act 2 sale for A-1033</td>
+<td>A new row from the sales data</td>
+</tr>
+<tr>
+<td>CH3 Empty client number</td>
+<td>Act 1 sale of NF-100014 with an empty client number</td>
+<td>Staging turns it into NULL, and it takes the unknown ghost record (Ray, 2026-10-24, answer 1a)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Northfield Life&rsquo;s insured hub:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IH1 New insured number</td>
+<td>Act 1 carrier row NF-100003, insured NLI-55003</td>
+<td>A new row</td>
+</tr>
+<tr>
+<td>IH2 Resent insured number</td>
+<td>Act 2 carrier row NF-100002, insured NLI-55001, unchanged</td>
+<td>No new row</td>
+</tr>
+<tr>
+<td>IH3 One insured on two policies</td>
+<td>Carrier rows NF-100001 and NF-100002, both insured NLI-55001, Rosa Alvarez</td>
+<td>One hub row</td>
+</tr>
+<tr>
+<td>IH4 Empty insured number</td>
+<td>Act 1 carrier row NF-100013 with an empty insured number</td>
+<td>Staging turns it into NULL, and it takes the unknown ghost record</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P-14. Role-to-policy relationship paths.</strong> Roles, from Sunbelt Senior&rsquo;s sales data:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1 One person, one role</td>
+<td>Act 1 sale NF-100001, A-1001, owner</td>
+<td>One link row</td>
+</tr>
+<tr>
+<td>L2 Two people, two roles</td>
+<td>Act 1 sale NF-100006: A-1006 owner (Tomas Fuentes), A-1008 insured (Paul Holloway)</td>
+<td>Two link rows</td>
+</tr>
+<tr>
+<td>L3 One person, both roles</td>
+<td>Act 1 sale NF-100010: A-1010 as owner and as insured (Victor Jensen)</td>
+<td>Two link rows, told apart by the role</td>
+</tr>
+<tr>
+<td>L5 Role code outside the documented set</td>
+<td>Act 2 sale NF-100001, A-1001, payor</td>
+<td>One more link row; the link&rsquo;s structure does not change</td>
+</tr>
+</tbody>
+</table></div>
+<p>Identity and resend:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L4 Same person under both issuers</td>
+<td>Act 1 sale NF-100007, A-1007 insured (Irene Garrity); carrier row NF-100007, insured NLI-55007, Garrity, Irene</td>
+<td>Two relationship rows from two role hubs to one policy; nothing in the vault says they are one person</td>
+</tr>
+<tr>
+<td>L6 Unchanged resend</td>
+<td>Act 2 sale nf-100001, A-1001, owner (also PH5)</td>
+<td>No new link row</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P-15. Satellite paths.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ST1 First version</td>
+<td>Every new row of each source</td>
+<td>One satellite row each</td>
+</tr>
+<tr>
+<td>ST2 Unchanged resend</td>
+<td>Act 2 carrier row NF-100002, identical to act 1</td>
+<td>No new version</td>
+</tr>
+<tr>
+<td>ST3 Changed value</td>
+<td>Carrier row NF-100003: status IF in act 1, LP in act 2</td>
+<td>A second version; the first is kept</td>
+</tr>
+<tr>
+<td>ST4 Letter case only</td>
+<td>Carrier row NF-100008: address 12 Elm St in act 1, 12 ELM ST in act 2</td>
+<td>A second version, because change hashes are case-sensitive (design D-8)</td>
+</tr>
+<tr>
+<td>ST5 Absent from load 2</td>
+<td>Carrier row NF-100001, not resent</td>
+<td>Stays current; absence from a delta source ends nothing</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P-16. The rows written for the course.</strong> Descriptive values not named here (birth dates, amounts, agents, plans) come from fixed invented lists in the implementation guide.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Source table</th>
+<th>Act 1 (2026-10-01)</th>
+<th>Act 2 (2026-10-02)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SUNBELT.POLICY_SALE</td>
+<td>9 rows: NF-100001 A-1001 owner; NF-100005 A-1005 owner, no carrier code; NF-100006 A-1006 owner and A-1008 insured; NF-100007 A-1007 insured; NF-100010 A-1010 owner and insured; A-1013 owner with neither policy number nor carrier code; NF-100014 owner with no person number</td>
+<td>5 rows: NF-100012 A-1033 owner; NF-100011 A-1011 owner; nf-100001 A-1001 owner; NF100009 A-1009 owner; NF-100001 A-1001 payor</td>
+</tr>
+<tr>
+<td>NORTHFIELD.POLICY</td>
+<td>9 rows: NF-100001 NLI-55001 Alvarez, Rosa; NF-100002 NLI-55001 Alvarez, Rosa (a second policy, sold by an independent agent); NF-100003 NLI-55003, status IF; NF-100005 NLI-55005 Ellison, Grace; NF-100007 NLI-55007 Garrity, Irene; NF-100008 NLI-55008, address 12 Elm St; NF-100009 NLI-55009 Ibarra, Nadia; NF-100011 NLI-55011 Kowalski, Elena; NF-100013 with an empty insured number</td>
+<td>3 rows: NF-100002 unchanged; NF-100003 status LP; NF-100008 address 12 ELM ST</td>
+</tr>
+</tbody>
+</table></div>
+<p>Agent numbers. AGENT_NPN in the sales data: 17001001 on NF-100001 (both rows and the act 2 resends) and NF-100007; 17001006 on NF-100005, NF-100006, NF-100010, NF100009 and the sale with no policy number; 17001007 on NF-100012; 17001004 on NF-100011; an empty string on NF-100014. WRITING_AGENT_NPN in the carrier data: 17001001 on NF-100001 and NF-100007; 17001006 on NF-100005 and NF-100009; 17001005 on NF-100011; 17002001 on NF-100002, NF-100003, NF-100008 and NF-100013, in both acts where resent.</p>
+<p>Policies sold through Sunbelt Senior that the carrier has not sent (NF-100006, NF-100010, NF-100012, NF-100014) also follow path PH1.</p>
+<p><strong>P-17. Questions for the design (increment 2).</strong> (1) What Sunbelt Senior&rsquo;s client table holds: RESOLVED by Ray Serrano, 2026-10-24 (answer 2b): its client list, one row per client, so its grain is a role. (2) A missing person number: RESOLVED by Ray Serrano, 2026-10-24 (answers 1a and the role hubs): each role hub is keyed by its number alone, so a missing number takes the unknown ghost record, as in increment 1. (3) Open, for the design: how the two role hubs join the policy hub (one relationship per role hub, or another placement), and the hubs&rsquo; names.</p>
+<p><strong>P-18. The writing agent&rsquo;s number is a business key carried among descriptions (increment 2). RESOLVED, Ray Serrano, 2026-10-24: an agent hub keyed by the national producer number, fed by both tables, and a link from the agent to the policy; the sales data carries the agent&rsquo;s number as AGENT_NPN, and the agent&rsquo;s name stays a description of the sale (paths in P-19).</strong> WRITING_AGENT_NPN identifies an agent, a concept of its own, yet the design places it in the policy&rsquo;s satellite as a description. In a Data Vault a business key belongs in a hub, with the relationship in a link; kept in a satellite, the agent cannot be joined across sources. Open for the design: an agent hub and a policy-agent link, or the satellite placement with its reason stated.</p>
+<p><strong>P-19. Agent paths (increment 2).</strong> The national producer number is assigned through the National Insurance Producer Registry, so it is the one key in this increment two sources share. The agent hub:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AG1 Same agent from both sources, same load</td>
+<td>NF-100001: sale and carrier row both name 17001001 in act 1</td>
+<td>One hub row; one link row fed by both sources</td>
+</tr>
+<tr>
+<td>AG2 Agent only in the carrier data</td>
+<td>Carrier row NF-100002, 17002001, an independent agent</td>
+<td>One hub row from NFL</td>
+</tr>
+<tr>
+<td>AG3 Agent only in the sales data</td>
+<td>Act 2 sale of NF-100012, 17001007, not yet issued</td>
+<td>One hub row from SSI</td>
+</tr>
+<tr>
+<td>AG4 One agent on several policies</td>
+<td>17001001 on NF-100001 and NF-100007</td>
+<td>One hub row</td>
+</tr>
+<tr>
+<td>AG5 Empty agent number</td>
+<td>Act 1 sale of NF-100014</td>
+<td>Staging turns it into NULL; it takes the unknown ghost record</td>
+</tr>
+</tbody>
+</table></div>
+<p>The link from the agent to the policy:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LA2 The sources disagree about one policy&rsquo;s agent</td>
+<td>NF-100011: carrier row 17001005 in act 1, sale 17001004 in act 2</td>
+<td>Two link rows to one policy; nothing decides which is right</td>
+</tr>
+<tr>
+<td>LA3 Unchanged resend</td>
+<td>Act 2 sale nf-100001 with 17001001</td>
+<td>No new link row</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P-20. Pinecrest Mutual&rsquo;s rows (Ray&rsquo;s labs, from Lab 1-2).</strong> Twelve rows over the same two acts, written so each lab exercises its lesson. Descriptive values are invented.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Act</th>
+<th>POLICY_NUMBER</th>
+<th>PLAN_NAME</th>
+<th>FACE_AMOUNT</th>
+<th>STATUS</th>
+<th>EFFECTIVE_DATE</th>
+<th>WRITING_AGENT_NPN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>PM-300001</td>
+<td>Pinecrest Final Expense</td>
+<td>10000.00</td>
+<td>IF</td>
+<td>2026-08-12</td>
+<td>17001001</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PM-300002</td>
+<td>Pinecrest Whole Life</td>
+<td>15000.00</td>
+<td>IF</td>
+<td>2026-08-20</td>
+<td>17001006</td>
+</tr>
+<tr>
+<td>1</td>
+<td>pm-300003</td>
+<td>Pinecrest Term 20</td>
+<td>25000.00</td>
+<td>IF</td>
+<td>2026-09-01</td>
+<td>17001007</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PM-300004 followed by a space</td>
+<td>Pinecrest Final Expense</td>
+<td>10000.00</td>
+<td>IF</td>
+<td>2026-09-03</td>
+<td>17001001</td>
+</tr>
+<tr>
+<td>1</td>
+<td>(empty)</td>
+<td>Pinecrest Term 20</td>
+<td>20000.00</td>
+<td>IF</td>
+<td>2026-09-08</td>
+<td>17001004</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PM300006</td>
+<td>Pinecrest Whole Life</td>
+<td>12000.00</td>
+<td>IF</td>
+<td>2026-09-10</td>
+<td>17002001</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PM-300007</td>
+<td>Pinecrest Term 20</td>
+<td>25000.00</td>
+<td>IF</td>
+<td>2026-09-15</td>
+<td>17001005</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PM-300008</td>
+<td>Pinecrest Final Expense</td>
+<td>8000.00</td>
+<td>IF</td>
+<td>2026-09-22</td>
+<td>17001006</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PM-300001</td>
+<td>Pinecrest Final Expense</td>
+<td>10000.00</td>
+<td>IF</td>
+<td>2026-08-12</td>
+<td>17001001</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PM-300002</td>
+<td>Pinecrest Whole Life</td>
+<td>15000.00</td>
+<td>LP</td>
+<td>2026-08-20</td>
+<td>17001006</td>
+</tr>
+<tr>
+<td>2</td>
+<td>(three spaces)</td>
+<td>Pinecrest Final Expense</td>
+<td>9000.00</td>
+<td>IF</td>
+<td>2026-09-28</td>
+<td>17001001</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PM-300009</td>
+<td>Pinecrest Whole Life</td>
+<td>18000.00</td>
+<td>IF</td>
+<td>2026-09-30</td>
+<td>17001007</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PM1 Delivery and lineage (lesson 2)</td>
+<td>All 12, delivered by land_act in two acts</td>
+<td>8 rows then 4 in LANDING.PINECREST.POLICY; each staged row carries its load timestamp and the record source PMC</td>
+</tr>
+<tr>
+<td>PM2 Hard rules on the number (lesson 3)</td>
+<td>pm-300003; PM-300004 followed by a space</td>
+<td>Each hashes to the key of its conforming spelling: PMC with PM-300003, PMC with PM-300004</td>
+</tr>
+<tr>
+<td>PM3 One hub, two carriers (lesson 4)</td>
+<td>Every usable number</td>
+<td>policy_h gains 8 keys under PMC, beside Northfield Life&rsquo;s under NFL; the carrier code is part of every key, so no carrier&rsquo;s number can meet another&rsquo;s</td>
+</tr>
+<tr>
+<td>PM4 No usable number (lesson 5)</td>
+<td>The empty number in act 1; three spaces in act 2</td>
+<td>Both take the unknown key; no new hub row</td>
+</tr>
+<tr>
+<td>PM5 A nonconforming form (lesson 5)</td>
+<td>PM300006</td>
+<td>Its own key in policy_h; the inspector writes one finding for it</td>
+</tr>
+<tr>
+<td>PM6 A second arrival (lesson 4)</td>
+<td>PM-300001 in act 2, unchanged</td>
+<td>No new hub row; the first sighting&rsquo;s load time is kept</td>
+</tr>
+<tr>
+<td>PM7 A changed status (later labs)</td>
+<td>PM-300002: IF, then LP in act 2</td>
+<td>No new hub row; a satellite, in a later lab, would hold two versions</td>
+</tr>
+<tr>
+<td>PM8 A number sent as text (lesson 3)</td>
+<td>Every FACE_AMOUNT</td>
+<td>Cast to a number by a hard rule; 12 of 12 parse</td>
+</tr>
+<tr>
+<td>PM9 The source checked against the vault (lesson 6)</td>
+<td>All usable numbers</td>
+<td>The auditor finds all 8 usable keys in policy_h and writes no finding</td>
+</tr>
+<tr>
+<td>PM10 The seed (lesson 7)</td>
+<td>PMC</td>
+<td>One new row in the source system seed: Pinecrest Mutual policy data</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P-21. The carriers&rsquo; organization records (design , D-11).</strong> [C1] Two new landing tables, NORTHFIELD.ORGANIZATION and PINECREST.ORGANIZATION, each with the text columns CARRIER_CODE, CARRIER_NAME and LOADED_AT: one row per organization record per load. Each carrier sends its own organization record, its code and its name, through its feed.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Act</th>
+<th>Table</th>
+<th>CARRIER_CODE</th>
+<th>CARRIER_NAME</th>
+<th>LOADED_AT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>NORTHFIELD.ORGANIZATION</td>
+<td>NFL</td>
+<td>Northfield Life</td>
+<td>2026-10-01T02:00:00</td>
+</tr>
+<tr>
+<td>2</td>
+<td>NORTHFIELD.ORGANIZATION</td>
+<td>NFL</td>
+<td>Northfield Life</td>
+<td>2026-10-02T02:00:00</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PINECREST.ORGANIZATION</td>
+<td>PMC</td>
+<td>Pinecrest Mutual</td>
+<td>2026-10-02T02:00:00</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Rows</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OH1 New organization</td>
+<td>NFL, Northfield Life, in act 1</td>
+<td>New in act 1</td>
+</tr>
+<tr>
+<td>OH2 Resent organization</td>
+<td>NFL, Northfield Life, again in act 2, unchanged</td>
+<td>No new row; its first sighting is kept</td>
+</tr>
+<tr>
+<td>OH3 Organization first seen in act 2</td>
+<td>PMC, Pinecrest Mutual, its first record, in act 2</td>
+<td>New in act 2</td>
+</tr>
+<tr>
+<td>OT2 Unchanged resend</td>
+<td>NFL, Northfield Life, in act 2</td>
+<td>No new version</td>
+</tr>
+</tbody>
+</table></div>
+<p>The name change of path OT3 lives only in its unit test&rsquo;s rows, not in these.</p>
+<h2>4. Cleansing advice for source administration</h2>
+<p>Not applicable: the source is synthetic and has no administrators. Its defects are scenarios written for the course, listed in P-1.</p>
+<h2>5. Integration actions</h2>
+<ol>
+<li>Integrate CLIENT_NUMBER as the client&rsquo;s business key, with two treatments: case and surrounding-space variants unify through the toolkit&rsquo;s hashing, and empty or whitespace-only values become NULL through a staging hard rule (P-4).</li>
+<li>Integrate LOADED_AT as the load timestamp, cast in staging to a timestamp without time zone that means UTC (the increment&rsquo;s timestamp convention).</li>
+<li>Record the source of every row as the static value SUNBELT.CLIENT.</li>
+<li>Disclose internal-form variants with an inspector (P-3) instead of correcting them.</li>
+<li>Defer the descriptive columns to the satellites increment.</li>
+<li>Integrate the source system seed (increment 1.1): SOURCE_SYSTEM_CODE as the permanent code every vault row carries; SOURCE_NAME, DESCRIPTION and OWNER as its current description, with history in git.</li>
+<li>Stamp every client-file row with the record source code SSI instead of a name (P-10).</li>
+<li>Integrate increment 2&rsquo;s source data as the paths of P-11 to P-16 require: policy numbers, qualified by the issuing carrier&rsquo;s code, as the policy hub&rsquo;s key; each source&rsquo;s person number as the key of its own role hub, at its source&rsquo;s grain: Sunbelt Senior&rsquo;s client number for its clients, Northfield Life&rsquo;s insured number for its insureds (Ray, 2026-10-24, answers 2b and 1a, returning to the decision of 2026-10-23); each role&rsquo;s relationship to the policy, with the role; the agent&rsquo;s national producer number, from both tables, as the key of an agent hub, with the agent&rsquo;s relationship to the policy; one satellite per source. P-17 states what the design still places.
+Placement (which hub, which role) is the design&rsquo;s job and is not decided here.</li>
+</ol>
+<h2>6. Verdict summary</h2>
+<p>Each verdict names its check.</p>
+<h3>6.1 Integrate</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Concept</th>
+<th>Treatment</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLIENT_NUMBER</td>
+<td>The client identifier, the business key of a party in the client role</td>
+<td>Case and surrounding-space variants unify at hashing; empty and whitespace-only become NULL (P-4); internal-form variants stay separate and are disclosed (P-3)</td>
+<td>Count of keys not in the designed form; zero-key count; the P1 to P8 unit tests</td>
+</tr>
+<tr>
+<td>LOADED_AT</td>
+<td>The time a row arrived from the source</td>
+<td>Cast to a timestamp without time zone meaning UTC</td>
+<td>Parse count equals populated count</td>
+</tr>
+<tr>
+<td>SOURCE_SYSTEM_CODE</td>
+<td>The permanent code of a source system</td>
+<td>The value every vault row carries as its record source</td>
+<td>Grain-unique; every vault record source resolves to a seed code (P-9)</td>
+</tr>
+<tr>
+<td>SOURCE_NAME, DESCRIPTION, OWNER</td>
+<td>What a source system is called, what it is, and who owns it</td>
+<td>The current description; earlier versions in git (P-8)</td>
+<td>The SSI row changes once between two commits</td>
+</tr>
+<tr>
+<td>FIRST_NAME, LAST_NAME, STATE</td>
+<td>The client&rsquo;s details as Sunbelt Senior keeps them</td>
+<td>Kept as sent; a change in any of them is a new version</td>
+<td>The satellite unit tests of P-15, starting with ST1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sunbelt Senior&rsquo;s policy sales table (SUNBELT.POLICY_SALE):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Concept</th>
+<th>Treatment</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLIENT_NUMBER</td>
+<td>A Sunbelt Senior client&rsquo;s number on a sale</td>
+<td>As the client list&rsquo;s number: case and surrounding-space variants unify at hashing; empty and whitespace-only become NULL</td>
+<td>The unit tests of paths CH1 to CH3</td>
+</tr>
+<tr>
+<td>CARRIER_CODE, POLICY_NUMBER</td>
+<td>The policy, identified by its issuing carrier and its number together</td>
+<td>Empty and whitespace-only become NULL; a missing carrier code is kept missing, never filled; nonconforming policy numbers are disclosed by an inspector</td>
+<td>The unit tests of paths PH1 to PH8; the inspector&rsquo;s finding for NF100009</td>
+</tr>
+<tr>
+<td>ROLE</td>
+<td>What a client is on a policy</td>
+<td>The documented values owner and insured, and any other value kept exactly as sent</td>
+<td>The unit tests of paths L1 to L6</td>
+</tr>
+<tr>
+<td>SOLD_ON, AGENT_NAME, PLAN_NAME</td>
+<td>The details of a sale</td>
+<td>Kept as sent; SOLD_ON cast to a date</td>
+<td>Parse count equals populated count for SOLD_ON; the satellite unit test ST1</td>
+</tr>
+<tr>
+<td>LOADED_AT</td>
+<td>The time a row arrived from the source</td>
+<td>Cast to a timestamp without time zone meaning UTC</td>
+<td>Parse count equals populated count</td>
+</tr>
+</tbody>
+</table></div>
+<p>Northfield Life&rsquo;s policy table (NORTHFIELD.POLICY):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Concept</th>
+<th>Treatment</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POLICY_NUMBER</td>
+<td>The policy, under its issuing carrier, NFL</td>
+<td>The carrier code NFL is supplied in staging; empty and whitespace-only become NULL</td>
+<td>The unit tests of paths PH2 to PH6</td>
+</tr>
+<tr>
+<td>INSURED_ID</td>
+<td>Northfield Life&rsquo;s insured</td>
+<td>Empty and whitespace-only become NULL</td>
+<td>The unit tests of paths IH1 to IH4</td>
+</tr>
+<tr>
+<td>INSURED_NAME, BIRTH_DATE, ADDRESS</td>
+<td>The insured&rsquo;s details as Northfield Life keeps them</td>
+<td>Kept as sent; BIRTH_DATE cast to a date; a change in letter case alone is a new version</td>
+<td>The satellite unit tests ST1 and ST4</td>
+</tr>
+<tr>
+<td>FACE_AMOUNT, STATUS, EFFECTIVE_DATE</td>
+<td>The policy&rsquo;s details as Northfield Life keeps them</td>
+<td>Kept as sent; FACE_AMOUNT cast to a number and EFFECTIVE_DATE to a date; STATUS codes IF, LP and TR</td>
+<td>The satellite unit tests ST1, ST2, ST3 and ST5</td>
+</tr>
+<tr>
+<td>LOADED_AT</td>
+<td>The time a row arrived from the source</td>
+<td>Cast to a timestamp without time zone meaning UTC</td>
+<td>Parse count equals populated count</td>
+</tr>
+</tbody>
+</table></div>
+<p>The agent, in both tables:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Concept</th>
+<th>Treatment</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AGENT_NPN (SUNBELT.POLICY_SALE)</td>
+<td>The agent who sold the policy</td>
+<td>Empty and whitespace-only become NULL</td>
+<td>The unit tests of paths AG1 to AG5</td>
+</tr>
+<tr>
+<td>WRITING_AGENT_NPN (NORTHFIELD.POLICY)</td>
+<td>The agent who wrote the policy</td>
+<td>Empty and whitespace-only become NULL; the same number as AGENT_NPN for the same agent</td>
+<td>The unit tests of paths AG1, AG2, AG4, LA2 and LA3</td>
+</tr>
+<tr>
+<td>POLICY_NUMBER (PINECREST.POLICY, labs)</td>
+<td>Pinecrest Mutual&rsquo;s policy number, a business key qualified by the carrier code PMC</td>
+<td>Case and surrounding spaces unify at hashing; empty and space-only become NULL; the nonconforming form stays separate and is disclosed</td>
+<td>Paths PM2 to PM6 and PM9</td>
+</tr>
+<tr>
+<td>FACE_AMOUNT (PINECREST.POLICY, labs)</td>
+<td>The death benefit in dollars</td>
+<td>Cast from text to a number</td>
+<td>Parse count equals populated count (path PM8)</td>
+</tr>
+</tbody>
+</table></div>
+<h3>6.2 Defer</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Reason</th>
+<th>Unblocked when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLAN_NAME, STATUS, EFFECTIVE_DATE (PINECREST.POLICY)</td>
+<td>Descriptive columns for a satellite no lab builds yet</td>
+<td>A lab adds Pinecrest Mutual&rsquo;s policy satellite</td>
+</tr>
+<tr>
+<td>WRITING_AGENT_NPN (PINECREST.POLICY)</td>
+<td>The agent&rsquo;s key; Labs 1-2 to 1-7 stay with the policy</td>
+<td>A lab feeds agent_h and the agent&rsquo;s link from Pinecrest Mutual&rsquo;s data</td>
+</tr>
+</tbody>
+</table></div>
+<h3>6.3 Reject</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SALE_ROW_ID (SUNBELT.POLICY_SALE)</td>
+<td>Technical key: it identifies a row in the sales table, not a sale.</td>
+</tr>
+<tr>
+<td>CRM_ROW_ID</td>
+<td>Technical key: it identifies a row in the agency&rsquo;s CRM, not a client, and changes for the same client (P-6). Identity rests on the business key.</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Appendix — Column inventory</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Column</th>
+<th>Populated</th>
+<th>%</th>
+<th>Distinct</th>
+<th>Field type</th>
+<th>Discipline tier</th>
+<th>Reversal risks</th>
+<th>Verdict</th>
+<th>Reason</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>CRM_ROW_ID</td>
+<td>43</td>
+<td>100.0</td>
+<td>41</td>
+<td>technical key</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Reject</td>
+<td>technical key, not the client&rsquo;s identity</td>
+<td>not applicable: rejected</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CLIENT_NUMBER</td>
+<td>42</td>
+<td>97.7</td>
+<td>40</td>
+<td>business key</td>
+<td>mixed (87.5 percent conform)</td>
+<td>case and synonym variants</td>
+<td>Integrate</td>
+<td>the client&rsquo;s business key</td>
+<td>form-conformance count; zero-key count; unit tests P1 to P8</td>
+</tr>
+<tr>
+<td>3</td>
+<td>FIRST_NAME</td>
+<td>43</td>
+<td>100.0</td>
+<td>43</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the client&rsquo;s first name, in the client&rsquo;s satellite</td>
+<td>the satellite unit tests of P-15</td>
+</tr>
+<tr>
+<td>4</td>
+<td>LAST_NAME</td>
+<td>43</td>
+<td>100.0</td>
+<td>43</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the client&rsquo;s last name, in the client&rsquo;s satellite</td>
+<td>the satellite unit tests of P-15</td>
+</tr>
+<tr>
+<td>5</td>
+<td>STATE</td>
+<td>43</td>
+<td>100.0</td>
+<td>up to 50</td>
+<td>controlled discrete</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the client&rsquo;s state, in the client&rsquo;s satellite</td>
+<td>the satellite unit tests of P-15</td>
+</tr>
+<tr>
+<td>6</td>
+<td>LOADED_AT</td>
+<td>43</td>
+<td>100.0</td>
+<td>2</td>
+<td>timestamp as text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the row&rsquo;s arrival time</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>7</td>
+<td>SOURCE_SYSTEM_CODE (seed)</td>
+<td>3</td>
+<td>100.0</td>
+<td>3</td>
+<td>controlled discrete</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>permanent source code</td>
+<td>grain-unique</td>
+</tr>
+<tr>
+<td>8</td>
+<td>SOURCE_NAME (seed)</td>
+<td>3</td>
+<td>100.0</td>
+<td>3</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the source&rsquo;s name, current; history in git</td>
+<td>the SSI row changes once</td>
+</tr>
+<tr>
+<td>9</td>
+<td>DESCRIPTION (seed)</td>
+<td>3</td>
+<td>100.0</td>
+<td>3</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>what the source is, current; history in git</td>
+<td>the SSI row changes once</td>
+</tr>
+<tr>
+<td>10</td>
+<td>OWNER (seed)</td>
+<td>3</td>
+<td>100.0</td>
+<td>3</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>who owns the source, current; history in git</td>
+<td>the SSI row changes once</td>
+</tr>
+<tr>
+<td>11</td>
+<td>SALE_ROW_ID (POLICY_SALE)</td>
+<td>14</td>
+<td>100.0</td>
+<td>14</td>
+<td>technical key</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Reject</td>
+<td>identifies a row, not a sale</td>
+<td>not applicable: rejected</td>
+</tr>
+<tr>
+<td>12</td>
+<td>POLICY_NUMBER (POLICY_SALE)</td>
+<td>13</td>
+<td>92.9</td>
+<td>10</td>
+<td>business key</td>
+<td>mixed (84.6 percent conform)</td>
+<td>case and synonym variants</td>
+<td>Integrate</td>
+<td>the policy number, with its carrier</td>
+<td>the unit tests of paths PH1 to PH8; the inspector&rsquo;s finding</td>
+</tr>
+<tr>
+<td>13</td>
+<td>CLIENT_NUMBER (POLICY_SALE)</td>
+<td>13</td>
+<td>92.9</td>
+<td>10</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the client on a sale</td>
+<td>the unit tests of paths CH1 to CH3</td>
+</tr>
+<tr>
+<td>14</td>
+<td>CARRIER_CODE (POLICY_SALE)</td>
+<td>12</td>
+<td>85.7</td>
+<td>1</td>
+<td>controlled discrete</td>
+<td>clean</td>
+<td>single-value column</td>
+<td>Integrate</td>
+<td>the policy&rsquo;s issuing carrier, part of its key</td>
+<td>the unit test of path PH8</td>
+</tr>
+<tr>
+<td>15</td>
+<td>ROLE (POLICY_SALE)</td>
+<td>14</td>
+<td>100.0</td>
+<td>3</td>
+<td>controlled discrete</td>
+<td>predominantly controlled (92.9 percent documented)</td>
+<td>none</td>
+<td>Integrate</td>
+<td>what a client is on a policy</td>
+<td>the unit tests of paths L1 to L6</td>
+</tr>
+<tr>
+<td>16</td>
+<td>SOLD_ON (POLICY_SALE)</td>
+<td>14</td>
+<td>100.0</td>
+<td>up to 14</td>
+<td>date as text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the sale date</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>17</td>
+<td>AGENT_NAME (POLICY_SALE)</td>
+<td>14</td>
+<td>100.0</td>
+<td>up to 14</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the selling agent&rsquo;s name, a description of the sale</td>
+<td>the satellite unit test ST1</td>
+</tr>
+<tr>
+<td>18</td>
+<td>PLAN_NAME (POLICY_SALE)</td>
+<td>14</td>
+<td>100.0</td>
+<td>up to 14</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>Sunbelt Senior&rsquo;s product name</td>
+<td>the satellite unit test ST1</td>
+</tr>
+<tr>
+<td>19</td>
+<td>LOADED_AT (POLICY_SALE)</td>
+<td>14</td>
+<td>100.0</td>
+<td>2</td>
+<td>timestamp as text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the row&rsquo;s arrival time</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>20</td>
+<td>POLICY_NUMBER (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>9</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the policy number, under NFL</td>
+<td>the unit tests of paths PH2 to PH6</td>
+</tr>
+<tr>
+<td>21</td>
+<td>INSURED_ID (NORTHFIELD.POLICY)</td>
+<td>11</td>
+<td>91.7</td>
+<td>7</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>Northfield Life&rsquo;s insured</td>
+<td>the unit tests of paths IH1 to IH4</td>
+</tr>
+<tr>
+<td>22</td>
+<td>INSURED_NAME (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>up to 10</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the insured&rsquo;s name</td>
+<td>the satellite unit test ST1</td>
+</tr>
+<tr>
+<td>23</td>
+<td>BIRTH_DATE (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>up to 10</td>
+<td>date as text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the insured&rsquo;s birth date</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>24</td>
+<td>ADDRESS (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>up to 10</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>case variants</td>
+<td>Integrate</td>
+<td>the insured&rsquo;s address</td>
+<td>the satellite unit test ST4</td>
+</tr>
+<tr>
+<td>25</td>
+<td>FACE_AMOUNT (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>up to 9</td>
+<td>numeric</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the death benefit in dollars</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>26</td>
+<td>STATUS (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>2</td>
+<td>controlled discrete</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the policy&rsquo;s status</td>
+<td>the satellite unit test ST3</td>
+</tr>
+<tr>
+<td>27</td>
+<td>EFFECTIVE_DATE (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>up to 9</td>
+<td>date as text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the policy&rsquo;s effective date</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>28</td>
+<td>WRITING_AGENT_NPN (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>4</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the agent who wrote the policy, keying the agent hub</td>
+<td>the unit tests of paths AG1, AG2, AG4, LA2 and LA3</td>
+</tr>
+<tr>
+<td>29</td>
+<td>LOADED_AT (NORTHFIELD.POLICY)</td>
+<td>12</td>
+<td>100.0</td>
+<td>2</td>
+<td>timestamp as text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the row&rsquo;s arrival time</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>30</td>
+<td>AGENT_NPN (POLICY_SALE)</td>
+<td>13</td>
+<td>92.9</td>
+<td>4</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the agent who sold the policy, keying the agent hub</td>
+<td>the unit tests of paths AG1 to AG5</td>
+</tr>
+<tr>
+<td>31</td>
+<td>POLICY_NUMBER (PINECREST)</td>
+<td>10</td>
+<td>83.3</td>
+<td>8</td>
+<td>business key</td>
+<td>mixed (9 of 10 conform)</td>
+<td>case, space and form variants</td>
+<td>Integrate</td>
+<td>Pinecrest Mutual&rsquo;s policy key, under PMC</td>
+<td>paths PM2 to PM6, PM9</td>
+</tr>
+<tr>
+<td>32</td>
+<td>PLAN_NAME (PINECREST)</td>
+<td>12</td>
+<td>100.0</td>
+<td>3</td>
+<td>free text</td>
+<td>not applicable</td>
+<td>none</td>
+<td>Defer</td>
+<td>descriptive, for a later satellite</td>
+<td>not applicable until a lab builds the satellite</td>
+</tr>
+<tr>
+<td>33</td>
+<td>FACE_AMOUNT (PINECREST)</td>
+<td>12</td>
+<td>100.0</td>
+<td>8</td>
+<td>number as text</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the death benefit</td>
+<td>parse count (path PM8)</td>
+</tr>
+<tr>
+<td>34</td>
+<td>STATUS (PINECREST)</td>
+<td>12</td>
+<td>100.0</td>
+<td>2</td>
+<td>controlled discrete</td>
+<td>clean</td>
+<td>none</td>
+<td>Defer</td>
+<td>descriptive, for a later satellite</td>
+<td>not applicable until a lab builds the satellite</td>
+</tr>
+<tr>
+<td>35</td>
+<td>EFFECTIVE_DATE (PINECREST)</td>
+<td>12</td>
+<td>100.0</td>
+<td>10</td>
+<td>date as text</td>
+<td>clean</td>
+<td>none</td>
+<td>Defer</td>
+<td>descriptive, for a later satellite</td>
+<td>not applicable until a lab builds the satellite</td>
+</tr>
+<tr>
+<td>36</td>
+<td>WRITING_AGENT_NPN (PINECREST)</td>
+<td>12</td>
+<td>100.0</td>
+<td>6</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Defer</td>
+<td>the agent&rsquo;s key, beyond Labs 1-2 to 1-7</td>
+<td>not applicable until a lab feeds agent_h</td>
+</tr>
+<tr>
+<td>37</td>
+<td>LOADED_AT (PINECREST)</td>
+<td>12</td>
+<td>100.0</td>
+<td>2</td>
+<td>timestamp as text</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the time a row arrived</td>
+<td>parse count equals populated count</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Compliance record</h2>
+<p>Built by the author against the profiling template and Standard: Profiling, at 2026-10-25 08:28Z, on the text above. Verdict: <strong>compliant</strong>, with one anomaly, P-3, open by design. The three analyses this record first found missing were added on 2026-10-25 (Ray, answer 1a). The Lab 1-2 extension (Pinecrest Mutual, written 2026-10-25 17:24Z) carries every analysis the standard requires for its table: grain with duplicate count, history measures, the number&rsquo;s form and variants, FACE_AMOUNT&rsquo;s distribution table with mean and standard deviation, EFFECTIVE_DATE&rsquo;s range and near-uniqueness, LOADED_AT, the join path hop, verdicts with checks, and seven appendix rows. Its descriptive columns and the agent&rsquo;s number are deferred with their unblocking conditions.</p>
+<h3>Template and deliverable structure</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Header: every field present and filled</td>
+<td>Yes, all fields of the template</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Every section of the template, in its numbering</td>
+<td>Yes: 1, 2.0 to 2.3, 3, 4, 5, 6.1 to 6.3 and the appendix</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Appendix: one row per source column, each with a verdict, a reason and a check</td>
+<td>Yes: 30 rows, the 26 columns of the three landing tables and the 4 of the source system seed; no row without its check</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Section 6.1 Integrate list, each row with its concept, treatment and check</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Source ERD, drawn first: every source table as it lands, real columns, each undeclared relationship dashed with its match rate</td>
+<td>Yes: the four landed tables and the seed, three relationships dashed with their match rates, counted 2026-10-26</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Required analyses (section 5 of the standard)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Analysis</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Grain of every table, with its duplicate count</td>
+<td>Yes: specified duplicate count 0 for each table and the seed</td>
+</tr>
+<tr>
+<td>2</td>
+<td>History measures for sources that change over time</td>
+<td>Yes: freshness, volume, change rate and disappearance for all three tables; the two increment 2 tables&rsquo; measures and the client list&rsquo;s change rate added 2026-10-25</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Numeric columns: distribution table, mean and standard deviation, zero count, parseability</td>
+<td>Yes: FACE_AMOUNT in 2.1.4.6, added 2026-10-25</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Date columns: minimum and maximum, near-uniqueness, what NULL means</td>
+<td>Yes: SOLD_ON, BIRTH_DATE, EFFECTIVE_DATE and the three LOADED_AT columns, added 2026-10-25</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Multi-table sources: the join path, with cardinality per hop and match rate</td>
+<td>Yes: the join path table in 2.2, added 2026-10-25</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Results and wording (section 6 of the standard)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Rule</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Results numbered P-n in one series</td>
+<td>Yes: P-1 to P-21 [C1]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Anomalies flagged SOLUTION NEEDED and closed RESOLVED with resolver, date and solution</td>
+<td>Partly: P-4 is closed; P-3 stays open by design, since identity resolution belongs to later increments, and an inspector discloses it meanwhile. The standard makes a verdict that depends on an open anomaly a Defer; CLIENT_NUMBER&rsquo;s Integrate verdict carries P-3 as disclosed treatment, not as a condition</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The words RULED and FINDING not used for profile results</td>
+<td>Yes: neither appears</td>
+</tr>
+</tbody>
+</table></div></article><section class="cta bleed"><h2>Next: Test plan</h2><p>Every test, by layer, and the requirement each one proves.</p><a class="btn" href="test-plan.html">Read the test plan</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

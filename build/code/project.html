@@ -1,0 +1,952 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The project and its macros | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../ask/index.html">Ask</a><a href="../../guide/index.html">Guide</a><a href="../../releases/index.html">Releases</a><a href="../../documentation/index.html">Documentation</a><a href="../../learn/index.html">Learn</a><a href="../../model/index.html">Model</a><a href="../index.html" class="on">Build</a></nav></div>
+<div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>The project and its macros</h1><p>The dbt project, its selectors, packages and macros. 13 files.</p></div></header>
+<main><details class="file"><summary>dbt/dbt_project.yml</summary><pre><code>name: digest_datavault
+version: 0.1.0
+config-version: 2
+profile: digest_datavault
+
+model-paths: [&quot;models&quot;]
+seed-paths: [&quot;seeds&quot;]
+macro-paths: [&quot;macros&quot;]
+test-paths: [&quot;tests&quot;]
+target-path: target
+clean-targets: [target, dbt_packages]
+
+# The vault&#x27;s declared keys, from its layer 1 tests (macro declare_vault_keys; Ray, 2026-10-28).
+on-run-end:
+  - &quot;{{ declare_vault_keys() }}&quot;
+  # Mary&#x27;s connector reads the conformed mart as CLAUDE_WS_ROLE alone, in every environment (Ray, 2026-11-01, answer 1a)
+  - &quot;grant usage on schema {{ target.database }}.CONFORMED_DM to role CLAUDE_WS_ROLE&quot;
+
+models:
+  digest_datavault:
+    # One schema per layer; the database names the tier (macros/pipeline/generate_schema_name.sql).
+    staging:
+      +materialized: view
+      +schema: STAGING
+    raw_vault:
+      +materialized: incremental
+      +schema: RAW_VAULT
+    mart:
+      +materialized: view
+      +schema: MART
+    # The conformed mart (mart design D-6; guide step 60): Mary&#x27;s facts and dimensions, as views.
+    marts:
+      conformed_dm:
+        +materialized: view
+        +schema: CONFORMED_DM
+        +grants:
+          select: [&quot;CLAUDE_WS_ROLE&quot;]  # read-only, for Mary&#x27;s connector; the same in every environment
+    # Layer 5 inspectors and layer 6 auditors write findings to LANDING.CONFIG.DATA_FINDING;
+    # each model declares the merge_into materialization itself (increment 1 guide G-1).
+    inspectors:
+      +tags: [&#x27;finder&#x27;, &#x27;inspector&#x27;]
+    auditors:
+      +tags: [&#x27;finder&#x27;, &#x27;auditor&#x27;]
+
+seeds:
+  digest_datavault:
+    +schema: REFERENCE
+    +transient: true  # as production holds them; stated so both dbt engines build them alike (dev rehearsal, 2026-11-01)
+
+vars:
+  # Load timestamps are stored as TIMESTAMP_NTZ and always mean UTC.
+  # datavault4dbt defaults to TIMESTAMP_TZ, which fills in the session time zone
+  # for zone-less values (landed as -07:00 for CLAUDE_WS). NTZ never consults the session.
+  datavault4dbt.timestamp_default_dtype: TIMESTAMP_NTZ
+  # D-41 (Ray, 2026-10-26): hashdiffs are case-sensitive, a case-only change is a change. The package sets this
+  # itself, but dbt Cloud&#x27;s 2026-10-26 QA build compiled it case-insensitive; set here so every engine reads it
+  # from the root project.
+  datavault4dbt.hashdiff_input_case_sensitive: true
+</code></pre></details><details class="file"><summary>dbt/macros/declare_vault_keys.sql</summary><pre><code>{#
+  The vault&#x27;s declared keys, from one definition: its layer 1 tests (Ray, 2026-10-28, answers 2y and 4y).
+  Each unique test on one column, or dbt_utils.unique_combination_of_columns, becomes its table&#x27;s primary key;
+  each relationships test becomes a foreign key to the table it names. Snowflake keeps them as information, not
+  enforced, so loads never fail on them; GET_DDL then reports them, and infra/snowflake/ddl/dv.sql carries them
+  for a modeling tool. Only tables and seeds are keyed (views cannot be), and a key already present is left alone,
+  so this is safe to run after every build. Runs as the project&#x27;s on-run-end hook.
+#}
+{% macro declare_vault_keys() %}
+  {% if not execute %}{{ return(&#x27;&#x27;) }}{% endif %}
+  {% set keyed = [&#x27;table&#x27;, &#x27;incremental&#x27;, &#x27;seed&#x27;] %}
+  {% set by_name = {} %}
+  {% for n in graph.nodes.values() %}
+    {% if n.resource_type in [&#x27;model&#x27;, &#x27;seed&#x27;] %}{% do by_name.update({n.name: n}) %}{% endif %}
+  {% endfor %}
+  {% set pks = {} %}
+  {% set fks = [] %}
+  {% for t in graph.nodes.values() %}
+    {% if t.resource_type == &#x27;test&#x27; and t.test_metadata and t.attached_node and t.attached_node in graph.nodes %}
+      {% set owner = graph.nodes[t.attached_node] %}
+      {% if owner.config.materialized in keyed %}
+        {% set kw = t.test_metadata.kwargs %}
+        {% if t.test_metadata.name == &#x27;unique&#x27; and kw.column_name %}
+          {% do pks.update({owner.name: [kw.column_name]}) %}
+        {% elif t.test_metadata.name == &#x27;unique_combination_of_columns&#x27; %}
+          {% do pks.update({owner.name: kw.combination_of_columns}) %}
+        {% elif t.test_metadata.name == &#x27;relationships&#x27; %}
+          {% set target = (kw.to | string).split(&quot;&#x27;&quot;)[1] if &quot;&#x27;&quot; in (kw.to | string) else (kw.to | string) %}
+          {% do fks.append({&#x27;table&#x27;: owner.name, &#x27;column&#x27;: kw.column_name, &#x27;to&#x27;: target, &#x27;field&#x27;: kw.field}) %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% set statements = [] %}
+  {% for table, cols in pks.items() | sort %}
+    {% set n = by_name[table] %}
+    {% do statements.append({&#x27;table&#x27;: n, &#x27;name&#x27;: &#x27;pk_&#x27; ~ table,
+        &#x27;sql&#x27;: &#x27;primary key (&#x27; ~ cols | join(&#x27;, &#x27;) ~ &#x27;)&#x27;}) %}
+  {% endfor %}
+  {% for fk in fks | sort(attribute=&#x27;table&#x27;) %}
+    {% set n = by_name[fk.table] %}
+    {% set target = by_name.get(fk.to) %}
+    {% if target and target.config.materialized in keyed and fk.to in pks %}
+      {% do statements.append({&#x27;table&#x27;: n, &#x27;name&#x27;: &#x27;fk_&#x27; ~ fk.table ~ &#x27;_&#x27; ~ fk.column,
+          &#x27;sql&#x27;: &#x27;foreign key (&#x27; ~ fk.column ~ &#x27;) references &#x27; ~ target.database ~ &#x27;.&#x27; ~ target.schema ~ &#x27;.&#x27; ~ target.alias ~ &#x27; (&#x27; ~ fk.field ~ &#x27;)&#x27;}) %}
+    {% endif %}
+  {% endfor %}
+
+  {% set added = [] %}
+  {% for s in statements %}
+    {% set rel = s.table.database ~ &#x27;.&#x27; ~ s.table.schema ~ &#x27;.&#x27; ~ s.table.alias %}
+    {% set present = run_query(&quot;select count(*) from &quot; ~ s.table.database ~ &quot;.information_schema.table_constraints where table_schema = upper(&#x27;&quot; ~ s.table.schema ~ &quot;&#x27;) and table_name = upper(&#x27;&quot; ~ s.table.alias ~ &quot;&#x27;) and constraint_name = upper(&#x27;&quot; ~ s.name ~ &quot;&#x27;)&quot;) %}
+    {% if present.columns[0].values()[0] == 0 %}
+      {% do run_query(&#x27;alter table &#x27; ~ rel ~ &#x27; add constraint &#x27; ~ s.name ~ &#x27; &#x27; ~ s.sql) %}
+      {% do added.append(s.name) %}
+    {% endif %}
+  {% endfor %}
+  {{ log(&#x27;declare_vault_keys: &#x27; ~ statements | length ~ &#x27; keys defined, &#x27; ~ added | length ~ &#x27; added&#x27;, info=True) }}
+{% endmacro %}
+</code></pre></details><details class="file"><summary>dbt/macros/development/dev_drop_orphans.sql</summary><pre><code>{#
+  Development cleanup (Ray, 2026-10-23): a build never drops what the project no longer defines, so removed
+  or renamed models leave objects behind. This macro lists every table and view in the target database that
+  no model, seed or snapshot defines, and drops them only when dry_run is false. It refuses any database whose
+  name does not start with DEV__: cleanup is legitimate only in developer databases.
+    List:  dbt run-operation dev_drop_orphans
+    Drop:  dbt run-operation dev_drop_orphans --args &#x27;{dry_run: false}&#x27;
+  Schemas left empty by the drop, and not used by the project, are dropped as well.
+#}
+{% macro dev_drop_orphans(dry_run=true) %}
+  {%- set db = target.database | upper -%}
+  {%- if not db.startswith(&#x27;DEV__&#x27;) -%}
+    {{ exceptions.raise_compiler_error(&quot;Refused: &quot; ~ db ~ &quot; is not a developer database (DEV__...). Cleanup never runs in QA or production.&quot;) }}
+  {%- endif -%}
+  {%- set defined = [] -%}
+  {%- set project_schemas = [] -%}
+  {%- for node in graph.nodes.values() if node.resource_type in [&#x27;model&#x27;, &#x27;seed&#x27;, &#x27;snapshot&#x27;] and (node.database | upper) == db -%}
+    {%- do defined.append((node.schema | upper) ~ &#x27;.&#x27; ~ ((node.alias or node.name) | upper)) -%}
+    {%- if (node.schema | upper) not in project_schemas %}{% do project_schemas.append(node.schema | upper) %}{% endif -%}
+  {%- endfor -%}
+  {%- set existing = run_query(&quot;SELECT table_schema, table_name, table_type FROM &quot; ~ db ~ &quot;.information_schema.tables WHERE table_schema NOT IN (&#x27;INFORMATION_SCHEMA&#x27;, &#x27;PUBLIC&#x27;) ORDER BY 1, 2&quot;) -%}
+  {%- set orphans = [] -%}
+  {%- for row in existing.rows -%}
+    {%- if (row[0] ~ &#x27;.&#x27; ~ row[1]) not in defined -%}{%- do orphans.append(row) -%}{%- endif -%}
+  {%- endfor -%}
+  {%- set schemas = run_query(&quot;SELECT schema_name FROM &quot; ~ db ~ &quot;.information_schema.schemata WHERE schema_name NOT IN (&#x27;INFORMATION_SCHEMA&#x27;, &#x27;PUBLIC&#x27;)&quot;) -%}
+  {%- set orphan_schemas = [] -%}
+  {%- for s in schemas.rows if s[0] not in project_schemas -%}{%- do orphan_schemas.append(s[0]) -%}{%- endfor -%}
+  {{ log(db ~ &quot;: &quot; ~ (orphans | length) ~ &quot; objects and &quot; ~ (orphan_schemas | length) ~ &quot; schemas not defined by the project&quot; ~ (&quot; (dry run, nothing dropped)&quot; if dry_run else &quot;&quot;), info=true) }}
+  {%- for row in orphans -%}
+    {{ log(&quot;  &quot; ~ row[2] ~ &quot; &quot; ~ row[0] ~ &quot;.&quot; ~ row[1], info=true) }}
+    {%- if not dry_run -%}
+      {%- do run_query(&quot;DROP &quot; ~ (&quot;VIEW&quot; if row[2] == &#x27;VIEW&#x27; else &quot;TABLE&quot;) ~ &quot; IF EXISTS &quot; ~ db ~ &quot;.&quot; ~ row[0] ~ &quot;.&quot; ~ row[1]) -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- for s in orphan_schemas -%}
+    {{ log(&quot;  SCHEMA &quot; ~ s, info=true) }}
+    {%- if not dry_run -%}{%- do run_query(&quot;DROP SCHEMA IF EXISTS &quot; ~ db ~ &quot;.&quot; ~ s) -%}{%- endif -%}
+  {%- endfor -%}
+{% endmacro %}
+</code></pre></details><details class="file"><summary>dbt/macros/landing_storage.sql</summary><pre><code>{% macro landing_storage() %}
+    {#-
+      Returns the database name of the landing and storage layer:
+        - landed sources in &lt;db&gt;.SUNBELT (and one schema per later source)
+        - Pragmatic Data Platform history in &lt;db&gt;.STORAGE (later increments)
+        - findings in &lt;db&gt;.CONFIG.DATA_FINDING (inspectors and auditors, via merge_into meta)
+        - build baselines in &lt;db&gt;.CONFIG.BUILD_BASELINE (capture_baseline, verify_build)
+
+      Default: &#x27;LANDING&#x27; (increment 1 design D-1). Override with the environment
+      variable DBT_LANDING_STORAGE. YAML files cannot call macros and use
+      env_var(&#x27;DBT_LANDING_STORAGE&#x27;, &#x27;LANDING&#x27;) directly.
+    -#}
+    {{ return(env_var(&#x27;DBT_LANDING_STORAGE&#x27;, &#x27;LANDING&#x27;)) }}
+{% endmacro %}
+</code></pre></details><details class="file"><summary>dbt/macros/materializations/merge_into.sql</summary><pre><code>-- Custom materialization: merge_into
+-- Bridges dbt&#x27;s one-model-one-table constraint to UDM&#x27;s multi-source integration.
+-- Each source model writes independently to a shared DDL-created target table.
+-- The model&#x27;s SELECT is the transformation. The MERGE is the load. No buffer.
+--
+-- Config (inside meta):
+--   target_database: &#x27;LANDING&#x27;      (optional, defaults to current database)
+--   target_schema: &#x27;INTEGRATION&#x27;
+--   target_table: &#x27;PARTY&#x27;
+--   unique_key: &#x27;PARTY_HKEY&#x27;
+--   diff_key: &#x27;PARTY_HDIFF&#x27;         (optional, for change detection)
+--   ts_key: &#x27;LOAD_TS_UTC&#x27;           (optional, for newer-wins resolution)
+--   exclude_from_update: [&#x27;CREATED_AT&#x27;,&#x27;CREATED_BY&#x27;]  (optional)
+--   retraction_where: &#x27;tgt.CATEGORY_ID IN (...)&#x27;       (optional)
+--     Ownership scope for retraction. After the MERGE, rows matching this
+--     predicate (alias tgt) that are ABSENT from the model&#x27;s current emission
+--     are DELETED. Cures the sparse-scheme orphan: a model that emits rows
+--     only for members of a computed set otherwise
+--     leaves stale rows behind when a member drops out of the set, because
+--     MERGE only touches rows present in the source. Total schemes self-heal
+--     and need no scope; sparse schemes declare the partition they own.
+--
+-- Author: Ray Serrano, March 2026
+
+{% materialization merge_into, adapter=&#x27;snowflake&#x27; %}
+
+    {%- set meta = config.get(&#x27;meta&#x27;, {}) -%}
+    {%- set target_database = meta.get(&#x27;target_database&#x27;, target.database) -%}
+    {%- set target_schema = meta.get(&#x27;target_schema&#x27;, target.schema) -%}
+    {%- set target_table = meta.get(&#x27;target_table&#x27;) -%}
+    {%- set unique_key = meta.get(&#x27;unique_key&#x27;) -%}
+    {%- set diff_key = meta.get(&#x27;diff_key&#x27;) -%}
+    {%- set ts_key = meta.get(&#x27;ts_key&#x27;, &#x27;LOAD_TS_UTC&#x27;) -%}
+    {%- set exclude_from_update = meta.get(&#x27;exclude_from_update&#x27;, []) -%}
+    {%- set retraction_where = meta.get(&#x27;retraction_where&#x27;) -%}
+    {#- DAT-459 (Ray, 2026-09-25): a cleanup condition names its tables as tokens, &lt;&lt;ref:model_name&gt;&gt; or
+        &lt;&lt;source:source_name.table_name&gt;&gt;, and they are resolved here, at run time. A ref() or source() written in the
+        model&#x27;s meta is rendered at parse time to a stand-in name (the calling model&#x27;s schema and the referenced model&#x27;s
+        name), which is wrong whenever the referenced object lives elsewhere. The model declares each token&#x27;s dependency
+        with a depends_on comment. -#}
+    {%- if retraction_where -%}
+        {%- set ns = namespace(w=retraction_where) -%}
+        {%- for kind, name in modules.re.findall(&#x27;&lt;&lt;(ref|source):([A-Za-z0-9_.]+)&gt;&gt;&#x27;, retraction_where) -%}
+            {%- if kind == &#x27;ref&#x27; -%}
+                {%- set rel = ref(name) -%}
+            {%- else -%}
+                {%- set parts = name.split(&#x27;.&#x27;) -%}
+                {%- set rel = source(parts[0], parts[1]) -%}
+            {%- endif -%}
+            {%- set ns.w = ns.w.replace(&#x27;&lt;&lt;&#x27; ~ kind ~ &#x27;:&#x27; ~ name ~ &#x27;&gt;&gt;&#x27;, rel | string) -%}
+        {%- endfor -%}
+        {%- set retraction_where = ns.w -%}
+    {%- endif -%}
+
+    {% if not target_table %}
+        {{ exceptions.raise_compiler_error(&quot;merge_into requires meta.target_table&quot;) }}
+    {% endif %}
+    {% if not unique_key %}
+        {{ exceptions.raise_compiler_error(&quot;merge_into requires meta.unique_key&quot;) }}
+    {% endif %}
+
+    -- Build the target relation (DDL-created table, not dbt-managed)
+    {%- set target_relation = api.Relation.create(
+        database=target_database,
+        schema=target_schema,
+        identifier=target_table
+    ) -%}
+
+    -- Compile the model SQL (the SELECT that produces source rows)
+    {%- set source_sql = sql -%}
+
+    -- Get column names from the target table for UPDATE SET and INSERT
+    {%- set columns = adapter.get_columns_in_relation(target_relation) -%}
+    {%- set column_names = columns | map(attribute=&#x27;name&#x27;) | list -%}
+    {%- set update_columns = [] -%}
+    {%- for col in column_names -%}
+        {%- if col != unique_key and col not in exclude_from_update -%}
+            {%- do update_columns.append(col) -%}
+        {%- endif -%}
+    {%- endfor -%}
+
+    -- Build MERGE statement
+    {%- set merge_sql -%}
+        MERGE INTO {{ target_relation }} AS tgt
+        USING (
+            {{ source_sql }}
+        ) AS src
+        ON tgt.{{ unique_key }} = src.{{ unique_key }}
+
+        {% if diff_key %}
+        WHEN MATCHED
+            AND tgt.{{ diff_key }} != src.{{ diff_key }}
+            {% if ts_key %}
+            AND src.{{ ts_key }} &gt;= tgt.{{ ts_key }}
+            {% endif %}
+        THEN UPDATE SET
+            {% for col in update_columns %}
+            tgt.{{ col }} = src.{{ col }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        {% else %}
+        WHEN MATCHED THEN UPDATE SET
+            {% for col in update_columns %}
+            tgt.{{ col }} = src.{{ col }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        {% endif %}
+
+        WHEN NOT MATCHED THEN INSERT (
+            {% for col in column_names %}
+            {{ col }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        )
+        VALUES (
+            {% for col in column_names %}
+            src.{{ col }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        )
+    {%- endset -%}
+
+    {{ log(&quot;MERGE INTO &quot; ~ target_relation ~ &quot; using model &quot; ~ model.unique_id, info=True) }}
+
+    {%- call statement(&#x27;main&#x27;) -%}
+        {{ merge_sql }}
+    {%- endcall -%}
+
+    {% if retraction_where %}
+    -- Retraction: delete rows in this model&#x27;s ownership scope that the
+    -- current emission no longer contains. NOT IN is safe here because unique
+    -- keys are generated surrogate hashes and never NULL.
+    {%- set retraction_sql -%}
+        DELETE FROM {{ target_relation }} tgt
+        WHERE ({{ retraction_where }})
+          AND tgt.{{ unique_key }} NOT IN (
+              SELECT src.{{ unique_key }} FROM (
+                  {{ source_sql }}
+              ) src
+          )
+    {%- endset -%}
+
+    {{ log(&quot;RETRACTION on &quot; ~ target_relation ~ &quot; for model &quot; ~ model.unique_id, info=True) }}
+
+    {%- call statement(&#x27;retraction&#x27;) -%}
+        {{ retraction_sql }}
+    {%- endcall -%}
+    {% endif %}
+
+    {{ return({&#x27;relations&#x27;: []}) }}
+
+{% endmaterialization %}
+</code></pre></details><details class="file"><summary>dbt/macros/operations/land_act.sql</summary><pre><code>{#
+  Landing acts for the course&#x27;s synthetic source data (Standard: Operations as dbt Macros, k12ki286).
+  The stand-in for the source systems: the course&#x27;s sources are synthetic, so land_act delivers what a source would.
+  Landing data flows down (Ray, 2026-10-25, answer 1y): it is delivered to production, LANDING, and QA and developer
+  landing get it only by cloning LANDING. Code still flows up: a change to this macro is proven first in a developer
+  clone (DEV__...), which therefore stays allowed. Loads one act of one table into the landing database named by
+  DBT_LANDING_STORAGE.
+  Tables: client (SUNBELT.CLIENT, increment 1), policy_sale (SUNBELT.POLICY_SALE) and policy (NORTHFIELD.POLICY),
+  increment 2 (guide step 24); pinecrest_policy (PINECREST.POLICY), for Ray&#x27;s lab 2 (design D-38; guide step 34); northfield_organization (NORTHFIELD.ORGANIZATION)
+  and pinecrest_organization (PINECREST.ORGANIZATION), each carrier&#x27;s organization record (mart design D-11; guide step 54). Act 1 LOADED_AT 2026-10-01T02:00:00; act 2 2026-10-02T02:00:00.
+  Rows are specified by the branch profile (k35ki267, results P-1, P-16, P-20 and P-21); names are invented.
+    List:    dbt run-operation land_act --args &#x27;{act: 1, table: policy_sale}&#x27;
+    Load:    dbt run-operation land_act --args &#x27;{act: 1, table: policy_sale, dry_run: false}&#x27;
+    Replace: dbt run-operation land_act --args &#x27;{act: 1, table: policy_sale, dry_run: false, replace: true}&#x27;
+  Allowed targets: LANDING (delivery) and DEV__ clones (proving the macro); refuses every other database, LANDING_QA
+  included, since QA receives landing data only by clone; refuses to load an act already present unless replace is true.
+#}
+{% macro land_act(act, table=&#x27;client&#x27;, dry_run=true, replace=false) %}
+  {%- set db = (env_var(&#x27;DBT_LANDING_STORAGE&#x27;, &#x27;LANDING&#x27;)) | upper -%}
+  {%- if not (db == &#x27;LANDING&#x27; or db.startswith(&#x27;DEV__&#x27;)) -%}
+    {{ exceptions.raise_compiler_error(&#x27;Refused: &#x27; ~ db ~ &#x27; receives landing data only by cloning LANDING. land_act delivers to LANDING, or to a developer clone (DEV__...) to prove a change to this macro.&#x27;) }}
+  {%- endif -%}
+  {%- set targets = {
+      &#x27;client&#x27;: {&#x27;relation&#x27;: &#x27;SUNBELT.CLIENT&#x27;, &#x27;columns&#x27;: &#x27;CRM_ROW_ID, CLIENT_NUMBER, FIRST_NAME, LAST_NAME, STATE, LOADED_AT&#x27;},
+      &#x27;policy_sale&#x27;: {&#x27;relation&#x27;: &#x27;SUNBELT.POLICY_SALE&#x27;, &#x27;columns&#x27;: &#x27;SALE_ROW_ID, POLICY_NUMBER, CLIENT_NUMBER, CARRIER_CODE, ROLE, SOLD_ON, AGENT_NAME, AGENT_NPN, PLAN_NAME, LOADED_AT&#x27;},
+      &#x27;policy&#x27;: {&#x27;relation&#x27;: &#x27;NORTHFIELD.POLICY&#x27;, &#x27;columns&#x27;: &#x27;POLICY_NUMBER, INSURED_ID, INSURED_NAME, BIRTH_DATE, ADDRESS, FACE_AMOUNT, STATUS, EFFECTIVE_DATE, WRITING_AGENT_NPN, LOADED_AT&#x27;},
+      &#x27;pinecrest_policy&#x27;: {&#x27;relation&#x27;: &#x27;PINECREST.POLICY&#x27;, &#x27;columns&#x27;: &#x27;POLICY_NUMBER, PLAN_NAME, FACE_AMOUNT, STATUS, EFFECTIVE_DATE, WRITING_AGENT_NPN, LOADED_AT&#x27;},
+      &#x27;northfield_organization&#x27;: {&#x27;relation&#x27;: &#x27;NORTHFIELD.ORGANIZATION&#x27;, &#x27;columns&#x27;: &#x27;CARRIER_CODE, CARRIER_NAME, LOADED_AT&#x27;},
+      &#x27;pinecrest_organization&#x27;: {&#x27;relation&#x27;: &#x27;PINECREST.ORGANIZATION&#x27;, &#x27;columns&#x27;: &#x27;CARRIER_CODE, CARRIER_NAME, LOADED_AT&#x27;}
+  } -%}
+  {%- if table not in targets -%}
+    {{ exceptions.raise_compiler_error(&#x27;Unknown table &#x27; ~ table ~ &#x27;; use client, policy_sale, policy, pinecrest_policy, northfield_organization or pinecrest_organization.&#x27;) }}
+  {%- endif -%}
+  {%- set loaded_at = {1: &#x27;2026-10-01T02:00:00&#x27;, 2: &#x27;2026-10-02T02:00:00&#x27;}[act | int] -%}
+  {%- set client_values -%}
+    {%- if (act | int) == 1 %}
+      (1, &#x27;A-1001&#x27;, &#x27;Rosa&#x27;, &#x27;Alvarez&#x27;, &#x27;FL&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (2, &#x27;A-1002&#x27;, &#x27;Mark&#x27;, &#x27;Bennett&#x27;, &#x27;GA&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (3, &#x27;A-1003&#x27;, &#x27;Lena&#x27;, &#x27;Castillo&#x27;, &#x27;OH&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (4, &#x27;A-1004&#x27;, &#x27;Omar&#x27;, &#x27;Dorsey&#x27;, &#x27;TX&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (5, &#x27;A-1005&#x27;, &#x27;Grace&#x27;, &#x27;Ellison&#x27;, &#x27;AZ&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (6, &#x27;A-1006&#x27;, &#x27;Tomas&#x27;, &#x27;Fuentes&#x27;, &#x27;NC&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (7, &#x27;A-1007&#x27;, &#x27;Irene&#x27;, &#x27;Garrity&#x27;, &#x27;PA&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (8, &#x27;A-1008&#x27;, &#x27;Paul&#x27;, &#x27;Holloway&#x27;, &#x27;MI&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (9, &#x27;A-1009&#x27;, &#x27;Nadia&#x27;, &#x27;Ibarra&#x27;, &#x27;TN&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (10, &#x27;A-1010&#x27;, &#x27;Victor&#x27;, &#x27;Jensen&#x27;, &#x27;SC&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (11, &#x27;A-1011&#x27;, &#x27;Elena&#x27;, &#x27;Kowalski&#x27;, &#x27;FL&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (12, &#x27;A-1012&#x27;, &#x27;Hugo&#x27;, &#x27;Lindqvist&#x27;, &#x27;GA&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (13, &#x27;A-1013&#x27;, &#x27;Clara&#x27;, &#x27;Moreau&#x27;, &#x27;OH&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (14, &#x27;A-1014&#x27;, &#x27;Ivan&#x27;, &#x27;Navarro&#x27;, &#x27;TX&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (15, &#x27;A-1015&#x27;, &#x27;Sofia&#x27;, &#x27;Okafor&#x27;, &#x27;AZ&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (16, &#x27;A-1016&#x27;, &#x27;Dario&#x27;, &#x27;Pellegrini&#x27;, &#x27;NC&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (17, &#x27;A-1017&#x27;, &#x27;Mae&#x27;, &#x27;Quintero&#x27;, &#x27;PA&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (18, &#x27;A-1018&#x27;, &#x27;Felix&#x27;, &#x27;Rasmussen&#x27;, &#x27;MI&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (19, &#x27;A-1019&#x27;, &#x27;Lucia&#x27;, &#x27;Salcedo&#x27;, &#x27;TN&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (20, &#x27;A-1020&#x27;, &#x27;Abel&#x27;, &#x27;Thornton&#x27;, &#x27;SC&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (21, &#x27;A-1021&#x27;, &#x27;Nora&#x27;, &#x27;Underwood&#x27;, &#x27;FL&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (22, &#x27;A-1022&#x27;, &#x27;Emil&#x27;, &#x27;Valdez&#x27;, &#x27;GA&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (23, &#x27;A-1023&#x27;, &#x27;Iris&#x27;, &#x27;Whitfield&#x27;, &#x27;OH&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (24, &#x27;A-1024&#x27;, &#x27;Raul&#x27;, &#x27;Xavier&#x27;, &#x27;TX&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (25, &#x27;A-1025&#x27;, &#x27;Vera&#x27;, &#x27;Yamada&#x27;, &#x27;AZ&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (26, &#x27;A-1026&#x27;, &#x27;Otto&#x27;, &#x27;Zamora&#x27;, &#x27;NC&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (27, &#x27;A-1027&#x27;, &#x27;Ada&#x27;, &#x27;Aldana&#x27;, &#x27;PA&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (28, &#x27;A-1028&#x27;, &#x27;Leon&#x27;, &#x27;Brandt&#x27;, &#x27;MI&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (29, &#x27;A-1029&#x27;, &#x27;Eva&#x27;, &#x27;Cordero&#x27;, &#x27;TN&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (30, &#x27;A-1030&#x27;, &#x27;Bruno&#x27;, &#x27;Delacroix&#x27;, &#x27;SC&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (31, NULL, &#x27;Pia&#x27;, &#x27;Esposito&#x27;, &#x27;FL&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (32, &#x27;&#x27;, &#x27;Karl&#x27;, &#x27;Falk&#x27;, &#x27;GA&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (33, &#x27;a-1010&#x27;, &#x27;Victor&#x27;, &#x27;Jensen&#x27;, &#x27;SC&#x27;, &#x27;2026-10-01T02:00:00&#x27;)
+    {%- else %}
+      (1, &#x27;A-1001&#x27;, &#x27;Rosa&#x27;, &#x27;Alvarez&#x27;, &#x27;FL&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (2, &#x27;A-1002&#x27;, &#x27;Mark&#x27;, &#x27;Bennett&#x27;, &#x27;GA&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (34, &#x27;A-1003&#x27;, &#x27;Lena&#x27;, &#x27;Castillo&#x27;, &#x27;OH&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (35, &#x27;A-1031&#x27;, &#x27;Lucas&#x27;, &#x27;Ferraro&#x27;, &#x27;OH&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (36, &#x27;A-1032&#x27;, &#x27;June&#x27;, &#x27;Halvorsen&#x27;, &#x27;TX&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (37, &#x27;a-1004&#x27;, &#x27;Omar&#x27;, &#x27;Dorsey&#x27;, &#x27;TX&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (38, &#x27;A-1005 &#x27;, &#x27;Grace&#x27;, &#x27;Ellison&#x27;, &#x27;AZ&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (39, &#x27;A1007&#x27;, &#x27;Irene&#x27;, &#x27;Garrity&#x27;, &#x27;PA&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (40, &#x27;A-01008&#x27;, &#x27;Paul&#x27;, &#x27;Holloway&#x27;, &#x27;MI&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (41, &#x27;   &#x27;, &#x27;Dina&#x27;, &#x27;Guerrero&#x27;, &#x27;OH&#x27;, &#x27;2026-10-02T02:00:00&#x27;)
+    {%- endif %}
+  {%- endset -%}
+
+  {%- set policy_sale_values -%}
+    {%- if (act | int) == 1 %}
+      (1, &#x27;NF-100001&#x27;, &#x27;A-1001&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-02&#x27;, &#x27;Dana Whitaker&#x27;, &#x27;17001001&#x27;, &#x27;Senior Term 20&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (2, &#x27;NF-100005&#x27;, &#x27;A-1005&#x27;, NULL, &#x27;owner&#x27;, &#x27;2026-09-03&#x27;, &#x27;Marcus Reyes&#x27;, &#x27;17001006&#x27;, &#x27;Final Expense 10K&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (3, &#x27;NF-100006&#x27;, &#x27;A-1006&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-04&#x27;, &#x27;Marcus Reyes&#x27;, &#x27;17001006&#x27;, &#x27;Senior Term 20&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (4, &#x27;NF-100006&#x27;, &#x27;A-1008&#x27;, &#x27;NFL&#x27;, &#x27;insured&#x27;, &#x27;2026-09-04&#x27;, &#x27;Marcus Reyes&#x27;, &#x27;17001006&#x27;, &#x27;Senior Term 20&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (5, &#x27;NF-100007&#x27;, &#x27;A-1007&#x27;, &#x27;NFL&#x27;, &#x27;insured&#x27;, &#x27;2026-09-05&#x27;, &#x27;Dana Whitaker&#x27;, &#x27;17001001&#x27;, &#x27;Guaranteed Whole Life&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (6, &#x27;NF-100010&#x27;, &#x27;A-1010&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-08&#x27;, &#x27;Marcus Reyes&#x27;, &#x27;17001006&#x27;, &#x27;Final Expense 10K&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (7, &#x27;NF-100010&#x27;, &#x27;A-1010&#x27;, &#x27;NFL&#x27;, &#x27;insured&#x27;, &#x27;2026-09-08&#x27;, &#x27;Marcus Reyes&#x27;, &#x27;17001006&#x27;, &#x27;Final Expense 10K&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (8, &#x27;&#x27;, &#x27;A-1013&#x27;, NULL, &#x27;owner&#x27;, &#x27;2026-09-09&#x27;, &#x27;Marcus Reyes&#x27;, &#x27;17001006&#x27;, &#x27;Senior Term 20&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (9, &#x27;NF-100014&#x27;, &#x27;&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-10&#x27;, &#x27;Dana Whitaker&#x27;, &#x27;&#x27;, &#x27;Guaranteed Whole Life&#x27;, &#x27;2026-10-01T02:00:00&#x27;)
+    {%- else %}
+      (10, &#x27;NF-100012&#x27;, &#x27;A-1033&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-28&#x27;, &#x27;Priya Natarajan&#x27;, &#x27;17001007&#x27;, &#x27;Senior Term 20&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (11, &#x27;NF-100011&#x27;, &#x27;A-1011&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-12&#x27;, &#x27;Owen Fitch&#x27;, &#x27;17001004&#x27;, &#x27;Final Expense 10K&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (12, &#x27;nf-100001&#x27;, &#x27;A-1001&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-02&#x27;, &#x27;Dana Whitaker&#x27;, &#x27;17001001&#x27;, &#x27;Senior Term 20&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (13, &#x27;NF100009&#x27;, &#x27;A-1009&#x27;, &#x27;NFL&#x27;, &#x27;owner&#x27;, &#x27;2026-09-11&#x27;, &#x27;Marcus Reyes&#x27;, &#x27;17001006&#x27;, &#x27;Final Expense 10K&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (14, &#x27;NF-100001&#x27;, &#x27;A-1001&#x27;, &#x27;NFL&#x27;, &#x27;payor&#x27;, &#x27;2026-09-02&#x27;, &#x27;Dana Whitaker&#x27;, &#x27;17001001&#x27;, &#x27;Senior Term 20&#x27;, &#x27;2026-10-02T02:00:00&#x27;)
+    {%- endif %}
+  {%- endset -%}
+  {%- set policy_values -%}
+    {%- if (act | int) == 1 %}
+      (&#x27;NF-100001&#x27;, &#x27;NLI-55001&#x27;, &#x27;Alvarez, Rosa&#x27;, &#x27;1952-03-14&#x27;, &#x27;41 Palm Ave, Tampa FL&#x27;, 25000, &#x27;IF&#x27;, &#x27;2026-09-15&#x27;, &#x27;17001001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100002&#x27;, &#x27;NLI-55001&#x27;, &#x27;Alvarez, Rosa&#x27;, &#x27;1952-03-14&#x27;, &#x27;41 Palm Ave, Tampa FL&#x27;, 10000, &#x27;IF&#x27;, &#x27;2026-08-20&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100003&#x27;, &#x27;NLI-55003&#x27;, &#x27;Brennan, Ada&#x27;, &#x27;1949-07-02&#x27;, &#x27;9 Oak St, Savannah GA&#x27;, 15000, &#x27;IF&#x27;, &#x27;2026-07-01&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100005&#x27;, &#x27;NLI-55005&#x27;, &#x27;Ellison, Grace&#x27;, &#x27;1955-11-23&#x27;, &#x27;300 Mesa Rd, Tucson AZ&#x27;, 10000, &#x27;IF&#x27;, &#x27;2026-09-18&#x27;, &#x27;17001006&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100007&#x27;, &#x27;NLI-55007&#x27;, &#x27;Garrity, Irene&#x27;, &#x27;1950-05-09&#x27;, &#x27;12 Birch Ln, Erie PA&#x27;, 20000, &#x27;IF&#x27;, &#x27;2026-09-19&#x27;, &#x27;17001001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100008&#x27;, &#x27;NLI-55008&#x27;, &#x27;Lowe, Martin&#x27;, &#x27;1947-01-30&#x27;, &#x27;12 Elm St, Flint MI&#x27;, 15000, &#x27;IF&#x27;, &#x27;2026-06-10&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100009&#x27;, &#x27;NLI-55009&#x27;, &#x27;Ibarra, Nadia&#x27;, &#x27;1953-08-17&#x27;, &#x27;7 River Rd, Knoxville TN&#x27;, 10000, &#x27;IF&#x27;, &#x27;2026-09-22&#x27;, &#x27;17001006&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100011&#x27;, &#x27;NLI-55011&#x27;, &#x27;Kowalski, Elena&#x27;, &#x27;1951-12-05&#x27;, &#x27;88 Bay Dr, Naples FL&#x27;, 10000, &#x27;IF&#x27;, &#x27;2026-09-25&#x27;, &#x27;17001005&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;NF-100013&#x27;, &#x27;&#x27;, &#x27;Duarte, Felipe&#x27;, &#x27;1948-04-11&#x27;, &#x27;5 Hill Ct, Mesa AZ&#x27;, 10000, &#x27;IF&#x27;, &#x27;2026-05-15&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-01T02:00:00&#x27;)
+    {%- else %}
+      (&#x27;NF-100002&#x27;, &#x27;NLI-55001&#x27;, &#x27;Alvarez, Rosa&#x27;, &#x27;1952-03-14&#x27;, &#x27;41 Palm Ave, Tampa FL&#x27;, 10000, &#x27;IF&#x27;, &#x27;2026-08-20&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (&#x27;NF-100003&#x27;, &#x27;NLI-55003&#x27;, &#x27;Brennan, Ada&#x27;, &#x27;1949-07-02&#x27;, &#x27;9 Oak St, Savannah GA&#x27;, 15000, &#x27;LP&#x27;, &#x27;2026-07-01&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (&#x27;NF-100008&#x27;, &#x27;NLI-55008&#x27;, &#x27;Lowe, Martin&#x27;, &#x27;1947-01-30&#x27;, &#x27;12 ELM ST, FLINT MI&#x27;, 15000, &#x27;IF&#x27;, &#x27;2026-06-10&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-02T02:00:00&#x27;)
+    {%- endif %}
+  {%- endset -%}
+
+  {%- set pinecrest_policy_values -%}
+    {%- if (act | int) == 1 %}
+      (&#x27;PM-300001&#x27;, &#x27;Pinecrest Final Expense&#x27;, &#x27;10000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-08-12&#x27;, &#x27;17001001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;PM-300002&#x27;, &#x27;Pinecrest Whole Life&#x27;, &#x27;15000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-08-20&#x27;, &#x27;17001006&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;pm-300003&#x27;, &#x27;Pinecrest Term 20&#x27;, &#x27;25000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-01&#x27;, &#x27;17001007&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;PM-300004 &#x27;, &#x27;Pinecrest Final Expense&#x27;, &#x27;10000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-03&#x27;, &#x27;17001001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;&#x27;, &#x27;Pinecrest Term 20&#x27;, &#x27;20000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-08&#x27;, &#x27;17001004&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;PM300006&#x27;, &#x27;Pinecrest Whole Life&#x27;, &#x27;12000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-10&#x27;, &#x27;17002001&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;PM-300007&#x27;, &#x27;Pinecrest Term 20&#x27;, &#x27;25000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-15&#x27;, &#x27;17001005&#x27;, &#x27;2026-10-01T02:00:00&#x27;),
+      (&#x27;PM-300008&#x27;, &#x27;Pinecrest Final Expense&#x27;, &#x27;8000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-22&#x27;, &#x27;17001006&#x27;, &#x27;2026-10-01T02:00:00&#x27;)
+    {%- else %}
+      (&#x27;PM-300001&#x27;, &#x27;Pinecrest Final Expense&#x27;, &#x27;10000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-08-12&#x27;, &#x27;17001001&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (&#x27;PM-300002&#x27;, &#x27;Pinecrest Whole Life&#x27;, &#x27;15000.00&#x27;, &#x27;LP&#x27;, &#x27;2026-08-20&#x27;, &#x27;17001006&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (&#x27;   &#x27;, &#x27;Pinecrest Final Expense&#x27;, &#x27;9000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-28&#x27;, &#x27;17001001&#x27;, &#x27;2026-10-02T02:00:00&#x27;),
+      (&#x27;PM-300009&#x27;, &#x27;Pinecrest Whole Life&#x27;, &#x27;18000.00&#x27;, &#x27;IF&#x27;, &#x27;2026-09-30&#x27;, &#x27;17001007&#x27;, &#x27;2026-10-02T02:00:00&#x27;)
+    {%- endif %}
+  {%- endset -%}
+
+  {#- P-21: one organization record per carrier and load; Pinecrest Mutual&#x27;s first arrives in act 2. -#}
+  {%- set northfield_organization_values -%}
+    {%- if (act | int) == 1 %}
+      (&#x27;NFL&#x27;, &#x27;Northfield Life&#x27;, &#x27;2026-10-01T02:00:00&#x27;)
+    {%- else %}
+      (&#x27;NFL&#x27;, &#x27;Northfield Life&#x27;, &#x27;2026-10-02T02:00:00&#x27;)
+    {%- endif %}
+  {%- endset -%}
+
+  {%- set pinecrest_organization_values -%}
+    {%- if (act | int) == 2 %}
+      (&#x27;PMC&#x27;, &#x27;Pinecrest Mutual&#x27;, &#x27;2026-10-02T02:00:00&#x27;)
+    {%- endif %}
+  {%- endset -%}
+
+  {%- set values = {&#x27;client&#x27;: client_values, &#x27;policy_sale&#x27;: policy_sale_values, &#x27;policy&#x27;: policy_values, &#x27;pinecrest_policy&#x27;: pinecrest_policy_values,
+                    &#x27;northfield_organization&#x27;: northfield_organization_values, &#x27;pinecrest_organization&#x27;: pinecrest_organization_values}[table] -%}
+  {%- set rel = db ~ &#x27;.&#x27; ~ targets[table][&#x27;relation&#x27;] -%}
+  {%- set present = run_query(&quot;SELECT COUNT(*) FROM &quot; ~ rel ~ &quot; WHERE LOADED_AT = &#x27;&quot; ~ loaded_at ~ &quot;&#x27;&quot;).columns[0].values()[0] -%}
+  {{ log(rel ~ &#x27;: act &#x27; ~ act ~ &#x27; (&#x27; ~ loaded_at ~ &#x27;) has &#x27; ~ present ~ &#x27; rows present&#x27; ~ (&#x27; (dry run, nothing changed)&#x27; if dry_run else &#x27;&#x27;), info=true) }}
+  {%- if not dry_run -%}
+    {%- if present &gt; 0 and not replace -%}
+      {{ exceptions.raise_compiler_error(&#x27;Act &#x27; ~ act ~ &#x27; of &#x27; ~ table ~ &#x27; is already loaded (&#x27; ~ present ~ &#x27; rows). Pass replace: true to reload it.&#x27;) }}
+    {%- endif -%}
+    {%- if present &gt; 0 -%}{%- do run_query(&quot;DELETE FROM &quot; ~ rel ~ &quot; WHERE LOADED_AT = &#x27;&quot; ~ loaded_at ~ &quot;&#x27;&quot;) -%}{%- endif -%}
+    {%- if values | trim -%}
+      {%- do run_query(&#x27;INSERT INTO &#x27; ~ rel ~ &#x27; (&#x27; ~ targets[table][&#x27;columns&#x27;] ~ &#x27;) VALUES &#x27; ~ values) -%}
+    {%- else -%}
+      {{ log(&#x27;Act &#x27; ~ act ~ &#x27; of &#x27; ~ table ~ &#x27; has no rows in the profile; nothing to load.&#x27;, info=true) }}
+    {%- endif -%}
+    {%- set after = run_query(&quot;SELECT COUNT(*) FROM &quot; ~ rel ~ &quot; WHERE LOADED_AT = &#x27;&quot; ~ loaded_at ~ &quot;&#x27;&quot;).columns[0].values()[0] -%}
+    {{ log(&#x27;Loaded act &#x27; ~ act ~ &#x27; of &#x27; ~ table ~ &#x27;: &#x27; ~ after ~ &#x27; rows now present.&#x27;, info=true) }}
+  {%- endif -%}
+{% endmacro %}
+</code></pre></details><details class="file"><summary>dbt/macros/operations/vault_checks.sql</summary><pre><code>{#
+  Routine checks of what the branch&#x27;s documents promise (Standard: Operations as dbt Macros, k12ki286).
+  Reads only. Run in any environment:  dbt run-operation vault_checks
+  Reports: landed rows per act, hub rows and client keys, record sources with their names from the source
+  system seed, and findings per finder in the landing clone&#x27;s CONFIG.
+#}
+{% macro vault_checks() %}
+  {%- set land = (env_var(&#x27;DBT_LANDING_STORAGE&#x27;, &#x27;LANDING&#x27;)) | upper -%}
+  {%- set hub = ref(&#x27;client_h&#x27;) -%}
+  {%- set seed = ref(&#x27;seed_source_system&#x27;) -%}
+  {%- set checks = [
+    (&quot;Landed rows per act&quot;, &quot;SELECT LOADED_AT, COUNT(*) FROM &quot; ~ land ~ &quot;.SUNBELT.CLIENT GROUP BY 1 ORDER BY 1&quot;),
+    (&quot;Landed sales rows per act&quot;, &quot;SELECT LOADED_AT, COUNT(*) FROM &quot; ~ land ~ &quot;.SUNBELT.POLICY_SALE GROUP BY 1 ORDER BY 1&quot;),
+    (&quot;Landed carrier rows per act&quot;, &quot;SELECT LOADED_AT, COUNT(*) FROM &quot; ~ land ~ &quot;.NORTHFIELD.POLICY GROUP BY 1 ORDER BY 1&quot;),
+    (&quot;Hub rows, client keys&quot;, &quot;SELECT COUNT(*), COUNT_IF(rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;)) FROM &quot; ~ hub),
+    (&quot;Record sources&quot;, &quot;SELECT h.rsrc, s.SOURCE_NAME, COUNT(*) FROM &quot; ~ hub ~ &quot; h LEFT JOIN &quot; ~ seed ~ &quot; s ON s.SOURCE_SYSTEM_CODE = h.rsrc GROUP BY 1, 2 ORDER BY 1&quot;),
+    (&quot;Findings per finder&quot;, &quot;SELECT FINDER_NAME, COUNT(*) FROM &quot; ~ land ~ &quot;.CONFIG.DATA_FINDING GROUP BY 1 ORDER BY 1&quot;)
+  ] -%}
+  {{ log(&quot;vault_checks: vault &quot; ~ target.database ~ &quot;, landing &quot; ~ land, info=true) }}
+  {%- for title, sql in checks -%}
+    {{ log(&quot;== &quot; ~ title, info=true) }}
+    {%- for row in run_query(sql).rows -%}
+      {{ log(&quot;   &quot; ~ (row.values() | join(&quot; | &quot;)), info=true) }}
+    {%- endfor -%}
+  {%- endfor -%}
+{% endmacro %}
+</code></pre></details><details class="file"><summary>dbt/macros/pipeline/generate_schema_name.sql</summary><pre><code>{# Uses a custom schema exactly as written, so dbt_project.yml decides the schema per layer, not each developer&#x27;s credentials. #}
+{% macro generate_schema_name(custom_schema_name, node) -%}
+    {%- if custom_schema_name is none -%}
+        {{ target.schema }}
+    {%- else -%}
+        {{ custom_schema_name | trim }}
+    {%- endif -%}
+{%- endmacro %}
+</code></pre></details><details class="file"><summary>dbt/macros/verification/baseline_metrics.sql</summary><pre><code>{%- macro baseline_metrics(db, ls) -%}
+{#
+  The measured set shared by capture_baseline and verify_build (guide decision G-4; increment 2, guide step 32):
+  every landed source table, every vault table by row count, and the findings by finder type. A vault table not
+  yet built counts 0, so a first build&#x27;s &#x27;before&#x27; snapshot does not fail.
+#}
+{%- set vault_tables = [&#x27;CLIENT_H&#x27;, &#x27;POLICY_H&#x27;, &#x27;INSURED_H&#x27;, &#x27;AGENT_H&#x27;, &#x27;CLIENT_POLICY_L&#x27;, &#x27;INSURED_POLICY_L&#x27;, &#x27;AGENT_POLICY_L&#x27;,
+                        &#x27;CLIENT_SUNBELT_S&#x27;, &#x27;INSURED_NORTHFIELD_S&#x27;, &#x27;POLICY_NORTHFIELD_S&#x27;, &#x27;CLIENT_POLICY_SUNBELT_S&#x27;] -%}
+        SELECT &#x27;SUNBELT.CLIENT&#x27; AS table_name, &#x27;row_count&#x27; AS metric_name, COUNT(*) AS metric_value FROM {{ ls }}.SUNBELT.CLIENT
+        UNION ALL SELECT &#x27;SUNBELT.POLICY_SALE&#x27;, &#x27;row_count&#x27;, COUNT(*) FROM {{ ls }}.SUNBELT.POLICY_SALE
+        UNION ALL SELECT &#x27;NORTHFIELD.POLICY&#x27;, &#x27;row_count&#x27;, COUNT(*) FROM {{ ls }}.NORTHFIELD.POLICY
+{%- for t in vault_tables %}
+{%- set rel = adapter.get_relation(database=db, schema=&#x27;RAW_VAULT&#x27;, identifier=t) %}
+        UNION ALL SELECT &#x27;{{ t }}&#x27;, &#x27;row_count&#x27;, ({{ &quot;SELECT COUNT(*) FROM &quot; ~ db ~ &quot;.RAW_VAULT.&quot; ~ t if rel is not none else &quot;SELECT 0&quot; }})
+{%- endfor %}
+        UNION ALL SELECT &#x27;DATA_FINDING&#x27;, &#x27;row_count&#x27;, COUNT(*) FROM {{ ls }}.CONFIG.DATA_FINDING
+        UNION ALL SELECT &#x27;DATA_FINDING&#x27;, &#x27;row_count|inspection&#x27;, COALESCE(COUNT_IF(finder_type = &#x27;inspection&#x27;), 0) FROM {{ ls }}.CONFIG.DATA_FINDING
+        UNION ALL SELECT &#x27;DATA_FINDING&#x27;, &#x27;row_count|audit&#x27;, COALESCE(COUNT_IF(finder_type = &#x27;audit&#x27;), 0) FROM {{ ls }}.CONFIG.DATA_FINDING
+{%- endmacro -%}
+</code></pre></details><details class="file"><summary>dbt/macros/verification/capture_baseline.sql</summary><pre><code>{%- macro capture_baseline() -%}
+
+{#
+  Captures row counts before a build. Run first:
+    dbt run-operation capture_baseline
+  Writes &lt;ls&gt;.CONFIG.BUILD_BASELINE with snapshot_type = &#x27;before&#x27;, where &lt;ls&gt; is
+  landing_storage(). verify_build compares &#x27;before&#x27; with &#x27;after&#x27;.
+  The measured set is this vault&#x27;s (increment 1 guide decision G-4).
+#}
+
+{% set db = target.database %}
+{% set ls = landing_storage() %}
+
+{# Clear the previous &#x27;before&#x27; snapshot for this database #}
+{% do run_query(&quot;
+    DELETE FROM &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE
+    WHERE snapshot_type = &#x27;before&#x27; AND database_name = &#x27;&quot; ~ db ~ &quot;&#x27;
+&quot;) %}
+
+{#- The measured set lives in baseline_metrics (increment 2, guide step 32). -#}
+{% do run_query(&quot;
+    INSERT INTO &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE (snapshot_type, table_name, metric_name, metric_value, database_name)
+    SELECT &#x27;before&#x27;, table_name, metric_name, metric_value, &#x27;&quot; ~ db ~ &quot;&#x27;
+    FROM (&quot; ~ baseline_metrics(db, ls) ~ &quot;)
+&quot;) %}
+
+{{ log(&quot;Baseline captured for &quot; ~ db, info=True) }}
+
+{%- endmacro -%}
+</code></pre></details><details class="file"><summary>dbt/macros/verification/verify_build.sql</summary><pre><code>{%- macro verify_build() -%}
+
+{#
+  Captures the &#x27;after&#x27; snapshot, compares it with capture_baseline&#x27;s &#x27;before&#x27;, then
+  evaluates the declared expectations in seed_build_expectations. Run last:
+    dbt run-operation verify_build
+  WARN if a guardrail is violated (a table loses more than half its rows) or an
+  expectation is not met; LOOKOUT only when everything passes.
+  The measured set is this vault&#x27;s (guide decision G-4); the expectations seed is read from REFERENCE, where
+  dbt_project.yml places seeds (2026-10-23; supersedes guide decision G-3).
+#}
+
+{% set db = target.database %}
+{% set ls = landing_storage() %}
+
+{% do run_query(&quot;
+    DELETE FROM &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE
+    WHERE snapshot_type = &#x27;after&#x27; AND database_name = &#x27;&quot; ~ db ~ &quot;&#x27;
+&quot;) %}
+
+{#- The measured set lives in baseline_metrics (increment 2, guide step 32). -#}
+{% do run_query(&quot;
+    INSERT INTO &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE (snapshot_type, table_name, metric_name, metric_value, database_name)
+    SELECT &#x27;after&#x27;, table_name, metric_name, metric_value, &#x27;&quot; ~ db ~ &quot;&#x27;
+    FROM (&quot; ~ baseline_metrics(db, ls) ~ &quot;)
+&quot;) %}
+
+{# ================================================================ #}
+{# COMPARE BEFORE VS AFTER                                         #}
+{# ================================================================ #}
+
+{% set comparison = run_query(&quot;
+    WITH before_snap AS (
+        SELECT table_name, metric_name, metric_value
+        FROM &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE
+        WHERE snapshot_type = &#x27;before&#x27; AND database_name = &#x27;&quot; ~ db ~ &quot;&#x27;
+    ),
+    after_snap AS (
+        SELECT table_name, metric_name, metric_value
+        FROM &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE
+        WHERE snapshot_type = &#x27;after&#x27; AND database_name = &#x27;&quot; ~ db ~ &quot;&#x27;
+    )
+    SELECT
+        COALESCE(b.table_name, a.table_name) AS table_name,
+        COALESCE(b.metric_name, a.metric_name) AS metric_name,
+        b.metric_value AS before_value,
+        a.metric_value AS after_value,
+        COALESCE(a.metric_value, 0) - COALESCE(b.metric_value, 0) AS delta,
+        CASE
+            WHEN b.metric_value IS NULL THEN &#x27;NEW&#x27;
+            WHEN a.metric_value IS NULL THEN &#x27;GONE&#x27;
+            WHEN a.metric_value = b.metric_value THEN &#x27;UNCHANGED&#x27;
+            WHEN a.metric_value &gt; b.metric_value THEN &#x27;INCREASED&#x27;
+            WHEN a.metric_value &lt; b.metric_value THEN &#x27;DECREASED&#x27;
+        END AS status,
+        CASE
+            WHEN b.metric_value IS NOT NULL AND b.metric_value &gt; 0
+                AND (COALESCE(a.metric_value, 0) / b.metric_value) &lt; 0.5
+            THEN &#x27;GUARDRAIL&#x27;
+            ELSE &#x27;&#x27;
+        END AS alert
+    FROM before_snap b
+    FULL OUTER JOIN after_snap a
+        ON b.table_name = a.table_name
+        AND b.metric_name = a.metric_name
+    ORDER BY COALESCE(b.table_name, a.table_name), COALESCE(b.metric_name, a.metric_name)
+&quot;) %}
+
+{# ================================================================ #}
+{# DISPLAY COMPARISON                                               #}
+{# ================================================================ #}
+
+{{ log(&quot;&quot;, info=True) }}
+{{ log(&quot;========== BUILD VERIFICATION: &quot; ~ db ~ &quot; ==========&quot;, info=True) }}
+{{ log(&quot;&quot;, info=True) }}
+{{ log(&quot;--- COMPARISON ---&quot;, info=True) }}
+
+{% set failures = [] %}
+
+{% for row in comparison %}
+    {% set tbl = row[0] %}
+    {% set metric = row[1] %}
+    {% set before = row[2] %}
+    {% set after = row[3] %}
+    {% set delta = row[4] %}
+    {% set status = row[5] %}
+    {% set alert = row[6] | trim %}
+
+    {% set before_str = before | string if before is not none else &quot;—&quot; %}
+    {% set after_str = after | string if after is not none else &quot;—&quot; %}
+    {% set delta_prefix = &quot;+&quot; if delta &gt; 0 else &quot;&quot; %}
+
+    {% set line = tbl ~ &quot; | &quot; ~ metric ~ &quot; | &quot; ~ before_str ~ &quot; -&gt; &quot; ~ after_str ~ &quot; (&quot; ~ delta_prefix ~ delta | string ~ &quot;) &quot; ~ status %}
+
+    {% if alert == &#x27;GUARDRAIL&#x27; %}
+        {{ log(&quot;  !!! &quot; ~ line ~ &quot; — GUARDRAIL: &gt;50% DROP&quot;, info=True) }}
+        {% do failures.append(&quot;GUARDRAIL: &quot; ~ tbl ~ &quot; &quot; ~ metric ~ &quot; dropped &gt;50%&quot;) %}
+    {% elif status == &#x27;NEW&#x27; %}
+        {{ log(&quot;  +++ &quot; ~ line, info=True) }}
+    {% elif status == &#x27;GONE&#x27; %}
+        {{ log(&quot;  --- &quot; ~ line, info=True) }}
+    {% elif status != &#x27;UNCHANGED&#x27; %}
+        {{ log(&quot;  &gt;&gt;&gt; &quot; ~ line, info=True) }}
+    {% else %}
+        {{ log(&quot;      &quot; ~ line, info=True) }}
+    {% endif %}
+{% endfor %}
+
+{# ================================================================ #}
+{# EVALUATE EXPECTATIONS                                            #}
+{# ================================================================ #}
+
+{{ log(&quot;&quot;, info=True) }}
+{{ log(&quot;--- EXPECTATIONS ---&quot;, info=True) }}
+
+{% set expectations = run_query(&quot;
+    SELECT e.version_tag, e.table_name, e.metric_name, e.condition, e.description,
+           CAST(a.metric_value AS FLOAT) AS actual_value
+    FROM &quot; ~ db ~ &quot;.REFERENCE.SEED_BUILD_EXPECTATIONS e
+    LEFT JOIN &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE a
+        ON a.table_name = e.table_name
+        AND a.metric_name = e.metric_name
+        AND a.snapshot_type = &#x27;after&#x27;
+        AND a.database_name = &#x27;&quot; ~ db ~ &quot;&#x27;
+    ORDER BY e.version_tag, e.table_name, e.metric_name
+&quot;) %}
+
+{% for row in expectations %}
+    {% set version_tag = row[0] %}
+    {% set tbl = row[1] %}
+    {% set metric = row[2] %}
+    {% set condition = row[3] | trim %}
+    {% set description = row[4] %}
+    {% set actual = row[5] %}
+
+    {% set passed = false %}
+
+    {% if actual is none %}
+        {% set passed = false %}
+    {% elif condition == &#x27;&gt; 0&#x27; %}
+        {% set passed = (actual &gt; 0) %}
+    {% elif condition.startswith(&#x27;&gt;= &#x27;) %}
+        {% set threshold = condition.replace(&#x27;&gt;= &#x27;, &#x27;&#x27;) | float %}
+        {% set passed = (actual &gt;= threshold) %}
+    {% elif condition.startswith(&#x27;&gt; &#x27;) %}
+        {% set threshold = condition.replace(&#x27;&gt; &#x27;, &#x27;&#x27;) | float %}
+        {% set passed = (actual &gt; threshold) %}
+    {# a declared decrease (Ray, 2026-09-11): the rebuild standard requires every removal of rows to be
+       declared; these two operators let the declaration be checked. Origin: the DAMA-76 rebuild. #}
+    {% elif condition.startswith(&#x27;&lt;= &#x27;) %}
+        {% set threshold = condition.replace(&#x27;&lt;= &#x27;, &#x27;&#x27;) | float %}
+        {% set passed = (actual &lt;= threshold) %}
+    {% elif condition.startswith(&#x27;&lt; &#x27;) %}
+        {% set threshold = condition.replace(&#x27;&lt; &#x27;, &#x27;&#x27;) | float %}
+        {% set passed = (actual &lt; threshold) %}
+    {% elif condition == &#x27;increased&#x27; %}
+        {% set before_val = run_query(&quot;
+            SELECT CAST(metric_value AS FLOAT) FROM &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE
+            WHERE table_name = &#x27;&quot; ~ tbl ~ &quot;&#x27; AND metric_name = &#x27;&quot; ~ metric ~ &quot;&#x27;
+            AND snapshot_type = &#x27;before&#x27; AND database_name = &#x27;&quot; ~ db ~ &quot;&#x27;
+        &quot;) %}
+        {% if before_val and before_val.rows | length &gt; 0 %}
+            {% set passed = (actual &gt; before_val.rows[0][0]) %}
+        {% else %}
+            {% set passed = (actual &gt; 0) %}
+        {% endif %}
+    {% elif condition == &#x27;unchanged&#x27; %}
+        {% set before_val = run_query(&quot;
+            SELECT CAST(metric_value AS FLOAT) FROM &quot; ~ ls ~ &quot;.CONFIG.BUILD_BASELINE
+            WHERE table_name = &#x27;&quot; ~ tbl ~ &quot;&#x27; AND metric_name = &#x27;&quot; ~ metric ~ &quot;&#x27;
+            AND snapshot_type = &#x27;before&#x27; AND database_name = &#x27;&quot; ~ db ~ &quot;&#x27;
+        &quot;) %}
+        {% if before_val and before_val.rows | length &gt; 0 %}
+            {% set passed = (actual == before_val.rows[0][0]) %}
+        {% else %}
+            {% set passed = false %}
+        {% endif %}
+    {% endif %}
+
+    {% set actual_str = actual | string if actual is not none else &quot;NOT FOUND&quot; %}
+
+    {% if passed %}
+        {{ log(&quot;  PASS [&quot; ~ version_tag ~ &quot;] &quot; ~ tbl ~ &quot; | &quot; ~ metric ~ &quot; | &quot; ~ condition ~ &quot; | actual: &quot; ~ actual_str ~ &quot; | &quot; ~ description, info=True) }}
+    {% else %}
+        {{ log(&quot;  FAIL [&quot; ~ version_tag ~ &quot;] &quot; ~ tbl ~ &quot; | &quot; ~ metric ~ &quot; | &quot; ~ condition ~ &quot; | actual: &quot; ~ actual_str ~ &quot; | &quot; ~ description, info=True) }}
+        {% do failures.append(&quot;EXPECTATION: [&quot; ~ version_tag ~ &quot;] &quot; ~ tbl ~ &quot; &quot; ~ metric ~ &quot; expected &quot; ~ condition ~ &quot; but got &quot; ~ actual_str) %}
+    {% endif %}
+{% endfor %}
+
+{# ================================================================ #}
+{# VERDICT                                                          #}
+{# ================================================================ #}
+
+{{ log(&quot;&quot;, info=True) }}
+{{ log(&quot;--- VERDICT ---&quot;, info=True) }}
+
+{% if failures | length &gt; 0 %}
+    {{ log(&quot;&quot;, info=True) }}
+    {{ log(&quot;WARNINGS — &quot; ~ failures | length ~ &quot; issue(s):&quot;, info=True) }}
+    {% for f in failures %}
+        {{ log(&quot;  &quot; ~ f, info=True) }}
+    {% endfor %}
+    {{ log(&quot;&quot;, info=True) }}
+    {{ log(&quot;Build did not stop. Review warnings; the goal is a lookout build (zero warnings).&quot;, info=True) }}
+    {{ log(&quot;&quot;, info=True) }}
+{% else %}
+    {{ log(&quot;&quot;, info=True) }}
+    {{ log(&quot;LOOKOUT — all guardrails and expectations met. Zero warnings.&quot;, info=True) }}
+    {{ log(&quot;&quot;, info=True) }}
+{% endif %}
+
+{%- endmacro -%}
+</code></pre></details><details class="file"><summary>dbt/packages.yml</summary><pre><code>packages:
+  - git: &quot;https://github.com/rayserrano2735/datavault4dbt.git&quot;
+    revision: 694df249dd9ed7aa36ea1881c1c73f81e4e80feb   # fork pinned at upstream 694df24
+  - git: &quot;https://github.com/dbt-labs/dbt-utils.git&quot;
+    revision: 49b932cb1f6fd0f7dfbf9048512db6415f570b20   # tag 1.4.1, pinned by commit; finding keys and layer 2 uniqueness (guide G-9)
+    # From GitHub, not the dbt hub: the container&#x27;s egress gateway re-signs TLS and the
+    # local Fusion engine cannot download from the hub (2026-10-23). dbt_expectations is
+    # not used for the same reason; its dbt_date dependency resolves only through the hub.
+    # Both packages are pinned by exact commit here, so package-lock.yml is not tracked: each environment&#x27;s
+    # dbt deps writes its own, and dbt Cloud (v1) and the workstation (Fusion) compute its hash differently.
+</code></pre></details><details class="file"><summary>dbt/selectors.yml</summary><pre><code># Named selections, so environments run the right set by name instead of remembering exclusions (Ray, 2026-10-23).
+selectors:
+  - name: v1_safe
+    description: &gt;
+      Everything except the unit tests tagged fusion_only. On dbt v1 a unit test replaces its input with a
+      query block, and datavault4dbt&#x27;s macros cannot describe it; those tests run on the Fusion engine only.
+      For dbt Cloud environments on v1:  dbt build --selector v1_safe
+    definition:
+      union:
+        - method: fqn
+          value: &quot;*&quot;
+        - exclude:
+            - method: tag
+              value: fusion_only
+
+  - name: qa_build
+    description: &gt;
+      The QA job&#x27;s build: today the same set as v1_safe, written out in full (a selector that only names
+      another selector selected everything when tested on 2026-10-23). Its own name lets the QA job diverge later.
+    definition:
+      union:
+        - method: fqn
+          value: &quot;*&quot;
+        - exclude:
+            - method: tag
+              value: fusion_only
+</code></pre></details></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

@@ -1,0 +1,433 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QA certification | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>QA certification</p><p class="eyebrow">Documentation · release 1</p><h1>QA certification</h1><p>The QA cycle: preparation, the build, the tests, the comparisons, and the verdict on six gates.</p></div></header>
+<main><article class="doc"><h1>DIG-574 QA Test and Certification: the Sunbelt Senior and Northfield Life raw vault</h1>
+<h3>Branch QA Test and Certification</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Effort</strong></td>
+<td>DIG-574, DIGEST Data Vault course: increments 1 (arrival and identity), 1.1 (source system seed) and 2 (two sources), on branch claude_ws/dig-574-arrival-and-identity</td>
+</tr>
+<tr>
+<td><strong>Governed by</strong></td>
+<td><em>Standard: QA Testing and Certification</em> (K#2 I#167)</td>
+</tr>
+<tr>
+<td><strong>Official copy method</strong></td>
+<td><code>AGENTIC.DATASKILLS.KNOWLEDGE_ITEM_FROM_TEMPLATE</code></td>
+</tr>
+<tr>
+<td><strong>Template source</strong></td>
+<td>K#2 I#168 — updated 2026-10-03T10:39:06.968Z — SHA-256 e260ebb4d19989c169561fb4edda7afb1232794790b916ede1d803df8891177f</td>
+</tr>
+<tr>
+<td><strong>References</strong></td>
+<td>Design  (D-13 superseded 2026-10-25: course increments promote through qa to production with certification); implementation guide ; test plan , whose section 5 this cycle instantiates; post-implementation guide ; QA job runbook setup/runbooks/dbt_cloud_qa_environment.md; pull request #2</td>
+</tr>
+<tr>
+<td><strong>Branch / QA commit</strong></td>
+<td>qa at 1c35485: the squash merges of pull requests #2 (ecc9e16) and #3; the branch, with qa merged back, has the same files</td>
+</tr>
+<tr>
+<td><strong>Pull request</strong></td>
+<td>#2, merged into qa by rayserrano2735 at 2026-10-26 20:03 UTC; #3, the narrowed fusion_only tag, merged by rayserrano2735 at 21:29 UTC</td>
+</tr>
+<tr>
+<td><strong>Clone time</strong></td>
+<td>Recorded when QA begins</td>
+</tr>
+<tr>
+<td><strong>Roles</strong></td>
+<td>Recorded when QA begins</td>
+</tr>
+<tr>
+<td><strong>Warehouse</strong></td>
+<td>Recorded when QA begins</td>
+</tr>
+<tr>
+<td><strong>Job definition</strong></td>
+<td>Recorded when QA begins</td>
+</tr>
+<tr>
+<td><strong>Environment</strong></td>
+<td>Recorded when QA begins</td>
+</tr>
+<tr>
+<td><strong>Author</strong></td>
+<td>Ray Serrano; edited by ChatGPT</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>Internal — Data Management</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>1. Scope and expected change</h2>
+<h3>1.1 Delivery scope</h3>
+<p>Everything pull request #2 brings into qa: the landing tables SUNBELT.CLIENT, SUNBELT.POLICY_SALE and NORTHFIELD.POLICY; the source system seed (SSI, SYSTEM, ERROR, NFL); three staging models; the hubs client_h, policy_h, insured_h and agent_h; the links client_policy_l, insured_policy_l and agent_policy_l; four satellites and their version 1 views; two inspectors and three auditors writing CONFIG.DATA_FINDING; the baseline facility; 108 tests (74 unit, 34 data), D-40&rsquo;s four satellite relationship tests included. The diff against qa is 70 files (test plan, section 2.1). Pull request #3 narrows the fusion_only tag to the 51 unit tests that fail on dbt v1 (Ray, 2026-10-26, answer 1b): the v1 QA job runs 57 tests (34 data, 23 unit), and the 51 run on v2 against the qa commit, both recorded here as one certification.</p>
+<h3>1.2 Intentionally unchanged</h3>
+<p>Production (DV and LANDING) is not touched by this cycle. LANDING.STORAGE stays empty (design DD-4). There are no semantic models, no consumer reports and no scheduled production job in this repository.</p>
+<h3>1.3 Expected movement ledger</h3>
+<p>The first QA build creates every vault object in DV_QA, so every movement is from absent to present. Landing data flows down: it is delivered to production, LANDING, and QA receives it only by cloning (Ray, 2026-10-25). Increment 2&rsquo;s two acts were delivered to LANDING on 2026-10-25 by land_act, the stand-in source system (commit 0472975), and LANDING matches the development clone row for row: 43 client list rows, 14 sales rows, 12 carrier rows. So the fresh clone of LANDING_QA holds all three tables, and no pre-build landing act is needed. The expected values are development&rsquo;s, read 2026-10-25: client_h 37, policy_h 17, insured_h 9, agent_h 8, client_policy_l 15, insured_policy_l 11, agent_policy_l 19; client_sunbelt_s 39, client_policy_sunbelt_s 15, insured_northfield_s 11, policy_northfield_s 12; three inspection findings (A1007, A-01008, NF100009) and no audit finding.</p>
+<h3>1.4 Protected semantic set</h3>
+<p>None. The repository has no semantic models, metrics or saved queries (test plan, baseline B-4), so no protected metric can move; Layer 7 is not applicable, proved by the dependency graph holding no semantic node.</p>
+<h2>2. Preconditions</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Precondition</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Development complete: the governed full development build passed and its warnings are classified</td>
+<td>Met 2026-10-26: dbt build 108 of 108 tests, 25 models, no warning; verify_build&rsquo;s five warnings classified in the post-implementation guide (three growth expectations over an unchanged rebuild; two audit findings retained, delta 25)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Code review complete</td>
+<td>Met by Ray&rsquo;s approval for production (answer 1b, 2026-10-26); no GitHub review is recorded; part 1&rsquo;s graded review follows on a later pull request</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The pull request into qa reviewed and merged by an authorized human</td>
+<td>Met: merged by rayserrano2735, 2026-10-26 20:03 UTC</td>
+</tr>
+<tr>
+<td>4</td>
+<td>This record names the exact qa commit</td>
+<td>Met: 1c35485</td>
+</tr>
+<tr>
+<td>5</td>
+<td>The branch test plan lists every added or changed test, intended data movement, protected metric, consumer question, runbook step, and rollback act</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>6</td>
+<td>The promotion switch, landing pointer, deployment scripts, job definition, grants, and role expectations read before the first QA build</td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. Production-shaped QA preparation</h2>
+<h3>3.1 Fresh clones</h3>
+<p>LANDING_QA replaced by a fresh clone of LANDING on 2026-10-26 at 21:32 UTC, by setup/infrastructure/clone_landing_to_landing_qa.sql (commit d0f3e61), run as SYSADMIN from standard input. Its count check returned no rows: every LANDING table has its twin with the same rows. LANDING_QA holds CONFIG.BUILD_BASELINE 0, CONFIG.DATA_FINDING 0, NORTHFIELD.POLICY 12, PINECREST.POLICY 12, SUNBELT.CLIENT 43 and SUNBELT.POLICY_SALE 14. DV_QA, the QA vault, starts empty.</p>
+<h3>3.2 Ownership and grants</h3>
+<p>QA built by its own identity since 2026-10-26 (Ray, answers 1b and 2y): user DV_QA_DEPLOY with role DV_QA_ROLE, by setup/infrastructure/service_users.sql (Ray, as administrator) and setup/infrastructure/dv_qa_role.sql (the workstation, as SYSADMIN), then the clone script run again at 21:58 UTC. LANDING_QA, its schemas and tables owned by LANDING_ROLE. Read back with SHOW GRANTS TO ROLE: DV_QA_ROLE owns DV_QA and its schema, holds the warehouse, and on LANDING_QA holds usage on the database and its 6 schemas, select on its 6 tables, create and modify on STORAGE and CONFIG, and insert, update and delete on CONFIG&rsquo;s 2 tables; it holds nothing on DV or LANDING. DV_ROLE holds the same on LANDING and owns DV, and holds nothing on DV_QA or LANDING_QA.</p>
+<h3>3.3 Deployment inputs read before build</h3>
+<p>DBT_LANDING_STORAGE read back through the dbt Cloud API before the first certified run, 70403230733470: QA scope LANDING_QA, project default LANDING, Development DEV__LANDING__RAYSERRANO. The QA environment builds branch qa as DV_QA_DEPLOY into DV_QA.</p>
+<h2>4. Before-build evidence</h2>
+<h3>4.1 Warehouse baseline</h3>
+<p>capture_baseline ran as the job&rsquo;s first step in every QA run; in run 70403230742776: &ldquo;Baseline captured for DV_QA&rdquo; (28 models, 38 data tests, 7 metrics, 4 semantic models, 74 unit tests found).</p>
+<h3>4.2 Protected semantic results before build</h3>
+<p>Not applicable: no released semantic result existed before this cycle.</p>
+<h3>4.3 Pre-build runbook acts</h3>
+<p>Before run 70403230733470: setup/infrastructure/reset_dv_qa.sql (DV_QA&rsquo;s built schemas dropped) and setup/infrastructure/clone_landing_to_landing_qa.sql (LANDING_QA cloned fresh, grants restored, counts matched). Later runs rebuilt over the same QA data.</p>
+<h2>5. Full QA build</h2>
+<p>Run 70403230733470 of the dbt Cloud job &ldquo;QA build&rdquo; (environment QA, branch qa at 057a0c4, engine Latest, identity DV_QA_DEPLOY with DV_QA_ROLE), triggered by the workstation through the dbt Cloud API on 2026-10-26 after DV_QA was cleared (setup/infrastructure/reset_dv_qa.sql) and LANDING_QA refreshed; DBT_LANDING_STORAGE read back first through the API: QA LANDING_QA, project LANDING, Development DEV__LANDING__RAYSERRANO. Status Success in 1 minute 49 seconds: capture_baseline; the first build, unit tests excluded, 23 models, 2 seeds, 35 data tests passed; the second build, selector qa_build, the same plus 23 unit tests passed; verify_build.</p>
+<p>The first QA build of the day (before D-41) is void: dbt Cloud compiled every satellite hashdiff upper-cased and DV_QA lost one case-only version (section 12).</p>
+<h2>6. Branch test battery</h2>
+<h3>6.1 Added and changed tests</h3>
+<p>D-40: four relationship tests from each satellite&rsquo;s hash key to its parent. D-41: assert_hashdiff_keeps_case_only_change, layer 4, severity error. Pull request #3: the fusion_only tag narrowed to the 51 unit tests that fail on dbt v1. Pull requests #5 and #6 added the marts&rsquo; uniqueness tests.</p>
+<h3>6.2 Complete test-sweep result</h3>
+<p>One certification across two engines (Ray, 2026-10-26, answer 1b): on dbt Cloud, 35 data tests and 23 unit tests passed (run 70403230733470); on the workstation&rsquo;s v2 (Fusion 2.0.9), against the same commit 057a0c4 in a clean worktree, the 51 unit tests tagged fusion_only passed. Together: 35 data tests and 74 unit tests, 109 of 109, no warning, no failure. D-41&rsquo;s assertion assert_hashdiff_keeps_case_only_change passed in both builds.</p>
+<h3>6.3 Warning disposition</h3>
+<p>verify_build in run 70403230742776 named three warnings, all the same class: growth expectations (client_h, policy_h and agent_policy_l increased) over a rebuild with no new landing act, which cannot hold by design; classified as in the post-implementation guide. The audit expectations passed: no audit finding.</p>
+<h2>7. Data regression</h2>
+<h3>7.1 Baseline verification</h3>
+<p>verify_build in run 70403230742776: all 17 compared measures unchanged against the baseline captured at the run&rsquo;s start (client_h 37, policy_h 17, agent_h 8, insured_h 9, the three links 15, 19 and 11, the four satellites 39, 15, 11 and 12, landing tables 43, 14 and 12, findings 3, of them 0 audit and 3 inspection).</p>
+<h3>7.2 Changed-model movements</h3>
+<p>DV_QA against the development vault, read 2026-10-26 after run 70403230733470: all 13 tables of RAW_VAULT and REFERENCE hold the same rows (client_h 37, policy_h 17, insured_h 9, agent_h 8; client_policy_l 15, insured_policy_l 11, agent_policy_l 19; client_sunbelt_s 39, client_policy_sunbelt_s 15, insured_northfield_s 11, policy_northfield_s 12; seeds 4 and 5). Every satellite row matches the development vault&rsquo;s on hash key, hashdiff and load time: 39 of 39, 15 of 15, 11 of 11, 12 of 12.</p>
+<h3>7.3 Findings movement</h3>
+<p>LANDING_QA.CONFIG.DATA_FINDING: inspector_sunbelt_client_number_form 2, inspector_sunbelt_policy_number_form 1, no audit finding. The development tier&rsquo;s two audit findings are retained from the auditors&rsquo; first versions (post-implementation guide, delta 25) and are correctly absent from a first build.</p>
+<h3>7.4 Values outside the baseline</h3>
+<p>None: every compared measure equal to its baseline (7.1).</p>
+<h3>7.5 Relationship integrity and branch invariants</h3>
+<p>D-40&rsquo;s four relationship tests and assert_increment_2_link_hub_keys_exist passed in every certified run; read directly, no link or satellite row lacks its parent.</p>
+<h2>8. Semantic protection</h2>
+<h3>8.1 Accuracy verification</h3>
+<p>Run 2026-10-27 on the semantic manifest of QA run 70403230742776 (qa 827d5d4), the manifest DV Digest loads: each of the seven metrics compiled through MetricFlow 0.213, executed on DV_QA as CLAUDE_WS, and compared group by group with an independent direct query on the raw vault or the landing&rsquo;s findings. All seven equal:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Grouped by</th>
+<th>Answer</th>
+<th>Equal to the direct query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>policies_held</td>
+<td>client_policy__role</td>
+<td>insured 3, owner 9, payor 1</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>client_policy_roles</td>
+<td>client_policy__role</td>
+<td>insured 3, owner 9, payor 1</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>policies_written</td>
+<td>agent_policy__named_by_source</td>
+<td>NFL 7, SSI 10</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>agents_writing</td>
+<td>agent_policy__named_by_source</td>
+<td>NFL 3, SSI 5</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>face_amount_total</td>
+<td>policy__carrier_code</td>
+<td>NFL 125000.00, None None</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>policies</td>
+<td>policy__carrier_code</td>
+<td>NFL 14, None 1</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>findings</td>
+<td>finding__source_system</td>
+<td>SUNBELT 3</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table></div>
+<h3>8.2 Before-and-after value comparison</h3>
+<p>Not applicable: the first release of these metrics; there is no earlier released value to compare.</p>
+<h3>8.3 Live saved-query answerability</h3>
+<p>DV Digest, the QA delivery surface, loaded run 70403230742776&rsquo;s manifest unattended and lists all seven metrics with their dimensions (list-metrics and get-dimensions, 2026-10-27).</p>
+<h2>9. Consumer certification</h2>
+<h3>9.1 Consumer-question probes</h3>
+<p>Release 1, The Acquired Book (product definition ), asked through DV Digest on 2026-10-27 after its session fix: Q-9 policies_held by role: owner 9, insured 3, payor 1. Q-11 policies_written by sources_disagree: 15 false, 1 true. Q-10 face_amount_total by carrier: NFL 125,000.00; the policy with no carrier code, none. Q-15 findings by source: SUNBELT 3. Each executed on Snowflake.</p>
+<h3>9.2 Reconciliation</h3>
+<p>Each probe in 9.1 equals the direct query on DV_QA, row for row (8.1).</p>
+<h3>9.3 QA delivery surface</h3>
+<p>DV Digest, the connector on Ray&rsquo;s tower (DIG-583), reading the latest successful QA build&rsquo;s manifest. Its Snowflake session now renews itself (commit 03e8dda, loaded and verified on the tower 2026-10-27).</p>
+<h2>10. Operational verification</h2>
+<p>Production built 2026-10-27 by the dbt Cloud job &ldquo;Prod Build&rdquo; (70403104453080), environment PROD (branch main, DV_DEPLOY with DV_ROLE, database DV, landing LANDING), run 70403230861868 on main f48c24b: 68 of 68 passed; verify_build met every guardrail and expectation with zero warnings. Compared with DV_QA: all 25 vault, reference, staging and mart objects equal; every satellite row identical on key, hashdiff and load time (39, 15, 11, 12); the same 3 inspection findings and no audit finding in LANDING.CONFIG; the run&rsquo;s semantic manifest carries all seven metrics on DV. Both jobs run on demand, triggered through the dbt Cloud API. The tower&rsquo;s connector serves production as the interim production connector until DIG-590&rsquo;s AWS function is live.</p>
+<h2>11. Rollback and cleanup</h2>
+<p>Rollback for this first release: drop DV&rsquo;s built schemas (STAGING, RAW_VAULT, REFERENCE, MART), there being no earlier production state, and point the connector back at QA. Promotion: pull request #7 squash-merged into main (f48c24b), then qa converged with main, so qa is free for release 2.</p>
+<h2>12. Configuration exceptions and permanent corrections</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Exception</th>
+<th>Permanent correction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>dbt Cloud (version 2026.10.14+638bb1a) compiled every satellite hashdiff upper-cased, while the workstation&rsquo;s dbt v1 1.12.6 and v2 compiled them case-sensitive from the same code and package pin; the first QA build lost Martin Lowe&rsquo;s &ldquo;12 ELM ST&rdquo; version. The cause in dbt Cloud is not known</td>
+<td>D-41: the variable set in the root project and an error-severity assertion; pull request #4, merged 2026-10-26 23:11 UTC</td>
+</tr>
+<tr>
+<td>2</td>
+<td>v1 cannot run 51 unit tests (datavault4dbt&rsquo;s hub macro cannot describe a unit test&rsquo;s fixed input)</td>
+<td>Tag narrowed to those 51 (pull request #3); they run on v2 against the QA commit as part of this certification</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The QA build ran as the same role as production until 2026-10-26</td>
+<td>DV_QA_DEPLOY with DV_QA_ROLE, which holds nothing on DV or LANDING (section 3.2)</td>
+</tr>
+</tbody>
+</table></div>
+<h2>13. Certification verdict</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Gate</th>
+<th>Verdict</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Environment and deployment rehearsal</td>
+<td>PASS</td>
+<td>QA built from cleared databases as its own identity (3.1, 3.2, 5); production deployed from main as its own identity and identical to QA (10)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Full build and branch tests</td>
+<td>PASS</td>
+<td>Section 5 and 6.2: 109 of 109 tests across two engines; later runs on qa 827d5d4 passed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Data regression</td>
+<td>PASS</td>
+<td>Section 7.2 and 7.3: DV_QA equal to the development vault, row for row</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Semantic protection</td>
+<td>PASS</td>
+<td>Section 8: all seven metrics equal their direct queries</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Consumer surfaces</td>
+<td>PASS</td>
+<td>Section 9: release 1&rsquo;s four questions answered through DV Digest, each reconciled</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Operations, rollback, and evidence</td>
+<td>PASS</td>
+<td>Sections 10 and 11</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Cycle verdict:</strong> CERTIFIED on all six gates for release 1, The Acquired Book, on qa 827d5d4, promoted to main f48c24b and built in production (Ray, 2026-10-27, answers 1y).</p></article><section class="cta bleed"><h2>Next: Design</h2><p>Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-52.</p><a class="btn" href="design.html">Read the design</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
