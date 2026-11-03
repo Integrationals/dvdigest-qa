@@ -1,6 +1,11 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mart design | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.rel-record{max-width:900px;margin:0 auto}.rel-head{margin:8px 0 18px}.rel-record .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.rel-record .chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--teal);color:var(--teal-d)}.rel-record .chip.solid{background:var(--teal);color:#fff}
+.rel-record .clockcard{background:var(--soft);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:14px}
+.rel-record .prompts{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 16px}.rel-record .qa{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px}
+.rel-record h2 .sec{color:var(--teal-d);margin-right:4px}.rel-foot{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:22px}
 .qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
 .qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
 .qa-review h2{margin:0 0 6px;font-size:18px}
@@ -128,7 +133,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Architecture conversation</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Mart design</p><p class="eyebrow">Documentation · next release, in QA</p><h1>Mart design</h1><p>Mary&#x27;s questions served from the conformed mart: its grains, its keys, and the meaning each measure carries.</p></div></header>
 <main><article class="doc"><h1>DIG-574 Mart Design: Mary&rsquo;s questions in CONFORMED_DM</h1>
 <h3>Mart Design Document</h3>
@@ -601,7 +606,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>DATA_FINDING</td>
 <td>2.2 row 4</td>
 </tr>
-<tr class="qa-changed">
+<tr>
 <td>D-6</td>
 <td>All objects in CONFORMED_DM (models/marts/conformed_dm): the four facts and the five base dimensions as tables, each with its primary and foreign keys declared after every build, and the four role views as views over their base dimensions (Ray, 2026-11-01, answer 1y, correcting the earlier all-views placement, which left the mart with no keys for the data model); one exception, the finding fact, stays a view: it reads the findings the inspectors write during the build, and as a table it was built before them on fresh data; its foreign keys to sources and days are therefore not declared, while their tests stay (Ray, 2026-11-02, answer 1y); the view reads each finding&rsquo;s source and date through source_dim and day_dim, though the data model&rsquo;s import does not draw those joins, so the view stands apart in the model and is left out of its diagram (Ray, 2026-11-03, answers 1a and 1y); a known exception until v2026.11.2: a mart reads the integrated layer, never landing, and v2026.11.2 brings the findings into the vault, for the governance mart (Ray, 2026-11-03, answer 1a); the five MART views retired in the same pull request; DV Digest is their only reader and reloads from the QA build</td>
 <td>: MART empties by pull; no duplicate copy</td>
@@ -678,7 +683,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>Snowflake declares constraints on tables only (its constraints overview, read 2026-11-01)</td>
 <td>3.2, 3.3, 4.4</td>
 </tr>
-<tr class="qa-changed">
+<tr>
 <td>D-17</td>
 <td>Dimensions meet only through the facts that record them together: policy_dim drops its carrier key and keeps the carrier&rsquo;s name as an attribute, flattened at build; policy_terms_fact and client_policy_role_fact each carry the carrier key, a foreign key to organization_dim, and the semantic layer&rsquo;s carrier entity moves to those two facts. Supersedes D-16&rsquo;s third foreign key</td>
 <td>A dimension never joins another dimension (the conformed-layer standard&rsquo;s datamart form, Ray, 2026-11-03; review finding CR-18)</td>
@@ -689,13 +694,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </table></div>
 <p>Use D-n identifiers in sequence. Proposed mappings are shown to the reviewer and resolved through numbered decisions. Changed mappings are re-proposed, never silently substituted.</p>
 <h2>3. Measures and dimensions</h2>
-<h3>3.1 Upstream and UDM map</h3>
+<h3 class="qa-changed">3.1 Upstream and source-to-target map</h3>
 <div class="table-wrap"><table>
 <thead>
-<tr>
+<tr class="qa-changed">
 <th>Profile verdict</th>
 <th>Source concept and column</th>
-<th>Existing or proposed UDM destination table and column</th>
+<th>Existing or proposed target destination table and column</th>
 <th>Identity recipe</th>
 <th>Derivation and pattern</th>
 <th>Additive change?</th>

@@ -1,6 +1,11 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ten points for a Data Vault architecture conversation | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+<title>Musings | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.rel-record{max-width:900px;margin:0 auto}.rel-head{margin:8px 0 18px}.rel-record .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.rel-record .chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--teal);color:var(--teal-d)}.rel-record .chip.solid{background:var(--teal);color:#fff}
+.rel-record .clockcard{background:var(--soft);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:14px}
+.rel-record .prompts{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 16px}.rel-record .qa{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px}
+.rel-record h2 .sec{color:var(--teal-d);margin-right:4px}.rel-foot{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:22px}
 .qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
 .qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
 .qa-review h2{margin:0 0 6px;font-size:18px}
@@ -128,214 +133,28 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="index.html" class="on">Architecture conversation</a><a href="../library/index.html">Library</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span>Architecture conversation</p><p class="eyebrow">Architecture conversation</p><h1>Ten points for a Data Vault architecture conversation</h1><p>The agenda for a conversation with your architecture team, and the objection most likely to come up.</p></div></header>
-<main><article class="doc"><h1>Appendix 1: Questions for a Data Vault architecture conversation</h1>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Course</strong></td>
-<td>DIGEST Data Vault Course, appendix 1</td>
-</tr>
-</tbody>
-</table></div>
-<p>The course&rsquo;s conclusions, gathered in one place: how to frame the course&rsquo;s argument, the questions it leads to, the terms they use, and how far the course&rsquo;s own vault has been built.</p>
-<h2>The framing, in two sentences</h2>
-<p>Data Vault keeps every source&rsquo;s history faithfully, with full lineage; on its own it does not decide what a client, a policy or a status <em>is</em> across sources. This course finishes an approach John Giles began, the Universal Data Vault: hubs built from universal data model patterns (appendix 2), completed with the patterns Giles set aside (party, party role, party relationship and role within a transaction), as Silverston&rsquo;s universal data model patterns define them. It is the Canonical Data Model applied inside the vault: one common model for what things are, which every source is translated into once.</p>
-<p><strong>Why &ldquo;canonical&rdquo; matters:</strong> the Canonical Data Model is Hohpe and Woolf&rsquo;s pattern from <em>Enterprise Integration Patterns</em>. With a common model, adding a participant needs only one new translation; by their count, six applications need 30 translations without one and 12 with it.</p>
-<h2>The ten questions</h2>
-<p>Ask them as an architect learning how a team handles each case, not as objections.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>#</th>
-<th>Ask</th>
-<th>What it rests on</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>When a source sends sales with an ISBN, where does your team decide that a book is a concept the business tracks, and who owns that decision?</td>
-<td>The raw vault creates hubs for concepts no source sent; that is a business decision</td>
-</tr>
-<tr>
-<td>2</td>
-<td>When two sources identify the same thing with different keys, where in your architecture are they made one?</td>
-<td>A hub only matches identical key strings; it reuses sameness an issuer already created</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Where does your team&rsquo;s integrated view of a client live, and how many places define &ldquo;client&rdquo;?</td>
-<td>Integration deferred past the vault is not removed; done per mart it multiplies</td>
-</tr>
-<tr>
-<td>4</td>
-<td>How does your team integrate ten carriers&rsquo; policy statuses and product categories into one view?</td>
-<td>The business vault resolves identity at best; status and classification need typed rows</td>
-</tr>
-<tr>
-<td>5</td>
-<td>How does your team absorb a source whose entities change month to month, and how long does remapping take?</td>
-<td>The raw vault cannot load a table until its entities are decided</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Where is source history kept before the vault, and how are full-snapshot sources reduced to versions?</td>
-<td>Toolkits and practitioners (Datavault Builder, Roelant Vos) place a persistent staging area beside the vault</td>
-</tr>
-<tr>
-<td>7</td>
-<td>If an auditor asks for a source table exactly as it arrived on a given day, how is it produced?</td>
-<td>Once staging is cleared, the source&rsquo;s own table must be re-assembled from hubs, links and satellites</td>
-</tr>
-<tr>
-<td>8</td>
-<td>When a modeling decision in the raw vault turns out wrong, how is history repaired?</td>
-<td>Sources without change capture cannot be reloaded</td>
-</tr>
-<tr>
-<td>9</td>
-<td>How are hundreds of columns assigned to hubs, links and satellites, and what happens to a link when a source adds a code?</td>
-<td>A satellite has one parent; a new code means a new link</td>
-</tr>
-<tr>
-<td>10</td>
-<td>What part of your vault&rsquo;s build is automated, and what part is still decided by people?</td>
-<td>Generators write the objects after people make the decisions</td>
-</tr>
-<tr>
-<td>11</td>
-<td>How does your team key a source row that arrives without its business key, and where does that row&rsquo;s history live?</td>
-<td>A shared zero key collides in a satellite&rsquo;s key; keeping the row in persistent staging and raising a finding keeps it without a false entity</td>
-</tr>
-</tbody>
-</table></div>
-<h2>The likely objection: performance</h2>
-<p><strong>The answer:</strong> query speed is the marts&rsquo; job, in this design as in Data Vault. The data integration layer&rsquo;s cost is the build, and the expensive joins are built in stages as materialized steps, incremental with change data capture, run in parallel.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Point</th>
-<th>Support</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Consumers query marts, not the data integration layer</td>
-<td>Data Vault itself is described as a data integration layer, not a consumption layer; teams that query the vault directly find its joins unwieldy [1]</td>
-</tr>
-<tr>
-<td>Generalized, pattern-based structures can be built at enterprise scale</td>
-<td>Giles built them for 83 merged organizations and about 8,000 source tables (appendix 2); his articles give no timings</td>
-</tr>
-<tr>
-<td>Build cost is managed by staging</td>
-<td>A large join is materialized in parts (ten tables as two five-table steps, then combined), each build processes only changes, and independent steps run in parallel: practice from the author&rsquo;s own work on IMDb data, to be shown with timings as the course&rsquo;s builds use it</td>
-</tr>
-</tbody>
-</table></div>
-<h3>Notes</h3>
-<ol>
-<li>Navicat, Designing better databases with Data Vault 2.0: <a href="https://www.navicat.com/company/aboutus/blog/3970-designing-better-databases-with-data-vault-2-0-and-navicat-data-modeler-4" target="_blank" rel="noopener">https://www.navicat.com/company/aboutus/blog/3970-designing-better-databases-with-data-vault-2-0-and-navicat-data-modeler-4</a>, read 2026-10-23.</li>
-</ol>
-<h2>Areas for further study</h2>
-<p>Four directions this course is exploring, offered as open questions rather than settled positions.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>#</th>
-<th>Area</th>
-<th>The question</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><strong>Is any part of the vault raw?</strong></td>
-<td>A hub&rsquo;s structure is designed from the business view; only each row&rsquo;s provenance is raw or rule-derived. John Giles reaches the same observation in <em>The Elephant in the Fridge</em> and suggests dropping the labels &ldquo;raw&rdquo; and &ldquo;business&rdquo; Data Vault. What changes if a team stops calling any layer raw?</td>
-</tr>
-<tr>
-<td>2</td>
-<td><strong>Can the UDM integrate satellites?</strong></td>
-<td>Giles integrates satellites with a business-centric &ldquo;conformed&rdquo; satellite, still in columns. What if satellites took the UDM&rsquo;s typed, dated rows instead (person name, postal address, status), so every source meets once per type?</td>
-</tr>
-<tr>
-<td>3</td>
-<td><strong>Universal hubs in a Data Vault form</strong></td>
-<td>Universal hubs for the keys, UDM satellites and links on them, record source on every row. How much of a team&rsquo;s Data Vault practice carries over unchanged?</td>
-</tr>
-<tr>
-<td>4</td>
-<td><strong>History on demand</strong></td>
-<td>If storage keeps every version of every source row, the integrated model at any past moment can be rebuilt from storage, code and reference data in git. Does the data integration layer still need its own insert-only history?</td>
-</tr>
-</tbody>
-</table></div>
-<h2>Terms, checked against the method&rsquo;s sources</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Term</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Hub</td>
-<td>One row per business key, shared by every source that carries it</td>
-</tr>
-<tr>
-<td>Link</td>
-<td>A relationship or event between hubs</td>
-</tr>
-<tr>
-<td>Satellite</td>
-<td>One source&rsquo;s descriptive columns with their history, on one hub or link</td>
-</tr>
-<tr>
-<td>Raw vault</td>
-<td>Keeps what sources send; only hard rules applied</td>
-</tr>
-<tr>
-<td>Business vault</td>
-<td>Applies soft business rules on top of the raw vault; sparse, and never rewrites it</td>
-</tr>
-<tr>
-<td>Hard rules</td>
-<td>Technical changes such as type casting, formatting and null handling</td>
-</tr>
-<tr>
-<td>Soft rules</td>
-<td>Changes made for business requirements</td>
-</tr>
-<tr>
-<td>Same-as link</td>
-<td>A business vault link recording that two keys are one thing</td>
-</tr>
-<tr>
-<td>Ghost record</td>
-<td>A placeholder row that lets point-in-time joins stay equi-joins</td>
-</tr>
-</tbody>
-</table></div>
-<h2>How far the course&rsquo;s vault is built</h2>
-<ul>
-<li><strong>Built and verified:</strong> Sunbelt Senior&rsquo;s client file, staged, with a client hub of 34 keys, and every row carrying its load timestamp and record source.</li>
-<li><strong>Being designed now:</strong> Northfield Life&rsquo;s carrier file, client and insured role hubs, a policy hub keyed by the carrier&rsquo;s number, the client-policy link and one satellite per source.</li>
-<li><strong>Read so far:</strong> the course guide and lessons 1 and 2.</li>
-</ul>
-<h2>Prior art: the Universal Data Vault</h2>
-<p>John Giles published a way to combine Silverston&rsquo;s universal data model patterns with Data Vault and named it the Universal Data Vault [1]. It puts the patterns into the vault itself: generalized hubs such as Asset, Activity and Agreement hold every subtype, each subtype a row in a hand-made type table, with the type and the business code together making a key unique. He set party and party role aside as a possibly contentious topic, adding that the UDV structures could accommodate the alternative modeling choices [2].</p>
-<p>This course builds on that design rather than departing from it. Its hubs are universal too, and its contribution is the part Giles left aside: party, party role, party relationship and role within a transaction, taken from Silverston&rsquo;s universal data model patterns. Its first example is one hub for people, keyed by issuer and identifier, with a person-policy link that carries the role.</p>
-<h3>Notes</h3>
-<ol>
-<li>John Giles, Universal Data Vault, Part 1, TDAN: <a href="https://tdan.com/?p=19072" target="_blank" rel="noopener">https://tdan.com/?p=19072</a>, read 2026-10-24.</li>
-<li>John Giles, Universal Data Vault, Part 2, TDAN: <a href="https://tdan.com/?p=19245" target="_blank" rel="noopener">https://tdan.com/?p=19245</a>, read 2026-10-24.</li>
-</ol></article></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="index.html" class="on">Musings</a><a href="../library/index.html">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span>Musings</p><p class="eyebrow">Musings</p><h1>Musings</h1><p>Ideas from building DV Digest, offered to explore together.</p></div></header>
+<main><section class="split dark bleed"><div class="s-text"><p class="qa-changed" class="kicker">Where we started</p><h2 class="qa-changed">What the raw vault leaves open</h2>
+<p class="qa-changed">Data Vault's raw vault keeps every source's history faithfully, with its lineage. What it leaves open, on purpose, is deciding what a client, a policy or a status is when the sources disagree; in Data Vault that work belongs to the business vault. That's the part we kept turning over while building DV Digest.</p>
+<p class="qa-changed">One idea we keep returning to is Hohpe and Woolf's canonical model, which your own business already practices: a distributor connects each carrier and each agency once, to the middle, instead of every one to every other. The same could hold for data: translate each source once into one common model. Whether that model belongs inside the vault is a question we'd enjoy exploring with your team.</p></div>
+<div class="s-vis"><svg viewBox="0 0 680 334" width="100%" role="img" aria-label="Three carriers and three agencies connected every-to-every, nine connections, against each connected once to the distributor, six connections" style="font-family:Open Sans,Arial,sans-serif"><text x="145" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#123a55">Every carrier with every agency</text><text x="525" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#123a55">Each once, to the middle</text><line x1="75" y1="80" x2="215" y2="80" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="80" x2="215" y2="170" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="80" x2="215" y2="260" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="170" x2="215" y2="80" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="170" x2="215" y2="170" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="170" x2="215" y2="260" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="260" x2="215" y2="80" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="260" x2="215" y2="170" stroke="#7fb3c9" stroke-width="1.5"/><line x1="75" y1="260" x2="215" y2="260" stroke="#7fb3c9" stroke-width="1.5"/><rect x="5" y="64" width="70" height="32" rx="6" fill="#e6f4f8" stroke="#2b8fb3"/><text x="40" y="80" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#123a55">Carrier</text><rect x="5" y="154" width="70" height="32" rx="6" fill="#e6f4f8" stroke="#2b8fb3"/><text x="40" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#123a55">Carrier</text><rect x="5" y="244" width="70" height="32" rx="6" fill="#e6f4f8" stroke="#2b8fb3"/><text x="40" y="260" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#123a55">Carrier</text><rect x="215" y="64" width="70" height="32" rx="6" fill="#eef7ee" stroke="#3a9a5b"/><text x="250" y="80" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#14402a">Agency</text><rect x="215" y="154" width="70" height="32" rx="6" fill="#eef7ee" stroke="#3a9a5b"/><text x="250" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#14402a">Agency</text><rect x="215" y="244" width="70" height="32" rx="6" fill="#eef7ee" stroke="#3a9a5b"/><text x="250" y="260" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#14402a">Agency</text><line x1="455" y1="80" x2="470" y2="170" stroke="#7fb3c9" stroke-width="1.5"/><line x1="455" y1="170" x2="470" y2="170" stroke="#7fb3c9" stroke-width="1.5"/><line x1="455" y1="260" x2="470" y2="170" stroke="#7fb3c9" stroke-width="1.5"/><line x1="580" y1="170" x2="595" y2="80" stroke="#7fb3c9" stroke-width="1.5"/><line x1="580" y1="170" x2="595" y2="170" stroke="#7fb3c9" stroke-width="1.5"/><line x1="580" y1="170" x2="595" y2="260" stroke="#7fb3c9" stroke-width="1.5"/><rect x="385" y="64" width="70" height="32" rx="6" fill="#e6f4f8" stroke="#2b8fb3"/><text x="420" y="80" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#123a55">Carrier</text><rect x="385" y="154" width="70" height="32" rx="6" fill="#e6f4f8" stroke="#2b8fb3"/><text x="420" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#123a55">Carrier</text><rect x="385" y="244" width="70" height="32" rx="6" fill="#e6f4f8" stroke="#2b8fb3"/><text x="420" y="260" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#123a55">Carrier</text><rect x="595" y="64" width="70" height="32" rx="6" fill="#eef7ee" stroke="#3a9a5b"/><text x="630" y="80" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#14402a">Agency</text><rect x="595" y="154" width="70" height="32" rx="6" fill="#eef7ee" stroke="#3a9a5b"/><text x="630" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#14402a">Agency</text><rect x="595" y="244" width="70" height="32" rx="6" fill="#eef7ee" stroke="#3a9a5b"/><text x="630" y="260" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#14402a">Agency</text><rect x="470" y="146" width="110" height="48" rx="8" fill="#123a55"/><text x="525" y="164" text-anchor="middle" font-size="11" fill="#ffffff">The distributor</text><text x="525" y="180" text-anchor="middle" font-size="10" fill="#bfe3ef">one common model</text><text x="145" y="312" text-anchor="middle" font-size="22" font-weight="800" fill="#03a66a">9</text><text x="145" y="326" text-anchor="middle" font-size="10" fill="#4a6375">a new agency adds 3</text><text x="525" y="312" text-anchor="middle" font-size="22" font-weight="800" fill="#03a66a">6</text><text x="525" y="326" text-anchor="middle" font-size="10" fill="#4a6375">a new agency adds 1</text></svg></div></section>
+<section class="split grad bleed"><div class="s-text"><p class="qa-changed" class="kicker">The idea we keep coming back to</p><h2 class="qa-changed">Where the integrated view gets built</h2>
+<p class="qa-changed">A hub brings sources together where they share a business key: which is closer to mapping than to integration. Integration is the step after it. Ten sources' satellites around one client, each with its own name, address and status, become one view of that client.</p>
+<p class="qa-changed">That work has to happen somewhere. Done once, as the data loads, every report starts from the same answer. Done in the reporting layer, it's repeated in every report that needs it, and each may resolve it a little differently. We'd love to hear where your team builds that view, and what drew you there.</p>
+<p class="qa-changed">Data Vault already names a place for it: the business vault. That's our next step, so the integrated view is built once, inside the vault.</p></div>
+<div class="s-vis"><div class="stats"><div class="stat"><div class="n" style="color:#03a66a">Once</div><div class="l">as the data loads, one answer for every report</div></div><div class="stat"><div class="n">Each time</div><div class="l">in every report that needs it, resolved again</div></div></div></div></section>
+<section class="summary"><p class="qa-changed" class="kicker">Nine more</p><h2 class="qa-changed">Worth considering together</h2><p class="qa-changed">Places where building DV Digest suggested there may be a better way. Your team's experience will sharpen them, and may change some of our minds.</p><div class="grid"><div class="card"><h3 class="qa-changed">Deciding what the business tracks</h3><p class="qa-changed">When a source sends something new, an ISBN on a sale, say, where does your team decide it&#x27;s a concept worth tracking, and who owns that call?</p></div><div class="card"><h3 class="qa-changed">When two sources mean the same thing</h3><p class="qa-changed">When two sources identify the same client with different keys, where do they become one?</p></div><div class="card"><h3 class="qa-changed">Many carriers, one picture</h3><p class="qa-changed">How do ten carriers&#x27; policy statuses and product categories come together in one view?</p></div><div class="card"><h3 class="qa-changed">Sources that keep changing</h3><p class="qa-changed">How does your team absorb a source whose shape changes month to month?</p></div><div class="card"><h3 class="qa-changed">History before the vault</h3><p class="qa-changed">Where is a source&#x27;s history kept before the vault, and how do full snapshots become versions?</p></div><div class="card"><h3 class="qa-changed">The auditor&#x27;s question</h3><p class="qa-changed">If an auditor asks for a source table exactly as it arrived on a given day, how is it produced?</p></div><div class="card"><h3 class="qa-changed">When a decision turns out wrong</h3><p class="qa-changed">How is history repaired when a vault design decision proves wrong?</p></div><div class="card"><h3 class="qa-changed">Hundreds of columns</h3><p class="qa-changed">How are hundreds of columns assigned to hubs, links and satellites, and what happens when a source adds a code?</p></div><div class="card"><h3 class="qa-changed">People and generators</h3><p class="qa-changed">What part of your vault&#x27;s build is automated, and what is still decided by people?</p></div></div></section>
+
+<section class="split light bleed"><div class="s-text"><p class="qa-changed" class="kicker">Where speed and cost live</p><h2 class="qa-changed">Fast to query, affordable to build</h2>
+<p class="qa-changed">The usual doubt about generalized models is speed, and it's a fair one. In our design, as in Data Vault, query speed is the marts' job and the integration layer's cost is the build. We have implemented multi-billion-row data sets on generalized models that perform, and we'd like to explore whether the same holds here, at your scale.</p>
+<p class="qa-changed">Where we've seen generalized models slow down, the cause was the machinery around them rather than the model: keys drawn one at a time from database sequences, changes detected record by record, column by column, as each row loaded, and databases that stored data by row. Today keys are hashes, as in Data Vault; a storage layer keeps every version and detects change by comparing whole rows' hashes; and columnar warehouses such as Snowflake and Databricks favor tall, narrow tables like the generalized model's.</p></div>
+<div class="s-vis"><div class="path"><div class="step"><h3 class="qa-changed">In steps</h3><p class="qa-changed">Big joins built as materialized parts, then combined.</p></div><div class="step"><h3 class="qa-changed">Only changes</h3><p class="qa-changed">Each build processes what changed since the last.</p></div><div class="step"><h3 class="qa-changed">In parallel</h3><p class="qa-changed">Independent steps run at the same time.</p></div></div></div></section>
+
+<section class="split grad bleed"><div class="s-text"><p class="qa-changed" class="kicker">In short</p><h2 class="qa-changed">Three ideas</h2>
+<p class="qa-changed"><b>One common model.</b> Translate each source once into a common model, the way a distributor connects each carrier and each agency once, to the middle.</p>
+<p class="qa-changed"><b>Integrate once, in the business vault.</b> Build the integrated view once, as the data loads, inside the vault, rather than again in every report.</p>
+<p class="qa-changed"><b>Generalized models perform.</b> With hash keys, a storage layer and a columnar warehouse, they perform at multi-billion-row scale; we'd like to explore that here.</p></div>
+<div class="s-vis"><div class="stats"><div class="stat"><div class="n" style="color:#03a66a">3</div><div class="l">ideas, offered to explore with your team</div></div></div></div></section>
+<section class="cta bleed"><h2 class="qa-changed">Reading that shaped this</h2><p class="qa-changed">John Giles's <i>The Elephant in the Fridge</i>, which you recommended to us, and his Universal Data Vault, which we study in the <a href="../library/universal-data-vault.html">Library</a>; and Hohpe and Woolf's <i>Enterprise Integration Patterns</i>.</p><p class="qa-changed">All of this is offered for your team to weigh. The architecture is yours to set, and we'll implement and follow the standards you choose.</p><a class="btn" href="../library/universal-data-vault.html">Read the Universal Data Vault study</a></section>
+</main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

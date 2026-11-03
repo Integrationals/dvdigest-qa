@@ -1,6 +1,11 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Infrastructure | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.rel-record{max-width:900px;margin:0 auto}.rel-head{margin:8px 0 18px}.rel-record .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.rel-record .chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--teal);color:var(--teal-d)}.rel-record .chip.solid{background:var(--teal);color:#fff}
+.rel-record .clockcard{background:var(--soft);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:14px}
+.rel-record .prompts{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 16px}.rel-record .qa{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px}
+.rel-record h2 .sec{color:var(--teal-d);margin-right:4px}.rel-foot{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:22px}
 .qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
 .qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
 .qa-review h2{margin:0 0 6px;font-size:18px}
@@ -128,7 +133,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../agent/index.html">DV Agent</a><a href="../../model/index.html">Data model</a><a href="../../conversation/index.html">Architecture conversation</a><a href="../../library/index.html" class="on">Library</a></nav></div>
+<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../agent/index.html">DV Agent</a><a href="../../model/index.html">Data model</a><a href="../../conversation/index.html">Musings</a><a href="../../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>Infrastructure</h1><p>Every database, role, grant and protection rule as a committed script, the connector&#x27;s code, and the runbooks for QA and production. 50 files.</p></div></header>
 <main><details class="file"><summary>infra/__init__.py</summary><pre><code>&quot;&quot;&quot;Infrastructure packages for DIGEST Data Vault.&quot;&quot;&quot;
 </code></pre></details><details class="file"><summary>infra/aws/__init__.py</summary><pre><code>&quot;&quot;&quot;AWS connector and website functions for DIG-590.&quot;&quot;&quot;
@@ -315,6 +320,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from types import SimpleNamespace
 import logging
 import os
 import re
@@ -333,19 +339,16 @@ from infra.aws.web_functions import (
     valid_access_code,
 )
 
-SYSTEM_PROMPT = &quot;&quot;&quot;You are DV Digest&#x27;s assistant on a demonstration site prepared by Ray Serrano for AmeriLife&#x27;s data architecture team. All data is invented for the DIGEST Data Vault course: an acquired agency, Sunbelt Senior, and a carrier, Northfield Life, with two deliveries on 2026-10-01 and 2026-10-02.
+SYSTEM_PROMPT = &quot;&quot;&quot;You are DV Digest&#x27;s data agent, on a demonstration site prepared by Ray Serrano for AmeriLife&#x27;s data architecture team. All data is invented for the DIGEST Data Vault course: an acquired agency, Sunbelt Senior, and its carriers, with two deliveries on 2026-10-01 and 2026-10-02.
 
-Answer only from DV Digest&#x27;s tools. The current semantic-layer catalogue below provides every metric and its valid group_by dimensions, so no metadata discovery calls are needed. For each new user question, including a repeated question, request every query-metrics call you need together in your first response to that question; after those results arrive, answer that question directly without requesting more tools. Never state a number you did not get from a query in this conversation, and say which metric and grouping each number came from.
+You reach the data only through DV Digest&#x27;s semantic layer, with three tools: list-metrics, get-dimensions and query-metrics. The catalogue below lists every metric with its label, what it means and the dimensions it can be grouped by; call the tools whenever you need more. Explore freely with the user: combine any metric with any dimension the layer allows, compare and break down, and suggest analyses the user may not have thought of. When asked what is available, list the metrics and dimensions by label, with their names when useful, and say what each means. To list what is available, use the catalogue; query only to answer with numbers. If a tool refuses a call, read why, correct the call, and continue.
 
-Speak only the user&#x27;s business language. Never write a metric, dimension, table or column name, such as policies_held or carrier__carrier_name, in a reply: the catalogue&#x27;s names are for your tool calls only. Name a measure by its label, such as Policies held or Coverage, current, and say what it means in plain words.
+Every number you give must come from a query you ran in this conversation; say which metric and grouping it came from. You never see the database&#x27;s tables or columns, so never name or invent one. If the semantic layer cannot answer something, say so plainly and say what it can answer instead.
 
-This release answers six questions: which policies each client is on, with which carrier and in what role; how much coverage each carrier provides through us; on how many policies the sources agree about the agent who sold it, and on how many they disagree; where each client&#x27;s record came from and when it was first known; what was known about a policy on a date and what changed since; and how many records arrived in a form we don&#x27;t accept, from which source, beside the rows that arrived without a business key.
+Explain in the user&#x27;s business terms: a metric&#x27;s label first, its name second when it helps. Give the detail the user asks for, grouped totals or individual rows.
 
 What to know: Sunbelt Senior is the acquired agency and Northfield Life the carrier; Pinecrest Mutual is a second carrier that has sent only its own name so far. Face amounts appear only where a carrier sends them, and only Northfield Life does. One sale sent policy NF-100005 without its carrier, so the vault keeps that policy twice, once with Northfield Life and once with an unknown carrier, until a later release joins the two; counted by policy number it counts once, so the sources agree on 14 policies and disagree on 1. One sale arrived without a policy number and is shown as (unknown). When asked where the sources disagree about an agent, give both counts: where they agree and where they disagree.
-
-If a question needs something this release does not answer, say so plainly and that it is planned for a later release; for example, the same person across client numbers and agencies.
-
-For grouped questions, report only the requested grouped totals, not individual clients or policies. Offer the detailed listing rather than producing it unless the user explicitly asks for the individual details.&quot;&quot;&quot;
+&quot;&quot;&quot;
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -440,6 +443,7 @@ async def semantic_catalogue(digest) -&gt; list[dict]:
         ))
     return [{
         &quot;name&quot;: metric[&quot;name&quot;],
+        &quot;label&quot;: metric.get(&quot;label&quot;, &quot;&quot;),
         &quot;description&quot;: metric.get(&quot;description&quot;, &quot;&quot;),
         &quot;group_by&quot;: result_payload(dimensions),
     } for metric, dimensions in zip(listed, dimension_results)]
@@ -569,7 +573,7 @@ async def answer(messages: list[dict], on_text=None) -&gt; tuple[str, list[dict]
                 model_call += 1
                 request_payload = {
                     &quot;model&quot;: model,
-                    &quot;max_tokens&quot;: 1024,
+                    &quot;max_tokens&quot;: 4096,  # room to list and explore (design D-70)
                     &quot;thinking&quot;: {&quot;type&quot;: &quot;between_tools&quot;},
                     &quot;output_config&quot;: {&quot;effort&quot;: &quot;low&quot;},
                     &quot;system&quot;: [{
@@ -650,13 +654,13 @@ async def answer(messages: list[dict], on_text=None) -&gt; tuple[str, list[dict]
                     name = use.get(&quot;name&quot;)
                     if name not in {&quot;list-metrics&quot;, &quot;get-dimensions&quot;, &quot;query-metrics&quot;}:
                         raise UpstreamError(&quot;Claude requested an unknown tool&quot;)
-                    if tool_calls &gt;= 6:
+                    if tool_calls &gt;= 12:  # room to discover and then query (design D-70)
                         tools_enabled = False
                         tool_results.append({
                             &quot;type&quot;: &quot;tool_result&quot;,
                             &quot;tool_use_id&quot;: use[&quot;id&quot;],
                             &quot;content&quot;: (
-                                &quot;Six-tool-call limit reached. Answer from the evidence already &quot;
+                                &quot;Twelve-tool-call limit reached. Answer from the evidence already &quot;
                                 &quot;gathered, or state what is unavailable; do not request more tools.&quot;
                             ),
                             &quot;is_error&quot;: True,
@@ -676,7 +680,13 @@ async def answer(messages: list[dict], on_text=None) -&gt; tuple[str, list[dict]
                             digest, use[&quot;name&quot;], use.get(&quot;input&quot;) or {}
                         )
                     except Exception as error:
-                        raise UpstreamError(&quot;DV Digest request failed&quot;) from error
+                        # A refused call goes back to the agent as a flagged result, so it can correct itself
+                        # and keep exploring; one bad call no longer ends the conversation (design D-70).
+                        message = getattr(error, &quot;message&quot;, None) or str(error) or type(error).__name__
+                        print(json.dumps({&quot;event&quot;: &quot;tool_refused&quot;, &quot;environment&quot;: environment(), &quot;name&quot;: use[&quot;name&quot;],
+                                          &quot;error&quot;: message[:500]}), flush=True)
+                        return SimpleNamespace(is_error=True, structured_content=None,
+                                               content=[SimpleNamespace(type=&quot;text&quot;, text=f&quot;The semantic layer refused this call: {message[:500]}&quot;)])
 
                 called_results = await asyncio.gather(
                     *(execute(use) for _, use in execution)
@@ -1964,7 +1974,7 @@ class MetricFlowBackend:
     def list_metrics(self) -&gt; list[dict]:
         with self._lock:
             return [
-                {&quot;name&quot;: metric.name, &quot;description&quot;: metric.description or &quot;&quot;}
+                {&quot;name&quot;: metric.name, &quot;label&quot;: getattr(metric, &quot;label&quot;, None) or &quot;&quot;, &quot;description&quot;: metric.description or &quot;&quot;}  # labels for the agent (design D-70)
                 for metric in self.manifest.metrics
             ]
 
@@ -3078,7 +3088,7 @@ class WebFunctionTests(unittest.TestCase):
         uses = [{
             &quot;type&quot;: &quot;tool_use&quot;, &quot;id&quot;: f&quot;call-{index}&quot;, &quot;name&quot;: &quot;query-metrics&quot;,
             &quot;input&quot;: {&quot;metric_name&quot;: &quot;policies&quot;, &quot;group_by&quot;: []},
-        } for index in range(7)]
+        } for index in range(13)]  # one past the ceiling of twelve (design D-70)
         completions = [
             FakeHttpResponse(payload={&quot;content&quot;: uses, &quot;usage&quot;: {}}),
             FakeHttpResponse(payload={
@@ -3111,8 +3121,8 @@ class WebFunctionTests(unittest.TestCase):
                 {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Which carrier?&quot;}
             ]))
         self.assertEqual(reply, &quot;Answer from gathered evidence.&quot;)
-        self.assertEqual(digest.call_tool.await_count, 7)
-        self.assertEqual(len(queries), 6)
+        self.assertEqual(digest.call_tool.await_count, 13)
+        self.assertEqual(len(queries), 12)
         self.assertNotIn(&quot;tools&quot;, request_payloads[1])
         self.assertTrue(request_payloads[1][&quot;messages&quot;][-2][&quot;content&quot;][-1][&quot;is_error&quot;])
         self.assertEqual(request_payloads[0][&quot;thinking&quot;], {&quot;type&quot;: &quot;between_tools&quot;})
@@ -19407,7 +19417,7 @@ Every act below runs in dev and in QA before it runs in production (Promotion st
    read-only grant).
 5. The structure check: `python3 infra/scripts/vault_ddl.py --check --database DV --landing LANDING -- &lt;snow options&gt;` compares production&#x27;s deployed structure with the committed `infra/snowflake/ddl/vault.sql` and `mart.sql`; a difference fails the promotion (Ray, 2026-10-28, answer 3y).
 5b. Production&#x27;s connector and Ask function, after the data (Promotion standard, section 13.6):
-   `python infra/aws/deploy_lambda.py --stage prod`, then `python infra/aws/deploy_functions.py --stage prod`, from
+   `python infra/aws/deploy_lambda.py --stage prod`, then `python infra/aws/deploy_functions.py --stage prod` with `OP_ACCESS_CODE_REFERENCE` set to the vault item &quot;Mary&#x27;s Password&quot;, the code Mary uses (Ray, 2026-11-03), from
    main. Until the repository&#x27;s GitHub Actions deploy each environment&#x27;s stack (section 13.3 and 13.4), these run from
    the workstation, an exception Ray granted on 2026-11-01 (answer 2a).
 6. A GitHub release tagged vYYYY.M.R on the commit production built, its name leading the description, with that commit&#x27;s `vault.sql` and `mart.sql` attached as the release&#x27;s structure.
