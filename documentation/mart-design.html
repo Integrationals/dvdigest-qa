@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mart design | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
+.qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
+.qa-review h2{margin:0 0 6px;font-size:18px}
 :root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
 --line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
 --purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
@@ -125,8 +128,8 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Mart design</p><p class="eyebrow">Documentation · next release, in QA</p><h1>Mart design</h1><p>Mary&#x27;s questions served from the conformed mart: its grains, its keys, and the meaning each measure carries.</p></div></header>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Architecture conversation</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Mart design</p><p class="eyebrow">Documentation · next release, in QA</p><h1>Mart design</h1><p>Mary&#x27;s questions served from the conformed mart: its grains, its keys, and the meaning each measure carries.</p></div></header>
 <main><article class="doc"><h1>DIG-574 Mart Design: Mary&rsquo;s questions in CONFORMED_DM</h1>
 <h3>Mart Design Document</h3>
 <p>Template version: 2 | Updated: 2026-10-11 UTC</p>
@@ -598,9 +601,9 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>DATA_FINDING</td>
 <td>2.2 row 4</td>
 </tr>
-<tr>
+<tr class="qa-changed">
 <td>D-6</td>
-<td>All objects in CONFORMED_DM (models/marts/conformed_dm): the four facts and the five base dimensions as tables, each with its primary and foreign keys declared after every build, and the four role views as views over their base dimensions (Ray, 2026-11-01, answer 1y, correcting the earlier all-views placement, which left the mart with no keys for the data model); one exception, the finding fact, stays a view: it reads the findings the inspectors write during the build, and as a table it was built before them on fresh data; its foreign keys to sources and days are therefore not declared, while their tests stay (Ray, 2026-11-02, answer 1y); the five MART views retired in the same pull request; DV Digest is their only reader and reloads from the QA build</td>
+<td>All objects in CONFORMED_DM (models/marts/conformed_dm): the four facts and the five base dimensions as tables, each with its primary and foreign keys declared after every build, and the four role views as views over their base dimensions (Ray, 2026-11-01, answer 1y, correcting the earlier all-views placement, which left the mart with no keys for the data model); one exception, the finding fact, stays a view: it reads the findings the inspectors write during the build, and as a table it was built before them on fresh data; its foreign keys to sources and days are therefore not declared, while their tests stay (Ray, 2026-11-02, answer 1y); the view reads each finding&rsquo;s source and date through source_dim and day_dim, though the data model&rsquo;s import does not draw those joins, so the view stands apart in the model and is left out of its diagram (Ray, 2026-11-03, answers 1a and 1y); a known exception until v2026.11.2: a mart reads the integrated layer, never landing, and v2026.11.2 brings the findings into the vault, for the governance mart (Ray, 2026-11-03, answer 1a); the five MART views retired in the same pull request; DV Digest is their only reader and reloads from the QA build</td>
 <td>: MART empties by pull; no duplicate copy</td>
 <td>MART objects of 2026-10-26 and 27</td>
 <td>4.4</td>
@@ -673,6 +676,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>A fact&rsquo;s keys to clients, insureds, agents and carriers are declared as foreign keys to the base dimensions, person_dim and organization_dim, whose keys they hold; the role views stay views beside the base dimensions, joined to them by their views&rsquo; definitions</td>
 <td>A foreign key can point only to a table, and the party model keeps one copy of each person and organization (D-10, D-11) (Ray, 2026-11-01, answer 1a, DIG-604)</td>
 <td>Snowflake declares constraints on tables only (its constraints overview, read 2026-11-01)</td>
+<td>3.2, 3.3, 4.4</td>
+</tr>
+<tr class="qa-changed">
+<td>D-17</td>
+<td>Dimensions meet only through the facts that record them together: policy_dim drops its carrier key and keeps the carrier&rsquo;s name as an attribute, flattened at build; policy_terms_fact and client_policy_role_fact each carry the carrier key, a foreign key to organization_dim, and the semantic layer&rsquo;s carrier entity moves to those two facts. Supersedes D-16&rsquo;s third foreign key</td>
+<td>A dimension never joins another dimension (the conformed-layer standard&rsquo;s datamart form, Ray, 2026-11-03; review finding CR-18)</td>
+<td>policy_dim.carrier_key and its test FK10, 2026-11-03; Q-9 and Q-10 group by the carrier&rsquo;s name</td>
 <td>3.2, 3.3, 4.4</td>
 </tr>
 </tbody>

@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>v2026.10.1 The Agency&#x27;s Business | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
+.qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
+.qa-review h2{margin:0 0 6px;font-size:18px}
 :root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
 --line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
 --purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
@@ -125,6 +128,111 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="index.html" class="on">Releases</a><a href="../documentation/index.html">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Releases</a><span>›</span>v2026.10.1</p><p class="eyebrow">Release answers · v2026.10.1</p><h1><span class="relnum">v2026.10.1</span> The Agency's Business</h1><p>What the distributor bought with Sunbelt Senior: the policies its clients are on, with which carriers and in which roles; how much coverage each carrier provides; which agent sold each policy, and where the sources disagree; and how much of what arrived could not be accepted.</p><div class="chips"><span class="chip solid">In production</span><span class="chip">Certified</span><span class="chip">4 questions answered</span></div></div></header>
-<main><p class="kicker">Release 1 · four questions</p><h2>What you can ask</h2><p class="lede">Every number was asked through DV Digest and checked against a direct query on production.</p><div class="qa"><div><p class="q"><span class="qid">Q-9</span>For each client, which policies are they on, with which carrier, and in what role?</p><p class="a">Sunbelt Senior&#x27;s clients are the owner on 9 policies, the insured on 3 and the payor on 1. A client can hold more than one role on one policy.</p></div><div class="answer"><div class="big">9 · 3 · 1</div><div class="small">owner · insured · payor</div></div></div><div class="qa"><div><p class="q"><span class="qid">Q-10</span>How much coverage does each carrier provide through us?</p><p class="a">Northfield Life: 125,000.00 dollars in face amount.</p></div><div class="answer"><div class="big">$125,000</div><div class="small">Northfield Life, face amount</div></div></div><div class="qa"><div><p class="q"><span class="qid">Q-11</span>Which agent sold each policy, and where do our sources disagree about it?</p><p class="a">Sunbelt Senior&#x27;s sales data and Northfield Life&#x27;s policy data agree about the agent who sold it on 14 policies and disagree on 1. One sale sent policy NF-100005 without its carrier, so the vault keeps that policy as two records until release 2 joins them; counted by policy number, as here, it counts once.</p></div><div class="answer"><div class="big">14 · 1</div><div class="small">agree · disagree</div></div></div><div class="qa"><div><p class="q"><span class="qid">Q-15</span>How many records arrive in a form we don&#x27;t accept, from which source?</p><p class="a">3, all from Sunbelt Senior.</p></div><div class="answer"><div class="big">3</div><div class="small">all from Sunbelt Senior</div></div></div><p class="kicker">Ask it yourself</p><h2>Try these</h2><p class="lede">On the Ask page, with the access code Ray sends you. Expected results are as of the production build of 2026-10-27, 18:46 UTC.</p><div class="prompt"><code>On how many policies is a client the owner, the insured or the payor?</code><p class="exp"><b>Expected:</b> Owner on 9 policies, insured on 3, payor on 1.</p></div><div class="prompt"><code>How much coverage does each carrier provide through us?</code><p class="exp"><b>Expected:</b> Northfield Life: 125,000.00 dollars.</p></div><div class="prompt"><code>On which policies do our sources disagree about the agent who sold it?</code><p class="exp"><b>Expected:</b> One policy; on the other 14 they agree.</p></div><div class="prompt"><code>How many records arrived in a form we don&#x27;t accept, and from which source?</code><p class="exp"><b>Expected:</b> 3, all from Sunbelt Senior&#x27;s client file.</p></div><div class="prompt"><code>What can I ask about?</code><p class="exp"><b>Expected:</b> Nine measures, each with what it means and how it can be grouped.</p></div><p class="kicker">Plain words</p><h2>Terms</h2><div class="terms"><div class="term"><b>Client</b>a client number Sunbelt Senior, the agency the distributor acquired, sends for a person it serves.</div><div class="term"><b>Policy</b>an insurance contract issued by a carrier, identified by the carrier and its policy number together.</div><div class="term"><b>Carrier</b>the insurance company that issues a policy. In this release, Northfield Life.</div><div class="term"><b>Role</b>what a client is on a policy: owner, insured or payor.</div><div class="term"><b>Agent</b>a licensed producer, identified by a national producer number.</div><div class="term"><b>Face amount</b>the death benefit a carrier states for a policy, in dollars.</div><div class="term"><b>Rejected record</b>a record that arrived in a form the vault does not accept, such as a client number written another way.</div></div><p class="kicker">Before you read the numbers</p><h2>What to know</h2><div class="note">v2026.11.1 corrected coverage to count in-force policies only: a lapsed policy provides no coverage, so Northfield Life&#x27;s coverage became 110,000 dollars, NF-100003 having lapsed on 2026-10-02. The figure below is as this release was answered.</div><div class="note">Face amounts appear only where a carrier sends them. In this release only Northfield Life does.</div><div class="note">One sale arrived without a carrier code (policy NF-100005). It counts as a policy, with no carrier and no amount.</div><div class="note">One sale arrived without a policy number. Its client&#x27;s role counts against an unknown policy, shown as “(unknown)”.</div><div class="note">“Sources disagree” means the agency&#x27;s sales data and the carrier&#x27;s policy data name different agents as the one who sold the same policy.</div><div class="note">The data is invented for the DIGEST Data Vault course: two deliveries from Sunbelt Senior and Northfield Life, on 2026-10-01 and 2026-10-02.</div><p class="kicker">Behind these answers</p><h2>The documents of this release</h2><p class="lede">How each answer was decided, built and proved, kept as they were worked.</p><div class="grid"><div class="card"><h3>Design</h3><p>Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-69.</p><a class="btn" href="../documentation/design.html">Read</a></div><div class="card"><h3>Product definition</h3><p>Mary's questions, the metrics they need, the open points settled, and the named releases.</p><a class="btn" href="../documentation/definition.html">Read</a></div><div class="card"><h3>Profile</h3><p>What the source data actually holds, measured before anything was designed.</p><a class="btn" href="../documentation/profile.html">Read</a></div><div class="card"><h3>Test plan</h3><p>Every test, by layer, and the requirement each one proves.</p><a class="btn" href="../documentation/test-plan.html">Read</a></div><div class="card"><h3>Implementation guide</h3><p>The build, step by step, with its code and its exemplars.</p><a class="btn" href="../documentation/implementation-guide.html">Read</a></div><div class="card"><h3>Post-implementation guide</h3><p>What shipped, the evidence, and every difference from the plan, with why.</p><a class="btn" href="../documentation/post-implementation.html">Read</a></div><div class="card"><h3>QA certification</h3><p>The QA cycle: preparation, the build, the tests, the comparisons, and the verdict on six gates.</p><a class="btn" href="../documentation/qa-certification.html">Read</a></div></div><section class="split dark bleed"><div class="s-text"><p class="kicker">Verified</p><h2>How these answers were checked</h2><p>Each answer equals an independent direct query on production, row for row. Production was built from the certified release and is identical to the certified QA build: every table, and every row of history.</p><a class="btn light" href="../documentation/qa-certification.html">Read the QA certification</a></div><div class="s-vis"><div class="stats"><div class="stat"><div class="n">4 of 4</div><div class="l">answers reconciled on production</div></div><div class="stat"><div class="n">25</div><div class="l">objects identical to QA</div></div><div class="stat"><div class="n">77</div><div class="l">rows of history identical to QA</div></div><div class="stat"><div class="n">6 of 6</div><div class="l">QA gates certified</div></div></div></div></section><section class="cta bleed"><h2>Why the vault is built this way</h2><p>The design argues every choice behind these answers, from business keys to the case of a letter.</p><a class="btn" href="../documentation/design.html">Read the design</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html" class="on">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Architecture conversation</a><a href="../library/index.html">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../agent/index.html">DV Agent</a><span>›</span><a href="index.html">Releases</a><span>›</span>v2026.10.1 The Agency&#x27;s Business</p><p class="eyebrow">Release answers</p><h1>v2026.10.1 The Agency's Business</h1></div></header>
+<main><style>.rel-record{
+  --sambucus:#131628; --panel:#1b1f36; --panel2:#232842;
+  --indigo:#6f00ff; --lavender:#a08bec;
+  --white:#ffffff; --silver:#d1d1d1; --ink:#e9e9f2; --muted:#a7aabf;
+  --hair:#2e3352; --wash:#1b1f36;
+}
+.rel-record{box-sizing:border-box;margin:0;padding:0}
+.rel-record{-webkit-text-size-adjust:100%}
+.rel-record{font-family:"Poppins",Arial,sans-serif;font-weight:300;color:var(--ink);background:var(--sambucus);line-height:1.75;font-size:15px}
+.rel-record .masthead{background:linear-gradient(180deg,#0e1120 0%, var(--sambucus) 100%);color:var(--white);padding:44px 22px 34px;border-bottom:1px solid var(--hair)}
+.rel-record .mast-inner{max-width:860px;margin:0 auto}
+.rel-record .eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--lavender);margin-bottom:14px}
+.rel-record h1{font-weight:800;text-transform:uppercase;font-size:clamp(24px,5.6vw,38px);line-height:1.08;letter-spacing:.01em;color:var(--white)}
+.rel-record h1 .relnum{color:var(--white);background:var(--indigo);padding:0 12px;border-radius:6px;display:inline-block;line-height:1.35}
+.rel-record .chiprow{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.rel-record .chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--lavender);color:var(--lavender)}
+.rel-record .chip.solid{background:var(--white);color:var(--sambucus);border-color:var(--white)}
+.rel-record .chip.draft{background:var(--indigo);color:var(--white);border-color:var(--indigo)}
+.rel-record .clockcard{margin-top:22px;border:1px solid var(--hair);background:rgba(160,139,236,.06);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.7;color:var(--muted)}
+.rel-record .clockcard b{color:var(--white);font-weight:600}
+.rel-record main{max-width:860px;margin:0 auto;padding:10px 22px 70px}
+.rel-record h2{font-weight:800;text-transform:uppercase;font-size:19px;line-height:1.2;margin:52px 0 6px;padding-top:26px;border-top:1px solid var(--hair);color:var(--white)}
+.rel-record h2:first-of-type{border-top:none;padding-top:0}
+.rel-record h2 .sec{color:var(--lavender)}
+.rel-record h3{font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:13px;margin:30px 0 10px;color:var(--lavender)}
+.rel-record p{margin:12px 0;max-width:72ch}
+.rel-record p b,.rel-record li b{color:var(--white);font-weight:600}
+.rel-record ol,.rel-record ul{margin:12px 0 12px 22px}
+.rel-record li{margin:9px 0;max-width:70ch}
+.rel-record i{color:var(--muted)}
+.rel-record .tablewrap{overflow-x:auto;margin:16px 0;border:1px solid var(--hair);border-radius:10px;background:var(--panel)}
+.rel-record table{border-collapse:collapse;width:100%;min-width:480px;font-size:13.5px}
+.rel-record th{font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:11px;text-align:left;padding:11px 12px;background:var(--panel2);border-bottom:1px solid var(--hair);color:var(--lavender)}
+.rel-record td{padding:11px 12px;border-bottom:1px solid var(--hair);vertical-align:top;line-height:1.6;color:var(--ink)}
+.rel-record tr:last-child td{border-bottom:none}
+.rel-record .state{font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.rel-record .state.ans{background:var(--indigo);color:var(--white)}
+.rel-record .state.part{background:transparent;color:var(--lavender);border:1px solid var(--lavender)}
+.rel-record .state.later{background:var(--panel2);color:var(--silver);border:1px solid var(--hair)}
+.rel-record .state.defect{background:transparent;border:1px solid var(--lavender);color:var(--lavender)}
+.rel-record .note{background:var(--panel);border-left:3px solid var(--lavender);border-radius:0 8px 8px 0;padding:14px 16px;margin:18px 0;font-size:14px}
+.rel-record .prompt{font-weight:400;background:var(--panel);border:1px solid var(--hair);color:var(--ink);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13.5px;line-height:1.65}
+.rel-record .prompt b{color:var(--white);font-weight:600}
+.rel-record .prompt .arrow{color:var(--lavender)}
+.rel-record a{color:var(--lavender);text-decoration:none;font-weight:400}
+.rel-record footer{border-top:1px solid var(--hair);padding:26px 22px 50px;max-width:860px;margin:0 auto;font-size:12.5px;color:var(--muted)}
+.rel-record .qa{border:1px solid var(--hair);background:var(--panel);border-radius:10px;padding:16px 18px;margin:16px 0}
+.rel-record .qa .verdict{font-weight:600;text-transform:uppercase;letter-spacing:.07em;font-size:11px;color:var(--lavender)}
+.rel-record{font-size:14.5px}
+.rel-record{
+  --sambucus:#f7f8f9; --panel:#ffffff; --panel2:#efefef;
+  --indigo:#3fa590; --lavender:#3fa590;
+  --white:#ffffff; --silver:#d9dee5; --ink:#091229; --muted:#4b5a6e;
+  --hair:#e3e7ec; --wash:#ffffff;
+}
+.rel-record{font-family:"Open Sans",Arial,sans-serif;font-weight:400;color:var(--ink);background:var(--sambucus)}
+.rel-record h1,.rel-record h2,.rel-record h3,.rel-record .eyebrow,.rel-record .chip{font-family:"Poppins",Arial,sans-serif}
+.rel-record .masthead{background:linear-gradient(180deg,#091229 0%,#244260 100%);border-bottom:4px solid #3fa590}
+.rel-record .masthead .eyebrow{color:#03f080}
+.rel-record h1 .relnum{background:#3fa590;color:#ffffff}
+.rel-record .chip{border-color:#3fa590;color:#bfeee2}
+.rel-record .chip.solid{background:#ffffff;color:#091229;border-color:#ffffff}
+.rel-record .clockcard{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);color:#d9dee5}
+.rel-record .clockcard b{color:#ffffff}
+.rel-record h2{color:#091229}
+.rel-record main a{color:#008066}
+.rel-record main b{color:#091229}
+.rel-record .disclaimer{max-width:860px;margin:0 auto;padding:0 22px 40px;color:#4b5a6e;font-size:12.5px}</style><div class="rel-record"><main>
+<p class="qa-changed" style="margin-top:22px">What the distributor bought with Sunbelt Senior: the policies its clients are on, with which carriers and in which roles; how much coverage each carrier provides; which agent sold each policy, and where the sources disagree; and how much of what arrived could not be accepted.</p>
+<h2 class="qa-changed">1. What you can ask</h2>
+<p class="qa-changed"><b>Q-9. For each client, which policies are they on, with which carrier, and in what role?</b> Sunbelt Senior's clients are the owner on 9 policies, the insured on 3 and the payor on 1. A client can hold more than one role on one policy.</p>
+<p class="qa-changed"><b>Q-10. How much coverage does each carrier provide through us?</b> Northfield Life: 125,000.00 dollars in face amount.</p>
+<p class="qa-changed"><b>Q-11. Which agent sold each policy, and where do our sources disagree about it?</b> Sunbelt Senior's sales data and Northfield Life's policy data agree about the agent who sold it on 15 policies and disagree on 1.</p>
+<p class="qa-changed"><b>Q-15. How many records arrive in a form we don't accept, from which source?</b> 3, all from Sunbelt Senior.</p>
+<h2 class="qa-changed">2. Try these</h2>
+<p class="qa-changed">Ask your Claude with the DV Digest connector. Expected results are as of the date above.</p>
+<ol>
+<li class="qa-changed">&ldquo;With DV Digest, show policies_held by client_policy__role.&rdquo; Expected: owner 9, insured 3, payor 1.</li>
+<li class="qa-changed">&ldquo;With DV Digest, show face_amount_total by policy__carrier_code.&rdquo; Expected: NFL 125000.00, and one row with no carrier and no amount.</li>
+<li class="qa-changed">&ldquo;With DV Digest, show policies_written by agent_policy__sources_disagree.&rdquo; Expected: false 15, true 1.</li>
+<li class="qa-changed">&ldquo;With DV Digest, show findings by finding__source_system.&rdquo; Expected: SUNBELT 3.</li>
+<li class="qa-changed">&ldquo;With DV Digest, list the metrics and their dimensions.&rdquo; Expected: seven metrics.</li>
+</ol>
+<h2 class="qa-changed">3. Terms</h2>
+<ul>
+<li class="qa-changed"><b>Client:</b> a client number Sunbelt Senior, the agency the distributor acquired, sends for a person it serves.</li>
+<li class="qa-changed"><b>Policy:</b> an insurance contract issued by a carrier, identified by the carrier and its policy number together.</li>
+<li class="qa-changed"><b>Carrier:</b> the insurance company that issues a policy. In this release, Northfield Life.</li>
+<li class="qa-changed"><b>Role:</b> what a client is on a policy: owner, insured or payor.</li>
+<li class="qa-changed"><b>Agent:</b> a licensed producer, identified by a national producer number.</li>
+<li class="qa-changed"><b>Face amount:</b> the death benefit a carrier states for a policy, in dollars.</li>
+<li class="qa-changed"><b>Rejected record:</b> a record that arrived in a form the vault does not accept, such as a client number written another way.</li>
+</ul>
+<h2 class="qa-changed">4. What to know</h2>
+<ul><li class="qa-changed">v2026.11.1 corrected coverage to count in-force policies only: a lapsed policy provides no coverage, so Northfield Life's coverage became 110,000 dollars, NF-100003 having lapsed on 2026-10-02. The figures on this page are as this release was answered.</li>
+<li class="qa-changed">Face amounts appear only where a carrier sends them. In this release only Northfield Life does.</li>
+<li class="qa-changed">One sale arrived without a carrier code (policy NF-100005). It counts as a policy, with no carrier and no amount.</li>
+<li class="qa-changed">One sale arrived without a policy number. Its client's role counts against an unknown policy, shown as &ldquo;(unknown)&rdquo;.</li>
+<li class="qa-changed">&ldquo;Sources disagree&rdquo; means the agency's sales data and the carrier's policy data name different agents as the one who sold the same policy.</li>
+<li class="qa-changed">The data is invented for the DIGEST Data Vault course: two deliveries from Sunbelt Senior and Northfield Life, on 2026-10-01 and 2026-10-02.</li>
+</ul>
+
+<h2 class="qa-changed"><span class="sec">5</span> Verification</h2>
+<div class="qa"><p class="qa-changed">Each answer above was asked through DV Digest and equals an independent direct query on production, row for row. Production was built from the certified release and is identical to the certified QA build: every table, and every row of history.</p></div>
+</main><footer style="max-width:860px;margin:0 auto;padding:24px 22px 40px;color:var(--muted);font-size:12.5px">DV Digest release answers. Release v2026.10.1, The Agency's Business.
+<p class="qa-changed" class="disclaimer">Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this page is invented for the DIGEST Data Vault course.</p></footer></div></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

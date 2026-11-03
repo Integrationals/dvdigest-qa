@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Inspectors, auditors and tests | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
+.qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
+.qa-review h2{margin:0 0 6px;font-size:18px}
 :root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
 --line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
 --purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
@@ -125,7 +128,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../ask/index.html">Ask</a><a href="../../guide/index.html">Guide</a><a href="../../releases/index.html">Releases</a><a href="../../documentation/index.html">Documentation</a><a href="../../learn/index.html">Learn</a><a href="../../model/index.html">Model</a><a href="../index.html" class="on">Build</a></nav></div>
+<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../agent/index.html">DV Agent</a><a href="../../model/index.html">Data model</a><a href="../../conversation/index.html">Architecture conversation</a><a href="../../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>Inspectors, auditors and tests</h1><p>What checks the data on every build. 43 files.</p></div></header>
 <main><details class="file"><summary>dbt/models/auditors/_auditors.yml</summary><pre><code>version: 2
 
@@ -1007,7 +1010,7 @@ WHERE f.n IS DISTINCT FROM v.n
    probes P-9 to P-15 (Ray, 2026-11-01, answer 1a). #}
 {{ config(severity=&#x27;warn&#x27;) }}
 WITH f AS (
-    SELECT c.carrier_code AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;policy_dim&#x27;) }} p ON p.policy_key = t.policy_key JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = p.carrier_key WHERE t.valid_to_date IS NULL GROUP BY 1
+    SELECT c.carrier_code AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = t.carrier_key WHERE t.valid_to_date IS NULL GROUP BY 1
 ),
 v AS (
     SELECT h.carrier_code AS k1, SUM(s.face_amount) AS n FROM {{ ref(&#x27;policy_northfield_s1&#x27;) }} s JOIN {{ ref(&#x27;policy_h&#x27;) }} h ON h.hk_policy_h = s.hk_policy_h WHERE s.rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;) AND s.ledts = &#x27;8888-12-31 23:59:59&#x27; GROUP BY 1
@@ -1133,7 +1136,7 @@ WHERE a.n IS DISTINCT FROM e.n
    difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
 {{ config(severity=&#x27;warn&#x27;) }}
 WITH a AS (
-    SELECT c.carrier_name AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;policy_dim&#x27;) }} p ON p.policy_key = t.policy_key JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = p.carrier_key WHERE t.valid_to_date IS NULL AND t.status = &#x27;IF&#x27; GROUP BY 1
+    SELECT c.carrier_name AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = t.carrier_key WHERE t.valid_to_date IS NULL AND t.status = &#x27;IF&#x27; GROUP BY 1
 ),
 e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;Northfield Life&#x27;, 110000))  -- in-force policies only, design D-66; v2026.10.1 was released with 125,000
 SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected

@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Test plan | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
+.qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
+.qa-review h2{margin:0 0 6px;font-size:18px}
 :root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
 --line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
 --purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
@@ -125,8 +128,8 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Test plan</p><p class="eyebrow">Documentation · release 1</p><h1>Test plan</h1><p>Every test, by layer, and the requirement each one proves.</p></div></header>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Architecture conversation</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Test plan</p><p class="eyebrow">Documentation · release 1</p><h1>Test plan</h1><p>Every test, by layer, and the requirement each one proves.</p></div></header>
 <main><article class="doc"><h1>Branch Test Plan: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Test Plan</h3>
 <div class="table-wrap"><table>
@@ -2961,11 +2964,17 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>Exists in person_dim, the base dimension; declared as the foreign key (mart design D-16)</td>
 <td>rel_agent_policy_fact_agent_key_person_dim</td>
 </tr>
-<tr>
-<td>FK10</td>
-<td>Each carrier_key of policy_dim</td>
-<td>Exists in organization_dim, the base dimension; declared as the foreign key (mart design D-16)</td>
-<td>rel_policy_dim_carrier_key_organization_dim</td>
+<tr class="qa-changed">
+<td>FK11</td>
+<td>Each carrier_key of policy_terms_fact</td>
+<td>Exists in organization_dim; declared as the foreign key (mart design D-17)</td>
+<td>rel_policy_terms_fact_carrier_key_organization_dim</td>
+</tr>
+<tr class="qa-changed">
+<td>FK12</td>
+<td>Each carrier_key of client_policy_role_fact</td>
+<td>Exists in organization_dim; declared as the foreign key (mart design D-17)</td>
+<td>rel_client_policy_role_fact_carrier_key_organization_dim</td>
 </tr>
 </tbody>
 </table></div>
@@ -3149,9 +3158,9 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="qa-changed">
 <td>1 — Built-ins</td>
-<td>Increments 1 and 1.1: nn_sunbelt_client_crm_row_id; nn_sunbelt_client_loaded_at; uq_client_h_hk_client_h; nn_client_h_hk_client_h; uq_seed_source_system_code; nn_seed_source_system_code. Increment 2: nn_sunbelt_policy_sale_loaded_at; nn_northfield_policy_loaded_at; Lab 1-2: nn_pinecrest_policy_loaded_at; uq_ and nn_ on the hash keys of policy_h, insured_h, agent_h, client_policy_l, insured_policy_l and agent_policy_l. D-40: rel_client_sunbelt_s_hk_client_h, rel_client_policy_sunbelt_s_hk_client_policy_l, rel_insured_northfield_s_hk_insured_h and rel_policy_northfield_s_hk_policy_h. D-42: rel_client_policy_l_hk_client_h, rel_client_policy_l_hk_policy_h, rel_insured_policy_l_hk_insured_h, rel_insured_policy_l_hk_policy_h, rel_agent_policy_l_hk_agent_h and rel_agent_policy_l_hk_policy_h; on each of the four satellites uq_<satellite><em>pk, its parent hash key with its load time, and nn</em><satellite><em><parent key> and nn</em><satellite><em>ldts. 42 tests, severity warn. The mart (section 2.3): 42 more, its uq</em>, nn_ and rel_ rows, severity warn</td>
+<td>Increments 1 and 1.1: nn_sunbelt_client_crm_row_id; nn_sunbelt_client_loaded_at; uq_client_h_hk_client_h; nn_client_h_hk_client_h; uq_seed_source_system_code; nn_seed_source_system_code. Increment 2: nn_sunbelt_policy_sale_loaded_at; nn_northfield_policy_loaded_at; Lab 1-2: nn_pinecrest_policy_loaded_at; uq_ and nn_ on the hash keys of policy_h, insured_h, agent_h, client_policy_l, insured_policy_l and agent_policy_l. D-40: rel_client_sunbelt_s_hk_client_h, rel_client_policy_sunbelt_s_hk_client_policy_l, rel_insured_northfield_s_hk_insured_h and rel_policy_northfield_s_hk_policy_h. D-42: rel_client_policy_l_hk_client_h, rel_client_policy_l_hk_policy_h, rel_insured_policy_l_hk_insured_h, rel_insured_policy_l_hk_policy_h, rel_agent_policy_l_hk_agent_h and rel_agent_policy_l_hk_policy_h; on each of the four satellites uq_<satellite><em>pk, its parent hash key with its load time, and nn</em><satellite><em><parent key> and nn</em><satellite><em>ldts. 42 tests, severity warn. The mart (section 2.3): 43 more, its uq</em>, nn_ and rel_ rows, severity warn</td>
 <td>0 failures</td>
 <td>Applies (design layer 1)</td>
 </tr>
@@ -3272,8 +3281,8 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Every test of sections 2 and 3: 137 tests, 81 unit and 56 data, 3 of the data tests on the release 1 mart views; the mart&rsquo;s 88 tests of section 2.3, built, are in this sweep, with the counts of section 6</td>
+<tr class="qa-changed">
+<td>Every test of sections 2 and 3: 137 tests, 81 unit and 56 data, 3 of the data tests on the release 1 mart views; the mart&rsquo;s 89 tests of section 2.3, built, are in this sweep, with the counts of section 6</td>
 <td>All pass in the QA job&rsquo;s sweep (selector qa_build) on DV_QA over LANDING_QA, each recorded by name in the QA item, , section 6. Data tests&rsquo; expected values follow the QA item&rsquo;s movement ledger, section 1.3</td>
 </tr>
 </tbody>
@@ -3319,9 +3328,9 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>5 and 3</td>
 <td>2.1, 3</td>
 </tr>
-<tr>
+<tr class="qa-changed">
 <td>The conformed mart</td>
-<td>88: layer 1 42, layer 2 2, layer 3 23, layer 4 3, layer 6 9, layer 7 9; and 6 consumer probes</td>
+<td>89: layer 1 43, layer 2 2, layer 3 23, layer 4 3, layer 6 9, layer 7 9; and 6 consumer probes</td>
 <td>2.3, 3</td>
 </tr>
 </tbody>
@@ -3540,9 +3549,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>SM1, SM2</td>
 <td>mart design D-9</td>
 </tr>
-<tr>
-<td>FK8 to FK10</td>
+<tr class="qa-changed">
+<td>FK8, FK9</td>
 <td>mart design D-16</td>
+</tr>
+<tr class="qa-changed">
+<td>FK11, FK12</td>
+<td>mart design D-17</td>
 </tr>
 <tr>
 <td>the structure comparison of vault.sql and mart.sql</td>
@@ -3556,7 +3569,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </table></div>
 <p>This plan cites the design&rsquo;s decisions and adds none. A test requiring a missing decision returns to the design.</p>
 <h2>8. Compliance record</h2>
-<p>Built by the author before the reviewer reads the plan (Standard: Branch Delivery Documents, , compliance record before agreement), at 2026-10-28 21:15Z against commit f1f3ce0, and for the mart against the mart design  at 2026-10-31 22:20Z. Verdict: compliant for the fix to release 1, with three deviations each carried by a recorded decision and one API gap recorded. For the mart, written before its code as the Test-Driven Development standard requires: logic areas R to X, 88 tests across layers 1 to 7, 6 consumer probes and the origin rows; its coverage by file (section 2.1) follows the code. Lab 1-2&rsquo;s extension (section 2.2) walks every layer for each file Lab 1-2 changes, names its 3 tests by layer with their decisions in section 7, and states why it has no unit test: land_act is an operations macro, proved live.</p>
+<p class="qa-changed">Built by the author before the reviewer reads the plan (Standard: Branch Delivery Documents, , compliance record before agreement), at 2026-10-28 21:15Z against commit f1f3ce0, and for the mart against the mart design  at 2026-10-31 22:20Z. Verdict: compliant for the fix to release 1, with three deviations each carried by a recorded decision and one API gap recorded. For the mart, written before its code as the Test-Driven Development standard requires: logic areas R to X, 89 tests across layers 1 to 7, 6 consumer probes and the origin rows; its coverage by file (section 2.1) follows the code. Lab 1-2&rsquo;s extension (section 2.2) walks every layer for each file Lab 1-2 changes, names its 3 tests by layer with their decisions in section 7, and states why it has no unit test: land_act is an operations macro, proved live.</p>
 <h3>8.1 Template</h3>
 <div class="table-wrap"><table>
 <thead>

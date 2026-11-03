@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>QA certification | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
+.qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
+.qa-review h2{margin:0 0 6px;font-size:18px}
 :root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
 --line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
 --purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
@@ -125,8 +128,8 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>QA certification</p><p class="eyebrow">Documentation · next release, in QA</p><h1>QA certification</h1><p>The next release&#x27;s QA cycle: preparation, the build, the tests and the verdict, filled in as it runs.</p></div></header>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Architecture conversation</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>QA certification</p><p class="eyebrow">Documentation · next release, in QA</p><h1>QA certification</h1><p>The next release&#x27;s QA cycle: preparation, the build, the tests and the verdict, filled in as it runs.</p></div></header>
 <main><article class="doc"><h1>DIG-594 QA Test and Certification: the fix to release 1, keys and missing keys</h1>
 <h3>Branch QA Test and Certification</h3>
 <div class="table-wrap"><table>
@@ -267,6 +270,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <p>Run 3, dbt Cloud run 70403231585498, qa at 569f337 (pull request 25), fresh clones, 2026-11-01 14:49 to 14:52 UTC: Success, 167 then 210, verify_build with zero warnings. The MART drop found no view left; the structure check matched dv.sql. The QA connector and Ask function were then redeployed from qa by script. The retest failed: the Ask function could not start, because the deploy script packed its start file, run.sh, only for dev. Fixed by pull request 26, which packs it for every environment, proven by the QA package&rsquo;s contents and a dev redeploy whose retest passed 34 of 34.</p>
 <p>Run 6, the certified run, dbt Cloud run 70403231595822, qa at 4ad7057 (pull request 28), fresh clones, 2026-11-01 16:38 to 16:50 UTC: Success, 168 then 211 with zero warnings and verify_build met every expectation; the MART drop left no view and the structure check matched dv.sql; section 10 passed through the connector&rsquo;s session; the QA functions were deployed from qa by script; the retest passed 34 of 34; and the rollback was rehearsed in DV_QA (section 11). Sections 6 to 9 hold for run 6 with the counts they record, unchanged from run 5.</p>
 <p>Run 7, the certified run, dbt Cloud run 70403231604249, qa at ad06926 (pull request 29, the release page and the user&rsquo;s guide; the release&rsquo;s last), fresh clones, 2026-11-01 18:08 to 18:20 UTC: Success, 168 then 211 with zero warnings and verify_build met every expectation; no MART view; the structure matched dv.sql; section 10 passed; the QA functions deployed from qa by script; the retest, now all six questions, passed 50 of 50; the rollback rehearsed in DV_QA from 18:16:02 UTC, every count restored, 27 keys re-declared, the structure matching, and the retest after the restore 50 of 50; DV_QA_ROLLBACK dropped. Run 6 certified 4ad7057; run 7 supersedes it for the commit that promotes.</p>
+<p class="qa-changed">Run 8, the DIG-604 remediation, qa at c47d430 (pull request 30), 2026-11-03, as SYSADMIN through the workstation: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA first, then dbt Cloud run 70403231811521, Success in 3 minutes 47 seconds: the build without unit tests passed 177 with 6 no-ops; the build with them, 220 of 226 with 6 no-ops; verify_build met every guardrail and expectation with zero warnings. An earlier run, 70403231809665, began on the previous run&rsquo;s data without the two scripts and its verification warned that three row counts did not grow; it is superseded. Then: the structure check, DV_QA matching vault.sql and mart.sql; the QA connector redeployed with this semantic layer; the QA site built from qa for QA and published to Integrationals/dvdigest-qa at 114ccf7; the retest through QA&rsquo;s Ask function, 50 of 50.</p>
 <p>Exception granted by Ray, 2026-11-01 (answer 2b): three unit tests, unit_organization_h_oh3_later_load_inserts, unit_client_dim_ds1_client_role_only and unit_organization_dim_dg2_ghost_members_kept, carry the fusion_only tag and run only under Fusion in development; QA&rsquo;s engine skips them.</p>
 <h2>6. Branch test battery</h2>
 <h3>6.1 Added and changed tests</h3>
@@ -407,6 +411,30 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>The site&rsquo;s text on what comes next follows the old plan, not v2026.11.2 (Ray, 2026-11-02)</td>
 <td>The Releases page lists &ldquo;Next · What We Knew When&rdquo; (the release now in QA) and &ldquo;Later · People, Not Numbers&rdquo;; the home page says the next release answers what was known on any date and the first compliance questions; the Ask page names a coming release for each answer it cannot give. None mentions v2026.11.2, which Ray describes as the business vault and the compliance answers</td>
 <td>Open</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-17</td>
+<td>The mart&rsquo;s identifiers end in _key; the standard is _id (Ray, 2026-11-03)</td>
+<td>Every fact and dimension identifier and foreign key in CONFORMED_DM, such as person_key, policy_key, client_key, and the semantic layer&rsquo;s entities that name them</td>
+<td>Open</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-18</td>
+<td>policy_dim joins organization_dim through a declared foreign key; dimensions never join each other (Ray, 2026-11-03)</td>
+<td>policy_dim.carrier_key, declared as a foreign key to organization_dim by mart design D-16 and test FK10; the carrier&rsquo;s attributes belong flattened into policy_dim at build</td>
+<td>Fixed in dev on DIG-606&rsquo;s branch, 2026-11-03: mart design D-17, guide step 94; the conformed mart&rsquo;s 76 builds and tests pass, the 17 answer and reconciliation tests pass, MetricFlow joins the carrier through the facts, mart.sql has 14 foreign keys and none between dimensions</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-19</td>
+<td>The site&rsquo;s menu is organized by our outputs, not by what Mary sets out to do (Ray, 2026-11-03)</td>
+<td>Eight entries, three of them our own folders: Documentation, Build, Learn. Chosen, by prototype (<a href="https://claude.ai/artifact/8WxSoUacBrYsPnoCc5zpqD" target="_blank" rel="noopener">https://claude.ai/artifact/8WxSoUacBrYsPnoCc5zpqD</a>): Home; DV Agent, with the conversation, everything you can ask and the releases with their prompts; Data model, with both ER/Studio reports; Architecture conversation, the textbook&rsquo;s first appendix; Library, with the 12 documents, the 6 code pages and the Universal Data Vault study; the course removed from the site. Each list shows one page per card, groups under headings</td>
+<td>Open: a site change</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-20</td>
+<td>Reviewing a QA iteration means rereading the site to find the fixes (Ray, 2026-11-03)</td>
+<td>Chosen, by prototype: QA&rsquo;s build compares each page&rsquo;s content, without its header and menu, with the QA site as last published; each changed paragraph carries a bar in its margin, and QA&rsquo;s home lists the changed pages; never in production</td>
+<td>Open: a site change</td>
 </tr>
 </tbody>
 </table></div>

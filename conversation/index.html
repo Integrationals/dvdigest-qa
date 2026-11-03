@@ -1,0 +1,341 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ten points for a Data Vault architecture conversation | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.qa-changed{border-left:3px solid var(--teal);padding-left:10px;border-radius:0}
+.qa-review{max-width:1080px;margin:18px auto;padding:14px 20px;background:var(--soft);border-left:3px solid var(--teal)}
+.qa-review h2{margin:0 0 6px;font-size:18px}
+:root{--navy:#091229;--slate:#244260;--teal:#3fa590;--teal-d:#008066;--green:#03f080;--bg:#f7f8f9;--card:#fff;
+--line:#e3e7ec;--ink:#091229;--muted:#4b5a6e;--soft:#eaf6f2;--paper:#fff;--rule:#d9dee5;
+--purple-f:#ECE8F6;--purple-s:#6A58A8;--teal-f:#E3F2EF;--teal-s:#2C7A6E;--coral-f:#FBE9E3;--coral-s:#B5563B;
+--gray-f:#EEF1F4;--gray-s:#6B7885;--blue-f:#E5EEF6;--blue-s:#2F6A9A}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.7 "Open Sans",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,h4,.brand,.menu a,.eyebrow,.chip,.btn{font-family:"Poppins",Arial,sans-serif}
+a{color:var(--teal-d);overflow-wrap:anywhere}
+.top{background:linear-gradient(180deg,var(--navy),var(--slate));color:#fff;border-bottom:4px solid var(--teal);
+padding-top:env(safe-area-inset-top,0px)}
+.bar{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+.brand span{color:var(--green)}
+.menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.menu a{color:#d9e4ee;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:999px}
+.menu a:hover{background:rgba(255,255,255,.1);color:#fff}
+.menu a.on{background:var(--teal);color:#fff}
+.hero{max-width:1080px;margin:0 auto;padding:26px 20px 38px}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--green);margin:0 0 10px}
+.hero h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 12px;color:#fff}
+.hero p{color:#d9e4ee;max-width:760px;margin:0;font-size:17px}
+.relnum{background:var(--teal);color:#fff;padding:0 10px;border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--teal);color:#bfeee2}
+.chip.solid{background:#fff;color:var(--navy);border-color:#fff}
+main{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+main h2{font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:44px 0 6px;color:var(--navy)}
+main h2:first-child{margin-top:0}
+.lede{color:var(--muted);margin:0 0 20px;max-width:760px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(9,18,41,.04),0 6px 18px rgba(9,18,41,.05);border-top:4px solid var(--teal)}
+.card h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+a.card{display:block;text-decoration:none;color:inherit;transition:transform .12s,box-shadow .12s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(9,18,41,.1)}
+.card .more{display:inline-block;margin-top:12px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:13px;color:var(--teal-d)}
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.step:before{counter-increment:step;content:counter(step);position:absolute;top:-12px;left:16px;width:26px;height:26px;border-radius:50%;
+background:var(--navy);color:var(--green);font:700 13px/26px "Poppins",Arial,sans-serif;text-align:center}
+.step h3{margin:8px 0 4px;font-size:16px;color:var(--navy)}.step p{margin:0;font-size:14px;color:var(--muted)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:14px;border-left:5px solid var(--teal)}
+@media(min-width:760px){.qa{grid-template-columns:1fr 240px;align-items:center}}
+.qa .q{font-family:"Poppins",Arial,sans-serif;font-weight:700;color:var(--navy);margin:0 0 6px}
+.qa .qid{display:inline-block;background:var(--soft);color:var(--teal-d);font:700 12px "Poppins",Arial,sans-serif;padding:2px 8px;border-radius:6px;margin-right:6px}
+.qa .a{margin:0;color:var(--muted)}
+.answer{background:var(--navy);color:#fff;border-radius:12px;padding:14px 16px}
+.answer .big{font:800 26px/1.15 "Poppins",Arial,sans-serif;color:var(--green)}
+.answer .small{font-size:13px;color:#c7d3e0}
+.prompt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.prompt code{display:block;font:500 14px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);background:var(--soft);padding:10px 12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.prompt .exp{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.term{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.term b{display:block;font-family:"Poppins",Arial,sans-serif;color:var(--teal-d);margin-bottom:2px}
+.note{background:#fff8e6;border:1px solid #f1dfa8;border-left:5px solid #e0a800;border-radius:12px;padding:14px 18px;margin-bottom:10px;color:#3d3a2c}
+.summary{background:var(--soft);border-left:5px solid var(--green);border-radius:14px;padding:22px 26px;margin:8px 0 36px}.summary h2{margin-top:0}.summary ul{margin:6px 0 12px 20px}.summary li{margin:4px 0}
+.band{background:var(--navy);color:#e6edf4;border-radius:16px;padding:22px 24px;margin-top:40px}
+.band h2{color:#fff;margin:0 0 8px}.band p{margin:0;color:#c7d3e0}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 28px 30px;box-shadow:0 6px 18px rgba(9,18,41,.05)}
+.doc h1{font-size:clamp(24px,4vw,32px);color:var(--navy);border-bottom:3px solid var(--teal);padding-bottom:8px}
+.doc h2{font-size:22px;margin-top:34px}.doc h3{color:var(--slate)}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th{background:var(--navy);color:#fff;font:600 13px "Poppins",Arial,sans-serif;text-align:left;padding:9px 12px;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+pre{background:#0d1a33;color:#e6edf4;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);padding:1px 5px;border-radius:5px;color:var(--navy)}
+details.file{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details.file summary{cursor:pointer;padding:12px 16px;font:600 14px "Poppins",Arial,sans-serif;color:var(--navy)}
+details.file pre{margin:0;border-radius:0 0 12px 12px}
+figure.diagram{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto}
+figure.diagram svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figure.diagram .th{font:500 14px "Open Sans",Arial,sans-serif;fill:var(--ink)}
+figure.diagram .ts{font:400 12px "Open Sans",Arial,sans-serif;fill:var(--muted)}
+figure.diagram .arr{stroke:var(--muted);stroke-width:1.2;fill:none}
+figure.diagram .box{fill:var(--paper);stroke:var(--rule)}
+figure.diagram .c-purple rect{fill:var(--purple-f);stroke:var(--purple-s)}figure.diagram .c-teal rect{fill:var(--teal-f);stroke:var(--teal-s)}
+figure.diagram .c-coral rect{fill:var(--coral-f);stroke:var(--coral-s)}figure.diagram .c-gray rect{fill:var(--gray-f);stroke:var(--gray-s)}
+figure.diagram .c-blue rect{fill:var(--blue-f);stroke:var(--blue-s)}
+figure.diagram .zoom-hint{display:none}
+.check{background:var(--soft);border-radius:12px;padding:12px 16px;margin:14px 0}
+footer{background:var(--navy);color:#c7d3e0;font-size:13px;padding:26px 20px calc(30px + env(safe-area-inset-bottom,0px))}
+footer div{max-width:1080px;margin:0 auto}
+footer b{color:#fff}
+main{min-width:0}
+.doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
+.table-wrap,pre{max-width:100%}
+details.file{overflow:hidden}
+.doc{overflow-wrap:anywhere}
+
+.kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
+.kicker+h2{margin-top:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;
+text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;border:2px solid var(--teal);transition:filter .12s}
+.btn:after{content:"→"}.btn:hover{filter:brightness(1.08)}
+.btn.light{background:#fff;color:var(--teal-d);border-color:#fff}
+.card .btn{margin-top:14px;padding:8px 14px;font-size:12px}
+.bleed{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.split{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:860px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split.flip .s-text{order:2}}
+.s-text{padding:44px max(20px,calc(50vw - 540px)) 44px max(20px,calc(50vw - 540px))}
+@media(min-width:860px){.split .s-text{padding:52px 44px 52px max(20px,calc(50vw - 540px))}.split.flip .s-text{padding:52px max(20px,calc(50vw - 540px)) 52px 44px}}
+.s-text h2{margin:0 0 12px}.s-text p{margin:0 0 14px}
+.s-vis{display:flex;align-items:center;justify-content:center;padding:28px 20px;min-height:260px}
+.split.dark{background:var(--slate);color:#e6edf4}.split.dark h2{color:#fff}.split.dark .kicker{color:var(--green)}
+.split.grad .s-vis{background:linear-gradient(135deg,#091229 0%,#003a74 55%,#3fa590 100%);color:#fff}
+.split.light{background:#fff}.split.light .s-vis{background:var(--bg)}
+.split.dark .s-vis{background:#1b3550}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;max-width:440px}
+.stat .n{font:800 clamp(30px,5vw,46px)/1 "Poppins",Arial,sans-serif;color:var(--green)}
+.stat .l{font-size:14px;color:#d9e4ee;margin-top:6px}
+.s-vis{flex-direction:column;min-width:0}.s-vis>*{width:100%;max-width:100%;min-width:0}
+.s-vis figure.diagram{margin:0;width:100%;border:0;background:transparent;padding:0}
+.s-vis figure.diagram svg{width:100%;height:auto}
+.cta{text-align:center;background:#eef1f4;padding:52px 20px;margin-top:56px}
+.cta h2{margin:0 0 10px}.cta p{max-width:640px;margin:0 auto 20px;color:var(--muted)}
+.crumbs{font:500 13px "Open Sans",Arial,sans-serif;color:#c7d3e0;margin:0 0 14px}
+.crumbs a{color:#d9e4ee;text-decoration:underline;text-underline-offset:2px}.crumbs span{opacity:.7;margin:0 6px}
+@media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
+.doc{padding:4px 16px 22px}}
+</style></head><body>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="index.html" class="on">Architecture conversation</a><a href="../library/index.html">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span>Architecture conversation</p><p class="eyebrow">Architecture conversation</p><h1>Ten points for a Data Vault architecture conversation</h1><p>The agenda for a conversation with your architecture team, and the objection most likely to come up.</p></div></header>
+<main><article class="doc"><h1>Appendix 1: Questions for a Data Vault architecture conversation</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Course</strong></td>
+<td>DIGEST Data Vault Course, appendix 1</td>
+</tr>
+</tbody>
+</table></div>
+<p>The course&rsquo;s conclusions, gathered in one place: how to frame the course&rsquo;s argument, the questions it leads to, the terms they use, and how far the course&rsquo;s own vault has been built.</p>
+<h2>The framing, in two sentences</h2>
+<p>Data Vault keeps every source&rsquo;s history faithfully, with full lineage; on its own it does not decide what a client, a policy or a status <em>is</em> across sources. This course finishes an approach John Giles began, the Universal Data Vault: hubs built from universal data model patterns (appendix 2), completed with the patterns Giles set aside (party, party role, party relationship and role within a transaction), as Silverston&rsquo;s universal data model patterns define them. It is the Canonical Data Model applied inside the vault: one common model for what things are, which every source is translated into once.</p>
+<p><strong>Why &ldquo;canonical&rdquo; matters:</strong> the Canonical Data Model is Hohpe and Woolf&rsquo;s pattern from <em>Enterprise Integration Patterns</em>. With a common model, adding a participant needs only one new translation; by their count, six applications need 30 translations without one and 12 with it.</p>
+<h2>The ten questions</h2>
+<p>Ask them as an architect learning how a team handles each case, not as objections.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Ask</th>
+<th>What it rests on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>When a source sends sales with an ISBN, where does your team decide that a book is a concept the business tracks, and who owns that decision?</td>
+<td>The raw vault creates hubs for concepts no source sent; that is a business decision</td>
+</tr>
+<tr>
+<td>2</td>
+<td>When two sources identify the same thing with different keys, where in your architecture are they made one?</td>
+<td>A hub only matches identical key strings; it reuses sameness an issuer already created</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Where does your team&rsquo;s integrated view of a client live, and how many places define &ldquo;client&rdquo;?</td>
+<td>Integration deferred past the vault is not removed; done per mart it multiplies</td>
+</tr>
+<tr>
+<td>4</td>
+<td>How does your team integrate ten carriers&rsquo; policy statuses and product categories into one view?</td>
+<td>The business vault resolves identity at best; status and classification need typed rows</td>
+</tr>
+<tr>
+<td>5</td>
+<td>How does your team absorb a source whose entities change month to month, and how long does remapping take?</td>
+<td>The raw vault cannot load a table until its entities are decided</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Where is source history kept before the vault, and how are full-snapshot sources reduced to versions?</td>
+<td>Toolkits and practitioners (Datavault Builder, Roelant Vos) place a persistent staging area beside the vault</td>
+</tr>
+<tr>
+<td>7</td>
+<td>If an auditor asks for a source table exactly as it arrived on a given day, how is it produced?</td>
+<td>Once staging is cleared, the source&rsquo;s own table must be re-assembled from hubs, links and satellites</td>
+</tr>
+<tr>
+<td>8</td>
+<td>When a modeling decision in the raw vault turns out wrong, how is history repaired?</td>
+<td>Sources without change capture cannot be reloaded</td>
+</tr>
+<tr>
+<td>9</td>
+<td>How are hundreds of columns assigned to hubs, links and satellites, and what happens to a link when a source adds a code?</td>
+<td>A satellite has one parent; a new code means a new link</td>
+</tr>
+<tr>
+<td>10</td>
+<td>What part of your vault&rsquo;s build is automated, and what part is still decided by people?</td>
+<td>Generators write the objects after people make the decisions</td>
+</tr>
+<tr>
+<td>11</td>
+<td>How does your team key a source row that arrives without its business key, and where does that row&rsquo;s history live?</td>
+<td>A shared zero key collides in a satellite&rsquo;s key; keeping the row in persistent staging and raising a finding keeps it without a false entity</td>
+</tr>
+</tbody>
+</table></div>
+<h2>The likely objection: performance</h2>
+<p><strong>The answer:</strong> query speed is the marts&rsquo; job, in this design as in Data Vault. The data integration layer&rsquo;s cost is the build, and the expensive joins are built in stages as materialized steps, incremental with change data capture, run in parallel.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumers query marts, not the data integration layer</td>
+<td>Data Vault itself is described as a data integration layer, not a consumption layer; teams that query the vault directly find its joins unwieldy [1]</td>
+</tr>
+<tr>
+<td>Generalized, pattern-based structures can be built at enterprise scale</td>
+<td>Giles built them for 83 merged organizations and about 8,000 source tables (appendix 2); his articles give no timings</td>
+</tr>
+<tr>
+<td>Build cost is managed by staging</td>
+<td>A large join is materialized in parts (ten tables as two five-table steps, then combined), each build processes only changes, and independent steps run in parallel: practice from the author&rsquo;s own work on IMDb data, to be shown with timings as the course&rsquo;s builds use it</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Notes</h3>
+<ol>
+<li>Navicat, Designing better databases with Data Vault 2.0: <a href="https://www.navicat.com/company/aboutus/blog/3970-designing-better-databases-with-data-vault-2-0-and-navicat-data-modeler-4" target="_blank" rel="noopener">https://www.navicat.com/company/aboutus/blog/3970-designing-better-databases-with-data-vault-2-0-and-navicat-data-modeler-4</a>, read 2026-10-23.</li>
+</ol>
+<h2>Areas for further study</h2>
+<p>Four directions this course is exploring, offered as open questions rather than settled positions.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Area</th>
+<th>The question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Is any part of the vault raw?</strong></td>
+<td>A hub&rsquo;s structure is designed from the business view; only each row&rsquo;s provenance is raw or rule-derived. John Giles reaches the same observation in <em>The Elephant in the Fridge</em> and suggests dropping the labels &ldquo;raw&rdquo; and &ldquo;business&rdquo; Data Vault. What changes if a team stops calling any layer raw?</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Can the UDM integrate satellites?</strong></td>
+<td>Giles integrates satellites with a business-centric &ldquo;conformed&rdquo; satellite, still in columns. What if satellites took the UDM&rsquo;s typed, dated rows instead (person name, postal address, status), so every source meets once per type?</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Universal hubs in a Data Vault form</strong></td>
+<td>Universal hubs for the keys, UDM satellites and links on them, record source on every row. How much of a team&rsquo;s Data Vault practice carries over unchanged?</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>History on demand</strong></td>
+<td>If storage keeps every version of every source row, the integrated model at any past moment can be rebuilt from storage, code and reference data in git. Does the data integration layer still need its own insert-only history?</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Terms, checked against the method&rsquo;s sources</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td>One row per business key, shared by every source that carries it</td>
+</tr>
+<tr>
+<td>Link</td>
+<td>A relationship or event between hubs</td>
+</tr>
+<tr>
+<td>Satellite</td>
+<td>One source&rsquo;s descriptive columns with their history, on one hub or link</td>
+</tr>
+<tr>
+<td>Raw vault</td>
+<td>Keeps what sources send; only hard rules applied</td>
+</tr>
+<tr>
+<td>Business vault</td>
+<td>Applies soft business rules on top of the raw vault; sparse, and never rewrites it</td>
+</tr>
+<tr>
+<td>Hard rules</td>
+<td>Technical changes such as type casting, formatting and null handling</td>
+</tr>
+<tr>
+<td>Soft rules</td>
+<td>Changes made for business requirements</td>
+</tr>
+<tr>
+<td>Same-as link</td>
+<td>A business vault link recording that two keys are one thing</td>
+</tr>
+<tr>
+<td>Ghost record</td>
+<td>A placeholder row that lets point-in-time joins stay equi-joins</td>
+</tr>
+</tbody>
+</table></div>
+<h2>How far the course&rsquo;s vault is built</h2>
+<ul>
+<li><strong>Built and verified:</strong> Sunbelt Senior&rsquo;s client file, staged, with a client hub of 34 keys, and every row carrying its load timestamp and record source.</li>
+<li><strong>Being designed now:</strong> Northfield Life&rsquo;s carrier file, client and insured role hubs, a policy hub keyed by the carrier&rsquo;s number, the client-policy link and one satellite per source.</li>
+<li><strong>Read so far:</strong> the course guide and lessons 1 and 2.</li>
+</ul>
+<h2>Prior art: the Universal Data Vault</h2>
+<p>John Giles published a way to combine Silverston&rsquo;s universal data model patterns with Data Vault and named it the Universal Data Vault [1]. It puts the patterns into the vault itself: generalized hubs such as Asset, Activity and Agreement hold every subtype, each subtype a row in a hand-made type table, with the type and the business code together making a key unique. He set party and party role aside as a possibly contentious topic, adding that the UDV structures could accommodate the alternative modeling choices [2].</p>
+<p>This course builds on that design rather than departing from it. Its hubs are universal too, and its contribution is the part Giles left aside: party, party role, party relationship and role within a transaction, taken from Silverston&rsquo;s universal data model patterns. Its first example is one hub for people, keyed by issuer and identifier, with a person-policy link that carries the role.</p>
+<h3>Notes</h3>
+<ol>
+<li>John Giles, Universal Data Vault, Part 1, TDAN: <a href="https://tdan.com/?p=19072" target="_blank" rel="noopener">https://tdan.com/?p=19072</a>, read 2026-10-24.</li>
+<li>John Giles, Universal Data Vault, Part 2, TDAN: <a href="https://tdan.com/?p=19245" target="_blank" rel="noopener">https://tdan.com/?p=19245</a>, read 2026-10-24.</li>
+</ol></article></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
