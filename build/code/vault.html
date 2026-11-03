@@ -126,7 +126,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 .doc{padding:4px 16px 22px}}
 </style></head><body>
 <header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../ask/index.html">Ask</a><a href="../../guide/index.html">Guide</a><a href="../../releases/index.html">Releases</a><a href="../../documentation/index.html">Documentation</a><a href="../../learn/index.html">Learn</a><a href="../../model/index.html">Model</a><a href="../index.html" class="on">Build</a></nav></div>
-<div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>The vault</h1><p>Staging, hubs, links, satellites and their dated views: each a declaration the datavault4dbt macros build. 36 files.</p></div></header>
+<div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>The vault</h1><p>Staging, hubs, links, satellites and their dated views: each a declaration the datavault4dbt macros build. 38 files.</p></div></header>
 <main><details class="file"><summary>dbt/models/raw_vault/_client_h.yml</summary><pre><code>version: 2
 
 models:
@@ -154,6 +154,13 @@ models:
 # inputs to list columns (the stage its source, the hub its staging model), the describe fails on a query block,
 # and the test errors with &quot;&#x27;None&#x27; has no attribute &#x27;database&#x27;&quot;. On the Fusion engine they pass. They run on the
 # workstation&#x27;s Fusion builds; v1 environments exclude them with: --exclude tag:fusion_only
+        description: &#x27;The hash key of client_h: the hash of its business key, and its primary key.&#x27;
+      - name: client_number
+        description: Sunbelt Senior&#x27;s client number as first sent; its trimmed, upper-case form is hashed into the key.
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
 unit_tests:
   - name: unit_stg_sunbelt_client_p4_surface_variant_same_key
     model: stg_sunbelt_client
@@ -304,6 +311,16 @@ models:
           - not_null:
               name: nn_policy_h_hk_policy_h
               config: {severity: warn}
+        description: &#x27;The hash key of policy_h: the hash of its business key, and its primary key.&#x27;
+      - name: carrier_code
+        description: The carrier&#x27;s code, such as NFL for Northfield Life or PMC for Pinecrest Mutual. A policy number is unique only within its carrier, so the code is part of the key.
+      - name: policy_number
+        description: The policy number as the carrier issued it, first sighting kept; with the carrier code, the policy&#x27;s business key.
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+    description: One row per policy, keyed by the issuing carrier&#x27;s code with the policy number; fed by Sunbelt Senior&#x27;s sales data and the carriers&#x27; policy data.
   - name: insured_h
     columns:
       - name: hk_insured_h
@@ -314,6 +331,14 @@ models:
           - not_null:
               name: nn_insured_h_hk_insured_h
               config: {severity: warn}
+        description: &#x27;The hash key of insured_h: the hash of its business key, and its primary key.&#x27;
+      - name: insured_number
+        description: Northfield Life&#x27;s number for the insured person, NLI- and five digits; the insured&#x27;s business key.
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+    description: One row per Northfield Life insured number.
   - name: agent_h
     columns:
       - name: hk_agent_h
@@ -324,6 +349,14 @@ models:
           - not_null:
               name: nn_agent_h_hk_agent_h
               config: {severity: warn}
+        description: &#x27;The hash key of agent_h: the hash of its business key, and its primary key.&#x27;
+      - name: agent_npn
+        description: The agent&#x27;s national producer number, the same in every source; the agent&#x27;s business key.
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+    description: One row per agent, by national producer number, fed by both Sunbelt Senior&#x27;s sales data and Northfield Life&#x27;s policy data.
   - name: client_policy_l
     columns:
       - name: hk_client_policy_l
@@ -334,6 +367,7 @@ models:
           - not_null:
               name: nn_client_policy_l_hk_client_policy_l
               config: {severity: warn}
+        description: &#x27;The hash key of client_policy_l: the hash of its business key, and its primary key.&#x27;
       - name: hk_client_h
         tests:
           - relationships:
@@ -342,6 +376,7 @@ models:
                 to: ref(&#x27;client_h&#x27;)
                 field: hk_client_h
               config: {severity: warn}
+        description: The hash key of the client, a foreign key to client_h.
       - name: hk_policy_h
         tests:
           - relationships:
@@ -350,6 +385,14 @@ models:
                 to: ref(&#x27;policy_h&#x27;)
                 field: hk_policy_h
               config: {severity: warn}
+        description: The hash key of the policy, a foreign key to policy_h.
+      - name: role
+        description: &quot;The client&#x27;s role on the policy as Sunbelt Senior sends it: owner, insured or payor; one client can appear in two roles on one policy.&quot;
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+    description: One row per client, policy and role, from Sunbelt Senior&#x27;s sales data; the role is a dependent child key.
   - name: insured_policy_l
     columns:
       - name: hk_insured_policy_l
@@ -360,6 +403,7 @@ models:
           - not_null:
               name: nn_insured_policy_l_hk_insured_policy_l
               config: {severity: warn}
+        description: &#x27;The hash key of insured_policy_l: the hash of its business key, and its primary key.&#x27;
       - name: hk_insured_h
         tests:
           - relationships:
@@ -368,6 +412,7 @@ models:
                 to: ref(&#x27;insured_h&#x27;)
                 field: hk_insured_h
               config: {severity: warn}
+        description: The hash key of the insured, a foreign key to insured_h.
       - name: hk_policy_h
         tests:
           - relationships:
@@ -376,6 +421,42 @@ models:
                 to: ref(&#x27;policy_h&#x27;)
                 field: hk_policy_h
               config: {severity: warn}
+        description: The hash key of the policy, a foreign key to policy_h.
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+    description: One row per insured and policy, from Northfield Life&#x27;s policy data.
+  - name: policy_organization_l
+    description: One row per policy and the carrier organization that issued it, from Sunbelt Senior&#x27;s sales data and Northfield Life&#x27;s policy data (design D-57).
+    columns:
+      - name: hk_policy_organization_l
+        description: &quot;The link&#x27;s hash key: the hash of the organization&#x27;s carrier code, then the policy&#x27;s carrier code and policy number; its primary key.&quot;
+        tests:
+          - unique:
+              name: uq_policy_organization_l_hk_policy_organization_l
+          - not_null:
+              name: nn_policy_organization_l_hk_policy_organization_l
+      - name: hk_policy_h
+        description: The hash key of the policy, a foreign key to policy_h.
+        tests:
+          - relationships:
+              name: rel_policy_organization_l_hk_policy_h
+              arguments:
+                to: ref(&#x27;policy_h&#x27;)
+                field: hk_policy_h
+      - name: hk_organization_h
+        description: The hash key of the carrier organization, a foreign key to organization_h.
+        tests:
+          - relationships:
+              name: rel_policy_organization_l_hk_organization_h
+              arguments:
+                to: ref(&#x27;organization_h&#x27;)
+                field: hk_organization_h
+      - name: ldts
+        description: &quot;The load time: when the vault received this row, in UTC.&quot;
+      - name: rsrc
+        description: &quot;The record source: the code of the source system that sent the row, a key to the source system seed.&quot;
   - name: agent_policy_l
     columns:
       - name: hk_agent_policy_l
@@ -386,6 +467,7 @@ models:
           - not_null:
               name: nn_agent_policy_l_hk_agent_policy_l
               config: {severity: warn}
+        description: &#x27;The hash key of agent_policy_l: the hash of its business key, and its primary key.&#x27;
       - name: hk_agent_h
         tests:
           - relationships:
@@ -394,6 +476,7 @@ models:
                 to: ref(&#x27;agent_h&#x27;)
                 field: hk_agent_h
               config: {severity: warn}
+        description: The hash key of the agent, a foreign key to agent_h.
       - name: hk_policy_h
         tests:
           - relationships:
@@ -402,6 +485,12 @@ models:
                 to: ref(&#x27;policy_h&#x27;)
                 field: hk_policy_h
               config: {severity: warn}
+        description: The hash key of the policy, a foreign key to policy_h.
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+    description: One row per agent and policy, from both sources; where the sources disagree on a policy&#x27;s agent, both rows are kept.
   - name: client_sunbelt_s
     tests:
       - dbt_utils.unique_combination_of_columns:
@@ -415,6 +504,7 @@ models:
           - not_null:
               name: nn_client_sunbelt_s_ldts
               config: {severity: warn}
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
       - name: hk_client_h
         tests:
           - not_null:
@@ -426,6 +516,18 @@ models:
                 to: ref(&#x27;client_h&#x27;)
                 field: hk_client_h
               config: {severity: warn}
+        description: The hash key of the client, a foreign key to client_h.
+      - name: hd_client_sunbelt_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: first_name
+        description: The client&#x27;s first name.
+      - name: last_name
+        description: The client&#x27;s last name.
+      - name: state
+        description: The client&#x27;s two-letter state code.
+    description: The client&#x27;s details as Sunbelt Senior&#x27;s client list sends them; one row per change.
   - name: client_policy_sunbelt_s
     tests:
       - dbt_utils.unique_combination_of_columns:
@@ -439,6 +541,7 @@ models:
           - not_null:
               name: nn_client_policy_sunbelt_s_ldts
               config: {severity: warn}
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
       - name: hk_client_policy_l
         tests:
           - not_null:
@@ -450,6 +553,18 @@ models:
                 to: ref(&#x27;client_policy_l&#x27;)
                 field: hk_client_policy_l
               config: {severity: warn}
+        description: The hash key of client_policy_l, a foreign key to it.
+      - name: hd_client_policy_sunbelt_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: sold_on
+        description: The date of the sale.
+      - name: agent_name
+        description: The selling agent&#x27;s name as written on the sale.
+      - name: plan_name
+        description: Sunbelt Senior&#x27;s name for the product sold.
+    description: The details of a sale as Sunbelt Senior&#x27;s sales data sends them, per client, policy and role; one row per change.
   - name: insured_northfield_s
     tests:
       - dbt_utils.unique_combination_of_columns:
@@ -463,6 +578,7 @@ models:
           - not_null:
               name: nn_insured_northfield_s_ldts
               config: {severity: warn}
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
       - name: hk_insured_h
         tests:
           - not_null:
@@ -474,6 +590,18 @@ models:
                 to: ref(&#x27;insured_h&#x27;)
                 field: hk_insured_h
               config: {severity: warn}
+        description: The hash key of the insured, a foreign key to insured_h.
+      - name: hd_insured_northfield_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: insured_name
+        description: The insured&#x27;s name in one field, Last, First.
+      - name: birth_date
+        description: The insured&#x27;s birth date.
+      - name: address
+        description: The insured&#x27;s address in one field, kept as sent.
+    description: The insured&#x27;s details as Northfield Life sends them; one row per change, a change in letter case included.
   - name: policy_northfield_s
     tests:
       - dbt_utils.unique_combination_of_columns:
@@ -487,6 +615,7 @@ models:
           - not_null:
               name: nn_policy_northfield_s_ldts
               config: {severity: warn}
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
       - name: hk_policy_h
         tests:
           - not_null:
@@ -501,6 +630,18 @@ models:
 
 # Engine note (2026-10-26): a unit test that fails on dbt v1 is tagged fusion_only, for the reason in _client_h.yml;
 # one that passes on dbt 1.12.6 carries no tag, so the v1 QA job runs it.
+        description: The hash key of the policy, a foreign key to policy_h.
+      - name: hd_policy_northfield_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: face_amount
+        description: The death benefit, in dollars.
+      - name: status
+        description: &quot;The policy&#x27;s status code: IF in force, LP lapsed, TR terminated.&quot;
+      - name: effective_date
+        description: The date the policy took effect.
+    description: The policy&#x27;s terms as Northfield Life sends them; one row per change.
 unit_tests:
   - name: unit_policy_h_ph1_sales_only
     model: policy_h
@@ -805,6 +946,34 @@ unit_tests:
           - {hk_agent_policy_l: &#x27;ad257663d1d908d4d78aa74032b2ae4c&#x27;, hk_agent_h: &#x27;233ba32975e37cf80441e2847eadef91&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
     expect:
       rows: []
+
+  - name: unit_policy_organization_l_po1_carrier_joined
+    model: policy_organization_l
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows: []
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows:
+          - {hk_policy_organization_l: &#x27;944dc21366b5618a3c83f6409c5f8f07&#x27;, hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, hk_organization_h: &#x27;d17b6314d3888f183e3cb2c52c745d98&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;NFL&#x27;}
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;3afc40c80305309aded589d6099568c3&#x27;, hk_organization_h: &#x27;d17b6314d3888f183e3cb2c52c745d98&#x27;}
+
+  - name: unit_policy_organization_l_po2_missing_code_unknown_organization
+    model: policy_organization_l
+    config:
+      tags: [&#x27;fusion_only&#x27;]
+    given:
+      - input: ref(&#x27;stg_sunbelt_policy_sale&#x27;)
+        rows:
+          - {hk_policy_organization_l: &#x27;16cb0329512ee51fa9f85ad147c9ce08&#x27;, hk_policy_h: &#x27;d391ab28fdaf5ec47a993b23b29eb5c6&#x27;, hk_organization_h: &#x27;00000000000000000000000000000000&#x27;, ldts: &#x27;2026-10-01 02:00:00&#x27;, rsrc: &#x27;SSI&#x27;}
+      - input: ref(&#x27;stg_northfield_policy&#x27;)
+        rows: []
+    expect:
+      rows:
+        - {hk_policy_h: &#x27;d391ab28fdaf5ec47a993b23b29eb5c6&#x27;, hk_organization_h: &#x27;00000000000000000000000000000000&#x27;}
 
   - name: unit_policy_northfield_s_st1_first_version
     model: policy_northfield_s
@@ -1192,6 +1361,14 @@ models:
         name: nn_organization_h_hk_organization_h
         config:
           severity: warn
+    description: &#x27;The hash key of organization_h: the hash of its business key, and its primary key.&#x27;
+  - name: carrier_code
+    description: The carrier&#x27;s code, such as NFL for Northfield Life or PMC for Pinecrest Mutual. The organization&#x27;s business key.
+  - name: ldts
+    description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+  - name: rsrc
+    description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+  description: One row per carrier organization, keyed by carrier code, from each carrier&#x27;s own organization record.
 - name: organization_northfield_s
   tests:
   - dbt_utils.unique_combination_of_columns:
@@ -1216,12 +1393,21 @@ models:
           field: hk_organization_h
         config:
           severity: warn
+    description: The hash key of the organization, a foreign key to organization_h.
   - name: ldts
     tests:
     - not_null:
         name: nn_organization_northfield_s_ldts
         config:
           severity: warn
+    description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+  - name: hd_organization_northfield_s
+    description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+  - name: rsrc
+    description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+  - name: carrier_name
+    description: The carrier&#x27;s name as its own organization record gives it.
+  description: Northfield Life&#x27;s own organization record; one row per change.
 - name: organization_pinecrest_s
   tests:
   - dbt_utils.unique_combination_of_columns:
@@ -1246,12 +1432,21 @@ models:
           field: hk_organization_h
         config:
           severity: warn
+    description: The hash key of the organization, a foreign key to organization_h.
   - name: ldts
     tests:
     - not_null:
         name: nn_organization_pinecrest_s_ldts
         config:
           severity: warn
+    description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+  - name: hd_organization_pinecrest_s
+    description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+  - name: rsrc
+    description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+  - name: carrier_name
+    description: The carrier&#x27;s name as its own organization record gives it.
+  description: Pinecrest Mutual&#x27;s own organization record; one row per change.
 unit_tests:
 - name: unit_organization_h_oh1_new_key
   model: organization_h
@@ -1482,6 +1677,114 @@ unit_tests:
     - hk_organization_h: 03823cbeec4e049070eceeafa45b3560
       carrier_name: Pinecrest Mutual Insurance Company
       ldts: &#x27;2099-01-01 00:00:00&#x27;
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/_raw_vault_descriptions.yml</summary><pre><code>version: 2
+models:
+  - name: client_policy_sunbelt_s1
+    description: Each version of client_policy_sunbelt_s with its load end time.
+    columns:
+      - name: hk_client_policy_l
+        description: The hash key of client_policy_l, a foreign key to it.
+      - name: hd_client_policy_sunbelt_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: ledts
+        description: &quot;The load end time: one microsecond before the next version&#x27;s load time; 8888-12-31 23:59:59 for the current version.&quot;
+      - name: sold_on
+        description: The date of the sale.
+      - name: agent_name
+        description: The selling agent&#x27;s name as written on the sale.
+      - name: plan_name
+        description: Sunbelt Senior&#x27;s name for the product sold.
+  - name: client_sunbelt_s1
+    description: Each version of client_sunbelt_s with its load end time.
+    columns:
+      - name: hk_client_h
+        description: The hash key of the client, a foreign key to client_h.
+      - name: hd_client_sunbelt_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: ledts
+        description: &quot;The load end time: one microsecond before the next version&#x27;s load time; 8888-12-31 23:59:59 for the current version.&quot;
+      - name: first_name
+        description: The client&#x27;s first name.
+      - name: last_name
+        description: The client&#x27;s last name.
+      - name: state
+        description: The client&#x27;s two-letter state code.
+  - name: insured_northfield_s1
+    description: Each version of insured_northfield_s with its load end time.
+    columns:
+      - name: hk_insured_h
+        description: The hash key of the insured, a foreign key to insured_h.
+      - name: hd_insured_northfield_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: ledts
+        description: &quot;The load end time: one microsecond before the next version&#x27;s load time; 8888-12-31 23:59:59 for the current version.&quot;
+      - name: insured_name
+        description: The insured&#x27;s name in one field, Last, First.
+      - name: birth_date
+        description: The insured&#x27;s birth date.
+      - name: address
+        description: The insured&#x27;s address in one field, kept as sent.
+  - name: organization_northfield_s1
+    description: Each version of organization_northfield_s with its load end time.
+    columns:
+      - name: hk_organization_h
+        description: The hash key of the organization, a foreign key to organization_h.
+      - name: hd_organization_northfield_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: ledts
+        description: &quot;The load end time: one microsecond before the next version&#x27;s load time; 8888-12-31 23:59:59 for the current version.&quot;
+      - name: carrier_name
+        description: The carrier&#x27;s name as its own organization record gives it.
+  - name: organization_pinecrest_s1
+    description: Each version of organization_pinecrest_s with its load end time.
+    columns:
+      - name: hk_organization_h
+        description: The hash key of the organization, a foreign key to organization_h.
+      - name: hd_organization_pinecrest_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: ledts
+        description: &quot;The load end time: one microsecond before the next version&#x27;s load time; 8888-12-31 23:59:59 for the current version.&quot;
+      - name: carrier_name
+        description: The carrier&#x27;s name as its own organization record gives it.
+  - name: policy_northfield_s1
+    description: Each version of policy_northfield_s with its load end time.
+    columns:
+      - name: hk_policy_h
+        description: The hash key of the policy, a foreign key to policy_h.
+      - name: hd_policy_northfield_s
+        description: &#x27;The change hash: the hash of the descriptive columns, compared with the latest version to detect a change.&#x27;
+      - name: rsrc
+        description: &#x27;The record source: the code of the source system that sent the row, a key to the source system seed.&#x27;
+      - name: ldts
+        description: &#x27;The load time: when the vault received this row, in UTC.&#x27;
+      - name: ledts
+        description: &quot;The load end time: one microsecond before the next version&#x27;s load time; 8888-12-31 23:59:59 for the current version.&quot;
+      - name: face_amount
+        description: The death benefit, in dollars.
+      - name: status
+        description: &quot;The policy&#x27;s status code: IF in force, LP lapsed, TR terminated.&quot;
+      - name: effective_date
+        description: The date the policy took effect.
 </code></pre></details><details class="file"><summary>dbt/models/raw_vault/agent_h.sql</summary><pre><code>{# Agent hub (design D-35; guide step 28): keyed by the national producer number, fed by both sources. #}
 {{ datavault4dbt.hub(
     hashkey=&#x27;hk_agent_h&#x27;,
@@ -1632,6 +1935,16 @@ unit_tests:
     sat_v0=&#x27;policy_northfield_s&#x27;,
     hashkey=&#x27;hk_policy_h&#x27;,
     hashdiff=&#x27;hd_policy_northfield_s&#x27;
+) }}
+</code></pre></details><details class="file"><summary>dbt/models/raw_vault/policy_organization_l.sql</summary><pre><code>{# Policy-organization link (design D-57; guide step 86): each policy joined to the carrier organization that issued it,
+   from the same two sources as policy_h. #}
+{{ datavault4dbt.link(
+    link_hashkey=&#x27;hk_policy_organization_l&#x27;,
+    foreign_hashkeys=[&#x27;hk_policy_h&#x27;, &#x27;hk_organization_h&#x27;],
+    source_models=[
+        {&#x27;name&#x27;: &#x27;stg_sunbelt_policy_sale&#x27;, &#x27;rsrc_static&#x27;: &#x27;SSI&#x27;},
+        {&#x27;name&#x27;: &#x27;stg_northfield_policy&#x27;, &#x27;rsrc_static&#x27;: &#x27;NFL&#x27;}
+    ]
 ) }}
 </code></pre></details><details class="file"><summary>dbt/models/staging/_stg_northfield_organization.yml</summary><pre><code>version: 2
 
@@ -1942,6 +2255,7 @@ sources:
   Staging view for Northfield Life&#x27;s policy data (design D-23, D-24, D-26, D-32, D-34, D-35; guide step 27).
   D-24 hard rules: empty or whitespace-only insured, agent and policy numbers become NULL before hashing (unit test IH4
   red 2026-10-25 01:12 UTC on beb49c9 without them, green with them). NFL is supplied as the carrier code (D-26).
+  Design D-57 (guide step 86): hk_organization_h and hk_policy_organization_l, the organization&#x27;s key then the policy&#x27;s.
 #}
 {{ datavault4dbt.stage(
     source_model={&#x27;northfield&#x27;: &#x27;policy&#x27;},
@@ -1959,6 +2273,8 @@ sources:
         &#x27;hk_agent_h&#x27;: [&#x27;agent_npn&#x27;],
         &#x27;hk_insured_policy_l&#x27;: [&#x27;insured_number&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
         &#x27;hk_agent_policy_l&#x27;: [&#x27;agent_npn&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+        &#x27;hk_organization_h&#x27;: [&#x27;carrier_code&#x27;],
+        &#x27;hk_policy_organization_l&#x27;: [&#x27;carrier_code&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
         &#x27;hd_insured_northfield_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;insured_name&#x27;, &#x27;birth_date&#x27;, &#x27;address&#x27;]},
         &#x27;hd_policy_northfield_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;face_amount&#x27;, &#x27;status&#x27;, &#x27;effective_date&#x27;]}
     }
@@ -2038,6 +2354,7 @@ SELECT * FROM {{ ref(&#x27;stg_sunbelt_client&#x27;) }} WHERE client_number IS N
   D-24 hard rules: empty or whitespace-only policy numbers, carrier codes, client numbers and agent numbers become
   NULL before hashing (unit tests PH7, CH3 and AG5 red 2026-10-25 01:12 UTC on beb49c9 without them, green with them).
   Each overwrite declares src_cols_required (course record item 274, convention 5).
+  Design D-57 (guide step 86): hk_organization_h and hk_policy_organization_l, the organization&#x27;s key then the policy&#x27;s.
 #}
 {{ datavault4dbt.stage(
     source_model={&#x27;sunbelt&#x27;: &#x27;policy_sale&#x27;},
@@ -2055,6 +2372,8 @@ SELECT * FROM {{ ref(&#x27;stg_sunbelt_client&#x27;) }} WHERE client_number IS N
         &#x27;hk_agent_h&#x27;: [&#x27;agent_npn&#x27;],
         &#x27;hk_client_policy_l&#x27;: [&#x27;client_number&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;, &#x27;role&#x27;],
         &#x27;hk_agent_policy_l&#x27;: [&#x27;agent_npn&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
+        &#x27;hk_organization_h&#x27;: [&#x27;carrier_code&#x27;],
+        &#x27;hk_policy_organization_l&#x27;: [&#x27;carrier_code&#x27;, &#x27;carrier_code&#x27;, &#x27;policy_number&#x27;],
         &#x27;hd_client_policy_sunbelt_s&#x27;: {&#x27;is_hashdiff&#x27;: true, &#x27;columns&#x27;: [&#x27;sold_on&#x27;, &#x27;agent_name&#x27;, &#x27;plan_name&#x27;]}
     }
 ) }}

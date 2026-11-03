@@ -126,7 +126,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 .doc{padding:4px 16px 22px}}
 </style></head><body>
 <header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../ask/index.html">Ask</a><a href="../../guide/index.html">Guide</a><a href="../../releases/index.html">Releases</a><a href="../../documentation/index.html">Documentation</a><a href="../../learn/index.html">Learn</a><a href="../../model/index.html">Model</a><a href="../index.html" class="on">Build</a></nav></div>
-<div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>Inspectors, auditors and tests</h1><p>What checks the data on every build. 42 files.</p></div></header>
+<div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>Inspectors, auditors and tests</h1><p>What checks the data on every build. 43 files.</p></div></header>
 <main><details class="file"><summary>dbt/models/auditors/_auditors.yml</summary><pre><code>version: 2
 
 # Layer 3 unit tests for the layer 6 auditor (test plan paths A1, A2). A1 carries a hub key from another source
@@ -761,6 +761,19 @@ seeds:
         description: What the source system is.
       - name: OWNER
         description: Who owns the source system.
+  - name: seed_build_expectations
+    description: &quot;The build verification&#x27;s expectations: for each version tag, the condition each table&#x27;s measurement must meet.&quot;
+    columns:
+      - name: VERSION_TAG
+        description: The version the expectation applies to.
+      - name: TABLE_NAME
+        description: The table measured.
+      - name: METRIC_NAME
+        description: The measurement taken.
+      - name: CONDITION
+        description: The condition the measurement must meet.
+      - name: DESCRIPTION
+        description: What the expectation checks, in words.
 </code></pre></details><details class="file"><summary>dbt/seeds/seed_build_expectations.csv</summary><pre><code>version_tag,table_name,metric_name,condition,description
 inc1,CLIENT_H,row_count,increased,Each landing act adds client keys to the hub (guide G-5)
 inc1,DATA_FINDING,row_count|audit,&lt; 1,The auditor finds no disagreement between source and hub (design D-10)
@@ -852,6 +865,14 @@ FROM {{ ref(&#x27;insured_dim&#x27;) }} i
 JOIN {{ ref(&#x27;person_dim&#x27;) }} p ON p.person_key = i.insured_key
 WHERE NOT IS_ROLE_IN_SESSION(&#x27;SYSADMIN&#x27;)
   AND (i.birth_date IS DISTINCT FROM LEFT(p.birth_date, 4) OR i.address IS DISTINCT FROM RIGHT(TRIM(p.address), 2))
+</code></pre></details><details class="file"><summary>dbt/tests/assert_policy_organization_one_per_policy.sql</summary><pre><code>{# PO3 (design D-57; guide step 86): every policy other than the vault&#x27;s unknown and error rows has exactly one
+   policy_organization_l row. Returns the policies that do not. #}
+SELECT p.hk_policy_h, COUNT(l.hk_policy_h) AS link_rows
+FROM {{ ref(&#x27;policy_h&#x27;) }} p
+LEFT JOIN {{ ref(&#x27;policy_organization_l&#x27;) }} l ON l.hk_policy_h = p.hk_policy_h
+WHERE p.rsrc NOT IN (&#x27;SYSTEM&#x27;, &#x27;ERROR&#x27;)
+GROUP BY p.hk_policy_h
+HAVING COUNT(l.hk_policy_h) &lt;&gt; 1
 </code></pre></details><details class="file"><summary>dbt/tests/assert_policy_terms_fact_face_amount_conserved.sql</summary><pre><code>{# Layer 4, test plan FM1 (mart design D-1, section 5.3; guide step 73): face_amount summed over policy_terms_fact
    equals its sum over the satellite&#x27;s non-ghost versions. Returns a row when they differ. #}
 {{ config(severity=&#x27;warn&#x27;) }}
@@ -1108,13 +1129,13 @@ e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;owner&#x27;, 9), (&#
 SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected
 FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1
 WHERE a.n IS DISTINCT FROM e.n
-</code></pre></details><details class="file"><summary>dbt/tests/sq_q10_coverage_by_carrier_answer.sql</summary><pre><code>{# Layer 7, test plan SQ2 (Q-10; guide step 77): the saved query&#x27;s answer beside the figures on Mary&#x27;s release page, docs/releases/v2026-10-1.html, as of the production build of 2026-10-27 18:46 UTC, returning every
+</code></pre></details><details class="file"><summary>dbt/tests/sq_q10_coverage_by_carrier_answer.sql</summary><pre><code>{# Layer 7, test plan SQ2 (Q-10; guide steps 77 and 91): the saved query&#x27;s answer beside the corrected figure of design D-66, in-force policies only, as v2026.11.1&#x27;s release page states it, returning every
    difference. In development the answer is the conformed facts&#x27; own SQL for the saved query (Ray, 2026-11-01, answer 1a). #}
 {{ config(severity=&#x27;warn&#x27;) }}
 WITH a AS (
-    SELECT c.carrier_name AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;policy_dim&#x27;) }} p ON p.policy_key = t.policy_key JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = p.carrier_key WHERE t.valid_to_date IS NULL GROUP BY 1
+    SELECT c.carrier_name AS k1, SUM(t.face_amount) AS n FROM {{ ref(&#x27;policy_terms_fact&#x27;) }} t JOIN {{ ref(&#x27;policy_dim&#x27;) }} p ON p.policy_key = t.policy_key JOIN {{ ref(&#x27;carrier_dim&#x27;) }} c ON c.carrier_key = p.carrier_key WHERE t.valid_to_date IS NULL AND t.status = &#x27;IF&#x27; GROUP BY 1
 ),
-e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;Northfield Life&#x27;, 125000))
+e AS (SELECT column1 AS k1, column2 AS n FROM VALUES (&#x27;Northfield Life&#x27;, 110000))  -- in-force policies only, design D-66; v2026.10.1 was released with 125,000
 SELECT COALESCE(a.k1, e.k1) AS k1, a.n AS answer, e.n AS expected
 FROM a FULL OUTER JOIN e ON a.k1 IS NOT DISTINCT FROM e.k1
 WHERE a.n IS DISTINCT FROM e.n

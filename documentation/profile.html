@@ -1004,7 +1004,7 @@ Samples: A-1001, a-1004, A-1005 followed by a space, A1007, A-01008, an empty st
 </tr>
 </tbody>
 </table></div>
-<p><strong>P-21. The carriers&rsquo; organization records (design , D-11).</strong> [C1] Two new landing tables, NORTHFIELD.ORGANIZATION and PINECREST.ORGANIZATION, each with the text columns CARRIER_CODE, CARRIER_NAME and LOADED_AT: one row per organization record per load. Each carrier sends its own organization record, its code and its name, through its feed.</p>
+<p><strong>P-21. The carriers&rsquo; organization records (design , D-11).</strong> Two new landing tables, NORTHFIELD.ORGANIZATION and PINECREST.ORGANIZATION, each with the text columns CARRIER_CODE, CARRIER_NAME and LOADED_AT: one row per organization record per load. Each carrier sends its own organization record, its code and its name, through its feed.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1793,6 +1793,84 @@ Placement (which hub, which role) is the design&rsquo;s job and is not decided h
 <td>the time a row arrived</td>
 <td>parse count equals populated count</td>
 </tr>
+<tr>
+<td>38</td>
+<td>CARRIER_CODE (NORTHFIELD ORGANIZATION)</td>
+<td>2</td>
+<td>100.0</td>
+<td>1</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the organization&rsquo;s key, keying organization_h (P-21)</td>
+<td>the unit tests of paths OH1 and OH2</td>
+</tr>
+<tr>
+<td>39</td>
+<td>CARRIER_NAME (NORTHFIELD ORGANIZATION)</td>
+<td>2</td>
+<td>100.0</td>
+<td>1</td>
+<td>free text</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the carrier&rsquo;s name, in its organization satellite (P-21)</td>
+<td>the satellite&rsquo;s unit tests</td>
+</tr>
+<tr>
+<td>40</td>
+<td>LOADED_AT (NORTHFIELD ORGANIZATION)</td>
+<td>2</td>
+<td>100.0</td>
+<td>2</td>
+<td>timestamp as text</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the time a row arrived</td>
+<td>parse count equals populated count</td>
+</tr>
+<tr>
+<td>41</td>
+<td>CARRIER_CODE (PINECREST ORGANIZATION)</td>
+<td>1</td>
+<td>100.0</td>
+<td>1</td>
+<td>business key</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the organization&rsquo;s key, keying organization_h (P-21)</td>
+<td>the unit tests of paths OH1 and OH2</td>
+</tr>
+<tr>
+<td>42</td>
+<td>CARRIER_NAME (PINECREST ORGANIZATION)</td>
+<td>1</td>
+<td>100.0</td>
+<td>1</td>
+<td>free text</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the carrier&rsquo;s name, in its organization satellite (P-21)</td>
+<td>the satellite&rsquo;s unit tests</td>
+</tr>
+<tr>
+<td>43</td>
+<td>LOADED_AT (PINECREST ORGANIZATION)</td>
+<td>1</td>
+<td>100.0</td>
+<td>1</td>
+<td>timestamp as text</td>
+<td>clean</td>
+<td>none</td>
+<td>Integrate</td>
+<td>the time a row arrived</td>
+<td>parse count equals populated count</td>
+</tr>
 </tbody>
 </table></div>
 <h2>Compliance record</h2>
@@ -1820,7 +1898,7 @@ Placement (which hub, which role) is the design&rsquo;s job and is not decided h
 <tr>
 <td>3</td>
 <td>Appendix: one row per source column, each with a verdict, a reason and a check</td>
-<td>Yes: 30 rows, the 26 columns of the three landing tables and the 4 of the source system seed; no row without its check</td>
+<td>Yes: 43 rows: the 26 columns of the three original landing tables, the 4 of the source system seed, the 7 of Pinecrest Mutual&rsquo;s policy data and the 6 of the two organization tables; no row without its check</td>
 </tr>
 <tr>
 <td>4</td>
@@ -1884,7 +1962,7 @@ Placement (which hub, which role) is the design&rsquo;s job and is not decided h
 <tr>
 <td>1</td>
 <td>Results numbered P-n in one series</td>
-<td>Yes: P-1 to P-21 [C1]</td>
+<td>Yes: P-1 to P-21</td>
 </tr>
 <tr>
 <td>2</td>

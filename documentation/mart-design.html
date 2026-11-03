@@ -295,7 +295,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>C-1</td>
+<td>OQ-1</td>
 <td>Ray, for Mary</td>
 <td>Claude, 2026-10-26</td>
 <td>What makes an agent independent? Proposed: only carriers name the agent, no acquired agency&rsquo;s data does</td>
@@ -600,7 +600,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tr>
 <tr>
 <td>D-6</td>
-<td>All objects in CONFORMED_DM (models/marts/conformed_dm), views; the five MART views retired in the same pull request; DV Digest is their only reader and reloads from the QA build</td>
+<td>All objects in CONFORMED_DM (models/marts/conformed_dm): the four facts and the five base dimensions as tables, each with its primary and foreign keys declared after every build, and the four role views as views over their base dimensions (Ray, 2026-11-01, answer 1y, correcting the earlier all-views placement, which left the mart with no keys for the data model); one exception, the finding fact, stays a view: it reads the findings the inspectors write during the build, and as a table it was built before them on fresh data; its foreign keys to sources and days are therefore not declared, while their tests stay (Ray, 2026-11-02, answer 1y); the five MART views retired in the same pull request; DV Digest is their only reader and reloads from the QA build</td>
 <td>: MART empties by pull; no duplicate copy</td>
 <td>MART objects of 2026-10-26 and 27</td>
 <td>4.4</td>
@@ -660,6 +660,20 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>client_h, insured_h and agent_h share the same two ghost keys; one row per role would repeat a key and break person_dim&rsquo;s uniqueness</td>
 <td>Test plan uq_person_dim_person_key (DU1); the hubs&rsquo; ghost records</td>
 <td>3.3</td>
+</tr>
+<tr>
+<td>D-15</td>
+<td>One description source for the mart: each fact, dimension and role view, and each of their columns, is described once in its model file, where the semantic layer reads it, and dbt writes the same text into Snowflake as comments on every build</td>
+<td>The data model and the semantic layer must define each thing the same way (Ray, 2026-11-01, DIG-604)</td>
+<td>The mart&rsquo;s model files describe all 13 models and their 70 columns; Snowflake held none of it on 2026-11-01</td>
+<td>3.2, 3.3, 4.4</td>
+</tr>
+<tr>
+<td>D-16</td>
+<td>A fact&rsquo;s keys to clients, insureds, agents and carriers are declared as foreign keys to the base dimensions, person_dim and organization_dim, whose keys they hold; the role views stay views beside the base dimensions, joined to them by their views&rsquo; definitions</td>
+<td>A foreign key can point only to a table, and the party model keeps one copy of each person and organization (D-10, D-11) (Ray, 2026-11-01, answer 1a, DIG-604)</td>
+<td>Snowflake declares constraints on tables only (its constraints overview, read 2026-11-01)</td>
+<td>3.2, 3.3, 4.4</td>
 </tr>
 </tbody>
 </table></div>
@@ -1267,10 +1281,19 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>person_dim, organization_dim, policy_dim, source_dim, day_dim; role views client_dim, insured_dim, agent_dim, carrier_dim</td>
+<td>person_dim, organization_dim, policy_dim, source_dim, day_dim</td>
 <td>CONFORMED_DM</td>
 <td>RAW_VAULT hubs, satellites and the new organization hub; REFERENCE.seed_source_system; generated days</td>
-<td>views: rebuilt each run from the vault, which keeps history</td>
+<td>tables, rebuilt each run from the vault, which keeps history; primary and foreign keys declared after every build, so the data model shows each relationship</td>
+<td>none</td>
+<td>new</td>
+<td>D-6</td>
+</tr>
+<tr>
+<td>role views client_dim, insured_dim, agent_dim, carrier_dim</td>
+<td>CONFORMED_DM</td>
+<td>their base dimensions, person_dim and organization_dim</td>
+<td>views over their base dimension, each selecting one role</td>
 <td>none</td>
 <td>new</td>
 <td>D-6</td>
@@ -1279,7 +1302,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>client_policy_role_fact, agent_policy_fact, policy_terms_fact, finding_fact</td>
 <td>CONFORMED_DM</td>
 <td>RAW_VAULT links and the dated satellite view; landing CONFIG.DATA_FINDING through landing_storage()</td>
-<td>views</td>
+<td>tables, rebuilt each run; primary and foreign keys to their dimensions declared after every build</td>
 <td>none</td>
 <td>new</td>
 <td>D-6</td>
@@ -1416,9 +1439,9 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <tr>
 <td>DD-1</td>
 <td>The rule for an independent agent (Q-12)</td>
-<td>Needs Ray&rsquo;s word (C-1)</td>
+<td>Needs Ray&rsquo;s word (OQ-1)</td>
 <td>Q-12 not served</td>
-<td>Ray answers C-1</td>
+<td>Ray answers OQ-1</td>
 <td>Ray</td>
 </tr>
 </tbody>

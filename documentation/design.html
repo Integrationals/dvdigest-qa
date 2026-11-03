@@ -126,7 +126,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 .doc{padding:4px 16px 22px}}
 </style></head><body>
 <header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../ask/index.html">Ask</a><a href="../guide/index.html">Guide</a><a href="../releases/index.html">Releases</a><a href="index.html" class="on">Documentation</a><a href="../learn/index.html">Learn</a><a href="../model/index.html">Model</a><a href="../build/index.html">Build</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Design</p><p class="eyebrow">Documentation · release 1</p><h1>Design</h1><p>Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-52.</p></div></header>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Design</p><p class="eyebrow">Documentation · release 1</p><h1>Design</h1><p>Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-69.</p></div></header>
 <main><article class="doc"><h1>Branch Design: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Design Document</h3>
 <div class="table-wrap"><table>
@@ -321,10 +321,10 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>2026-10-25</td>
 <td>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</td>
 <td>Which independent agents sell through us without an agency?</td>
-<td>Needs the rule for what makes an agent independent (mart design C-1)</td>
+<td>Needs the rule for what makes an agent independent (mart design OQ-1)</td>
 <td>mart design DD-1</td>
 <td>None yet</td>
-<td>Later: deferred by the mart design until C-1 is answered</td>
+<td>Later: deferred by the mart design until OQ-1 is answered</td>
 </tr>
 <tr>
 <td>Q-13</td>
@@ -864,6 +864,102 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>The counts Mary&rsquo;s site shows about the branch documents and the dbt project are read from their sources at every build: the design decisions from the design&rsquo;s decision table, the finders and auditors from the inspector and auditor models</td>
 <td>Typed counts went stale: the site showed 41 design decisions against 51, and 5 finders and auditors against 8</td>
 <td>The build&rsquo;s guard compares each shown count with its source and refuses a mismatch</td>
+</tr>
+<tr>
+<td>D-53</td>
+<td>Every vault table, version view and seed, and every one of their columns, carries a description in the dbt model files, the one source of the vault&rsquo;s metadata</td>
+<td>A data model without definitions is of little use to a data architect; the vault had descriptions for 1 of its 14 tables and none of its columns (Ray, 2026-11-01, DIG-604)</td>
+<td>Dev&rsquo;s information schema, 2026-11-01: 20 vault objects and 2 seeds, 144 descriptions needed</td>
+</tr>
+<tr>
+<td>D-54</td>
+<td>dbt writes those descriptions into Snowflake as table and column comments on every build (persist_docs, relation and columns), for the vault, its version views and the seeds</td>
+<td>Snowflake&rsquo;s DDL then carries the definitions, so a model reverse-engineered from it has them (Ray, 2026-11-01, DIG-604)</td>
+<td>The committed DDL file held no comment on 2026-11-01</td>
+</tr>
+<tr>
+<td>D-55</td>
+<td>The structure DDL is generated as two files, one per ER/Studio submodel: the vault (RAW_VAULT only) and the mart (CONFORMED_DM only), each file holding only its own schema&rsquo;s objects; the REFERENCE schema, which holds the seeds, is in neither file for now (Ray, 2026-11-02, answer 1y), each carrying its keys and comments. Each file defines every table first, without its foreign keys, then declares every foreign key at its end, so each one names a table already defined: ER/Studio&rsquo;s import dropped each foreign key that named a table defined later in the file (Ray, 2026-11-02, answer 1y; GET_DDL has no option for the order).</td>
+<td>Ray reverse-engineers each file into its own submodel (Ray, 2026-11-01, DIG-604)</td>
+<td>The one committed file mixed both on 2026-11-01</td>
+</tr>
+<tr>
+<td>D-56</td>
+<td>Mary&rsquo;s site shows the two ER/Studio reports. Each is the HTML report ER/Studio exports, committed as exported in docs/model/vault and docs/model/mart and replaced whole at each export; the site builder adds only the Model page&rsquo;s two entries, pointing at model/vault/index.htm and model/mart/index.htm, and never writes those folders</td>
+<td>One copy of each report in the repository; GitHub Pages serves it as exported, as rayserrano2735/HDB_Model already does (Ray, 2026-11-02, answer 1a, DIG-604)</td>
+<td>HDB_Model, read 2026-11-02: an ER/Studio report served from main by Pages, entry page index.htm, every path inside relative</td>
+</tr>
+<tr>
+<td>D-57</td>
+<td>A link, policy_organization_l, joins each policy to the carrier organization that issued it: one row per policy and organization, keyed by the hash of both business keys, carrying the policy&rsquo;s and the organization&rsquo;s hash keys as foreign keys to policy_h and organization_h. It is loaded from the same two staged sources as policy_h, Sunbelt Senior&rsquo;s sales data and Northfield Life&rsquo;s policy data, each hashing the policy&rsquo;s carrier code exactly as organization_h does</td>
+<td>A carrier organization&rsquo;s products are its policies, and the vault related a policy to its carrier only through a code inside the policy&rsquo;s key, which left the organization apart from the rest of the data model (Ray, 2026-11-02, answer 1y, DIG-604)</td>
+<td>The vault model in ER/Studio, 2026-11-02: organization_h and its satellites form a group joined to nothing; policy_h carries carrier_code in its business key, organization_h is keyed by carrier_code</td>
+</tr>
+<tr>
+<td>D-58</td>
+<td>The ER/Studio model file, the .dm1 that ER/Studio opens, lives in infra/data_model/ and is committed with each release, beside the DDL files it is built from</td>
+<td>Each release carries the model it was built from, as it carries its DDL files (Ray, 2026-11-02, answer 1y, DIG-604)</td>
+<td>No home existed; the HTML reports live in docs/model (D-56)</td>
+</tr>
+<tr>
+<td>D-59</td>
+<td>Where the site names ER/Studio it says &ldquo;ER/Studio or a similar modeling tool&rdquo;, and the Model page no longer promises the model next: it introduces the two ER/Studio reports and points to them</td>
+<td>The model may be opened with any modeling tool, and the reports now exist (Ray, 2026-11-02, review findings CR-8 and CR-14)</td>
+<td>The Model page&rsquo;s subtitle and the home page&rsquo;s sentence on the vault&rsquo;s full model, read in site/build_site.py on 2026-11-02</td>
+</tr>
+<tr>
+<td>D-60</td>
+<td>The Ask page&rsquo;s greeting names the environment the site queries, production, QA or dev, taken from the environment the site is built for</td>
+<td>On the QA site the greeting said every number comes from production while it queried QA (Ray&rsquo;s review, CR-5)</td>
+<td>site/build_site.py, build_ask: one fixed greeting for every environment</td>
+</tr>
+<tr>
+<td>D-61</td>
+<td>The home page&rsquo;s introduction says the vault is a classic Data Vault on Snowflake, built with dbt and datavault4dbt, which builds the same vault on Databricks</td>
+<td>The introduction named Snowflake but not Databricks (Ray&rsquo;s review, CR-7; Ray, 2026-11-02, answer 4y)</td>
+<td>datavault4dbt&rsquo;s documentation lists Databricks among its supported platforms, read 2026-11-02</td>
+</tr>
+<tr>
+<td>D-62</td>
+<td>The home page names, for each release, the questions it answers: v2026.10.1 the four questions of the agency&rsquo;s business, v2026.11.1 the origin and history questions, v2026.11.2 the compliance questions; counts and gates stated on the page carry the release they belong to</td>
+<td>The introduction did not say which release answers what, and showed release 1&rsquo;s facts as current (Ray&rsquo;s review, CR-12)</td>
+<td>The QA site&rsquo;s home page, read in the review</td>
+</tr>
+<tr>
+<td>D-63</td>
+<td>v2026.11.1 is named The Site and the Data Model on every page and in every document, the release answers documents and the product definition included</td>
+<td>Ray renamed it on 2026-11-01; the old name remained in six pages and three documents (Ray&rsquo;s review, CR-15)</td>
+<td>The named-releases item of the data product method</td>
+</tr>
+<tr>
+<td>D-64</td>
+<td>The Releases and home pages say what comes next by Ray&rsquo;s plan: v2026.11.2, the business vault and the compliance answers, named later; the entry for People, Not Numbers is removed until that release is planned</td>
+<td>The pages followed the old plan (Ray&rsquo;s review, CR-16; Ray, 2026-11-02, answers 2a and 3b)</td>
+<td>The Releases page&rsquo;s Next and Later entries and the home page&rsquo;s sentence on what comes next</td>
+</tr>
+<tr>
+<td>D-65</td>
+<td>The site says &ldquo;the agency&rsquo;s business&rdquo; where it said &ldquo;book&rdquo;: the home page&rsquo;s banner and its call to action, and the Ask page&rsquo;s greeting and typing box; release v2026.10.1 is renamed The Agency&rsquo;s Business on every page and in every document</td>
+<td>The wording aligned on 2026-10-30 was never applied, and the released name kept the old word (Ray&rsquo;s review, CR-13; Ray, 2026-11-02, answers 1b and 1b)</td>
+<td>The QA site&rsquo;s home banner, its call to action, the Ask greeting and typing box, read in the review</td>
+</tr>
+<tr>
+<td>D-66</td>
+<td>Coverage, current counts in-force policies only: the metric face_amount_current keeps its filter to each policy&rsquo;s current terms and adds the policy status IF, in force. The change ships with v2026.11.1, whose release page states the corrected coverage and why; v2026.10.1&rsquo;s page keeps the answer it was released with, with a note</td>
+<td>A lapsed policy provides no coverage; NF-100003, lapsed 2026-10-02, kept its 15,000 in Northfield Life&rsquo;s 125,000 (Ray&rsquo;s review, CR-1; Ray, 2026-11-02, answer 1a)</td>
+<td>DV_QA read 2026-11-01 20:10 UTC; the metric&rsquo;s filter in _conformed_dm_facts.yml</td>
+</tr>
+<tr>
+<td>D-68</td>
+<td>The Ask page shows its suggestions only until the first question is asked, then folds them into one control that reopens them on demand</td>
+<td>The six full-question buttons sat between the conversation and the typing box (Ray&rsquo;s review, CR-4; Ray, 2026-11-02, answer 2a)</td>
+<td>The Ask page&rsquo;s chat box, read in the review</td>
+</tr>
+<tr>
+<td>D-69</td>
+<td>Opening the Ask page sends one wake request to the Ask function, which answers at once; no question is spent and no allowance consumed. The connector is not woken: the demo keeps the change minimal (Ray, 2026-11-02, answer 2y)</td>
+<td>The first question took 14.3 seconds, 8.3 of them the two cold starts (Ray&rsquo;s review, CR-6; Ray, 2026-11-02, answer 3a)</td>
+<td>QA logs of 2026-11-01; the Ask function already answers a plain GET with its status</td>
 </tr>
 </tbody>
 </table></div>

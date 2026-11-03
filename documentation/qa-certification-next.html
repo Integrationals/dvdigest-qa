@@ -300,6 +300,120 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <p>Each figure in 9.1 equals the conformed mart read directly (sections 7.2 and 8.2) and the release page&rsquo;s figures, Q-11 corrected to 14 and 1 (code review F-8).</p>
 <h3>9.3 QA delivery surface</h3>
 <p>The QA connector and Ask function, deployed from qa by infra/aws/deploy_lambda.py and infra/aws/deploy_functions.py; the pages the retest serves are the docs/ of qa.</p>
+<h3>9.4 Consumer review findings</h3>
+<p>Ray&rsquo;s review of the QA site, 2026-11-01 from 19:30 UTC. The site was published by hand at qa.dvdigest.integrationals.com, from qa at ad06926 built for QA, Ray&rsquo;s recorded exception (answer 1a) until DIG-598&rsquo;s Actions publish it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Finding</th>
+<th>Evidence</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CR-1</td>
+<td>Coverage counts lapsed policies. Asked a question outside the suggestions, Mary&rsquo;s Claude ran Coverage, current by policy number and carrier, 19:31:58 UTC, and the answer was correct to the definition: nine Northfield Life policies, 125,000 dollars. But NF-100003 lapsed on 2026-10-02 and its 15,000 is still counted; a lapsed policy provides no coverage, so by the business meaning Northfield Life&rsquo;s current coverage is 110,000. Release 1&rsquo;s 125,000 carries the same flaw</td>
+<td>DV_QA read 2026-11-01 20:10 UTC, the same measure and groupings</td>
+<td>Open: remediate in this release, or record it as a known characteristic (Ray to decide)</td>
+</tr>
+<tr>
+<td>CR-2</td>
+<td>The streaming Ask path does not record the question&rsquo;s words, only the tool calls and model calls</td>
+<td>QA&rsquo;s Ask log, 18:21 to 20:02 UTC: no question text</td>
+<td>Tabled: out of this branch, not a dbt built-in; a demo needs no question log (Ray, 2026-11-02, answer 1y)</td>
+</tr>
+<tr>
+<td>CR-3</td>
+<td>Nor does it record the reply</td>
+<td>Same</td>
+<td>Tabled: out of this branch, not a dbt built-in; a demo needs no question log (Ray, 2026-11-02, answer 1y)</td>
+</tr>
+<tr>
+<td>CR-4</td>
+<td>The Ask page&rsquo;s suggestions and the conversation get in each other&rsquo;s way; the page needs a better design (Ray)</td>
+<td>The chat box stacks its header, the conversation, a row of six full-question suggestion buttons, then the typing box; the row grew from four to six with pull request 29 and sits between the conversation and where Mary types</td>
+<td>Open: a design to propose with the batch</td>
+</tr>
+<tr>
+<td>CR-5</td>
+<td>The chat&rsquo;s greeting says every number comes from a query against production, on every environment&rsquo;s site; on the QA site it queries QA (found by Claude while recording CR-4)</td>
+<td>site/build_site.py, build_ask: the greeting is one fixed text</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-6</td>
+<td>The first question is slow; warm the functions before Mary asks (Ray)</td>
+<td>QA logs, Ray&rsquo;s first question 19:29:13 to 19:29:27 UTC, 14.3 s: the connector&rsquo;s cold start 5.6 s, the Ask function&rsquo;s 2.7 s, the semantic catalogue not yet cached (about 10 calls), Claude&rsquo;s two model calls 4.6 s, Snowflake&rsquo;s first query 1.2 s; a later question met a second cold connector (5.5 s); warm, a question took 9.6 s, mostly the model calls and Snowflake (3.4 to 3.6 s). Ways: a wake request when the Ask page opens; a scheduled ping; provisioned concurrency</td>
+<td>Open: a choice with the batch</td>
+</tr>
+<tr>
+<td>CR-7</td>
+<td>The introduction mentions Snowflake but not Databricks (Ray)</td>
+<td>The home page&rsquo;s introduction: &ldquo;a classic Data Vault on Snowflake&rdquo;; the Build page names Snowflake; Databricks appears only inside the design, test plan and implementation guide pages</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-8</td>
+<td>The site needs the ER/Studio model (Ray)</td>
+<td>The Model page says &ldquo;The full model with its dictionary, from ER/Studio, joins this section next&rdquo; and shows only the two diagrams drawn from the tables; the repository holds no ER/Studio export; DIG-589&rsquo;s backlog names the dictionary and the ER/Studio report. The model is Ray&rsquo;s in ER/Studio; Claude feeds it the DDL and metadata and turns its exports into the page, including this release&rsquo;s conformed mart</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-9</td>
+<td>The mart declares no foreign keys in Snowflake (Ray&rsquo;s question)</td>
+<td>DV_QA, 2026-11-01: the 27 declared keys are all in RAW_VAULT (14 primary, 12 foreign) and REFERENCE (1 primary); the 13 CONFORMED_DM objects are views, on which Snowflake allows no keys; the mart&rsquo;s relationships exist as dbt relationship tests and as the semantic layer&rsquo;s entities. Reverse-engineered, ER/Studio would show the mart&rsquo;s views unrelated. Decided with CR-8: the facts and dimensions as tables with declared keys, or the relationships brought into ER/Studio through its metadata</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-10</td>
+<td>A defect: every table needs a relationship in the model (Ray)</td>
+<td>DV_QA&rsquo;s 12 declared foreign keys connect every link to its hubs and every satellite to its parent, but: (a) nothing relates organization_h, the carrier, to policy_h: no link records that a carrier issued a policy, though Northfield Life&rsquo;s policy data carries the carrier code, and the mart joins them by that business key alone; (b) nothing refers to seed_source_system, though every vault table&rsquo;s record source code is its key; (c) seed_build_expectations relates to nothing, being build test configuration; (d) the mart&rsquo;s views declare none (CR-9)</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-11</td>
+<td>Complete the solution with dbt Charts (Ray)</td>
+<td>dbt Labs&rsquo; open-source visualization layer, released 2026-09-14 (Apache 2.0, CLI dct): dashboards declared as YAML in a charts/ folder beside the models, validated with dbt parse and dct validate before the build, rendered to SVG, HTML, PNG or PDF, or served as a site; Mary&rsquo;s answers as charts on her pages, reviewed and promoted with the code. Its Python adapter depends on dbt Core 1.x, so it needs its own environment apart from Fusion. Open question, 2026-11-01: dbt&rsquo;s quickstart writes every query in SQL against the built tables and names SQL, values and HTTP query types, with no word on the semantic layer; its query-type documentation lives on docs.dataface.com, and Dataface, the Fivetran project, queries MetricFlow by metric and dimension; whether dbt Charts kept that is not established. The proof in dev starts there: one board asking for Records not accepted by Source by name. A chart computing its numbers in its own SQL would drift from the semantic layer&rsquo;s definitions (Data Consumption Design )</td>
+<td>Moved to the next branch (Ray, 2026-11-02, answer 2b)</td>
+</tr>
+<tr>
+<td>CR-12</td>
+<td>The introduction mentions the compliance questions but is not clear about which release answers what (Ray)</td>
+<td>The QA site&rsquo;s home page: &ldquo;On that base we propose eight compliance questions for a distributor&rdquo;, with no release named for them; &ldquo;Next, it answers what was known on any date, and with that the first compliance questions&rdquo;, though this release, What We Knew When, answers none and the Ask function tells Mary compliance comes later; &ldquo;Release 1 answers four questions&rdquo;, &ldquo;6 of 6 QA gates certified for release 1&rdquo; and &ldquo;137 tests on every build&rdquo; are release 1&rsquo;s facts. Pull request 29 updated the Releases index, the release page and the guide but not the home page</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-13</td>
+<td>&ldquo;Book&rdquo; where we aligned on &ldquo;the agency&rsquo;s business&rdquo; (Ray)</td>
+<td>Aligned 2026-10-30 in the DIG-594 keys-branch conversation, when Ray approved the executive summary (&ldquo;an acquired agency&rsquo;s business&rdquo;, &ldquo;what is in the agency&rsquo;s business&rdquo;); the item &ldquo;the agency&rsquo;s business in place of the acquired book&rdquo; was left open and never done. The QA site still says: the home banner &ldquo;an acquired agency&rsquo;s book integrated in a Data Vault&rdquo; and its call to action &ldquo;four questions about the acquired book&rdquo;; the Ask greeting &ldquo;Ask about the acquired book in plain words&rdquo; and its typing box. Release 1&rsquo;s name, The Acquired Book, appears on the home page, the Releases index and its page; whether a released name changes is Ray&rsquo;s to decide</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-14</td>
+<td>Where the site names ER/Studio, add &ldquo;or similar&rdquo; (Ray)</td>
+<td>The home page: &ldquo;You can open the vault&rsquo;s full model, keys and relationships included, in ER/Studio&rdquo;; the Model page: &ldquo;The full model with its dictionary, from ER/Studio, joins this section next&rdquo; (with CR-8); the Build page already says &ldquo;a modeling tool such as ER/Studio&rdquo;</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-15</td>
+<td>Rename v2026.11.1 from &ldquo;What We Knew When&rdquo; to &ldquo;The Site and the Data Model&rdquo; (Ray, 2026-11-01)</td>
+<td>The name was decided on 2026-11-01 and recorded in the named-releases item of the data product method; the old name remains on the QA site&rsquo;s pages build/code/infra.html documentation/definition.html documentation/index.html guide/index.html releases/index.html releases/v2026-11-1.html, in both release answers documents for v2026.11.1, and in the product definition&rsquo;s named releases</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>CR-16</td>
+<td>The site&rsquo;s text on what comes next follows the old plan, not v2026.11.2 (Ray, 2026-11-02)</td>
+<td>The Releases page lists &ldquo;Next · What We Knew When&rdquo; (the release now in QA) and &ldquo;Later · People, Not Numbers&rdquo;; the home page says the next release answers what was known on any date and the first compliance questions; the Ask page names a coming release for each answer it cannot give. None mentions v2026.11.2, which Ray describes as the business vault and the compliance answers</td>
+<td>Open</td>
+</tr>
+</tbody>
+</table></div>
+<p>Confirmed in the review, not findings: the site&rsquo;s overall look and feel is pleasant and compatible with AmeriLife&rsquo;s (Ray, 2026-11-01); the batch&rsquo;s changes to the Ask page (CR-4) and the home page (CR-12) keep it.</p>
+<h3>9.5 User acceptance (UAT)</h3>
+<p>Mary Mink reviews the QA site after QA&rsquo;s review and its one remediation batch, with her questions recorded (CR-2, CR-3); her findings are recorded here, apart from QA&rsquo;s in 9.4, and fixed in one batch if any, before promotion (Ray, 2026-11-01, answer 1y).</p>
+<p>NOT YET RUN</p>
 <h2>10. Operational verification</h2>
 <p>Run 4, 2026-11-01 15:40 UTC: the QA connector signs in as CLAUDE_WS in CLAUDE_WS_ROLE, and its default session carries SYSADMIN through the user&rsquo;s secondary roles; read that way, insured_dim showed Rosa Alvarez&rsquo;s birth date 1952-03-14 and full address, the mask of mart design D-9 lifted, and the connector could read DV_QA only through SYSADMIN. Not certified. Fixed by pull request 27: the connector turns secondary roles off; every build grants CLAUDE_WS_ROLE SELECT on the conformed mart&rsquo;s views and USAGE on its schema; connector_read_grants.sql grants database usage once per environment. Proven by the full dev rehearsal, and in QA run 5, 2026-11-01 16:09 UTC, through the connector&rsquo;s own session code: SYSADMIN not in the session, the insured row reads 1952 and FL, a measure answers 13. Passes.</p>
 <h2>11. Rollback and cleanup</h2>

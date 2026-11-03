@@ -154,13 +154,16 @@ models:
     raw_vault:
       +materialized: incremental
       +schema: RAW_VAULT
+      +persist_docs: {relation: true, columns: true}  # descriptions as Snowflake comments, so the DDL carries them to ER/Studio (DIG-604)
     mart:
       +materialized: view
       +schema: MART
-    # The conformed mart (mart design D-6; guide step 60): Mary&#x27;s facts and dimensions, as views.
+    # The conformed mart (mart design D-6, corrected 2026-11-01): facts and base dimensions as tables, so their keys
+    # can be declared; the role views stay views (each declares it in _conformed_dm_role_views.yml).
     marts:
       conformed_dm:
-        +materialized: view
+        +materialized: table
+        +persist_docs: {relation: true, columns: true}  # the semantic layer&#x27;s descriptions as Snowflake comments (DIG-604)
         +schema: CONFORMED_DM
         +grants:
           select: [&quot;CLAUDE_WS_ROLE&quot;]  # read-only, for Mary&#x27;s connector; the same in every environment
@@ -175,6 +178,7 @@ seeds:
   digest_datavault:
     +schema: REFERENCE
     +transient: true  # as production holds them; stated so both dbt engines build them alike (dev rehearsal, 2026-11-01)
+    +persist_docs: {relation: true, columns: true}  # descriptions as Snowflake comments (DIG-604)
 
 vars:
   # Load timestamps are stored as TIMESTAMP_NTZ and always mean UTC.
@@ -189,7 +193,7 @@ vars:
   The vault&#x27;s declared keys, from one definition: its layer 1 tests (Ray, 2026-10-28, answers 2y and 4y).
   Each unique test on one column, or dbt_utils.unique_combination_of_columns, becomes its table&#x27;s primary key;
   each relationships test becomes a foreign key to the table it names. Snowflake keeps them as information, not
-  enforced, so loads never fail on them; GET_DDL then reports them, and infra/snowflake/ddl/dv.sql carries them
+  enforced, so loads never fail on them; GET_DDL then reports them, and infra/snowflake/ddl/vault.sql and mart.sql carry them
   for a modeling tool. Only tables and seeds are keyed (views cannot be), and a key already present is left alone,
   so this is safe to run after every build. Runs as the project&#x27;s on-run-end hook.
 #}

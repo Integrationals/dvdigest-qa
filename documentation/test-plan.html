@@ -2171,6 +2171,138 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tr>
 </tbody>
 </table></div>
+<p>The ER/Studio reports on Mary&rsquo;s site (DIG-604, design D-56) change one file and add two exported folders, one row each:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+<th>1 Built-ins</th>
+<th>2 Expectations</th>
+<th>3 Unit tests</th>
+<th>4 Logic assertions</th>
+<th>5 Detectors</th>
+<th>6 Reconciliations</th>
+<th>7 Semantic surface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site/build_site.py</td>
+<td>change: the Model page&rsquo;s two entries, to model/vault/index.htm and model/mart/index.htm (D-56)</td>
+<td>n/a: the site builder</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>the build&rsquo;s address check finds both entries&rsquo; targets; the two report folders&rsquo; file lists are equal before and after the build</td>
+</tr>
+<tr>
+<td>docs/model/vault/, docs/model/mart/</td>
+<td>add: the ER/Studio reports as exported, by Ray (D-56)</td>
+<td>n/a: exported files</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>the vault report holds a table page for each of vault.sql&rsquo;s tables, the mart report for each of mart.sql&rsquo;s</td>
+</tr>
+<tr>
+<td>site/build_site.py</td>
+<td>change: the Model page&rsquo;s subtitle introduces the two reports; every mention of ER/Studio adds &ldquo;or a similar modeling tool&rdquo; (D-59)</td>
+<td>n/a: the site builder</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>the built pages hold no sentence promising the model next, and wherever the site&rsquo;s own text tells the reader to open the model with ER/Studio, it says &ldquo;ER/Studio or a similar modeling tool&rdquo; or &ldquo;such as ER/Studio&rdquo;; code and documents the site shows as they are, and the reports&rsquo; own names for ER/Studio, are outside this check</td>
+</tr>
+<tr>
+<td>site/build_site.py</td>
+<td>change: the site&rsquo;s text by the review&rsquo;s group 2 (D-60 to D-65)</td>
+<td>n/a: the site builder</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>a QA build&rsquo;s Ask greeting names QA and a default build&rsquo;s names production; the home page names Databricks as D-61 words it and each release with its questions; no page in the site&rsquo;s own text holds &ldquo;What We Knew When&rdquo;, &ldquo;The Acquired Book&rdquo;, &ldquo;acquired book&rdquo; or &ldquo;agency&rsquo;s book&rdquo; (documents and code the site shows as they are keep the old names where they record history); the Releases page lists v2026.10.1 The Agency&rsquo;s Business, v2026.11.1 The Site and the Data Model, and v2026.11.2 as next, and no entry for People, Not Numbers</td>
+</tr>
+<tr>
+<td>site/build_site.py</td>
+<td>change: the Ask page by the review&rsquo;s group 3 (D-68, D-69)</td>
+<td>n/a: the site builder</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>in the dev stand-in, the suggestions show before the first question and fold into one control after it, which reopens them; opening the page sends one request to the Ask function&rsquo;s address before any question</td>
+</tr>
+</tbody>
+</table></div>
+<p>The policy&rsquo;s carrier organization (DIG-604, design D-57) adds one link and its seven tests:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+<th>1 Built-ins</th>
+<th>2 Expectations</th>
+<th>3 Unit tests</th>
+<th>4 Logic assertions</th>
+<th>5 Detectors</th>
+<th>6 Reconciliations</th>
+<th>7 Semantic surface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dbt/models/raw_vault/policy_organization_l.sql</td>
+<td>add: link (D-57)</td>
+<td>uq_policy_organization_l_hk_policy_organization_l; nn_policy_organization_l_hk_policy_organization_l; rel_policy_organization_l_hk_policy_h; rel_policy_organization_l_hk_organization_h</td>
+<td>n/a: its row count is read by verify_build</td>
+<td>PO1, PO2</td>
+<td>assert_policy_organization_one_per_policy</td>
+<td>n/a: inspectors read staging, not the vault</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Input</th>
+<th>Expected</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PO1</td>
+<td>NF-100001, carrier code NFL, in Northfield Life&rsquo;s policy data</td>
+<td>One link row joining the policy to Northfield Life&rsquo;s organization</td>
+<td>unit_policy_organization_l_po1_carrier_joined</td>
+</tr>
+<tr>
+<td>PO2</td>
+<td>NF-100005, carrier code missing</td>
+<td>One link row joining the policy to the unknown organization, so the policy still joins</td>
+<td>unit_policy_organization_l_po2_missing_code_unknown_organization</td>
+</tr>
+<tr>
+<td>PO3</td>
+<td>Every policy_h row other than the vault&rsquo;s own unknown and error rows</td>
+<td>Exactly one policy_organization_l row each</td>
+<td>assert_policy_organization_one_per_policy</td>
+</tr>
+</tbody>
+</table></div>
 <h3>2.2 Lab 1-2 coverage (Ray&rsquo;s branch, planned)</h3>
 <p>Lab 1-2 lands Pinecrest Mutual&rsquo;s policy data (design D-37 to D-39; profile 2.1.5 and P-20). It adds no business-logic model, so it has no logic area and no unit test; its proofs are layers 1 and 2 and the live proof of land_act. The files it changes, every layer walked:</p>
 <div class="table-wrap"><table>
@@ -2817,6 +2949,24 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>Exists as a date_day in day_dim</td>
 <td>rel_finding_fact_detected_date</td>
 </tr>
+<tr>
+<td>FK8</td>
+<td>Each client_key of client_policy_role_fact</td>
+<td>Exists in person_dim, the base dimension; declared as the foreign key (mart design D-16)</td>
+<td>rel_client_policy_role_fact_client_key_person_dim</td>
+</tr>
+<tr>
+<td>FK9</td>
+<td>Each agent_key of agent_policy_fact</td>
+<td>Exists in person_dim, the base dimension; declared as the foreign key (mart design D-16)</td>
+<td>rel_agent_policy_fact_agent_key_person_dim</td>
+</tr>
+<tr>
+<td>FK10</td>
+<td>Each carrier_key of policy_dim</td>
+<td>Exists in organization_dim, the base dimension; declared as the foreign key (mart design D-16)</td>
+<td>rel_policy_dim_carrier_key_organization_dim</td>
+</tr>
 </tbody>
 </table></div>
 <h4>2.3.4 Semantic layer and Mary&rsquo;s questions: metrics, the six saved queries, the masking mock (D-9), consumer probes</h4>
@@ -2893,7 +3043,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <tr>
 <td>SQ2</td>
 <td>Saved query q10_coverage_by_carrier run: face_amount_current by carrier</td>
-<td>Equals the figure on Mary&rsquo;s release page for Q-10</td>
+<td>Northfield Life 110,000, its 8 in-force policies; NF-100003, lapsed on 2026-10-02, not counted (design D-66); the figure on v2026.11.1&rsquo;s release page</td>
 <td>sq_q10_coverage_by_carrier_answer, in layer 7</td>
 </tr>
 <tr>
@@ -3001,7 +3151,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <tbody>
 <tr>
 <td>1 — Built-ins</td>
-<td>Increments 1 and 1.1: nn_sunbelt_client_crm_row_id; nn_sunbelt_client_loaded_at; uq_client_h_hk_client_h; nn_client_h_hk_client_h; uq_seed_source_system_code; nn_seed_source_system_code. Increment 2: nn_sunbelt_policy_sale_loaded_at; nn_northfield_policy_loaded_at; Lab 1-2: nn_pinecrest_policy_loaded_at; uq_ and nn_ on the hash keys of policy_h, insured_h, agent_h, client_policy_l, insured_policy_l and agent_policy_l. D-40: rel_client_sunbelt_s_hk_client_h, rel_client_policy_sunbelt_s_hk_client_policy_l, rel_insured_northfield_s_hk_insured_h and rel_policy_northfield_s_hk_policy_h. D-42: rel_client_policy_l_hk_client_h, rel_client_policy_l_hk_policy_h, rel_insured_policy_l_hk_insured_h, rel_insured_policy_l_hk_policy_h, rel_agent_policy_l_hk_agent_h and rel_agent_policy_l_hk_policy_h; on each of the four satellites uq_<satellite><em>pk, its parent hash key with its load time, and nn</em><satellite><em><parent key> and nn</em><satellite><em>ldts. 42 tests, severity warn. The mart (section 2.3): 39 more, its uq</em>, nn_ and rel_ rows, severity warn</td>
+<td>Increments 1 and 1.1: nn_sunbelt_client_crm_row_id; nn_sunbelt_client_loaded_at; uq_client_h_hk_client_h; nn_client_h_hk_client_h; uq_seed_source_system_code; nn_seed_source_system_code. Increment 2: nn_sunbelt_policy_sale_loaded_at; nn_northfield_policy_loaded_at; Lab 1-2: nn_pinecrest_policy_loaded_at; uq_ and nn_ on the hash keys of policy_h, insured_h, agent_h, client_policy_l, insured_policy_l and agent_policy_l. D-40: rel_client_sunbelt_s_hk_client_h, rel_client_policy_sunbelt_s_hk_client_policy_l, rel_insured_northfield_s_hk_insured_h and rel_policy_northfield_s_hk_policy_h. D-42: rel_client_policy_l_hk_client_h, rel_client_policy_l_hk_policy_h, rel_insured_policy_l_hk_insured_h, rel_insured_policy_l_hk_policy_h, rel_agent_policy_l_hk_agent_h and rel_agent_policy_l_hk_policy_h; on each of the four satellites uq_<satellite><em>pk, its parent hash key with its load time, and nn</em><satellite><em><parent key> and nn</em><satellite><em>ldts. 42 tests, severity warn. The mart (section 2.3): 42 more, its uq</em>, nn_ and rel_ rows, severity warn</td>
 <td>0 failures</td>
 <td>Applies (design layer 1)</td>
 </tr>
@@ -3055,6 +3205,10 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <tr>
 <td>capture_baseline before and verify_build after every build: one per landing act in each increment, and each full build</td>
 <td>Every build clean (129 of 129 at commit 94639b4; the fix&rsquo;s build 173 of 173 at commit f1f3ce0, run inside the facility: no table lost rows; its three growth expectations do not apply when no new data arrives, since each expects a landing act to add keys); verify_build names 5 warnings and no lookout: three rebuilds over unchanged acts, where a hub or link count did not increase, and two audit expectations reading the two retained findings</td>
+</tr>
+<tr>
+<td>The structure comparison of the two DDL files, infra/snowflake/ddl/vault.sql and infra/snowflake/ddl/mart.sql, each generated from dev, its foreign keys declared at its end (design D-55), and compared with the structure each build leaves in dev, QA and production (design D-55)</td>
+<td>Identical, keys and descriptions included: the vault&rsquo;s 21 objects, every column described, and no object from another schema (design D-53, D-54); the mart&rsquo;s facts and base dimensions as tables with their keys, the role views as views, every column described as the semantic layer describes it (mart design D-6, D-15, D-16)</td>
 </tr>
 </tbody>
 </table></div>
@@ -3119,7 +3273,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Every test of sections 2 and 3: 137 tests, 81 unit and 56 data, 3 of the data tests on the release 1 mart views; the mart&rsquo;s 85 tests of section 2.3 join this sweep once built</td>
+<td>Every test of sections 2 and 3: 137 tests, 81 unit and 56 data, 3 of the data tests on the release 1 mart views; the mart&rsquo;s 88 tests of section 2.3, built, are in this sweep, with the counts of section 6</td>
 <td>All pass in the QA job&rsquo;s sweep (selector qa_build) on DV_QA over LANDING_QA, each recorded by name in the QA item, , section 6. Data tests&rsquo; expected values follow the QA item&rsquo;s movement ledger, section 1.3</td>
 </tr>
 </tbody>
@@ -3129,7 +3283,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <h3>5.3 Consumer probes and reconciliations on QA data</h3>
 <p>Probes Q-1 to Q-6 (section 4) rerun on DV_QA and LANDING_QA.CONFIG, through the QA role, with the expected values the QA item declares for the landing state cloned; the three auditors are the reconciliations, expected to write no finding. Recorded in the QA item, section 9.</p>
 <h3>5.4 Layer 7 in the QA collection</h3>
-<p>Applies: the protected semantic set is the release 1 mart&rsquo;s metrics records_not_accepted and rows_missing_key (D-47), and, once built, the conformed mart&rsquo;s metrics and its six saved queries (section 2.3.4); the fix&rsquo;s QA record, , lists them.</p>
+<p>Applies: the protected semantic set is the release 1 mart&rsquo;s metrics records_not_accepted and rows_missing_key (D-47), and the conformed mart&rsquo;s metrics and its six saved queries (section 2.3.4), built; the fix&rsquo;s QA record, , lists them.</p>
 <h2>6. Test artifact inventory</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -3142,7 +3296,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <tbody>
 <tr>
 <td>Layer 1 built-in tests</td>
-<td>45: 42 for the vault and 3 for the release 1 mart views</td>
+<td>49: 46 for the vault and 3 for the release 1 mart views</td>
 <td>2.1, 3</td>
 </tr>
 <tr>
@@ -3152,12 +3306,12 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tr>
 <tr>
 <td>Layer 3 unit tests</td>
-<td>81: 12 for increments 1 and 1.1, 62 for increment 2, 7 for the fix to release 1</td>
+<td>83: 12 for increments 1 and 1.1, 62 for increment 2, 7 for the fix to release 1, 2 for DIG-604</td>
 <td>1, 2, 3</td>
 </tr>
 <tr>
 <td>Layer 4 logic assertions</td>
-<td>6</td>
+<td>7</td>
 <td>2.1, 3</td>
 </tr>
 <tr>
@@ -3166,13 +3320,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>2.1, 3</td>
 </tr>
 <tr>
-<td>The conformed mart, planned before its code</td>
-<td>85: layer 1 39, layer 2 2, layer 3 23, layer 4 3, layer 6 9, layer 7 9; and 6 consumer probes</td>
+<td>The conformed mart</td>
+<td>88: layer 1 42, layer 2 2, layer 3 23, layer 4 3, layer 6 9, layer 7 9; and 6 consumer probes</td>
 <td>2.3, 3</td>
 </tr>
 </tbody>
 </table></div>
-<p>The 137 tests of layers 1 to 4 (45, 5, 81 and 6) equal the 137 that <code>dbt ls --resource-type test --resource-type unit_test</code> returns at commit 2a921a1. Lab 1-2 adds 3 tests (one in layer 1, two in layer 2) on Ray&rsquo;s branch once its code exists. Guardrails: one capture and one verification per build (3.1). Consumer probes: 6 (4).</p>
+<p>The 137 tests of layers 1 to 4 (45, 5, 81 and 6) equal the 137 that <code>dbt ls --resource-type test --resource-type unit_test</code> returns at commit 2a921a1; DIG-604&rsquo;s link adds 7 (4 in layer 1, 2 in layer 3, 1 in layer 4), for 144. Lab 1-2 adds 3 tests (one in layer 1, two in layer 2) on Ray&rsquo;s branch once its code exists. Guardrails: one capture and one verification per build (3.1). Consumer probes: 6 (4).</p>
 <h2>7. Origin</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -3387,6 +3541,14 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>mart design D-9</td>
 </tr>
 <tr>
+<td>FK8 to FK10</td>
+<td>mart design D-16</td>
+</tr>
+<tr>
+<td>the structure comparison of vault.sql and mart.sql</td>
+<td>design D-53 to D-55; mart design D-6, D-15, D-16</td>
+</tr>
+<tr>
 <td>P-9 to P-15</td>
 <td>mart design section 1.2</td>
 </tr>
@@ -3394,7 +3556,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </table></div>
 <p>This plan cites the design&rsquo;s decisions and adds none. A test requiring a missing decision returns to the design.</p>
 <h2>8. Compliance record</h2>
-<p>Built by the author before the reviewer reads the plan (Standard: Branch Delivery Documents, , compliance record before agreement), at 2026-10-28 21:15Z against commit f1f3ce0, and for the mart against the mart design  at 2026-10-31 22:20Z. Verdict: compliant for the fix to release 1, with three deviations each carried by a recorded decision and one API gap recorded. For the mart, written before its code as the Test-Driven Development standard requires: logic areas R to X, 85 tests across layers 1 to 7, 6 consumer probes and the origin rows; its coverage by file (section 2.1) follows the code. Lab 1-2&rsquo;s extension (section 2.2) walks every layer for each file Lab 1-2 changes, names its 3 tests by layer with their decisions in section 7, and states why it has no unit test: land_act is an operations macro, proved live.</p>
+<p>Built by the author before the reviewer reads the plan (Standard: Branch Delivery Documents, , compliance record before agreement), at 2026-10-28 21:15Z against commit f1f3ce0, and for the mart against the mart design  at 2026-10-31 22:20Z. Verdict: compliant for the fix to release 1, with three deviations each carried by a recorded decision and one API gap recorded. For the mart, written before its code as the Test-Driven Development standard requires: logic areas R to X, 88 tests across layers 1 to 7, 6 consumer probes and the origin rows; its coverage by file (section 2.1) follows the code. Lab 1-2&rsquo;s extension (section 2.2) walks every layer for each file Lab 1-2 changes, names its 3 tests by layer with their decisions in section 7, and states why it has no unit test: land_act is an operations macro, proved live.</p>
 <h3>8.1 Template</h3>
 <div class="table-wrap"><table>
 <thead>

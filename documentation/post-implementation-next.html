@@ -509,6 +509,20 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>My claim that MetricFlow could not run here was wrong</td>
 <td>none</td>
 </tr>
+<tr>
+<td>The ER/Studio data models, order of work (DIG-604)</td>
+<td>Design decisions, test plan entries and guide steps before any code</td>
+<td>The code of guide steps 79 to 81 was written first, on 2026-11-01; the documents followed and the code was kept on Ray&rsquo;s word, since undoing it would cost more</td>
+<td>Claude&rsquo;s plan went to code first; the branch delivery documents standard already required documents first</td>
+<td>Branch design D-53 to D-55; mart design D-6, D-15, D-16; test plan v10; guide steps 79 to 84</td>
+</tr>
+<tr>
+<td>The finding fact&rsquo;s source key (DIG-604)</td>
+<td>As built, text of length 32</td>
+<td>Cast to unbounded text, the source dimension&rsquo;s type</td>
+<td>Snowflake declares a foreign key only between columns of the same type; the dev build of 2026-11-02 refused it</td>
+<td>Guide step 82</td>
+</tr>
 </tbody>
 </table></div>
 <h2>5. Known characteristics</h2>

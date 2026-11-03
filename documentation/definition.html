@@ -169,7 +169,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <p>The product definition (in short, among the branch documents, the definition) decides what the product offers and how its offer reaches the consumer, before any table exists. It is the first of the branch documents: definition, profile, design, test plan, implementation guide, post-implementation guide. The others take their questions, metrics and releases from it (Ray, 2026-10-27). Work in order: the product and its consumer; the questions in the consumer&rsquo;s words; the metric qualifier rows; the open points the product owners settle; the named releases; the grains and tables, one at a time. The template is elaborated through use: a section that does not fit a product says so with its reason, and the gap is fed back to knowledge 36.</p>
 <h2>1. The product</h2>
 <p>The consumer is Mary Mink, Director of Data Architecture and Governance at the distributor, asking from her own Claude through the DV Digest connector, which serves governed metrics only: a metric and its qualifiers. The decision the product serves: understanding what the distributor bought when it acquired Sunbelt Senior, how its business reaches the carriers, and how far the arriving data can be trusted.</p>
-<p>Capabilities offered, by named release (section 5): the acquired book now; the history and origin of every record next; people across client numbers and agencies after that. Not offered yet: premium, which no source sends; and anything needing a second acquired agency, which the course&rsquo;s source data does not yet include.</p>
+<p>Capabilities offered, by named release (section 5): the agency&rsquo;s business now; the history and origin of every record next; people across client numbers and agencies after that. Not offered yet: premium, which no source sends; and anything needing a second acquired agency, which the course&rsquo;s source data does not yet include.</p>
 <p>Name the consumer, the decision the product serves, and the capabilities the product owners judge to have business value. State what the product deliberately does not offer yet.</p>
 <h2>2. Consumer questions</h2>
 <div class="table-wrap"><table>
@@ -209,14 +209,14 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>Mary Mink (predicted by Ray and Claude)</td>
 <td>2026-10-25</td>
 <td>Prediction, ratified as such (design )</td>
-<td>How much business does each carrier write through us?</td>
+<td>How much coverage does each carrier provide through us?</td>
 </tr>
 <tr>
 <td>Q-11</td>
 <td>Mary Mink (predicted by Ray and Claude)</td>
 <td>2026-10-25</td>
 <td>Prediction, ratified as such (design )</td>
-<td>Which agent wrote each policy, and where do our sources disagree about it?</td>
+<td>Which agent sold each policy, and where do our sources disagree about it?</td>
 </tr>
 <tr>
 <td>Q-12</td>
@@ -312,32 +312,32 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>role</td>
 </tr>
 <tr>
-<td>total face amount (business written)</td>
+<td>total face amount (coverage provided)</td>
 <td>Q-10</td>
 <td>carrier</td>
 </tr>
 <tr>
-<td>total face amount (business written)</td>
+<td>total face amount (coverage provided)</td>
 <td>Q-10</td>
 <td>distributor</td>
 </tr>
 <tr>
-<td>total face amount (business written)</td>
+<td>total face amount (coverage provided)</td>
 <td>Q-10</td>
 <td>policy</td>
 </tr>
 <tr>
-<td>number of policies written</td>
+<td>number of policies sold</td>
 <td>Q-11</td>
 <td>agent</td>
 </tr>
 <tr>
-<td>number of policies written</td>
+<td>number of policies sold</td>
 <td>Q-11</td>
 <td>policy</td>
 </tr>
 <tr>
-<td>number of policies written</td>
+<td>number of policies sold</td>
 <td>Q-11</td>
 <td>source</td>
 </tr>
@@ -492,7 +492,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <tbody>
 <tr>
 <td>1</td>
-<td>The Acquired Book: what was bought with Sunbelt Senior</td>
+<td>The Agency&rsquo;s Business: what was bought with Sunbelt Senior</td>
 <td>Q-9, Q-10, Q-11, Q-15</td>
 <td>Clients, their policies, carriers and agents, and how clean the data arrived: one story about the acquisition</td>
 <td>Its answers already exist and are checked; nothing in it waits on another capability</td>
@@ -500,11 +500,11 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tr>
 <tr>
 <td>2</td>
-<td>What We Knew When: every record&rsquo;s origin and history</td>
-<td>Q-13, Q-14, Q-12</td>
-<td>Where each record came from, when it was first known, what it said on any date and what changed; independent agents are read from which sources report an agent</td>
-<td>Q-12 placed here because building it into release 1 meant building it twice, once in the shape being retired</td>
-<td>Next. Follows the full process release 1 skipped: its pull request is reviewed before it merges, and that review is part 1&rsquo;s exam (Ray, 2026-10-27); it also remediates release 1&rsquo;s design flaws</td>
+<td>The Site and the Data Model: every record&rsquo;s origin and history</td>
+<td>Q-13, Q-14</td>
+<td>Where each record came from, when it was first known, what it said on any date and what changed</td>
+<td>Q-12, independent agents, deferred by the mart design until its open question OQ-1 is answered</td>
+<td>In QA. Follows the full process release 1 skipped: its pull request is reviewed before it merges, and that review is part 1&rsquo;s exam (Ray, 2026-10-27); it also remediates release 1&rsquo;s design flaws</td>
 </tr>
 <tr>
 <td>3</td>
@@ -532,13 +532,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>None designed yet</td>
+<td>Designed and built in the mart design: four facts, five base dimensions and four role views in CONFORMED_DM</td>
+<td>All served questions</td>
 <td>All</td>
-<td>All</td>
-<td>Tables are designed one at a time, each with its diagram (Ray, 2026-10-27, answer 5y); release 1 is served meanwhile by four views in MART built before this method (client_policy_fact, agent_policy_fact, policy_fact, finding_fact)</td>
-<td>none</td>
-<td>1, 2, 3</td>
-<td>Not started</td>
+<td>Tables designed one at a time, each with its diagram (Ray, 2026-10-27, answer 5y); MART&rsquo;s four views, release 1&rsquo;s, were retired with v2026.11.1</td>
+<td>The mart model on the site</td>
+<td>1, 2</td>
+<td>Built; v2026.11.1 in QA</td>
 </tr>
 </tbody>
 </table></div>
