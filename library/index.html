@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Library | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.req{margin:10px 0}.req-lead{margin:0 0 8px}.req-row{display:flex;flex-wrap:wrap;gap:8px}.req-row input{flex:1 1 180px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}.req-msg{font-size:14px;margin:8px 0 0;min-height:20px}
 .to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
 .doc td.tid{white-space:nowrap}
 h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
@@ -160,7 +161,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <section class="split dark bleed"><div class="s-text"><p class="kicker">The code</p><h2>Every line, in the repository</h2>
 <p>The whole platform is code: the vault, the mart, the semantic layer, every test and the scripts that deploy it, with each change's history and the review it went through.</p>
 <div class="stats"><div class="stat"><div class="n" style="color:#03a66a">53</div><div class="l">dbt models</div></div><div class="stat"><div class="n" style="color:#03a66a">200+</div><div class="l">tests on every build</div></div></div>
-<p><b>Ray will send you an invitation to the repository; just tell him your GitHub username.</b></p><a class="btn" target="_blank" rel="noopener" href="mailto:rayserrano2735@gmail.com?subject=DV%20Digest%20repository%20access&amp;body=My%20GitHub%20username%20is%3A%20">Ask Ray for access</a><p style="font-size:12.5px;color:#bfe3ef;margin-top:8px">Or write to rayserrano2735@gmail.com with your GitHub username.</p></div>
+<div class="req" data-url="https://bprdtm2ki6ircgsf5txtlcmh3i0tfzyl.lambda-url.us-east-1.on.aws/"><p class="qa-changed" class="req-lead">Ray will send you an invitation to the repository. Tell us your GitHub username and he gets a note right away.</p><div class="req-row"><input class="req-user" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="your GitHub username"><input class="req-name" type="text" autocomplete="name" placeholder="your name (optional)"><input class="req-code" type="text" autocomplete="off" placeholder="the access code Ray sent you"><button type="button" class="btn req-send">Request access</button></div><p class="req-msg" aria-live="polite"></p></div></div>
 <div class="s-vis"><p style="font-size:12.5px;color:#bfe3ef;margin:0 0 6px">One link, the policy and its carrier, as the repository has it:</p><pre style="background:#0b1730;color:#d9e4ee;border-radius:8px;padding:14px;overflow-x:auto;font-size:12.5px;line-height:1.5;margin:0"><code>{{ datavault4dbt.link(
     link_hashkey=&#x27;hk_policy_organization_l&#x27;,
     foreign_hashkeys=[&#x27;hk_policy_h&#x27;, &#x27;hk_organization_h&#x27;],
@@ -175,4 +176,15 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </div>
 <div class="s-vis"><div class="path"><div class="step"><h3>You model</h3><p>Your standard, from our DDL.</p></div><div class="step"><h3>We build</h3><p>It into the vault.</p></div><div class="step"><h3>You review</h3><p>The pull request, in the actual code.</p></div></div></div></section>
 <section class="cta bleed"><h2>Reading behind the method</h2><p>Our study of John Giles's Universal Data Vault: his design, its results, and our reading of it. The ideas it led to are in Musings.</p><a class="btn" href="universal-data-vault.html">Read the study</a> <a class="btn light" href="../conversation/index.html">Musings</a></section>
-</main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+</main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer><script>(function(){document.querySelectorAll('.req').forEach(function(f){
+var code=null;try{code=sessionStorage.getItem('dvd_code');}catch(e){}
+var ci=f.querySelector('.req-code');if(code)ci.style.display='none';
+var b=f.querySelector('.req-send'),m=f.querySelector('.req-msg');
+b.addEventListener('click',async function(){var u=f.querySelector('.req-user').value.trim(),n=f.querySelector('.req-name').value.trim(),c=code||ci.value.trim();
+if(!u){m.textContent='Please enter your GitHub username.';return;}if(!c){m.textContent='Please enter the access code Ray sent you.';return;}
+b.disabled=true;m.textContent='Sending\u2026';
+try{var r=await fetch(f.dataset.url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_code:c,github_username:u,name:n})});
+var d=await r.json().catch(function(){return{};});
+if(r.ok){m.textContent='Thank you. Ray has your request and will send the invitation to '+u+'.';try{sessionStorage.setItem('dvd_code',c);}catch(e){}}
+else{m.textContent=({access_code:'That access code was not accepted.',username:'That does not look like a GitHub username.',daily_cap:'Today\u2019s requests are used up. Please try again tomorrow.'})[d.error]||'The request could not be sent just now. Please try again.';b.disabled=false;}}
+catch(e){m.textContent='The request could not be sent just now. Please try again.';b.disabled=false;}});});})();</script></body></html>

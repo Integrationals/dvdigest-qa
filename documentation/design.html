@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Design | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.req{margin:10px 0}.req-lead{margin:0 0 8px}.req-row{display:flex;flex-wrap:wrap;gap:8px}.req-row input{flex:1 1 180px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}.req-msg{font-size:14px;margin:8px 0 0;min-height:20px}
 .to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
 .doc td.tid{white-space:nowrap}
 h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
@@ -150,7 +151,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 .doc{padding:4px 16px 22px}}
 </style></head><body>
 <header class="top" id="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Design</p><p class="eyebrow">Documentation · release 1</p><h1>Design</h1><p>Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-71.</p></div></header>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Design</p><p class="eyebrow">Documentation · release 1</p><h1>Design</h1><p>Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-73.</p></div></header>
 <main><article class="doc"><h1>Branch Design: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Design Document</h3>
 <div class="table-wrap"><table class="meta">
@@ -198,7 +199,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <h2>2. Consumer questions</h2>
 <h3>2.1 Questions from consumers</h3>
 <div class="table-wrap"><div class="rcards"></div></div>
-<h3 class="qa-changed">2.2 Questions to consumers</h3>
+<h3>2.2 Questions to consumers</h3>
 <div class="table-wrap"><div class="rcards"></div></div>
 <h3>2.3 Questions to source owners</h3>
 <div class="table-wrap"><div class="rcards"></div></div>
@@ -748,6 +749,18 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>The conversation&rsquo;s history is shaped by the industry&rsquo;s standard tools: the function trims it to a budget of 100,000 tokens with langchain-core&rsquo;s trim_messages, newest turns kept, starting and ending on the consumer&rsquo;s question, counted with its approximate counter; automatic prompt caching reads the earlier turns from cache; the consumer&rsquo;s question keeps its 2,000-character limit, and the agent&rsquo;s replies and the number of messages are no longer capped. Server-side compaction and context editing are left out: both are in beta, compaction&rsquo;s model list does not name the agent&rsquo;s model, and tool results never persist between questions here</td>
 <td>Ray, 2026-11-04, answers 1y, 2a, 1b: use what the industry already solved; at the full budget a question costs about $0.04 with caching, $0.80 without (Sonnet 5.5 rates, four model calls)</td>
 <td>Review finding CR-26</td>
+</tr>
+<tr class="qa-changed">
+<td>D-72</td>
+<td>The repository request emails Ray from the site: the invitation function checks her access code, her GitHub username and a daily limit of five, then sends one email through Amazon&rsquo;s email service from dvdigest@integrationals.com to rayserrano2735@gmail.com; Ray invites her himself. The GitHub token and GitHub calls are removed</td>
+<td>A mail button depends on her machine having a mail program; the October 28 workflow failed on GitHub&rsquo;s permissions, which this one never touches (Ray, 2026-11-04, answers 1y, 2y)</td>
+<td>Review finding CR-39; integrationals.com verified for sending, the sending service out of its sandbox</td>
+</tr>
+<tr class="qa-changed">
+<td>D-73</td>
+<td>The access code travels in the page&rsquo;s address: the conversation page reads a code from its address, stores it for the tab and clears it from the address bar; the field is a plain text field</td>
+<td>The password field would not accept a paste in Ray&rsquo;s Chrome; an address that carries the code needs no field at all (Ray, 2026-11-04, answer 2y)</td>
+<td>Review finding CR-40</td>
 </tr>
 </tbody>
 </table></div>

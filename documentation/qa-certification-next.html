@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>QA certification: v2026.11.1, The Site and the Data Model | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.req{margin:10px 0}.req-lead{margin:0 0 8px}.req-row{display:flex;flex-wrap:wrap;gap:8px}.req-row input{flex:1 1 180px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}.req-msg{font-size:14px;margin:8px 0 0;min-height:20px}
 .to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
 .doc td.tid{white-space:nowrap}
 h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
@@ -288,7 +289,8 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <p>Run 8, the DIG-604 remediation, qa at c47d430 (pull request 30), 2026-11-03, as SYSADMIN through the workstation: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA first, then dbt Cloud run 70403231811521, Success in 3 minutes 47 seconds: the build without unit tests passed 177 with 6 no-ops; the build with them, 220 of 226 with 6 no-ops; verify_build met every guardrail and expectation with zero warnings. An earlier run, 70403231809665, began on the previous run&rsquo;s data without the two scripts and its verification warned that three row counts did not grow; it is superseded. Then: the structure check, DV_QA matching vault.sql and mart.sql; the QA connector redeployed with this semantic layer; the QA site built from qa for QA and published to Integrationals/dvdigest-qa at 114ccf7; the retest through QA&rsquo;s Ask function, 50 of 50.</p>
 <p>Run 9, the DIG-606 batch, qa at c5c016e (pull request 31), 2026-11-03: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA, then dbt Cloud run 70403231843382, Success: the build without unit tests passed 178 with 6 no-ops, the build with them 221 of 227 with 6 no-ops, verify_build met every guardrail and expectation with zero warnings. Then the structure check, DV_QA matching vault.sql and mart.sql; the QA connector redeployed; the QA site built for QA with its changes highlighted against the last publication, 11 pages changed, and published to Integrationals/dvdigest-qa at 3269e35; the retest through QA&rsquo;s Ask function, 50 of 50.</p>
 <p>Run 10, the DIG-606 batch of agreed pages, qa at 8f9e889 (pull request 32; its content equal to the branch&rsquo;s proven tip 6ec985b), 2026-11-03: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA, then dbt Cloud run 70403231946907, Success: 178 passing with 6 no-ops, then 221 of 227 with 6 no-ops, verify_build meeting every guardrail and expectation with zero warnings. Then the structure check, DV_QA matching vault.sql and mart.sql; the QA connector, Ask function and invitation function redeployed; the QA site built for QA with its changes highlighted, 14 pages changed against the publication at 3269e35, and published to Integrationals/dvdigest-qa at dd565ab; the retest through QA&rsquo;s Ask function, 50 of 50.</p>
-<p class="qa-changed">Run 11, the batch of Ray&rsquo;s last findings, qa at 3c1f57d (pull request 34; its content equal to the branch&rsquo;s proven tip 0b8e21a), 2026-11-04: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA, then dbt Cloud run 70403232065153, Success: 178 passing with 6 no-ops, then 221 of 227 with 6 no-ops, verify_build meeting every guardrail and expectation with zero warnings. Then the structure check, DV_QA matching vault.sql and mart.sql; the QA connector, Ask and invitation functions redeployed, QA answering to Mary&rsquo;s code; the QA site built for QA with its changes highlighted, 10 pages against the publication Ray reviewed at aba2e73, and published at 2542626; one retest through QA&rsquo;s Ask function with Mary&rsquo;s code, 50 of 50, the agent&rsquo;s credit spared. Note: aba2e73, a republication with highlights made by Claude on 2026-11-04 right after the approved revert to run 10&rsquo;s publication, was not reported to Ray at the time.</p>
+<p>Run 11, the batch of Ray&rsquo;s last findings, qa at 3c1f57d (pull request 34; its content equal to the branch&rsquo;s proven tip 0b8e21a), 2026-11-04: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA, then dbt Cloud run 70403232065153, Success: 178 passing with 6 no-ops, then 221 of 227 with 6 no-ops, verify_build meeting every guardrail and expectation with zero warnings. Then the structure check, DV_QA matching vault.sql and mart.sql; the QA connector, Ask and invitation functions redeployed, QA answering to Mary&rsquo;s code; the QA site built for QA with its changes highlighted, 10 pages against the publication Ray reviewed at aba2e73, and published at 2542626; one retest through QA&rsquo;s Ask function with Mary&rsquo;s code, 50 of 50, the agent&rsquo;s credit spared. Note: aba2e73, a republication with highlights made by Claude on 2026-11-04 right after the approved revert to run 10&rsquo;s publication, was not reported to Ray at the time.</p>
+<p class="qa-changed">Publication by the site path, 2026-11-04 (promotion standard section 14): qa at 3a5887c (pull request 35, review findings CR-33 to CR-38, its content equal to the proven tip 1fbe84d), the QA site built for QA with its changes highlighted, 10 pages against the publication at 2542626, and published; no data build or retest, the change touching the site only.</p>
 <p>Exception granted by Ray, 2026-11-01 (answer 2b): three unit tests, unit_organization_h_oh3_later_load_inserts, unit_client_dim_ds1_client_role_only and unit_organization_dim_dg2_ghost_members_kept, carry the fusion_only tag and run only under Fusion in development; QA&rsquo;s engine skips them.</p>
 <h2>6. Branch test battery</h2>
 <h3>6.1 Added and changed tests</h3>
@@ -520,41 +522,53 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>Chosen by prototype: the agent is Sage, a round owl in the site&rsquo;s teal with amber eyes that blink; the menu entry and its page are Sage; the owl in the chat header and bobbing on the waiting line, &ldquo;Sage is reading the semantic layer…&rdquo;; Sage greets her by name; the agent&rsquo;s instructions name it Sage; still for reduced motion. The page records 352, 353 and 354 renamed</td>
 <td>Fixed in dev, this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-33</td>
+<tr>
+<td class="tid">CR-33</td>
 <td>The Sage page&rsquo;s large title stands without the owl (Ray, 2026-11-04)</td>
 <td>Chosen by prototype: the owl beside the large &ldquo;Sage&rdquo;, at the heading&rsquo;s scale, blinking now and then; still for reduced motion. A site change, by the site path</td>
 <td>Fixed in dev; to QA by the site path</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-34</td>
+<tr>
+<td class="tid">CR-34</td>
 <td>The design&rsquo;s section 2 jumps from 2.1.1 to 2.3, and 2.1.1 should go (Ray, 2026-11-04)</td>
 <td>Section 2.1.1, added by Claude for Q-6 without a blank line before 2.2, made the page read 2.2&rsquo;s heading as a table row. Section 2.1.1 and Q-6 removed from the design; 2.2 restored on the page</td>
 <td>Fixed in the design and dev, to QA by the site path</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-35</td>
+<tr>
+<td class="tid">CR-35</td>
 <td>Short identifiers in decision and test tables wrap, as in the design&rsquo;s section 5 and the test plan&rsquo;s section 8 (Ray, 2026-11-04)</td>
 <td>Tables of four columns or fewer stay tables, and their first column was squeezed; every document table now keeps a first cell of 14 characters or fewer on one line, 126 in the design and 221 in the test plan</td>
 <td>Fixed in dev, to QA by the site path</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-36</td>
+<tr>
+<td class="tid">CR-36</td>
 <td>The QA certifications do not say which release they are for, and neither do the post-implementation guides (Ray, 2026-11-04)</td>
 <td>Each pair shared one title. Now each document&rsquo;s heading and browser tab name its release: QA certification and Post-implementation guide, v2026.10.1, The Agency’s Business, and v2026.11.1, The Site and the Data Model</td>
 <td>Fixed in dev, to QA by the site path</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-37</td>
+<tr>
+<td class="tid">CR-37</td>
 <td>The test plan&rsquo;s section 3, the seven layers, wraps its first column (Ray, 2026-11-04)</td>
 <td>Its layer names, up to 20 characters, passed CR-35&rsquo;s limit of 14; first cells of up to 24 characters now stay on one line</td>
 <td>Fixed in dev, to QA by the site path</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-38</td>
+<tr>
+<td class="tid">CR-38</td>
 <td>Long pages have no way back to the top (Ray, 2026-11-04)</td>
 <td>A &ldquo;Back to top&rdquo; link at the end of every page, above the footer</td>
 <td>Fixed in dev, to QA by the site path</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-39</td>
+<td>The repository invitation is buried in the Library, and its mail button does nothing in Chrome without a mail program (Ray, 2026-11-04)</td>
+<td>Fix: the site emails Ray itself, from dvdigest@integrationals.com to rayserrano2735@gmail.com, through the invitation function and Amazon&rsquo;s email service; she gives her GitHub username and taps Request access, on the Library, Home and Data model pages</td>
+<td>Open: a data change, this batch</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-40</td>
+<td>The access code cannot be pasted in Ray&rsquo;s Chrome, and typing it is too painful for Mary (Ray, 2026-11-04)</td>
+<td>Fix: a web address that carries the code, stored for the tab and cleared from the address bar; the field a plain text field as the fallback</td>
+<td>Open: a site change, this batch</td>
 </tr>
 </tbody>
 </table></div>

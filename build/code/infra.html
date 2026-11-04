@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Infrastructure | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.req{margin:10px 0}.req-lead{margin:0 0 8px}.req-row{display:flex;flex-wrap:wrap;gap:8px}.req-row input{flex:1 1 180px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px}.req-msg{font-size:14px;margin:8px 0 0;min-height:20px}
 .to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
 .doc td.tid{white-space:nowrap}
 h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
@@ -950,7 +951,8 @@ def ensure_secret(ssm, prefix: str, suffix: str, reference: str) -&gt; None:
 
 
 def ensure_role(iam, name: str, account: str, region: str, prefix: str,
-                secret_suffixes: list[str], kinds: list[str], connector_arn: str | None) -&gt; tuple[str, bool]:
+                secret_suffixes: list[str], kinds: list[str], connector_arn: str | None,
+                send_from: str | None = None) -&gt; tuple[str, bool]:
     trust = {
         &quot;Version&quot;: &quot;2012-10-17&quot;,
         &quot;Statement&quot;: [{
@@ -1008,6 +1010,8 @@ def ensure_role(iam, name: str, account: str, region: str, prefix: str,
                 &quot;Condition&quot;: {&quot;Bool&quot;: {&quot;lambda:InvokedViaFunctionUrl&quot;: &quot;true&quot;}},
             },
         ])
+    if send_from:  # the access request&#x27;s one email, from integrationals.com only (design D-72)
+        statements.append({&quot;Effect&quot;: &quot;Allow&quot;, &quot;Action&quot;: &quot;ses:SendEmail&quot;, &quot;Resource&quot;: send_from})
     iam.put_role_policy(
         RoleName=name,
         PolicyName=&quot;dig590-web-function-access&quot;,
@@ -1132,11 +1136,6 @@ def main() -&gt; None:
     ssm = session.client(&quot;ssm&quot;)
     ensure_secret(ssm, prefix, &quot;anthropic-api-key&quot;, os.environ.get(&quot;OP_ANTHROPIC_REFERENCE&quot;, &quot;&quot;))
     ensure_secret(ssm, prefix, &quot;access-code&quot;, os.environ.get(&quot;OP_ACCESS_CODE_REFERENCE&quot;, &quot;&quot;))
-    if args.stage != &quot;dev&quot;:
-        ensure_secret(
-            ssm, prefix, &quot;github-invite-token&quot;,
-            &quot;op://Agentic Workstation/dv-digest-invite API Credential/credential&quot;,
-        )
     iam = session.client(&quot;iam&quot;)
     logs = session.client(&quot;logs&quot;)
     lambda_client = session.client(&quot;lambda&quot;)
@@ -1173,23 +1172,26 @@ def main() -&gt; None:
                 } if streaming else {}),
             },
         },
-        *([] if args.stage == &quot;dev&quot; else [{
+        {
             &quot;name&quot;: f&quot;dig590-invitation-{args.stage}&quot;,
             &quot;handler&quot;: &quot;infra.aws.invitation_function.handler&quot;,
             &quot;timeout&quot;: 30,
             &quot;memory&quot;: 256,
-            &quot;secrets&quot;: [&quot;github-invite-token&quot;, &quot;access-code&quot;],
+            &quot;secrets&quot;: [&quot;access-code&quot;],  # the GitHub token is gone: the request emails Ray (design D-72)
             &quot;kinds&quot;: [&quot;invite&quot;],
             &quot;connector_arn&quot;: None,
             &quot;layers&quot;: [],
             &quot;invoke_mode&quot;: &quot;BUFFERED&quot;,
-            &quot;environment&quot;: {**base_environment, &quot;DIGEST_INVITE_DAILY_CAP&quot;: &quot;5&quot;},
-        }]),
+            &quot;environment&quot;: {**base_environment, &quot;DIGEST_INVITE_DAILY_CAP&quot;: &quot;5&quot;,
+                            &quot;DIGEST_INVITE_FROM&quot;: &quot;DV Digest &lt;dvdigest@integrationals.com&gt;&quot;,
+                            &quot;DIGEST_INVITE_TO&quot;: &quot;rayserrano2735@gmail.com&quot;},
+            &quot;send_from&quot;: f&quot;arn:aws:ses:{region}:{account}:identity/integrationals.com&quot;,
+        },
     ]
     for function in functions:
         role_arn, role_created = ensure_role(
             iam, function[&quot;name&quot;], account, region, prefix,
-            function[&quot;secrets&quot;], function[&quot;kinds&quot;], function[&quot;connector_arn&quot;],
+            function[&quot;secrets&quot;], function[&quot;kinds&quot;], function[&quot;connector_arn&quot;], function.get(&quot;send_from&quot;),
         )
         log_group = ensure_log_group(logs, function[&quot;name&quot;])
         ensure_function(
@@ -1568,7 +1570,7 @@ def main() -&gt; None:
 
 if __name__ == &quot;__main__&quot;:
     main()
-</code></pre></details><details class="file"><summary>infra/aws/invitation_function.py</summary><pre><code>&quot;&quot;&quot;Access-protected GitHub contributor invitation function.&quot;&quot;&quot;
+</code></pre></details><details class="file"><summary>infra/aws/invitation_function.py</summary><pre><code>&quot;&quot;&quot;Access-protected repository request: one email to Ray (design D-72).&quot;&quot;&quot;
 
 from __future__ import annotations
 
@@ -1577,7 +1579,6 @@ import logging
 import os
 import re
 
-import httpx2
 
 from infra.aws.web_functions import (
     consume_daily_allowance,
@@ -1594,46 +1595,29 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def invite(username: str) -&gt; dict:
-    headers = {
-        &quot;Authorization&quot;: f&quot;Bearer {secret(&#x27;github-invite-token&#x27;)}&quot;,
-        &quot;Accept&quot;: &quot;application/vnd.github+json&quot;,
-        &quot;X-GitHub-Api-Version&quot;: &quot;2022-11-28&quot;,
-        &quot;User-Agent&quot;: &quot;dig590-dv-digest-invite&quot;,
-    }
+def send_request(username: str, name: str) -&gt; dict:
+    &quot;&quot;&quot;One email to Ray asking for her repository invitation, through Amazon&#x27;s email service (design D-72).
+    Ray invites her himself; nothing here talks to GitHub.&quot;&quot;&quot;
+    import boto3
+    cap = int(os.environ.get(&quot;DIGEST_INVITE_DAILY_CAP&quot;, &quot;5&quot;))
+    if not consume_daily_allowance(&quot;invite&quot;, cap):
+        return {&quot;status&quot;: 429, &quot;body&quot;: {&quot;error&quot;: &quot;daily_cap&quot;}}
+    who = f&quot;{name} ({username})&quot; if name else username
+    text = (f&quot;{who} asks for an invitation to the DV Digest repository, Integrationals/digest-datavault.\n\n&quot;
+            f&quot;GitHub username: {username}\n&quot; + (f&quot;Name: {name}\n&quot; if name else &quot;&quot;) +
+            f&quot;Environment: {os.environ.get(&#x27;DIGEST_STAGE&#x27;, &#x27;&#x27;)}\n\n&quot;
+            &quot;Invite them on GitHub: Settings, Collaborators, Add people.&quot;)
     try:
-        with httpx2.Client(timeout=30.0, headers=headers) as client:
-            user = client.get(f&quot;https://api.github.com/users/{username}&quot;)
-            if user.status_code == 404:
-                return {&quot;status&quot;: 404, &quot;body&quot;: {&quot;error&quot;: &quot;no_such_user&quot;}}
-            user.raise_for_status()
-            collaborator_url = (
-                &quot;https://api.github.com/repos/rayserrano2735/digest-datavault/&quot;
-                f&quot;collaborators/{username}&quot;
-            )
-            membership = client.get(collaborator_url)
-            if membership.status_code == 204:
-                return {&quot;status&quot;: 200, &quot;body&quot;: {&quot;already&quot;: True}}
-            if membership.status_code != 404:
-                membership.raise_for_status()
-            cap = int(os.environ.get(&quot;DIGEST_INVITE_DAILY_CAP&quot;, &quot;5&quot;))
-            if not consume_daily_allowance(&quot;invite&quot;, cap):
-                return {&quot;status&quot;: 429, &quot;body&quot;: {&quot;error&quot;: &quot;daily_cap&quot;}}
-            sent = False
-            try:
-                invitation = client.put(collaborator_url, json={&quot;permission&quot;: &quot;push&quot;})
-                if invitation.status_code in {200, 201}:
-                    sent = True
-                    return {&quot;status&quot;: 200, &quot;body&quot;: {&quot;invited&quot;: True}}
-                if invitation.status_code == 204:
-                    return {&quot;status&quot;: 200, &quot;body&quot;: {&quot;already&quot;: True}}
-                invitation.raise_for_status()
-            finally:
-                if not sent:
-                    release_daily_allowance(&quot;invite&quot;)
-    except httpx2.HTTPError as error:
-        raise RuntimeError(&quot;GitHub invitation failed&quot;) from error
-    raise RuntimeError(&quot;GitHub returned an unexpected invitation response&quot;)
+        boto3.client(&quot;sesv2&quot;).send_email(
+            FromEmailAddress=os.environ[&quot;DIGEST_INVITE_FROM&quot;],
+            Destination={&quot;ToAddresses&quot;: [os.environ[&quot;DIGEST_INVITE_TO&quot;]]},
+            Content={&quot;Simple&quot;: {&quot;Subject&quot;: {&quot;Data&quot;: f&quot;DV Digest repository access: {username}&quot;},
+                                &quot;Body&quot;: {&quot;Text&quot;: {&quot;Data&quot;: text}}}},
+        )
+    except Exception as error:
+        release_daily_allowance(&quot;invite&quot;)
+        raise RuntimeError(&quot;the request email failed&quot;) from error
+    return {&quot;status&quot;: 200, &quot;body&quot;: {&quot;sent&quot;: True}}
 
 
 def handler(event, context):
@@ -1648,14 +1632,17 @@ def handler(event, context):
         return response(401, {&quot;error&quot;: &quot;access_code&quot;})
     username = body.get(&quot;github_username&quot;)
     if not isinstance(username, str) or not USERNAME.fullmatch(username):
-        return response(404, {&quot;error&quot;: &quot;no_such_user&quot;})
+        return response(400, {&quot;error&quot;: &quot;username&quot;})
+    name = body.get(&quot;name&quot;) or &quot;&quot;
+    if not isinstance(name, str) or len(name) &gt; 120:
+        return response(400, {&quot;error&quot;: &quot;invalid_request&quot;})
     try:
-        result = invite(username)
+        result = send_request(username, name.strip())
     except RuntimeError:
-        logger.exception(&quot;GitHub invitation upstream failure&quot;)
+        logger.exception(&quot;access request email failure&quot;)
         result = {&quot;status&quot;: 502, &quot;body&quot;: {&quot;error&quot;: &quot;upstream&quot;}}
     logger.info(json.dumps({
-        &quot;event&quot;: &quot;repository_invitation&quot;,
+        &quot;event&quot;: &quot;repository_request&quot;,
         &quot;github_username&quot;: username,
         &quot;status&quot;: result[&quot;status&quot;],
         &quot;outcome&quot;: result[&quot;body&quot;],
@@ -2675,131 +2662,41 @@ class WebFunctionTests(unittest.TestCase):
         self.assertEqual(result[&quot;statusCode&quot;], 429)
         self.assertEqual(json.loads(result[&quot;body&quot;]), {&quot;error&quot;: &quot;daily_cap&quot;})
 
-    def test_invitation_grants_contributor_write_access(self):
-        calls = []
+    def test_access_request_emails_ray_once(self):
+        # Design D-72: a valid request sends one email to Ray with her username; nothing talks to GitHub.
+        sent = []
 
-        class Client:
-            def __init__(self, **kwargs):
-                pass
+        class SES:
+            def send_email(self, **kwargs):
+                sent.append(kwargs)
 
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *args):
-                pass
-
-            def get(self, url):
-                calls.append((&quot;GET&quot;, url, None))
-                return FakeHttpResponse(404 if &quot;/collaborators/&quot; in url else 200)
-
-            def put(self, url, json):
-                calls.append((&quot;PUT&quot;, url, json))
-                return FakeHttpResponse(201)
-
-        with patch.object(invitation_function, &quot;valid_access_code&quot;, return_value=True), patch.object(
-            invitation_function, &quot;consume_daily_allowance&quot;, return_value=True
-        ), patch.object(invitation_function, &quot;secret&quot;, return_value=&quot;not-logged&quot;), patch.object(
-            invitation_function.httpx2, &quot;Client&quot;, Client
-        ):
-            result = invitation_function.handler(event({
-                &quot;access_code&quot;: &quot;approved&quot;, &quot;github_username&quot;: &quot;mary-example&quot;
-            }), None)
+        env = {&quot;DIGEST_INVITE_FROM&quot;: &quot;DV Digest &lt;dvdigest@integrationals.com&gt;&quot;, &quot;DIGEST_INVITE_TO&quot;: &quot;ray@example.com&quot;, &quot;DIGEST_STAGE&quot;: &quot;dev&quot;}
+        with patch.dict(os.environ, env), patch(&quot;boto3.client&quot;, return_value=SES()), \
+             patch.object(invitation_function, &quot;valid_access_code&quot;, return_value=True), \
+             patch.object(invitation_function, &quot;consume_daily_allowance&quot;, return_value=True):
+            result = invitation_function.handler(event({&quot;access_code&quot;: &quot;c&quot;, &quot;github_username&quot;: &quot;mary-mink&quot;, &quot;name&quot;: &quot;Mary&quot;}), None)
         self.assertEqual(result[&quot;statusCode&quot;], 200)
-        self.assertEqual(json.loads(result[&quot;body&quot;]), {&quot;invited&quot;: True})
-        self.assertEqual(calls[-1][2], {&quot;permission&quot;: &quot;push&quot;})
-        self.assertTrue(calls[-1][1].endswith(&quot;/collaborators/mary-example&quot;))
+        self.assertEqual(len(sent), 1)
+        self.assertEqual(sent[0][&quot;Destination&quot;][&quot;ToAddresses&quot;], [&quot;ray@example.com&quot;])
+        self.assertIn(&quot;mary-mink&quot;, sent[0][&quot;Content&quot;][&quot;Simple&quot;][&quot;Body&quot;][&quot;Text&quot;][&quot;Data&quot;])
 
-    def test_existing_collaborator_returns_already_without_put(self):
-        calls = []
+    def test_access_request_refusals(self):
+        # Design D-72: a wrong code, a malformed username and the sixth request of a day are refused, and send nothing.
+        sent = []
 
-        class Client:
-            def __init__(self, **kwargs):
-                pass
+        class SES:
+            def send_email(self, **kwargs):
+                sent.append(kwargs)
 
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *args):
-                pass
-
-            def get(self, url):
-                calls.append(url)
-                return FakeHttpResponse(204 if &quot;/collaborators/&quot; in url else 200)
-
-        with patch.object(invitation_function, &quot;secret&quot;, return_value=&quot;not-logged&quot;), patch.object(
-            invitation_function.httpx2, &quot;Client&quot;, Client
-        ):
-            result = invitation_function.invite(&quot;existing-user&quot;)
-        self.assertEqual(result, {&quot;status&quot;: 200, &quot;body&quot;: {&quot;already&quot;: True}})
-        self.assertEqual(len(calls), 2)
-
-    def test_unknown_and_invalid_github_users_are_404(self):
-        with patch.object(invitation_function, &quot;valid_access_code&quot;, return_value=True):
-            invalid = invitation_function.handler(event({
-                &quot;access_code&quot;: &quot;approved&quot;, &quot;github_username&quot;: &quot;bad/name&quot;
-            }), None)
-        self.assertEqual(invalid[&quot;statusCode&quot;], 404)
-
-        class MissingClient:
-            def __init__(self, **kwargs):
-                pass
-
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *args):
-                pass
-
-            def get(self, url):
-                return FakeHttpResponse(404)
-
-        with patch.object(invitation_function, &quot;valid_access_code&quot;, return_value=True), patch.object(
-            invitation_function, &quot;consume_daily_allowance&quot;, return_value=True
-        ), patch.object(invitation_function, &quot;secret&quot;, return_value=&quot;not-logged&quot;), patch.object(
-            invitation_function.httpx2, &quot;Client&quot;, MissingClient
-        ):
-            missing = invitation_function.handler(event({
-                &quot;access_code&quot;: &quot;approved&quot;, &quot;github_username&quot;: &quot;missing-user&quot;
-            }), None)
-        self.assertEqual(missing[&quot;statusCode&quot;], 404)
-        self.assertEqual(json.loads(missing[&quot;body&quot;]), {&quot;error&quot;: &quot;no_such_user&quot;})
-
-    def test_invitation_cap_ignores_unknown_and_existing_users(self):
-        class Client:
-            def __init__(self, **kwargs):
-                pass
-
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *args):
-                pass
-
-            def get(self, url):
-                if url.endswith(&quot;/users/missing-user&quot;):
-                    return FakeHttpResponse(404)
-                if url.endswith(&quot;/collaborators/existing-user&quot;):
-                    return FakeHttpResponse(204)
-                return FakeHttpResponse(200)
-
-            def put(self, url, json):
-                raise AssertionError(&quot;No invitation should be sent&quot;)
-
-        with patch.object(invitation_function, &quot;valid_access_code&quot;, return_value=True), patch.object(
-            invitation_function, &quot;secret&quot;, return_value=&quot;not-logged&quot;
-        ), patch.object(
-            invitation_function, &quot;consume_daily_allowance&quot;, return_value=True
-        ) as allowance, patch.object(invitation_function.httpx2, &quot;Client&quot;, Client):
-            missing = invitation_function.handler(event({
-                &quot;access_code&quot;: &quot;approved&quot;, &quot;github_username&quot;: &quot;missing-user&quot;
-            }), None)
-            existing = invitation_function.handler(event({
-                &quot;access_code&quot;: &quot;approved&quot;, &quot;github_username&quot;: &quot;existing-user&quot;
-            }), None)
-        self.assertEqual(missing[&quot;statusCode&quot;], 404)
-        self.assertEqual(existing[&quot;statusCode&quot;], 200)
-        self.assertEqual(json.loads(existing[&quot;body&quot;]), {&quot;already&quot;: True})
-        allowance.assert_not_called()
+        env = {&quot;DIGEST_INVITE_FROM&quot;: &quot;f@x&quot;, &quot;DIGEST_INVITE_TO&quot;: &quot;t@x&quot;}
+        with patch.dict(os.environ, env), patch(&quot;boto3.client&quot;, return_value=SES()):
+            with patch.object(invitation_function, &quot;valid_access_code&quot;, return_value=False):
+                self.assertEqual(invitation_function.handler(event({&quot;access_code&quot;: &quot;x&quot;, &quot;github_username&quot;: &quot;mary&quot;}), None)[&quot;statusCode&quot;], 401)
+            with patch.object(invitation_function, &quot;valid_access_code&quot;, return_value=True):
+                self.assertEqual(invitation_function.handler(event({&quot;access_code&quot;: &quot;c&quot;, &quot;github_username&quot;: &quot;not a user!&quot;}), None)[&quot;statusCode&quot;], 400)
+                with patch.object(invitation_function, &quot;consume_daily_allowance&quot;, return_value=False):
+                    self.assertEqual(invitation_function.handler(event({&quot;access_code&quot;: &quot;c&quot;, &quot;github_username&quot;: &quot;mary&quot;}), None)[&quot;statusCode&quot;], 429)
+        self.assertEqual(sent, [])
 
     def test_digest_429_is_retried(self):
         request = httpx2.Request(&quot;POST&quot;, &quot;https://example.test/mcp&quot;)
