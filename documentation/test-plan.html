@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Test plan | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
+.doc td.tid{white-space:nowrap}
+h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
 .chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 .owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
@@ -146,7 +149,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<header class="top" id="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Test plan</p><p class="eyebrow">Documentation · release 1</p><h1>Test plan</h1><p>Every test, by layer, and the requirement each one proves.</p></div></header>
 <main><article class="doc"><h1>Branch Test Plan: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Test Plan</h3>
@@ -345,7 +348,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>1 per view: DS1 to DS4</td>
 </tr>
 <tr>
-<td>policy_terms_fact (fact)</td>
+<td class="tid">policy_terms_fact (fact)</td>
 <td>X: a version&rsquo;s validity</td>
 <td>2</td>
 <td>2: FV1, FV2</td>
@@ -369,73 +372,73 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>P1</td>
+<td class="tid">P1</td>
 <td>Key A-1001 in load 1 only, first build</td>
 <td>One hub row, load 1 timestamp, record source SSI</td>
 <td>unit_client_h_p1_new_key</td>
 </tr>
 <tr>
-<td>P2</td>
+<td class="tid">P2</td>
 <td>Key A-1003 in load 1 and in load 2 under a new CRM row ID</td>
 <td>One hub row with the load 1 timestamp</td>
 <td>unit_client_h_p2_repeat_keeps_first</td>
 </tr>
 <tr>
-<td>P3</td>
+<td class="tid">P3</td>
 <td>Key A-1031 first seen in load 2, incremental build with A-1001 already in the hub</td>
 <td>A-1031 inserted with the load 2 timestamp; A-1001 not inserted again</td>
 <td>unit_client_h_p3_later_load_inserts</td>
 </tr>
 <tr>
-<td>P4</td>
+<td class="tid">P4</td>
 <td>a-1004 and A-1005 with a trailing space beside A-1004 and A-1005</td>
 <td>Each variant&rsquo;s hash key equals its exact form&rsquo;s hash key</td>
 <td>unit_stg_sunbelt_client_p4_surface_variant_same_key</td>
 </tr>
 <tr>
-<td>P5</td>
+<td class="tid">P5</td>
 <td>A1007 beside A-1007</td>
 <td>Different hash keys</td>
 <td>unit_stg_sunbelt_client_p5_internal_form_new_key</td>
 </tr>
 <tr>
-<td>P6</td>
+<td class="tid">P6</td>
 <td>NULL client number</td>
 <td>Hash key is the all-zeros key</td>
 <td>unit_stg_sunbelt_client_p6_null_zero_key</td>
 </tr>
 <tr>
-<td>P7</td>
+<td class="tid">P7</td>
 <td>Empty string and three spaces</td>
 <td>Hash key is the all-zeros key after D-4. Run first as a characterization test of the current behavior, before D-4 is coded</td>
 <td>unit_stg_sunbelt_client_p7_blank_zero_key</td>
 </tr>
 <tr>
-<td>P8</td>
+<td class="tid">P8</td>
 <td>A-1010 and a-1010 in the same load</td>
 <td>One hub row</td>
 <td>unit_client_h_p8_duplicate_in_load_one_row</td>
 </tr>
 <tr>
-<td>I1</td>
+<td class="tid">I1</td>
 <td>Client numbers A-1001 and a-1004 (conforming once trimmed and uppercased)</td>
 <td>No finding</td>
 <td>unit_inspector_sunbelt_client_number_form_conforming_no_finding</td>
 </tr>
 <tr>
-<td>I2</td>
+<td class="tid">I2</td>
 <td>Client numbers A1007 and A-01008</td>
 <td>Two findings, one per value</td>
 <td>unit_inspector_sunbelt_client_number_form_nonconforming_one_finding_each</td>
 </tr>
 <tr>
-<td>A1</td>
+<td class="tid">A1</td>
 <td>3 usable source keys, 3 non-ghost hub rows</td>
 <td>No finding</td>
 <td>unit_auditor_sunbelt_client_hub_agree_no_finding</td>
 </tr>
 <tr>
-<td>A2</td>
+<td class="tid">A2</td>
 <td>3 usable source keys, 2 non-ghost hub rows</td>
 <td>One summary finding carrying both counts</td>
 <td>unit_auditor_sunbelt_client_hub_disagree_one_finding</td>
@@ -459,25 +462,25 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>PH1</td>
+<td class="tid">PH1</td>
 <td>Sale of NF-100012 only</td>
 <td>One hub row from SSI</td>
 <td>unit_policy_h_ph1_sales_only</td>
 </tr>
 <tr>
-<td>PH2</td>
+<td class="tid">PH2</td>
 <td>Carrier row NF-100002 only</td>
 <td>One hub row from NFL</td>
 <td>unit_policy_h_ph2_carrier_only</td>
 </tr>
 <tr>
-<td>PH3</td>
+<td class="tid">PH3</td>
 <td>Sale and carrier row of NF-100001 in the same load</td>
 <td>One hub row</td>
 <td>unit_policy_h_ph3_both_sources_same_load</td>
 </tr>
 <tr>
-<td>PH4</td>
+<td class="tid">PH4</td>
 <td>Carrier row NF-100011 in load 1, its sale in load 2</td>
 <td>One hub row, the load 1 sighting kept</td>
 <td>unit_policy_h_ph4_later_load_keeps_first</td>
@@ -497,25 +500,25 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>PH5</td>
+<td class="tid">PH5</td>
 <td>nf-100001 beside NF-100001</td>
 <td>The same hash key</td>
 <td>unit_stg_sunbelt_policy_sale_ph5_case_variant_same_key</td>
 </tr>
 <tr>
-<td>PH6</td>
+<td class="tid">PH6</td>
 <td>NF100009 beside NF-100009</td>
 <td>Different hash keys</td>
 <td>unit_stg_sunbelt_policy_sale_ph6_internal_form_new_key</td>
 </tr>
 <tr>
-<td>PH7</td>
+<td class="tid">PH7</td>
 <td>No policy number and no carrier code</td>
 <td>The all-zeros key</td>
 <td>unit_stg_sunbelt_policy_sale_ph7_both_parts_missing_zero_key</td>
 </tr>
 <tr>
-<td>PH8</td>
+<td class="tid">PH8</td>
 <td>NF-100005 without its carrier code</td>
 <td>A real key with the placeholder in the code&rsquo;s part, different from NFL with NF-100005</td>
 <td>unit_stg_sunbelt_policy_sale_ph8_one_part_missing_placeholder_key</td>
@@ -535,19 +538,19 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>CH1</td>
+<td class="tid">CH1</td>
 <td>Sale for A-1001, already in the hub from the client list</td>
 <td>No new row</td>
 <td>unit_client_h_ch1_sale_number_already_in_hub</td>
 </tr>
 <tr>
-<td>CH2</td>
+<td class="tid">CH2</td>
 <td>Sale for A-1033, first seen</td>
 <td>A new row from the sales data</td>
 <td>unit_client_h_ch2_sale_number_first_seen</td>
 </tr>
 <tr>
-<td>CH3</td>
+<td class="tid">CH3</td>
 <td>Sale of NF-100014 with an empty client number</td>
 <td>The all-zeros key</td>
 <td>unit_stg_sunbelt_policy_sale_ch3_empty_client_zero_key</td>
@@ -567,25 +570,25 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>IH1</td>
+<td class="tid">IH1</td>
 <td>NLI-55003, new</td>
 <td>A new row</td>
 <td>unit_insured_h_ih1_new_insured</td>
 </tr>
 <tr>
-<td>IH2</td>
+<td class="tid">IH2</td>
 <td>NLI-55001 resent in load 2</td>
 <td>No new row</td>
 <td>unit_insured_h_ih2_resend_no_new_row</td>
 </tr>
 <tr>
-<td>IH3</td>
+<td class="tid">IH3</td>
 <td>NLI-55001 on NF-100001 and NF-100002</td>
 <td>One hub row</td>
 <td>unit_insured_h_ih3_one_insured_two_policies</td>
 </tr>
 <tr>
-<td>IH4</td>
+<td class="tid">IH4</td>
 <td>NF-100013 with an empty insured number</td>
 <td>The all-zeros key</td>
 <td>unit_stg_northfield_policy_ih4_empty_insured_zero_key</td>
@@ -605,25 +608,25 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>L1</td>
+<td class="tid">L1</td>
 <td>NF-100001, A-1001, owner</td>
 <td>One link row</td>
 <td>unit_client_policy_l_l1_one_person_one_role</td>
 </tr>
 <tr>
-<td>L2</td>
+<td class="tid">L2</td>
 <td>NF-100006: A-1006 owner, A-1008 insured</td>
 <td>Two link rows</td>
 <td>unit_client_policy_l_l2_two_people_two_roles</td>
 </tr>
 <tr>
-<td>L3</td>
+<td class="tid">L3</td>
 <td>NF-100010: A-1010 as owner and as insured</td>
 <td>Two link rows, told apart by the role</td>
 <td>unit_client_policy_l_l3_one_person_two_roles</td>
 </tr>
 <tr>
-<td>L5</td>
+<td class="tid">L5</td>
 <td>NF-100001, A-1001, payor, in load 2</td>
 <td>One more link row; the same columns</td>
 <td>unit_client_policy_l_l5_undocumented_role_new_row</td>
@@ -643,13 +646,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>L4</td>
+<td class="tid">L4</td>
 <td>NF-100007: A-1007 insured in the sale; NLI-55007 in the carrier row</td>
 <td>The insured link&rsquo;s policy key equals the client link&rsquo;s, and its person key is the insured&rsquo;s; no row joins A-1007 to NLI-55007</td>
 <td>unit_insured_policy_l_l4_same_policy_two_role_keys</td>
 </tr>
 <tr>
-<td>L6</td>
+<td class="tid">L6</td>
 <td>nf-100001, A-1001, owner, resent in load 2</td>
 <td>No new link row</td>
 <td>unit_client_policy_l_l6_resend_no_new_row</td>
@@ -669,31 +672,31 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>AG1</td>
+<td class="tid">AG1</td>
 <td>17001001 on NF-100001 in both sources, same load</td>
 <td>One hub row</td>
 <td>unit_agent_h_ag1_both_sources_one_row</td>
 </tr>
 <tr>
-<td>AG2</td>
+<td class="tid">AG2</td>
 <td>17002001 in the carrier data only</td>
 <td>One hub row from NFL</td>
 <td>unit_agent_h_ag2_carrier_only</td>
 </tr>
 <tr>
-<td>AG3</td>
+<td class="tid">AG3</td>
 <td>17001007 in the sales data only</td>
 <td>One hub row from SSI</td>
 <td>unit_agent_h_ag3_sales_only</td>
 </tr>
 <tr>
-<td>AG4</td>
+<td class="tid">AG4</td>
 <td>17001001 on NF-100001 and NF-100007</td>
 <td>One hub row</td>
 <td>unit_agent_h_ag4_one_agent_several_policies</td>
 </tr>
 <tr>
-<td>AG5</td>
+<td class="tid">AG5</td>
 <td>NF-100014 with an empty agent number</td>
 <td>The all-zeros key</td>
 <td>unit_stg_sunbelt_policy_sale_ag5_empty_agent_zero_key</td>
@@ -713,13 +716,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>LA2</td>
+<td class="tid">LA2</td>
 <td>NF-100011: 17001005 in the carrier row, 17001004 in the sale</td>
 <td>Two link rows to one policy</td>
 <td>unit_agent_policy_l_la2_sources_disagree_two_rows</td>
 </tr>
 <tr>
-<td>LA3</td>
+<td class="tid">LA3</td>
 <td>nf-100001 with 17001001, resent</td>
 <td>No new link row</td>
 <td>unit_agent_policy_l_la3_resend_no_new_row</td>
@@ -739,85 +742,85 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>ST1</td>
+<td class="tid">ST1</td>
 <td>First carrier row of NF-100001</td>
 <td>One satellite row</td>
 <td>unit_policy_northfield_s_st1_first_version</td>
 </tr>
 <tr>
-<td>ST2</td>
+<td class="tid">ST2</td>
 <td>NF-100002 resent unchanged</td>
 <td>No new version</td>
 <td>unit_policy_northfield_s_st2_unchanged_resend</td>
 </tr>
 <tr>
-<td>ST3</td>
+<td class="tid">ST3</td>
 <td>NF-100003: IF in load 1, LP in load 2</td>
 <td>A second version; the first kept</td>
 <td>unit_policy_northfield_s_st3_changed_value_new_version</td>
 </tr>
 <tr>
-<td>ST4</td>
+<td class="tid">ST4</td>
 <td>NF-100008: 12 Elm St, Flint MI, then 12 ELM ST, FLINT MI</td>
 <td>Staging gives the two rows different change hashes, so the satellite stores a second version; the satellite side is proven by unit_insured_northfield_s_st3_case_only_new_version</td>
 <td>unit_stg_northfield_policy_st4_case_only_new_hashdiff</td>
 </tr>
 <tr>
-<td>ST5</td>
+<td class="tid">ST5</td>
 <td>NF-100001 absent from load 2</td>
 <td>No row added; the load 1 version stays the latest</td>
 <td>unit_policy_northfield_s_st5_absent_stays_current</td>
 </tr>
 <tr>
-<td>ST1</td>
+<td class="tid">ST1</td>
 <td>First Northfield Life row of NLI-55008</td>
 <td>One satellite row</td>
 <td>unit_insured_northfield_s_st1_first_version</td>
 </tr>
 <tr>
-<td>ST2</td>
+<td class="tid">ST2</td>
 <td>NLI-55008 resent unchanged</td>
 <td>No new version</td>
 <td>unit_insured_northfield_s_st2_unchanged_resend</td>
 </tr>
 <tr>
-<td>ST3</td>
+<td class="tid">ST3</td>
 <td>NLI-55008: the address changes in letter case only</td>
 <td>A second version</td>
 <td>unit_insured_northfield_s_st3_case_only_new_version</td>
 </tr>
 <tr>
-<td>ST1</td>
+<td class="tid">ST1</td>
 <td>First client list row of A-1001</td>
 <td>One satellite row</td>
 <td>unit_client_sunbelt_s_st1_first_version</td>
 </tr>
 <tr>
-<td>ST2</td>
+<td class="tid">ST2</td>
 <td>A-1001 resent unchanged</td>
 <td>No new version</td>
 <td>unit_client_sunbelt_s_st2_unchanged_resend</td>
 </tr>
 <tr>
-<td>ST3</td>
+<td class="tid">ST3</td>
 <td>A-1001: state FL, then GA</td>
 <td>A second version</td>
 <td>unit_client_sunbelt_s_st3_changed_value_new_version</td>
 </tr>
 <tr>
-<td>ST1</td>
+<td class="tid">ST1</td>
 <td>First sale row of A-1001 owner on NF-100001</td>
 <td>One satellite row</td>
 <td>unit_client_policy_sunbelt_s_st1_first_version</td>
 </tr>
 <tr>
-<td>ST2</td>
+<td class="tid">ST2</td>
 <td>The same sale resent unchanged</td>
 <td>No new version</td>
 <td>unit_client_policy_sunbelt_s_st2_unchanged_resend</td>
 </tr>
 <tr>
-<td>ST3</td>
+<td class="tid">ST3</td>
 <td>The same sale with plan Final Expense 10K</td>
 <td>A second version</td>
 <td>unit_client_policy_sunbelt_s_st3_changed_value_new_version</td>
@@ -837,13 +840,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>I3</td>
+<td class="tid">I3</td>
 <td>NF-100001 and nf-100001</td>
 <td>No finding</td>
 <td>unit_inspector_sunbelt_policy_number_form_conforming_no_finding</td>
 </tr>
 <tr>
-<td>I4</td>
+<td class="tid">I4</td>
 <td>NF100009</td>
 <td>One finding</td>
 <td>unit_inspector_sunbelt_policy_number_form_nonconforming_one_finding</td>
@@ -863,25 +866,25 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>A3</td>
+<td class="tid">A3</td>
 <td>Sales data: 3 usable keys, 3 hub rows</td>
 <td>No finding</td>
 <td>unit_auditor_sunbelt_policy_hub_agree_no_finding</td>
 </tr>
 <tr>
-<td>A4</td>
+<td class="tid">A4</td>
 <td>Sales data: 3 usable keys, 2 hub rows</td>
 <td>One summary finding carrying both counts</td>
 <td>unit_auditor_sunbelt_policy_hub_disagree_one_finding</td>
 </tr>
 <tr>
-<td>A5</td>
+<td class="tid">A5</td>
 <td>Carrier data: 3 usable keys, 3 hub rows</td>
 <td>No finding</td>
 <td>unit_auditor_northfield_policy_hub_agree_no_finding</td>
 </tr>
 <tr>
-<td>A6</td>
+<td class="tid">A6</td>
 <td>Carrier data: 3 usable keys, 2 hub rows</td>
 <td>One summary finding carrying both counts</td>
 <td>unit_auditor_northfield_policy_hub_disagree_one_finding</td>
@@ -901,37 +904,37 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>HD1</td>
+<td class="tid">HD1</td>
 <td>A-1001, Rosa Alvarez, FL, in both acts</td>
 <td>The same change hash</td>
 <td>unit_stg_sunbelt_client_hd1_unchanged_same_hash</td>
 </tr>
 <tr>
-<td>HD2</td>
+<td class="tid">HD2</td>
 <td>A-1001 with state FL, then GA</td>
 <td>Different change hashes</td>
 <td>unit_stg_sunbelt_client_hd2_changed_value_new_hash</td>
 </tr>
 <tr>
-<td>HD1</td>
+<td class="tid">HD1</td>
 <td>The sale of NF-100001 to A-1001, owner, in both acts</td>
 <td>The same change hash</td>
 <td>unit_stg_sunbelt_policy_sale_hd1_unchanged_same_hash</td>
 </tr>
 <tr>
-<td>HD2</td>
+<td class="tid">HD2</td>
 <td>The same sale with plan Senior Term 20, then Final Expense 10K</td>
 <td>Different change hashes</td>
 <td>unit_stg_sunbelt_policy_sale_hd2_changed_value_new_hash</td>
 </tr>
 <tr>
-<td>HD1</td>
+<td class="tid">HD1</td>
 <td>NF-100001 with status IF in both acts</td>
 <td>The same change hash</td>
 <td>unit_stg_northfield_policy_hd1_unchanged_same_hash</td>
 </tr>
 <tr>
-<td>HD2</td>
+<td class="tid">HD2</td>
 <td>NF-100001 with status IF, then LP</td>
 <td>Different change hashes</td>
 <td>unit_stg_northfield_policy_hd2_changed_value_new_hash</td>
@@ -952,13 +955,13 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>V1</td>
+<td class="tid">V1</td>
 <td>One version of a key</td>
 <td>Load end date 8888-12-31 23:59:59</td>
 <td>unit_<view>_v1_single_version_current, for each of the four views</td>
 </tr>
 <tr>
-<td>V2</td>
+<td class="tid">V2</td>
 <td>Two versions of a key, loaded 2026-10-01 02:00 and 2026-10-02 02:00</td>
 <td>The first ends 2026-10-02 01:59:59.999999; the second ends 8888-12-31 23:59:59</td>
 <td>unit_<view>_v2_earlier_version_end_dated, for each of the four views</td>
@@ -980,19 +983,19 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Z1</td>
+<td class="tid">Z1</td>
 <td>Every key present</td>
 <td>The row reaches its satellite; no finding</td>
 <td>unit_inspector_sunbelt_client_key_missing_none_missing; unit_inspector_sunbelt_policy_sale_key_missing_none_missing; unit_inspector_northfield_policy_key_missing_none_missing</td>
 </tr>
 <tr>
-<td>Z2</td>
+<td class="tid">Z2</td>
 <td>A key missing</td>
 <td>The row stays out of its satellite; one finding per row and missing key</td>
 <td>unit_inspector_sunbelt_client_key_missing_one_finding_per_row; unit_inspector_sunbelt_policy_sale_key_missing_one_finding_per_missing_key; unit_inspector_northfield_policy_key_missing_one_finding_per_missing_key</td>
 </tr>
 <tr>
-<td>Z3</td>
+<td class="tid">Z3</td>
 <td>A satellite built after the fix</td>
 <td>No source row on the zero key</td>
 <td>uq_client_sunbelt_s_pk, in layer 1, which failed before the fix on the false client and passes after</td>
@@ -1013,7 +1016,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Y1</td>
+<td class="tid">Y1</td>
 <td>One form finding, one audit finding, and two missing-key findings for one row missing two keys</td>
 <td>finding_kind reads form, audit and missing_key; the two missing-key findings name the same finding_row</td>
 <td>unit_finding_fact_kind_and_row</td>
@@ -1022,15 +1025,15 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </table></div>
 <h3>2.1 Coverage by changed file, all seven layers</h3>
 <p>Every file the branch changes or adds, from <code>git diff --name-status -M origin/qa...HEAD</code> at commit 94639b4, 2026-10-25 05:57Z: 70 files, one row each (COVERAGE: EVERY FILE, EVERY LAYER, K#2 I#226). Existing tests on a changed file are kept and named beside the new. Unit tests are named by their path; the full names are in section 2.</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">.gitignore</span></div><p class="rc-title">change: ignores build output and local secrets</p><dl><dt>1 Built-ins</dt><dd>n/a: configuration, no logic</dd><dt>2 Expectations</dt><dd>n/a: configuration, no logic</dd><dt>3 Unit tests</dt><dd>n/a: configuration, no logic</dd><dt>4 Logic assertions</dt><dd>n/a: configuration, no logic</dd><dt>5 Detectors</dt><dd>n/a: configuration, no logic</dd><dt>6 Reconciliations</dt><dd>n/a: configuration, no logic</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/dbt_project.yml</span></div><p class="rc-title">moved from the repository root; paths, schemas per layer, timestamp variable (D-5)</p><dl><dt>1 Built-ins</dt><dd>n/a: configuration; proven by every build</dd><dt>2 Expectations</dt><dd>n/a: configuration; proven by every build</dd><dt>3 Unit tests</dt><dd>n/a: configuration; proven by every build</dd><dt>4 Logic assertions</dt><dd>n/a: configuration; proven by every build</dd><dt>5 Detectors</dt><dd>n/a: configuration; proven by every build</dd><dt>6 Reconciliations</dt><dd>n/a: configuration; proven by every build</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/development/dev_drop_orphans.sql</span></div><p class="rc-title">add: development cleanup of objects the project no longer defines</p><dl><dt>1 Built-ins</dt><dd>n/a: operations macro</dd><dt>2 Expectations</dt><dd>n/a: operations macro</dd><dt>3 Unit tests</dt><dd>n/a: tested live by planting a leftover table and schema, listing, dropping and listing again; refusal tested against DV</dd><dt>4 Logic assertions</dt><dd>n/a: operations macro</dd><dt>5 Detectors</dt><dd>n/a: operations macro</dd><dt>6 Reconciliations</dt><dd>n/a: operations macro</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/landing_storage.sql</span></div><p class="rc-title">add (D-12)</p><dl><dt>1 Built-ins</dt><dd>n/a: macro, covered through its callers: the three landing sources&rsquo; tests read the database it names</dd><dt>2 Expectations</dt><dd>n/a: covered through the source tests</dd><dt>3 Unit tests</dt><dd>n/a: no logic beyond an environment variable default</dd><dt>4 Logic assertions</dt><dd>n/a: covered through its callers</dd><dt>5 Detectors</dt><dd>covered through its callers: both inspectors write to the CONFIG schema it names</dd><dt>6 Reconciliations</dt><dd>covered through its callers: the three auditors write to the CONFIG schema it names</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/materializations/merge_into.sql</span></div><p class="rc-title">add (D-12)</p><dl><dt>1 Built-ins</dt><dd>n/a: materialization</dd><dt>2 Expectations</dt><dd>n/a: materialization</dd><dt>3 Unit tests</dt><dd>n/a: a unit test cannot run a materialization; covered by every finder build</dd><dt>4 Logic assertions</dt><dd>n/a: covered through its callers</dd><dt>5 Detectors</dt><dd>inspector_sunbelt_client_number_form and inspector_sunbelt_policy_number_form build through it</dd><dt>6 Reconciliations</dt><dd>auditor_sunbelt_client_hub, auditor_sunbelt_policy_hub and auditor_northfield_policy_hub build through it</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/operations/land_act.sql</span></div><p class="rc-title">add, then extended to three tables in increment 2: the landing acts as a macro</p><dl><dt>1 Built-ins</dt><dd>n/a: operations macro</dd><dt>2 Expectations</dt><dd>its acts are counted by expect_sunbelt_client_row_count and expect_increment_2_staging_keeps_every_landed_row</dd><dt>3 Unit tests</dt><dd>n/a: tested live by replaying act 2 with an identical fingerprint; refusals on production and on an already-loaded act</dd><dt>4 Logic assertions</dt><dd>n/a: operations macro</dd><dt>5 Detectors</dt><dd>n/a: operations macro</dd><dt>6 Reconciliations</dt><dd>the three auditors count the rows it lands</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/operations/vault_checks.sql</span></div><p class="rc-title">add, extended in increment 2: read-only routine counts</p><dl><dt>1 Built-ins</dt><dd>n/a: read-only report; its output compared with direct queries</dd><dt>2 Expectations</dt><dd>n/a: read-only report; its output compared with direct queries</dd><dt>3 Unit tests</dt><dd>n/a: read-only report; its output compared with direct queries</dd><dt>4 Logic assertions</dt><dd>n/a: read-only report; its output compared with direct queries</dd><dt>5 Detectors</dt><dd>n/a: read-only report; its output compared with direct queries</dd><dt>6 Reconciliations</dt><dd>n/a: read-only report; its output compared with direct queries</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/pipeline/generate_schema_name.sql</span></div><p class="rc-title">add: a custom schema is used as written</p><dl><dt>1 Built-ins</dt><dd>n/a: covered by every build, which places models in STAGING, RAW_VAULT and REFERENCE</dd><dt>2 Expectations</dt><dd>n/a: covered by every build, which places models in STAGING, RAW_VAULT and REFERENCE</dd><dt>3 Unit tests</dt><dd>n/a: covered by every build, which places models in STAGING, RAW_VAULT and REFERENCE</dd><dt>4 Logic assertions</dt><dd>n/a: covered by every build, which places models in STAGING, RAW_VAULT and REFERENCE</dd><dt>5 Detectors</dt><dd>n/a: covered by every build, which places models in STAGING, RAW_VAULT and REFERENCE</dd><dt>6 Reconciliations</dt><dd>n/a: covered by every build, which places models in STAGING, RAW_VAULT and REFERENCE</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/verification/baseline_metrics.sql</span></div><p class="rc-title">add in increment 2: the measurements the baseline facility takes</p><dl><dt>1 Built-ins</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>2 Expectations</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>3 Unit tests</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>4 Logic assertions</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>5 Detectors</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>6 Reconciliations</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/verification/capture_baseline.sql</span></div><p class="rc-title">add (D-12), extended in increment 2 to every vault table</p><dl><dt>1 Built-ins</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>2 Expectations</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>3 Unit tests</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>4 Logic assertions</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>5 Detectors</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>6 Reconciliations</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/verification/verify_build.sql</span></div><p class="rc-title">add (D-12), extended in increment 2 to every vault table</p><dl><dt>1 Built-ins</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>2 Expectations</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>3 Unit tests</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>4 Logic assertions</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>5 Detectors</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>6 Reconciliations</dt><dd>n/a: guardrail macro, section 3.1</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/auditors/_auditors.yml</span></div><p class="rc-title">add: the auditors&rsquo; unit tests</p><dl><dt>1 Built-ins</dt><dd>n/a: holds tests</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds A1 to A6</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/auditors/auditor_northfield_policy_hub.sql</span></div><p class="rc-title">add: auditor (D-10, guide step 31); corrected in increment 2 to check that each source key exists in its hub</p><dl><dt>1 Built-ins</dt><dd>n/a: auditor model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: auditor model</dd><dt>3 Unit tests</dt><dd>unit_auditor_northfield_policy_hub_agree_no_finding and unit_auditor_northfield_policy_hub_disagree_one_finding (A5, A6)</dd><dt>4 Logic assertions</dt><dd>n/a: auditor model</dd><dt>5 Detectors</dt><dd>n/a: an auditor, not an inspector</dd><dt>6 Reconciliations</dt><dd>is the auditor; expected no finding</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/auditors/auditor_sunbelt_client_hub.sql</span></div><p class="rc-title">add: auditor (D-10); corrected in increment 2 to check that each source key exists in its hub</p><dl><dt>1 Built-ins</dt><dd>n/a: auditor model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: auditor model</dd><dt>3 Unit tests</dt><dd>unit_auditor_sunbelt_client_hub_agree_no_finding and unit_auditor_sunbelt_client_hub_disagree_one_finding (A1, A2)</dd><dt>4 Logic assertions</dt><dd>n/a: auditor model</dd><dt>5 Detectors</dt><dd>n/a: an auditor, not an inspector</dd><dt>6 Reconciliations</dt><dd>is the auditor; expected no finding</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/auditors/auditor_sunbelt_policy_hub.sql</span></div><p class="rc-title">add: auditor (D-10, guide step 31); corrected in increment 2 to check that each source key exists in its hub</p><dl><dt>1 Built-ins</dt><dd>n/a: auditor model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: auditor model</dd><dt>3 Unit tests</dt><dd>unit_auditor_sunbelt_policy_hub_agree_no_finding and unit_auditor_sunbelt_policy_hub_disagree_one_finding (A3, A4)</dd><dt>4 Logic assertions</dt><dd>n/a: auditor model</dd><dt>5 Detectors</dt><dd>n/a: an auditor, not an inspector</dd><dt>6 Reconciliations</dt><dd>is the auditor; expected no finding</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/inspectors/_inspectors.yml</span></div><p class="rc-title">add: the inspectors&rsquo; unit tests</p><dl><dt>1 Built-ins</dt><dd>n/a: holds tests</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds I1 to I4</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/inspectors/inspector_sunbelt_client_number_form.sql</span></div><p class="rc-title">add: inspector (D-9)</p><dl><dt>1 Built-ins</dt><dd>n/a: inspector model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: inspector model</dd><dt>3 Unit tests</dt><dd>I1, I2</dd><dt>4 Logic assertions</dt><dd>n/a: inspector model</dd><dt>5 Detectors</dt><dd>is the inspector; expected two findings, A1007 and A-01008</dd><dt>6 Reconciliations</dt><dd>n/a: an inspector, not an auditor</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/inspectors/inspector_sunbelt_policy_number_form.sql</span></div><p class="rc-title">add: inspector (D-30)</p><dl><dt>1 Built-ins</dt><dd>n/a: inspector model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: inspector model</dd><dt>3 Unit tests</dt><dd>I3, I4</dd><dt>4 Logic assertions</dt><dd>n/a: inspector model</dd><dt>5 Detectors</dt><dd>is the inspector; expected one finding, NF100009</dd><dt>6 Reconciliations</dt><dd>n/a: an inspector, not an auditor</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/_client_h.yml</span></div><p class="rc-title">add: client_h&rsquo;s layer 1 tests and the unit tests P1 to P8; four fixtures rewritten in increment 2 to mock the second source</p><dl><dt>1 Built-ins</dt><dd>holds uq_client_h_hk_client_h, nn_client_h_hk_client_h</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds P1 to P8</dd><dt>4 Logic assertions</dt><dd>n/a: assertions are files in dbt/tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/_increment_2.yml</span></div><p class="rc-title">add: increment 2&rsquo;s layer 1 tests on its six hubs and links, and 48 of its unit tests</p><dl><dt>1 Built-ins</dt><dd>holds uq_ and nn_ on the hash keys of policy_h, insured_h, agent_h, client_policy_l, insured_policy_l, agent_policy_l, and D-40&rsquo;s four rel_ tests from each satellite&rsquo;s hash key to its parent</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds the unit tests of areas E, G, H, I, J, K, L, M, P (client) and Q</dd><dt>4 Logic assertions</dt><dd>n/a: assertions are files in dbt/tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/agent_h.sql</span></div><p class="rc-title">add: agent hub (D-35)</p><dl><dt>1 Built-ins</dt><dd>uq_agent_h_hk_agent_h; nn_agent_h_hk_agent_h</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build and the verification queries</dd><dt>3 Unit tests</dt><dd>AG1 to AG4</dd><dt>4 Logic assertions</dt><dd>assert_vault_record_sources_resolve; assert_increment_2_link_hub_keys_exist</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for the agent hub; path AG1 is read by verification query 9</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/agent_policy_l.sql</span></div><p class="rc-title">add: link (D-36)</p><dl><dt>1 Built-ins</dt><dd>uq_agent_policy_l_hk_agent_policy_l; nn_agent_policy_l_hk_agent_policy_l</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>LA2, LA3</dd><dt>4 Logic assertions</dt><dd>assert_increment_2_link_hub_keys_exist; assert_vault_record_sources_resolve</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for links; probe Q-6 reads them</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/client_h.sql</span></div><p class="rc-title">add; second source in increment 2 (D-32, G-14)</p><dl><dt>1 Built-ins</dt><dd>uq_client_h_hk_client_h; nn_client_h_hk_client_h</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build and the verification queries</dd><dt>3 Unit tests</dt><dd>P1, P2, P3, P8, CH1, CH2</dd><dt>4 Logic assertions</dt><dd>assert_client_h_no_blank_business_key; assert_client_h_covers_usable_source_keys; assert_client_h_ghost_keys_belong_to_ghosts; assert_vault_record_sources_resolve; assert_increment_2_link_hub_keys_exist</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>auditor_sunbelt_client_hub</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/client_policy_l.sql</span></div><p class="rc-title">add: link (D-33)</p><dl><dt>1 Built-ins</dt><dd>uq_client_policy_l_hk_client_policy_l; nn_client_policy_l_hk_client_policy_l</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>L1, L2, L3, L5, L6</dd><dt>4 Logic assertions</dt><dd>assert_increment_2_link_hub_keys_exist; assert_vault_record_sources_resolve</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for links; probe Q-6 reads them</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/client_policy_sunbelt_s.sql</span></div><p class="rc-title">add: satellite, version 0 (D-34)</p><dl><dt>1 Built-ins</dt><dd>n/a: a satellite&rsquo;s key repeats by design; its parent hub or link carries the key tests</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>ST1 to ST3 of client_policy_sunbelt_s</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its parent&rsquo;s; verification query 10 reads its versions</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for satellites</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/client_policy_sunbelt_s1.sql</span></div><p class="rc-title">add: version 1 view, load end dates (D-34, G-15)</p><dl><dt>1 Built-ins</dt><dd>n/a: view over its satellite</dd><dt>2 Expectations</dt><dd>n/a: view over its satellite</dd><dt>3 Unit tests</dt><dd>V1, V2 of client_policy_sunbelt_s1</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its satellite&rsquo;s</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for views</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/client_sunbelt_s.sql</span></div><p class="rc-title">add: satellite, version 0 (D-34)</p><dl><dt>1 Built-ins</dt><dd>n/a: a satellite&rsquo;s key repeats by design; its parent hub or link carries the key tests</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>ST1 to ST3 of client_sunbelt_s</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its parent&rsquo;s; verification query 10 reads its versions</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for satellites</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/client_sunbelt_s1.sql</span></div><p class="rc-title">add: version 1 view, load end dates (D-34, G-15)</p><dl><dt>1 Built-ins</dt><dd>n/a: view over its satellite</dd><dt>2 Expectations</dt><dd>n/a: view over its satellite</dd><dt>3 Unit tests</dt><dd>V1, V2 of client_sunbelt_s1</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its satellite&rsquo;s</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for views</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/insured_h.sql</span></div><p class="rc-title">add: insured hub (D-32)</p><dl><dt>1 Built-ins</dt><dd>uq_insured_h_hk_insured_h; nn_insured_h_hk_insured_h</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build and the verification queries</dd><dt>3 Unit tests</dt><dd>IH1 to IH3</dd><dt>4 Logic assertions</dt><dd>assert_vault_record_sources_resolve; assert_increment_2_link_hub_keys_exist</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for the insured hub; its keys are reached through probe Q-6</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/insured_northfield_s.sql</span></div><p class="rc-title">add: satellite, version 0 (D-34)</p><dl><dt>1 Built-ins</dt><dd>n/a: a satellite&rsquo;s key repeats by design; its parent hub or link carries the key tests</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>ST1 to ST3 of insured_northfield_s; ST4 on staging</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its parent&rsquo;s; verification query 10 reads its versions</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for satellites</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/insured_northfield_s1.sql</span></div><p class="rc-title">add: version 1 view, load end dates (D-34, G-15)</p><dl><dt>1 Built-ins</dt><dd>n/a: view over its satellite</dd><dt>2 Expectations</dt><dd>n/a: view over its satellite</dd><dt>3 Unit tests</dt><dd>V1, V2 of insured_northfield_s1</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its satellite&rsquo;s</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for views</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/insured_policy_l.sql</span></div><p class="rc-title">add: link (D-33)</p><dl><dt>1 Built-ins</dt><dd>uq_insured_policy_l_hk_insured_policy_l; nn_insured_policy_l_hk_insured_policy_l</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>L4</dd><dt>4 Logic assertions</dt><dd>assert_increment_2_link_hub_keys_exist; assert_vault_record_sources_resolve</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for links; probe Q-6 reads them</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/policy_h.sql</span></div><p class="rc-title">add: policy hub (D-26)</p><dl><dt>1 Built-ins</dt><dd>uq_policy_h_hk_policy_h; nn_policy_h_hk_policy_h</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build and the verification queries</dd><dt>3 Unit tests</dt><dd>PH1 to PH4</dd><dt>4 Logic assertions</dt><dd>assert_vault_record_sources_resolve; assert_increment_2_link_hub_keys_exist</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>auditor_sunbelt_policy_hub; auditor_northfield_policy_hub</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/policy_northfield_s.sql</span></div><p class="rc-title">add: satellite, version 0 (D-34)</p><dl><dt>1 Built-ins</dt><dd>n/a: a satellite&rsquo;s key repeats by design; its parent hub or link carries the key tests</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>ST1, ST2, ST3, ST5</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its parent&rsquo;s; verification query 10 reads its versions</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for satellites</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/policy_northfield_s1.sql</span></div><p class="rc-title">add: version 1 view, load end dates (D-34, G-15)</p><dl><dt>1 Built-ins</dt><dd>n/a: view over its satellite</dd><dt>2 Expectations</dt><dd>n/a: view over its satellite</dd><dt>3 Unit tests</dt><dd>V1, V2 of policy_northfield_s1</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its satellite&rsquo;s</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for views</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/_stg_northfield_policy.yml</span></div><p class="rc-title">add: unit tests IH4 and ST4</p><dl><dt>1 Built-ins</dt><dd>n/a: holds tests</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds IH4, ST4</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/_stg_sunbelt_policy_sale.yml</span></div><p class="rc-title">add: unit tests PH5 to PH8, CH3, AG5</p><dl><dt>1 Built-ins</dt><dd>n/a: holds tests</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds PH5 to PH8, CH3, AG5</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/_sunbelt__sources.yml</span></div><p class="rc-title">add: the three landing sources and their tests; Northfield Life and the sales data in increment 2</p><dl><dt>1 Built-ins</dt><dd>nn_sunbelt_client_crm_row_id; nn_sunbelt_client_loaded_at; nn_sunbelt_policy_sale_loaded_at; nn_northfield_policy_loaded_at</dd><dt>2 Expectations</dt><dd>uqc_sunbelt_client_loaded_at_crm_row_id; uqc_sunbelt_policy_sale_loaded_at_policy_client_role; uqc_northfield_policy_loaded_at_policy_number</dd><dt>3 Unit tests</dt><dd>n/a: declaration</dd><dt>4 Logic assertions</dt><dd>n/a: declaration</dd><dt>5 Detectors</dt><dd>n/a: declaration</dd><dt>6 Reconciliations</dt><dd>n/a: declaration</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/stg_northfield_policy.sql</span></div><p class="rc-title">add: staging with hard rules (D-24); NFL supplied (D-26)</p><dl><dt>1 Built-ins</dt><dd>n/a: view, tested through its paths</dd><dt>2 Expectations</dt><dd>expect_increment_2_staging_keeps_every_landed_row</dd><dt>3 Unit tests</dt><dd>IH4, ST4; HD1, HD2</dd><dt>4 Logic assertions</dt><dd>n/a: its truths surface in the hubs&rsquo; and links&rsquo; assertions</dd><dt>5 Detectors</dt><dd>n/a: no inspector in the design for Northfield Life&rsquo;s forms</dd><dt>6 Reconciliations</dt><dd>auditor_northfield_policy_hub reads it</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/stg_sunbelt_client.sql</span></div><p class="rc-title">add (D-4); record source SSI (D-15); change hash added in increment 2 (D-34)</p><dl><dt>1 Built-ins</dt><dd>n/a: view, tested through its paths</dd><dt>2 Expectations</dt><dd>expect_sunbelt_client_row_count reads its source</dd><dt>3 Unit tests</dt><dd>P4 to P7; HD1, HD2</dd><dt>4 Logic assertions</dt><dd>assert_client_h_covers_usable_source_keys reads it</dd><dt>5 Detectors</dt><dd>inspector_sunbelt_client_number_form reads it</dd><dt>6 Reconciliations</dt><dd>auditor_sunbelt_client_hub reads it</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/stg_sunbelt_policy_sale.sql</span></div><p class="rc-title">add: staging with hard rules (D-24)</p><dl><dt>1 Built-ins</dt><dd>n/a: view, tested through its paths</dd><dt>2 Expectations</dt><dd>expect_increment_2_staging_keeps_every_landed_row</dd><dt>3 Unit tests</dt><dd>PH5 to PH8, CH3, AG5; HD1, HD2</dd><dt>4 Logic assertions</dt><dd>n/a: its truths surface in the hubs&rsquo; and links&rsquo; assertions</dd><dt>5 Detectors</dt><dd>inspector_sunbelt_policy_number_form reads it</dd><dt>6 Reconciliations</dt><dd>auditor_sunbelt_policy_hub reads it</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/packages.yml</span></div><p class="rc-title">moved from the repository root; datavault4dbt pinned to the fork, dbt_utils added (G-9)</p><dl><dt>1 Built-ins</dt><dd>n/a: configuration; proven by every build</dd><dt>2 Expectations</dt><dd>n/a: configuration; proven by every build</dd><dt>3 Unit tests</dt><dd>n/a: configuration; proven by every build</dd><dt>4 Logic assertions</dt><dd>n/a: configuration; proven by every build</dd><dt>5 Detectors</dt><dd>n/a: configuration; proven by every build</dd><dt>6 Reconciliations</dt><dd>n/a: configuration; proven by every build</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/seeds/_seeds.yml</span></div><p class="rc-title">add: the seed&rsquo;s description and its two built-in tests</p><dl><dt>1 Built-ins</dt><dd>holds uq_seed_source_system_code, nn_seed_source_system_code</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>n/a: holds tests</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/seeds/seed_build_expectations.csv</span></div><p class="rc-title">add (G-3), inc2 rows (G-17)</p><dl><dt>1 Built-ins</dt><dd>n/a: seed read by verify_build, section 3.1</dd><dt>2 Expectations</dt><dd>n/a: seed read by verify_build, section 3.1</dd><dt>3 Unit tests</dt><dd>n/a: seed read by verify_build, section 3.1</dd><dt>4 Logic assertions</dt><dd>n/a: seed read by verify_build, section 3.1</dd><dt>5 Detectors</dt><dd>n/a: seed read by verify_build, section 3.1</dd><dt>6 Reconciliations</dt><dd>n/a: seed read by verify_build, section 3.1</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/seeds/seed_source_system.csv</span></div><p class="rc-title">add: SSI, SYSTEM, ERROR (D-17, D-21); NFL in increment 2 (D-23)</p><dl><dt>1 Built-ins</dt><dd>uq_seed_source_system_code; nn_seed_source_system_code</dd><dt>2 Expectations</dt><dd>n/a: four authored rows</dd><dt>3 Unit tests</dt><dd>n/a: data, no logic</dd><dt>4 Logic assertions</dt><dd>assert_vault_record_sources_resolve joins it</dd><dt>5 Detectors</dt><dd>n/a: reference data</dd><dt>6 Reconciliations</dt><dd>n/a: reference data</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/selectors.yml</span></div><p class="rc-title">add: named selections for builds</p><dl><dt>1 Built-ins</dt><dd>n/a: configuration; proven by the builds that use it</dd><dt>2 Expectations</dt><dd>n/a: configuration; proven by the builds that use it</dd><dt>3 Unit tests</dt><dd>n/a: configuration; proven by the builds that use it</dd><dt>4 Logic assertions</dt><dd>n/a: configuration; proven by the builds that use it</dd><dt>5 Detectors</dt><dd>n/a: configuration; proven by the builds that use it</dd><dt>6 Reconciliations</dt><dd>n/a: configuration; proven by the builds that use it</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/assert_client_h_covers_usable_source_keys.sql</span></div><p class="rc-title">add</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>n/a: is itself a test</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>is the assertion</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/assert_client_h_ghost_keys_belong_to_ghosts.sql</span></div><p class="rc-title">add</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>n/a: is itself a test</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>is the assertion</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/assert_client_h_no_blank_business_key.sql</span></div><p class="rc-title">add</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>n/a: is itself a test</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>is the assertion</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/assert_increment_2_link_hub_keys_exist.sql</span></div><p class="rc-title">add in increment 2</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>n/a: is itself a test</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>is the assertion</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/assert_vault_record_sources_resolve.sql</span></div><p class="rc-title">add, rewritten in increment 2 to read every hub and link</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>n/a: is itself a test</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>is the assertion</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/expect_increment_2_staging_keeps_every_landed_row.sql</span></div><p class="rc-title">add in increment 2</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>is the expectation</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>n/a: is itself a test</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/expect_sunbelt_client_row_count.sql</span></div><p class="rc-title">add</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>is the expectation</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>n/a: is itself a test</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">models/raw_vault/student_h.sql</span></div><p class="rc-title">removed in housekeeping (DIG-579): exploratory model</p><dl><dt>1 Built-ins</dt><dd>n/a: removed</dd><dt>2 Expectations</dt><dd>n/a: removed</dd><dt>3 Unit tests</dt><dd>n/a: removed</dd><dt>4 Logic assertions</dt><dd>n/a: removed</dd><dt>5 Detectors</dt><dd>n/a: removed</dd><dt>6 Reconciliations</dt><dd>n/a: removed</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">models/staging/stg_student.sql</span></div><p class="rc-title">removed in housekeeping (DIG-579): exploratory model</p><dl><dt>1 Built-ins</dt><dd>n/a: removed</dd><dt>2 Expectations</dt><dd>n/a: removed</dd><dt>3 Unit tests</dt><dd>n/a: removed</dd><dt>4 Logic assertions</dt><dd>n/a: removed</dd><dt>5 Detectors</dt><dd>n/a: removed</dd><dt>6 Reconciliations</dt><dd>n/a: removed</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">package-lock.yml</span></div><p class="rc-title">removed from the root; dbt deps writes the lock under dbt/</p><dl><dt>1 Built-ins</dt><dd>n/a: removed</dd><dt>2 Expectations</dt><dd>n/a: removed</dd><dt>3 Unit tests</dt><dd>n/a: removed</dd><dt>4 Logic assertions</dt><dd>n/a: removed</dd><dt>5 Detectors</dt><dd>n/a: removed</dd><dt>6 Reconciliations</dt><dd>n/a: removed</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">packages.yml</span></div><p class="rc-title">moved to dbt/packages.yml</p><dl><dt>1 Built-ins</dt><dd>n/a: moved</dd><dt>2 Expectations</dt><dd>n/a: moved</dd><dt>3 Unit tests</dt><dd>n/a: moved</dd><dt>4 Logic assertions</dt><dd>n/a: moved</dd><dt>5 Detectors</dt><dd>n/a: moved</dd><dt>6 Reconciliations</dt><dd>n/a: moved</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">reader/build_course_page.py</span></div><p class="rc-title">add: builds the course&rsquo;s reading page from Pilot (DIG-578)</p><dl><dt>1 Built-ins</dt><dd>n/a: course tooling outside the warehouse; checked by reading the page it builds</dd><dt>2 Expectations</dt><dd>n/a: course tooling outside the warehouse; checked by reading the page it builds</dd><dt>3 Unit tests</dt><dd>n/a: course tooling outside the warehouse; checked by reading the page it builds</dd><dt>4 Logic assertions</dt><dd>n/a: course tooling outside the warehouse; checked by reading the page it builds</dd><dt>5 Detectors</dt><dd>n/a: course tooling outside the warehouse; checked by reading the page it builds</dd><dt>6 Reconciliations</dt><dd>n/a: course tooling outside the warehouse; checked by reading the page it builds</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">seeds/student.csv</span></div><p class="rc-title">removed in housekeeping (DIG-579): exploratory model</p><dl><dt>1 Built-ins</dt><dd>n/a: removed</dd><dt>2 Expectations</dt><dd>n/a: removed</dd><dt>3 Unit tests</dt><dd>n/a: removed</dd><dt>4 Logic assertions</dt><dd>n/a: removed</dd><dt>5 Detectors</dt><dd>n/a: removed</dd><dt>6 Reconciliations</dt><dd>n/a: removed</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/admin_separation.sql</span></div><p class="rc-title">add: administration roles</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>3 Unit tests</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>4 Logic assertions</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>5 Detectors</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>6 Reconciliations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/developer_keys/RAYSERRANO.sql</span></div><p class="rc-title">add: a developer&rsquo;s public key</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>3 Unit tests</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>4 Logic assertions</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>5 Detectors</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>6 Reconciliations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/environment_tiers.sql</span></div><p class="rc-title">add: the four tiers (D-2)</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>3 Unit tests</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>4 Logic assertions</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>5 Detectors</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>6 Reconciliations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/landing.sql</span></div><p class="rc-title">add (D-1, D-12), extended in increment 2 (step 22)</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>3 Unit tests</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>4 Logic assertions</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>5 Detectors</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>6 Reconciliations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/landing_increment2_dev_claude_ws.sql</span></div><p class="rc-title">add: increment 2&rsquo;s landing tables in the workstation clone (step 22, answer 1b)</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>3 Unit tests</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>4 Logic assertions</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>5 Detectors</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>6 Reconciliations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/pilot_reader.sql</span></div><p class="rc-title">add: Pilot read access</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>3 Unit tests</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>4 Logic assertions</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>5 Detectors</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>6 Reconciliations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/service_users.sql</span></div><p class="rc-title">add: service users</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>3 Unit tests</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>4 Logic assertions</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>5 Detectors</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>6 Reconciliations</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/keys/new_developer_keypair.ps1</span></div><p class="rc-title">add: creates a developer key pair</p><dl><dt>1 Built-ins</dt><dd>n/a: workstation script outside the warehouse; proven by the key it created</dd><dt>2 Expectations</dt><dd>n/a: workstation script outside the warehouse; proven by the key it created</dd><dt>3 Unit tests</dt><dd>n/a: workstation script outside the warehouse; proven by the key it created</dd><dt>4 Logic assertions</dt><dd>n/a: workstation script outside the warehouse; proven by the key it created</dd><dt>5 Detectors</dt><dd>n/a: workstation script outside the warehouse; proven by the key it created</dd><dt>6 Reconciliations</dt><dd>n/a: workstation script outside the warehouse; proven by the key it created</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/runbooks/dbt_cloud_qa_environment.md</span></div><p class="rc-title">add: runbook</p><dl><dt>1 Built-ins</dt><dd>n/a: documentation, no code</dd><dt>2 Expectations</dt><dd>n/a: documentation, no code</dd><dt>3 Unit tests</dt><dd>n/a: documentation, no code</dd><dt>4 Logic assertions</dt><dd>n/a: documentation, no code</dd><dt>5 Detectors</dt><dd>n/a: documentation, no code</dd><dt>6 Reconciliations</dt><dd>n/a: documentation, no code</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/runbooks/github_machine_account.md</span></div><p class="rc-title">add: runbook</p><dl><dt>1 Built-ins</dt><dd>n/a: documentation, no code</dd><dt>2 Expectations</dt><dd>n/a: documentation, no code</dd><dt>3 Unit tests</dt><dd>n/a: documentation, no code</dd><dt>4 Logic assertions</dt><dd>n/a: documentation, no code</dd><dt>5 Detectors</dt><dd>n/a: documentation, no code</dd><dt>6 Reconciliations</dt><dd>n/a: documentation, no code</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">setup/scripts/dev_scoped_rebuild.sh</span></div><p class="rc-title">add (D-20, G-12)</p><dl><dt>1 Built-ins</dt><dd>n/a: script; refusal outside developer databases tested live</dd><dt>2 Expectations</dt><dd>n/a: script; refusal outside developer databases tested live</dd><dt>3 Unit tests</dt><dd>n/a: script; refusal outside developer databases tested live</dd><dt>4 Logic assertions</dt><dd>n/a: script; refusal outside developer databases tested live</dd><dt>5 Detectors</dt><dd>n/a: script; refusal outside developer databases tested live</dd><dt>6 Reconciliations</dt><dd>n/a: script; refusal outside developer databases tested live</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <p>The fix to release 1 (DIG-594) changes or adds 16 files, from <code>git diff --name-status origin/qa...HEAD</code> at commit 976744e on its branch, 2026-10-28 21:00Z, one row each:</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">dbt/dbt_project.yml</span></div><p class="rc-title">change: the on-run-end hook runs declare_vault_keys (D-43)</p><dl><dt>1 Built-ins</dt><dd>n/a: configuration; proven by every build</dd><dt>2 Expectations</dt><dd>n/a: configuration; proven by every build</dd><dt>3 Unit tests</dt><dd>n/a: configuration; proven by every build</dd><dt>4 Logic assertions</dt><dd>n/a: configuration; proven by every build</dd><dt>5 Detectors</dt><dd>n/a: configuration; proven by every build</dd><dt>6 Reconciliations</dt><dd>n/a: configuration; proven by every build</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/declare_vault_keys.sql</span></div><p class="rc-title">add (D-43)</p><dl><dt>1 Built-ins</dt><dd>n/a: macro; its output is the 22 constraints read from the information schema after each build</dd><dt>2 Expectations</dt><dd>n/a: macro</dd><dt>3 Unit tests</dt><dd>n/a: a unit test cannot run an on-run-end hook; proven live: 22 keys defined, a rerun adds none</dd><dt>4 Logic assertions</dt><dd>n/a: macro</dd><dt>5 Detectors</dt><dd>n/a: macro</dd><dt>6 Reconciliations</dt><dd>n/a: macro</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/inspectors/_inspectors.yml</span></div><p class="rc-title">change: the six unit tests of paths Z1 and Z2</p><dl><dt>1 Built-ins</dt><dd>n/a: holds tests</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds Z1, Z2</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/inspectors/inspector_northfield_policy_key_missing.sql</span></div><p class="rc-title">add: inspector (D-45)</p><dl><dt>1 Built-ins</dt><dd>n/a: inspector model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: inspector model</dd><dt>3 Unit tests</dt><dd>Z1, Z2</dd><dt>4 Logic assertions</dt><dd>n/a: inspector model</dd><dt>5 Detectors</dt><dd>is the inspector; one finding per row and missing key</dd><dt>6 Reconciliations</dt><dd>n/a: an inspector, not an auditor</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/inspectors/inspector_sunbelt_client_key_missing.sql</span></div><p class="rc-title">add: inspector (D-45)</p><dl><dt>1 Built-ins</dt><dd>n/a: inspector model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: inspector model</dd><dt>3 Unit tests</dt><dd>Z1, Z2</dd><dt>4 Logic assertions</dt><dd>n/a: inspector model</dd><dt>5 Detectors</dt><dd>is the inspector; one finding per row and missing key</dd><dt>6 Reconciliations</dt><dd>n/a: an inspector, not an auditor</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/inspectors/inspector_sunbelt_policy_sale_key_missing.sql</span></div><p class="rc-title">add: inspector (D-45)</p><dl><dt>1 Built-ins</dt><dd>n/a: inspector model; its findings are the proof</dd><dt>2 Expectations</dt><dd>n/a: inspector model</dd><dt>3 Unit tests</dt><dd>Z1, Z2</dd><dt>4 Logic assertions</dt><dd>n/a: inspector model</dd><dt>5 Detectors</dt><dd>is the inspector; one finding per row and missing key</dd><dt>6 Reconciliations</dt><dd>n/a: an inspector, not an auditor</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/_increment_2.yml</span></div><p class="rc-title">change: D-42&rsquo;s 18 layer 1 tests; the ten satellite unit tests of area M given the known-key views</p><dl><dt>1 Built-ins</dt><dd>holds the 18 tests of D-42 beside the existing uq_, nn_ and rel_ tests</dd><dt>2 Expectations</dt><dd>n/a: holds tests</dd><dt>3 Unit tests</dt><dd>holds area M, inputs changed</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/client_sunbelt_s.sql</span></div><p class="rc-title">change: reads its known-key view (D-44)</p><dl><dt>1 Built-ins</dt><dd>uq_client_sunbelt_s_pk, nn_client_sunbelt_s_hk_client_h, nn_client_sunbelt_s_ldts (D-42); rel_client_sunbelt_s_hk_client_h (D-40) kept</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>area M tests kept, given the known-key view; Z3</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its parent</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for satellites</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/insured_northfield_s.sql</span></div><p class="rc-title">change: reads its known-key view (D-44)</p><dl><dt>1 Built-ins</dt><dd>uq_insured_northfield_s_pk, nn_insured_northfield_s_hk_insured_h, nn_insured_northfield_s_ldts (D-42); rel_insured_northfield_s_hk_insured_h (D-40) kept</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>area M tests kept, given the known-key view</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its parent</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for satellites</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/policy_northfield_s.sql</span></div><p class="rc-title">change: reads its known-key view (D-44)</p><dl><dt>1 Built-ins</dt><dd>uq_policy_northfield_s_pk, nn_policy_northfield_s_hk_policy_h, nn_policy_northfield_s_ldts (D-42); rel_policy_northfield_s_hk_policy_h (D-40) kept</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>area M tests kept, given the known-key view</dd><dt>4 Logic assertions</dt><dd>n/a: no modeled truth beyond its parent</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging</dd><dt>6 Reconciliations</dt><dd>n/a: no auditor in the design for satellites</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/stg_northfield_policy_known_insured.sql</span></div><p class="rc-title">add: known-key view (D-44)</p><dl><dt>1 Built-ins</dt><dd>n/a: view, proved through its satellite</dd><dt>2 Expectations</dt><dd>n/a: view</dd><dt>3 Unit tests</dt><dd>n/a: a filter; the satellite tests mock it, and Z3 shows no zero-key row reaches a satellite</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>the missing-key inspectors report the rows it leaves out</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/stg_northfield_policy_known_policy.sql</span></div><p class="rc-title">add: known-key view (D-44)</p><dl><dt>1 Built-ins</dt><dd>n/a: view, proved through its satellite</dd><dt>2 Expectations</dt><dd>n/a: view</dd><dt>3 Unit tests</dt><dd>n/a: a filter; the satellite tests mock it, and Z3 shows no zero-key row reaches a satellite</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>the missing-key inspectors report the rows it leaves out</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/stg_sunbelt_client_known_client.sql</span></div><p class="rc-title">add: known-key view (D-44)</p><dl><dt>1 Built-ins</dt><dd>n/a: view, proved through its satellite</dd><dt>2 Expectations</dt><dd>n/a: view</dd><dt>3 Unit tests</dt><dd>n/a: a filter; the satellite tests mock it, and Z3 shows no zero-key row reaches a satellite</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>the missing-key inspectors report the rows it leaves out</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/runbooks/dbt_cloud_prod_environment.md</span></div><p class="rc-title">change: the promotion&rsquo;s one-time correction step (D-46)</p><dl><dt>1 Built-ins</dt><dd>n/a: documentation, no code</dd><dt>2 Expectations</dt><dd>n/a: documentation, no code</dd><dt>3 Unit tests</dt><dd>n/a: documentation, no code</dd><dt>4 Logic assertions</dt><dd>n/a: documentation, no code</dd><dt>5 Detectors</dt><dd>n/a: documentation, no code</dd><dt>6 Reconciliations</dt><dd>n/a: documentation, no code</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/snowflake/correct_zero_key_satellite_rows.sql</span></div><p class="rc-title">add: one-time correction (D-46)</p><dl><dt>1 Built-ins</dt><dd>n/a: script; proven live on the development vault with production&rsquo;s four rows copied in</dd><dt>2 Expectations</dt><dd>n/a: script; proven live on the development vault with production&rsquo;s four rows copied in</dd><dt>3 Unit tests</dt><dd>n/a: script; proven live on the development vault with production&rsquo;s four rows copied in</dd><dt>4 Logic assertions</dt><dd>n/a: script; proven live on the development vault with production&rsquo;s four rows copied in</dd><dt>5 Detectors</dt><dd>n/a: script; proven live on the development vault with production&rsquo;s four rows copied in</dd><dt>6 Reconciliations</dt><dd>n/a: script; proven live on the development vault with production&rsquo;s four rows copied in</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/snowflake/ddl/dv.sql</span></div><p class="rc-title">change: regenerated with the 22 keys (D-43)</p><dl><dt>1 Built-ins</dt><dd>n/a: generated; infra/scripts/vault_ddl.py &ndash;check compares it with a tier</dd><dt>2 Expectations</dt><dd>n/a: generated; infra/scripts/vault_ddl.py &ndash;check compares it with a tier</dd><dt>3 Unit tests</dt><dd>n/a: generated; infra/scripts/vault_ddl.py &ndash;check compares it with a tier</dd><dt>4 Logic assertions</dt><dd>n/a: generated; infra/scripts/vault_ddl.py &ndash;check compares it with a tier</dd><dt>5 Detectors</dt><dd>n/a: generated; infra/scripts/vault_ddl.py &ndash;check compares it with a tier</dd><dt>6 Reconciliations</dt><dd>n/a: generated; infra/scripts/vault_ddl.py &ndash;check compares it with a tier</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/runbooks/github_machine_account.md</span></div><p class="rc-title">change: the reference architecture removed from its comments (D-48)</p><dl><dt>1 Built-ins</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>2 Expectations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>3 Unit tests</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>4 Logic assertions</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>5 Detectors</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>6 Reconciliations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>7 Semantic surface</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/snowflake/admin_separation.sql</span></div><p class="rc-title">change: the reference architecture removed from its comments (D-48)</p><dl><dt>1 Built-ins</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>2 Expectations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>3 Unit tests</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>4 Logic assertions</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>5 Detectors</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>6 Reconciliations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>7 Semantic surface</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/snowflake/environment_tiers.sql</span></div><p class="rc-title">change: the reference architecture removed from its comments (D-48)</p><dl><dt>1 Built-ins</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>2 Expectations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>3 Unit tests</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>4 Logic assertions</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>5 Detectors</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>6 Reconciliations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>7 Semantic surface</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/snowflake/landing.sql</span></div><p class="rc-title">change: the reference architecture removed from its comments (D-48)</p><dl><dt>1 Built-ins</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>2 Expectations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>3 Unit tests</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>4 Logic assertions</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>5 Detectors</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>6 Reconciliations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>7 Semantic surface</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/snowflake/refresh_landing_tier.sql</span></div><p class="rc-title">change: the reference architecture removed from its comments (D-48)</p><dl><dt>1 Built-ins</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>2 Expectations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>3 Unit tests</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>4 Logic assertions</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>5 Detectors</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>6 Reconciliations</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd><dt>7 Semantic surface</dt><dd>n/a: comments only, no code changed; proven by the build&rsquo;s guard</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">site/excluded_terms.txt</span></div><p class="rc-title">add: the terms no built page may carry (D-48)</p><dl><dt>1 Built-ins</dt><dd>n/a: a list</dd><dt>2 Expectations</dt><dd>n/a: a list</dd><dt>3 Unit tests</dt><dd>n/a: a list</dd><dt>4 Logic assertions</dt><dd>n/a: a list</dd><dt>5 Detectors</dt><dd>n/a: a list</dd><dt>6 Reconciliations</dt><dd>n/a: a list</dd><dt>7 Semantic surface</dt><dd>n/a: read by the build guard</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">site/build_site.py</span></div><p class="rc-title">change: the guard writes no page carrying a listed term (D-48); the executive summary (D-49); the release page sends readers to the Ask page (D-50); the test count 137; the counts read from their sources (D-52)</p><dl><dt>1 Built-ins</dt><dd>n/a: the site builder</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>the guard: 120 hits refused before the removal, 22 pages written with none after; the summary first on the home page, its switch proven off and on; every internal address resolving</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">site/dev/qa_retest.py</span></div><p class="rc-title">change: runs inside the workstation container, accepting its gateway&rsquo;s certificate only where installed, and counts spelled-out numbers (D-51)</p><dl><dt>1 Built-ins</dt><dd>n/a: a test script</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>26 of 26 from the container against the QA function</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <p>The release 1 mart, the views that serve the semantic layer, adds 6 files at commit f48c24b, one row each; the fix changes two of them and adds a seventh at commit 2a921a1 (D-47):</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/mart/_mart.yml</span></div><p class="rc-title">add: the mart views and their tests; change: finding_fact&rsquo;s dimensions finding_kind and finding_row, the metrics records_not_accepted and rows_missing_key, and the unit test unit_finding_fact_kind_and_row (D-47)</p><dl><dt>1 Built-ins</dt><dd>holds uq_client_policy_fact_client_policy_key, uq_agent_policy_fact_agent_policy_key and uq_policy_fact_policy_key</dd><dt>2 Expectations</dt><dd>holds unit_finding_fact_kind_and_row</dd><dt>3 Unit tests</dt><dd>n/a: holds tests</dd><dt>4 Logic assertions</dt><dd>n/a: holds tests</dd><dt>5 Detectors</dt><dd>n/a: holds tests</dd><dt>6 Reconciliations</dt><dd>n/a: holds tests</dd><dt>7 Semantic surface</dt><dd>records_not_accepted and rows_missing_key, read in dev: 3 and 6</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/mart/client_policy_fact.sql</span></div><p class="rc-title">add: a mart view over the vault</p><dl><dt>1 Built-ins</dt><dd>uq_client_policy_fact_client_policy_key: one row per key</dd><dt>2 Expectations</dt><dd>n/a: view</dd><dt>3 Unit tests</dt><dd>n/a: a plain view over tested vault models</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>n/a: view</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>n/a: the mart views serve the semantic layer, outside this plan</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/mart/agent_policy_fact.sql</span></div><p class="rc-title">add: a mart view over the vault</p><dl><dt>1 Built-ins</dt><dd>uq_agent_policy_fact_agent_policy_key: one row per key</dd><dt>2 Expectations</dt><dd>n/a: view</dd><dt>3 Unit tests</dt><dd>n/a: a plain view over tested vault models</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>n/a: view</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>n/a: the mart views serve the semantic layer, outside this plan</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/mart/policy_fact.sql</span></div><p class="rc-title">add: a mart view over the vault</p><dl><dt>1 Built-ins</dt><dd>uq_policy_fact_policy_key: one row per key</dd><dt>2 Expectations</dt><dd>n/a: view</dd><dt>3 Unit tests</dt><dd>n/a: a plain view over tested vault models</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>n/a: view</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>n/a: the mart views serve the semantic layer, outside this plan</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/mart/finding_fact.sql</span></div><p class="rc-title">add: a mart view; change: reads the findings through the landing_config source and derives finding_kind and finding_row (D-47)</p><dl><dt>1 Built-ins</dt><dd>n/a: no key test; its rows are the findings table</dd><dt>2 Expectations</dt><dd>unit_finding_fact_kind_and_row: one finding of each finder, a row missing two keys naming one row</dd><dt>3 Unit tests</dt><dd>n/a: view</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>n/a: view</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>the two metrics above</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/mart/time_spine_day.sql</span></div><p class="rc-title">add: a mart view</p><dl><dt>1 Built-ins</dt><dd>n/a: no key test; a generated calendar</dd><dt>2 Expectations</dt><dd>n/a: view</dd><dt>3 Unit tests</dt><dd>n/a: view</dd><dt>4 Logic assertions</dt><dd>n/a: view</dd><dt>5 Detectors</dt><dd>n/a: view</dd><dt>6 Reconciliations</dt><dd>n/a: view</dd><dt>7 Semantic surface</dt><dd>n/a: the mart views serve the semantic layer, outside this plan</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/mart/_landing_config__sources.yml</span></div><p class="rc-title">add: the landing&rsquo;s CONFIG schema as a source, so finding_fact can be unit-tested (D-47)</p><dl><dt>1 Built-ins</dt><dd>n/a: declares a source</dd><dt>2 Expectations</dt><dd>n/a: the unit test&rsquo;s input</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>n/a</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <p>The ER/Studio reports on Mary&rsquo;s site (DIG-604, design D-56) change one file and add two exported folders, one row each:</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">site/build_site.py</span></div><p class="rc-title">change: the Model page&rsquo;s two entries, to model/vault/index.htm and model/mart/index.htm (D-56)</p><dl><dt>1 Built-ins</dt><dd>n/a: the site builder</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>the build&rsquo;s address check finds both entries&rsquo; targets; the two report folders&rsquo; file lists are equal before and after the build</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">docs/model/vault/, docs/model/mart/</span></div><p class="rc-title">add: the ER/Studio reports as exported, by Ray (D-56)</p><dl><dt>1 Built-ins</dt><dd>n/a: exported files</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>the vault report holds a table page for each of vault.sql&rsquo;s tables, the mart report for each of mart.sql&rsquo;s</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">site/build_site.py</span></div><p class="rc-title">change: the Model page&rsquo;s subtitle introduces the two reports; every mention of ER/Studio adds &ldquo;or a similar modeling tool&rdquo; (D-59)</p><dl><dt>1 Built-ins</dt><dd>n/a: the site builder</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>the built pages hold no sentence promising the model next, and wherever the site&rsquo;s own text tells the reader to open the model with ER/Studio, it says &ldquo;ER/Studio or a similar modeling tool&rdquo; or &ldquo;such as ER/Studio&rdquo;; code and documents the site shows as they are, and the reports&rsquo; own names for ER/Studio, are outside this check</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">site/build_site.py</span></div><p class="rc-title">change: the site&rsquo;s text by the review&rsquo;s group 2 (D-60 to D-65)</p><dl><dt>1 Built-ins</dt><dd>n/a: the site builder</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>a QA build&rsquo;s Ask greeting names QA and a default build&rsquo;s names production; the home page names Databricks as D-61 words it and each release with its questions; no page in the site&rsquo;s own text holds &ldquo;What We Knew When&rdquo;, &ldquo;The Acquired Book&rdquo;, &ldquo;acquired book&rdquo; or &ldquo;agency&rsquo;s book&rdquo; (documents and code the site shows as they are keep the old names where they record history); the Releases page lists v2026.10.1 The Agency&rsquo;s Business, v2026.11.1 The Site and the Data Model, and v2026.11.2 as next, and no entry for People, Not Numbers</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">site/build_site.py</span></div><p class="rc-title">change: the Ask page by the review&rsquo;s group 3 (D-68, D-69)</p><dl><dt>1 Built-ins</dt><dd>n/a: the site builder</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>n/a</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>in the dev stand-in, the suggestions show before the first question and fold into one control after it, which reopens them; opening the page sends one request to the Ask function&rsquo;s address before any question</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">infra/aws/conversation_function.py, infra/aws/metricflow_backend.py, site/dev/qa_retest.py</span></div><p class="rc-title">change: the agent explores (D-70)</p><dl><dt>1 Built-ins</dt><dd>n/a</dd><dt>2 Expectations</dt><dd>n/a</dd><dt>3 Unit tests</dt><dd>the connector&rsquo;s tests, the catalogue carrying each metric&rsquo;s label</dd><dt>4 Logic assertions</dt><dd>n/a</dd><dt>5 Detectors</dt><dd>n/a</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>the retest&rsquo;s check: no table or schema name in a reply, where it checked for metric names; asked to list the metrics, the agent lists them by label with their meanings</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <p>The policy&rsquo;s carrier organization (DIG-604, design D-57) adds one link and its seven tests:</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/raw_vault/policy_organization_l.sql</span></div><p class="rc-title">add: link (D-57)</p><dl><dt>1 Built-ins</dt><dd>uq_policy_organization_l_hk_policy_organization_l; nn_policy_organization_l_hk_policy_organization_l; rel_policy_organization_l_hk_policy_h; rel_policy_organization_l_hk_organization_h</dd><dt>2 Expectations</dt><dd>n/a: its row count is read by verify_build</dd><dt>3 Unit tests</dt><dd>PO1, PO2</dd><dt>4 Logic assertions</dt><dd>assert_policy_organization_one_per_policy</dd><dt>5 Detectors</dt><dd>n/a: inspectors read staging, not the vault</dd><dt>6 Reconciliations</dt><dd>n/a</dd><dt>7 Semantic surface</dt><dd>n/a</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1042,19 +1045,19 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>PO1</td>
+<td class="tid">PO1</td>
 <td>NF-100001, carrier code NFL, in Northfield Life&rsquo;s policy data</td>
 <td>One link row joining the policy to Northfield Life&rsquo;s organization</td>
 <td>unit_policy_organization_l_po1_carrier_joined</td>
 </tr>
 <tr>
-<td>PO2</td>
+<td class="tid">PO2</td>
 <td>NF-100005, carrier code missing</td>
 <td>One link row joining the policy to the unknown organization, so the policy still joins</td>
 <td>unit_policy_organization_l_po2_missing_code_unknown_organization</td>
 </tr>
 <tr>
-<td>PO3</td>
+<td class="tid">PO3</td>
 <td>Every policy_h row other than the vault&rsquo;s own unknown and error rows</td>
 <td>Exactly one policy_organization_l row each</td>
 <td>assert_policy_organization_one_per_policy</td>
@@ -1063,10 +1066,10 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </table></div>
 <h3>2.2 Lab 1-2 coverage (Ray&rsquo;s branch, planned)</h3>
 <p>Lab 1-2 lands Pinecrest Mutual&rsquo;s policy data (design D-37 to D-39; profile 2.1.5 and P-20). It adds no business-logic model, so it has no logic area and no unit test; its proofs are layers 1 and 2 and the live proof of land_act. The files it changes, every layer walked:</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">setup/infrastructure/landing.sql</span></div><p class="rc-title">modify, by the teacher as the stand-in source (commit 0a83a38): the PINECREST schema and table (D-37)</p><dl><dt>1 Built-ins</dt><dd>n/a: DDL script, proven by reading back the objects it creates</dd><dt>2 Expectations</dt><dd>n/a: DDL</dd><dt>3 Unit tests</dt><dd>n/a: DDL</dd><dt>4 Logic assertions</dt><dd>n/a: DDL</dd><dt>5 Detectors</dt><dd>n/a: DDL</dd><dt>6 Reconciliations</dt><dd>n/a: DDL</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/macros/operations/land_act.sql</span></div><p class="rc-title">modify, by the teacher as the stand-in source (commit 0a83a38): the table pinecrest_policy and its twelve rows (D-38)</p><dl><dt>1 Built-ins</dt><dd>n/a: operations macro</dd><dt>2 Expectations</dt><dd>its rows are checked by expect_pinecrest_policy_rows_as_profiled</dd><dt>3 Unit tests</dt><dd>n/a: proved live on 2026-10-25: the dry run listed 0 present, the loads left 8 and 4 rows, a reload was refused, LANDING_QA was refused</dd><dt>4 Logic assertions</dt><dd>n/a: operations macro</dd><dt>5 Detectors</dt><dd>n/a: operations macro</dd><dt>6 Reconciliations</dt><dd>n/a: operations macro</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/models/staging/_sunbelt__sources.yml</span></div><p class="rc-title">modify: the source pinecrest.policy and its tests (D-39)</p><dl><dt>1 Built-ins</dt><dd>holds nn_pinecrest_policy_loaded_at</dd><dt>2 Expectations</dt><dd>holds uqc_pinecrest_policy_loaded_at_policy_number</dd><dt>3 Unit tests</dt><dd>n/a: declaration</dd><dt>4 Logic assertions</dt><dd>n/a: declaration</dd><dt>5 Detectors</dt><dd>n/a: declaration</dd><dt>6 Reconciliations</dt><dd>n/a: declaration</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">dbt/tests/expect_pinecrest_policy_rows_as_profiled.sql</span></div><p class="rc-title">add, written by the teacher before Ray&rsquo;s code</p><dl><dt>1 Built-ins</dt><dd>n/a: is itself a test</dd><dt>2 Expectations</dt><dd>is the expectation: the landed rows equal profile P-20&rsquo;s twelve, in both directions</dd><dt>3 Unit tests</dt><dd>n/a: is itself a test</dd><dt>4 Logic assertions</dt><dd>n/a: is itself a test</dd><dt>5 Detectors</dt><dd>n/a: is itself a test</dd><dt>6 Reconciliations</dt><dd>n/a: is itself a test</dd><dt>7 Semantic surface</dt><dd>n/a: no semantic models (baseline B-4)</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h3>2.3 Mart: the agreed design</h3>
 <p>The mart&rsquo;s unit-test paths fall into seven logic areas. Each area&rsquo;s paths sit in the tables of sections 2.3.1 to 2.3.3, beside the layer 1, 2 and 4 tests that guard the same objects.</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">R: a carrier&rsquo;s organization record</span></div><p class="rc-title">stg_northfield_organization, stg_pinecrest_organization</p><dl><dt>Dimensions</dt><dd>A landed record with its carrier code and name</dd><dt>Brute force</dt><dd>1 per model</dd><dt>Collapse and reason</dt><dd>None: a record without its name is refused at landing by OL2</dd><dt>Paths</dt><dd>OS1, one per model</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">S: an organization by carrier feed and load</span></div><p class="rc-title">organization_h</p><dl><dt>Dimensions</dt><dd>Feed (Northfield Life, Pinecrest Mutual); arrival (first load only, resent later, first seen later); hub state (first build, incremental)</dd><dt>Brute force</dt><dd>12</dd><dt>Collapse and reason</dt><dd>The two feeds behave alike except when both send in one load; hub state is separated by the arrival paths, as in area B</dd><dt>Paths</dt><dd>OH1 to OH4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">T: organization versions</span></div><p class="rc-title">organization_northfield_s, organization_pinecrest_s</p><dl><dt>Dimensions</dt><dd>Arrival (first, resent); values on a resend (unchanged, changed)</dd><dt>Brute force</dt><dd>4 per satellite</dd><dt>Collapse and reason</dt><dd>A first arrival has no prior values to compare</dd><dt>Paths</dt><dd>OT1 to OT3, per satellite</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">U: ghost members</span></div><p class="rc-title">person_dim, organization_dim, policy_dim</p><dl><dt>Dimensions</dt><dd>Hub row (real, unknown, error)</dd><dt>Brute force</dt><dd>3 per dimension</dd><dt>Collapse and reason</dt><dd>Real rows are proved by the layer 1 key tests; the two ghost rows behave alike</dd><dt>Paths</dt><dd>DG1 to DG3</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">V: an attribute from the most recent sale</span></div><p class="rc-title">person_dim (agent name), policy_dim (plan name)</p><dl><dt>Dimensions</dt><dd>Sales naming the attribute (one, several with different values)</dd><dt>Brute force</dt><dd>2 per dimension</dd><dt>Collapse and reason</dt><dd>One sale is the baseline every other area builds on</dd><dt>Paths</dt><dd>DL1, DL2</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">W: one role per view</span></div><p class="rc-title">client_dim, insured_dim, agent_dim, carrier_dim</p><dl><dt>Dimensions</dt><dd>Base row&rsquo;s role or feed (the view&rsquo;s own, another)</dd><dt>Brute force</dt><dd>2 per view</dd><dt>Collapse and reason</dt><dd>One test with every role present proves both</dd><dt>Paths</dt><dd>DS1 to DS4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">X: a version&rsquo;s validity</span></div><p class="rc-title">policy_terms_fact</p><dl><dt>Dimensions</dt><dd>Versions of a policy (one, several)</dd><dt>Brute force</dt><dd>2</dd><dt>Collapse and reason</dt><dd>None</dd><dt>Paths</dt><dd>FV1, FV2</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h4>2.3.1 The carrier feed: landing, staging, organization hub and satellite</h4>
 <div class="table-wrap"><table>
 <thead>
@@ -1079,157 +1082,157 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>OL1</td>
+<td class="tid">OL1</td>
 <td>Northfield Life&rsquo;s landing table NORTHFIELD.ORGANIZATION as landed: one organization record per carrier code in each load</td>
 <td>Unique: no carrier code twice in one load</td>
 <td>uqc_northfield_organization_loaded_at_carrier_code, in layer 2</td>
 </tr>
 <tr>
-<td>OL2</td>
+<td class="tid">OL2</td>
 <td>Every row of NORTHFIELD.ORGANIZATION</td>
 <td>Each carries a carrier name: no carrier known by a code alone (D-11)</td>
 <td>nn_northfield_organization_carrier_name, in layer 1</td>
 </tr>
 <tr>
-<td>OL1</td>
+<td class="tid">OL1</td>
 <td>Pinecrest Mutual&rsquo;s landing table PINECREST.ORGANIZATION as landed: one organization record per carrier code in each load</td>
 <td>Unique: no carrier code twice in one load</td>
 <td>uqc_pinecrest_organization_loaded_at_carrier_code, in layer 2</td>
 </tr>
 <tr>
-<td>OL2</td>
+<td class="tid">OL2</td>
 <td>Every row of PINECREST.ORGANIZATION</td>
 <td>Each carries a carrier name: no carrier known by a code alone (D-11)</td>
 <td>nn_pinecrest_organization_carrier_name, in layer 1</td>
 </tr>
 <tr>
-<td>OS1</td>
+<td class="tid">OS1</td>
 <td>A landed Northfield Life record with carrier code NFL and carrier name Northfield Life</td>
 <td>One staging row with the code and the name as sent, the source system NFL named, and the hash key of the code</td>
 <td>unit_stg_northfield_organization_os1_arrival_code_and_name</td>
 </tr>
 <tr>
-<td>OS1</td>
+<td class="tid">OS1</td>
 <td>A landed Pinecrest Mutual record with its carrier code and its carrier name</td>
 <td>One staging row with the code and the name as sent, Pinecrest Mutual&rsquo;s source system named, and the hash key of the code</td>
 <td>unit_stg_pinecrest_organization_os1_arrival_code_and_name</td>
 </tr>
 <tr>
-<td>OK1</td>
+<td class="tid">OK1</td>
 <td>organization_h as built, with its ghost rows</td>
 <td>hk_organization_h unique: rows equal keys</td>
 <td>uq_organization_h_hk_organization_h, in layer 1</td>
 </tr>
 <tr>
-<td>OK2</td>
+<td class="tid">OK2</td>
 <td>organization_h as built</td>
 <td>hk_organization_h never empty</td>
 <td>nn_organization_h_hk_organization_h, in layer 1</td>
 </tr>
 <tr>
-<td>OH1</td>
+<td class="tid">OH1</td>
 <td>NFL in Northfield Life&rsquo;s staging model in load 1 only, first build</td>
 <td>One hub row, load 1 timestamp, record source NFL</td>
 <td>unit_organization_h_oh1_new_key</td>
 </tr>
 <tr>
-<td>OH2</td>
+<td class="tid">OH2</td>
 <td>NFL in load 1 and resent in load 2</td>
 <td>One hub row with the load 1 timestamp</td>
 <td>unit_organization_h_oh2_repeat_keeps_first</td>
 </tr>
 <tr>
-<td>OH3</td>
+<td class="tid">OH3</td>
 <td>Pinecrest Mutual&rsquo;s code first seen in load 2, incremental build with NFL already in the hub</td>
 <td>Pinecrest Mutual&rsquo;s code inserted with the load 2 timestamp; NFL not inserted again</td>
 <td>unit_organization_h_oh3_later_load_inserts</td>
 </tr>
 <tr>
-<td>OH4</td>
+<td class="tid">OH4</td>
 <td>Both carriers&rsquo; staging models in one load: NFL from Northfield Life, Pinecrest Mutual&rsquo;s code from Pinecrest Mutual</td>
 <td>Two hub rows, each with its own carrier&rsquo;s record source</td>
 <td>unit_organization_h_oh4_both_carrier_feeds</td>
 </tr>
 <tr>
-<td>OK1</td>
+<td class="tid">OK1</td>
 <td>organization_northfield_s as built</td>
 <td>Unique on its parent hash key with its load time</td>
 <td>uq_organization_northfield_s_pk, in layer 1</td>
 </tr>
 <tr>
-<td>OK2</td>
+<td class="tid">OK2</td>
 <td>organization_northfield_s as built</td>
 <td>Parent hash key never empty</td>
 <td>nn_organization_northfield_s_hk_organization_h, in layer 1</td>
 </tr>
 <tr>
-<td>OK3</td>
+<td class="tid">OK3</td>
 <td>organization_northfield_s as built</td>
 <td>Load time never empty</td>
 <td>nn_organization_northfield_s_ldts, in layer 1</td>
 </tr>
 <tr>
-<td>OK4</td>
+<td class="tid">OK4</td>
 <td>Every hk_organization_h on organization_northfield_s</td>
 <td>Each exists in organization_h: no orphans</td>
 <td>rel_organization_northfield_s_hk_organization_h, in layer 1</td>
 </tr>
 <tr>
-<td>OT1</td>
+<td class="tid">OT1</td>
 <td>First Northfield Life record of NFL, name Northfield Life</td>
 <td>One satellite row</td>
 <td>unit_organization_northfield_s_ot1_first_version</td>
 </tr>
 <tr>
-<td>OT2</td>
+<td class="tid">OT2</td>
 <td>NFL resent unchanged</td>
 <td>No new version</td>
 <td>unit_organization_northfield_s_ot2_unchanged_resend</td>
 </tr>
 <tr>
-<td>OT3</td>
+<td class="tid">OT3</td>
 <td>NFL: name Northfield Life in load 1, Northfield Life Insurance Company in load 2</td>
 <td>A second version; the first kept</td>
 <td>unit_organization_northfield_s_ot3_changed_name_new_version</td>
 </tr>
 <tr>
-<td>OK1</td>
+<td class="tid">OK1</td>
 <td>organization_pinecrest_s as built</td>
 <td>Unique on its parent hash key with its load time</td>
 <td>uq_organization_pinecrest_s_pk, in layer 1</td>
 </tr>
 <tr>
-<td>OK2</td>
+<td class="tid">OK2</td>
 <td>organization_pinecrest_s as built</td>
 <td>Parent hash key never empty</td>
 <td>nn_organization_pinecrest_s_hk_organization_h, in layer 1</td>
 </tr>
 <tr>
-<td>OK3</td>
+<td class="tid">OK3</td>
 <td>organization_pinecrest_s as built</td>
 <td>Load time never empty</td>
 <td>nn_organization_pinecrest_s_ldts, in layer 1</td>
 </tr>
 <tr>
-<td>OK4</td>
+<td class="tid">OK4</td>
 <td>Every hk_organization_h on organization_pinecrest_s</td>
 <td>Each exists in organization_h: no orphans</td>
 <td>rel_organization_pinecrest_s_hk_organization_h, in layer 1</td>
 </tr>
 <tr>
-<td>OT1</td>
+<td class="tid">OT1</td>
 <td>First Pinecrest Mutual record of its code, name Pinecrest Mutual</td>
 <td>One satellite row</td>
 <td>unit_organization_pinecrest_s_ot1_first_version</td>
 </tr>
 <tr>
-<td>OT2</td>
+<td class="tid">OT2</td>
 <td>The same record resent unchanged</td>
 <td>No new version</td>
 <td>unit_organization_pinecrest_s_ot2_unchanged_resend</td>
 </tr>
 <tr>
-<td>OT3</td>
+<td class="tid">OT3</td>
 <td>The same code with a changed name in load 2</td>
 <td>A second version; the first kept</td>
 <td>unit_organization_pinecrest_s_ot3_changed_name_new_version</td>
@@ -1248,193 +1251,193 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>DU1</td>
+<td class="tid">DU1</td>
 <td>person_dim as built: client, insured and agent records with their ghost members</td>
 <td>person_key unique: rows equal keys</td>
 <td>uq_person_dim_person_key, in layer 1</td>
 </tr>
 <tr>
-<td>DG1</td>
+<td class="tid">DG1</td>
 <td>The ghost rows of client_h, insured_h and agent_h</td>
 <td>Each ghost key kept once in person_dim, with no role, and carried by every role view (mart design D-14)</td>
 <td>unit_person_dim_dg1_ghost_members_kept</td>
 </tr>
 <tr>
-<td>DL1</td>
+<td class="tid">DL1</td>
 <td>Agent 17001001, joined by agent_policy_l to NF-100001 and NF-100007, whose sales, loaded 2026-10-01 02:00 and 2026-10-02 02:00, give two different agent names</td>
 <td>The agent&rsquo;s full_name is the name on the sale loaded 2026-10-02 02:00</td>
 <td>unit_person_dim_dl1_agent_name_from_latest_sale</td>
 </tr>
 <tr>
-<td>DU2</td>
+<td class="tid">DU2</td>
 <td>organization_dim as built: each organization record a carrier feed sends, with the ghost members</td>
 <td>organization_key unique: rows equal keys</td>
 <td>uq_organization_dim_organization_key, in layer 1</td>
 </tr>
 <tr>
-<td>DG2</td>
+<td class="tid">DG2</td>
 <td>The ghost rows of organization_h</td>
 <td>Kept in organization_dim as unknown and error members</td>
 <td>unit_organization_dim_dg2_ghost_members_kept</td>
 </tr>
 <tr>
-<td>DU3</td>
+<td class="tid">DU3</td>
 <td>policy_dim as built: one policy number per carrier, with the ghost members</td>
 <td>policy_key unique: rows equal keys</td>
 <td>uq_policy_dim_policy_key, in layer 1</td>
 </tr>
 <tr>
-<td>DG3</td>
+<td class="tid">DG3</td>
 <td>The ghost rows of policy_h; a sale with a blank policy number, joined to the unknown policy</td>
 <td>Kept in policy_dim as unknown and error members; the unknown policy&rsquo;s carrier reads (unknown)</td>
 <td>unit_policy_dim_dg3_ghost_members_kept</td>
 </tr>
 <tr>
-<td>DL2</td>
+<td class="tid">DL2</td>
 <td>Two sales of NF-100001: plan Senior Term 20 loaded 2026-10-01 02:00, plan Final Expense 10K loaded 2026-10-02 02:00</td>
 <td>policy_dim&rsquo;s plan_name for NF-100001 is Final Expense 10K</td>
 <td>unit_policy_dim_dl2_plan_name_from_latest_sale</td>
 </tr>
 <tr>
-<td>DR2</td>
+<td class="tid">DR2</td>
 <td>Every policy_key on client_policy_role_fact, the unknown policy of a blank policy number included</td>
 <td>Each exists in policy_dim: no orphans</td>
 <td>rel_client_policy_role_fact_policy_key, in layer 1</td>
 </tr>
 <tr>
-<td>DR4</td>
+<td class="tid">DR4</td>
 <td>Every policy_key on agent_policy_fact</td>
 <td>Each exists in policy_dim: no orphans</td>
 <td>rel_agent_policy_fact_policy_key, in layer 1</td>
 </tr>
 <tr>
-<td>DR6</td>
+<td class="tid">DR6</td>
 <td>Every policy_key on policy_terms_fact</td>
 <td>Each exists in policy_dim: no orphans</td>
 <td>rel_policy_terms_fact_policy_key, in layer 1</td>
 </tr>
 <tr>
-<td>DU4</td>
+<td class="tid">DU4</td>
 <td>source_dim as built over seed_source_system</td>
 <td>source_key unique: rows equal keys</td>
 <td>uq_source_dim_source_key, in layer 1</td>
 </tr>
 <tr>
-<td>DR5</td>
+<td class="tid">DR5</td>
 <td>Every first_named_by_source_key on agent_policy_fact, SSI and NFL</td>
 <td>Each exists in source_dim: no orphans</td>
 <td>rel_agent_policy_fact_first_named_by_source_key, in layer 1</td>
 </tr>
 <tr>
-<td>DR7</td>
+<td class="tid">DR7</td>
 <td>Every source_key on finding_fact, the findings&rsquo; SUNBELT and NORTHFIELD mapped in the view to SSI and NFL</td>
 <td>Each exists in source_dim: no orphans</td>
 <td>rel_finding_fact_source_key, in layer 1</td>
 </tr>
 <tr>
-<td>DU5</td>
+<td class="tid">DU5</td>
 <td>day_dim as generated: the days of 2026 and 2027</td>
 <td>date_day unique: one row per calendar day</td>
 <td>uq_day_dim_date_day, in layer 1</td>
 </tr>
 <tr>
-<td>DT1</td>
+<td class="tid">DT1</td>
 <td>Every sold_date on client_policy_role_fact, empty where the sale gives none</td>
 <td>Each date given exists in day_dim</td>
 <td>rel_client_policy_role_fact_sold_date, in layer 1</td>
 </tr>
 <tr>
-<td>DT2</td>
+<td class="tid">DT2</td>
 <td>Every first_known_date on client_policy_role_fact</td>
 <td>Each exists in day_dim</td>
 <td>rel_client_policy_role_fact_first_known_date, in layer 1</td>
 </tr>
 <tr>
-<td>DT3</td>
+<td class="tid">DT3</td>
 <td>Every first_known_date on agent_policy_fact</td>
 <td>Each exists in day_dim</td>
 <td>rel_agent_policy_fact_first_known_date, in layer 1</td>
 </tr>
 <tr>
-<td>DT4</td>
+<td class="tid">DT4</td>
 <td>Every valid_from_date on policy_terms_fact</td>
 <td>Each exists in day_dim</td>
 <td>rel_policy_terms_fact_valid_from_date, in layer 1</td>
 </tr>
 <tr>
-<td>DT5</td>
+<td class="tid">DT5</td>
 <td>Every valid_to_date on policy_terms_fact, empty while the version is current</td>
 <td>Each date given exists in day_dim</td>
 <td>rel_policy_terms_fact_valid_to_date, in layer 1</td>
 </tr>
 <tr>
-<td>DT6</td>
+<td class="tid">DT6</td>
 <td>Every effective_date on policy_terms_fact</td>
 <td>Each exists in day_dim</td>
 <td>rel_policy_terms_fact_effective_date, in layer 1</td>
 </tr>
 <tr>
-<td>DT7</td>
+<td class="tid">DT7</td>
 <td>Every detected_date on finding_fact</td>
 <td>Each exists in day_dim</td>
 <td>rel_finding_fact_detected_date, in layer 1</td>
 </tr>
 <tr>
-<td>DU6</td>
+<td class="tid">DU6</td>
 <td>client_dim as built</td>
 <td>client_key unique: rows equal keys</td>
 <td>uq_client_dim_client_key, in layer 1</td>
 </tr>
 <tr>
-<td>DS1</td>
+<td class="tid">DS1</td>
 <td>person_dim holding A-1001 as client, NLI-55001 as insured and 17001001 as agent</td>
 <td>client_dim returns only A-1001, its person_key as client_key, with its source_key and first_known_date, and the two ghost rows (mart design D-14)</td>
 <td>unit_client_dim_ds1_client_role_only</td>
 </tr>
 <tr>
-<td>DR1</td>
+<td class="tid">DR1</td>
 <td>Every client_key on client_policy_role_fact, the zero key of a sale with an empty client number included</td>
 <td>Each exists in client_dim: no orphans</td>
 <td>rel_client_policy_role_fact_client_key, in layer 1</td>
 </tr>
 <tr>
-<td>DU7</td>
+<td class="tid">DU7</td>
 <td>insured_dim as built</td>
 <td>insured_key unique: rows equal keys</td>
 <td>uq_insured_dim_insured_key, in layer 1</td>
 </tr>
 <tr>
-<td>DS2</td>
+<td class="tid">DS2</td>
 <td>person_dim holding A-1001 as client, NLI-55001 as insured and 17001001 as agent</td>
 <td>insured_dim returns only NLI-55001, its person_key as insured_key, and the two ghost rows (mart design D-14)</td>
 <td>unit_insured_dim_ds2_insured_role_only</td>
 </tr>
 <tr>
-<td>DU8</td>
+<td class="tid">DU8</td>
 <td>agent_dim as built</td>
 <td>agent_key unique: rows equal keys</td>
 <td>uq_agent_dim_agent_key, in layer 1</td>
 </tr>
 <tr>
-<td>DS3</td>
+<td class="tid">DS3</td>
 <td>person_dim holding A-1001 as client, NLI-55001 as insured and 17001001 as agent</td>
 <td>agent_dim returns only 17001001, its person_key as agent_key and its number as agent_npn, and the two ghost rows (mart design D-14)</td>
 <td>unit_agent_dim_ds3_agent_role_only</td>
 </tr>
 <tr>
-<td>DR3</td>
+<td class="tid">DR3</td>
 <td>Every agent_key on agent_policy_fact</td>
 <td>Each exists in agent_dim: no orphans</td>
 <td>rel_agent_policy_fact_agent_key, in layer 1</td>
 </tr>
 <tr>
-<td>DU9</td>
+<td class="tid">DU9</td>
 <td>carrier_dim as built</td>
 <td>carrier_key unique: rows equal keys</td>
 <td>uq_carrier_dim_carrier_key, in layer 1</td>
 </tr>
 <tr>
-<td>DS4</td>
+<td class="tid">DS4</td>
 <td>organization_dim holding NFL, sent through Northfield Life&rsquo;s carrier feed, and an organization sent through no carrier feed</td>
 <td>carrier_dim returns only NFL, its organization_key as carrier_key, with its carrier_code and carrier_name, and the two ghost rows (mart design D-14)</td>
 <td>unit_carrier_dim_ds4_carrier_feed_organizations_only</td>
@@ -1453,151 +1456,151 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>FG1</td>
+<td class="tid">FG1</td>
 <td>client_policy_role_fact as built</td>
 <td>Rows equal keys: client_policy_role_key unique, one row per client, policy and role</td>
 <td>uq_client_policy_role_fact_client_policy_role_key</td>
 </tr>
 <tr>
-<td>FK1</td>
+<td class="tid">FK1</td>
 <td>Each client_key of client_policy_role_fact</td>
 <td>Exists in client_dim; no orphans</td>
 <td>rel_client_policy_role_fact_client_key</td>
 </tr>
 <tr>
-<td>FK2</td>
+<td class="tid">FK2</td>
 <td>Each policy_key of client_policy_role_fact, the unknown policy&rsquo;s ghost key included</td>
 <td>Exists in policy_dim; no orphans</td>
 <td>rel_client_policy_role_fact_policy_key</td>
 </tr>
 <tr>
-<td>FD1</td>
+<td class="tid">FD1</td>
 <td>Each sold_date of client_policy_role_fact</td>
 <td>Exists as a date_day in day_dim; an empty sold_date, where the sale gives none, is not checked</td>
 <td>rel_client_policy_role_fact_sold_date</td>
 </tr>
 <tr>
-<td>FD2</td>
+<td class="tid">FD2</td>
 <td>Each first_known_date of client_policy_role_fact</td>
 <td>Exists as a date_day in day_dim</td>
 <td>rel_client_policy_role_fact_first_known_date</td>
 </tr>
 <tr>
-<td>FG2</td>
+<td class="tid">FG2</td>
 <td>agent_policy_fact as built</td>
 <td>Rows equal keys: agent_policy_key unique, one row per agent and policy</td>
 <td>uq_agent_policy_fact_agent_policy_key</td>
 </tr>
 <tr>
-<td>FK3</td>
+<td class="tid">FK3</td>
 <td>Each agent_key of agent_policy_fact</td>
 <td>Exists in agent_dim; no orphans</td>
 <td>rel_agent_policy_fact_agent_key</td>
 </tr>
 <tr>
-<td>FK4</td>
+<td class="tid">FK4</td>
 <td>Each policy_key of agent_policy_fact</td>
 <td>Exists in policy_dim; no orphans</td>
 <td>rel_agent_policy_fact_policy_key</td>
 </tr>
 <tr>
-<td>FK5</td>
+<td class="tid">FK5</td>
 <td>Each first_named_by_source_key of agent_policy_fact</td>
 <td>Exists in source_dim; no orphans</td>
 <td>rel_agent_policy_fact_first_named_by_source_key</td>
 </tr>
 <tr>
-<td>FD3</td>
+<td class="tid">FD3</td>
 <td>Each first_known_date of agent_policy_fact</td>
 <td>Exists as a date_day in day_dim</td>
 <td>rel_agent_policy_fact_first_known_date</td>
 </tr>
 <tr>
-<td>FG3</td>
+<td class="tid">FG3</td>
 <td>policy_terms_fact as built</td>
 <td>Rows equal keys: policy_terms_key unique, one row per policy and load</td>
 <td>uq_policy_terms_fact_policy_terms_key</td>
 </tr>
 <tr>
-<td>FK6</td>
+<td class="tid">FK6</td>
 <td>Each policy_key of policy_terms_fact</td>
 <td>Exists in policy_dim; no orphans</td>
 <td>rel_policy_terms_fact_policy_key</td>
 </tr>
 <tr>
-<td>FD4</td>
+<td class="tid">FD4</td>
 <td>Each valid_from_date of policy_terms_fact</td>
 <td>Exists as a date_day in day_dim</td>
 <td>rel_policy_terms_fact_valid_from_date</td>
 </tr>
 <tr>
-<td>FD5</td>
+<td class="tid">FD5</td>
 <td>Each valid_to_date of policy_terms_fact</td>
 <td>Exists as a date_day in day_dim; an empty valid_to_date, the current version, is not checked</td>
 <td>rel_policy_terms_fact_valid_to_date</td>
 </tr>
 <tr>
-<td>FD6</td>
+<td class="tid">FD6</td>
 <td>Each effective_date of policy_terms_fact</td>
 <td>Exists as a date_day in day_dim</td>
 <td>rel_policy_terms_fact_effective_date</td>
 </tr>
 <tr>
-<td>FM1</td>
+<td class="tid">FM1</td>
 <td>face_amount summed over every version in policy_terms_fact, against its sum over policy_northfield_s1</td>
 <td>Equal</td>
 <td>assert_policy_terms_fact_face_amount_conserved</td>
 </tr>
 <tr>
-<td>FV1</td>
+<td class="tid">FV1</td>
 <td>One version of a policy, current: load end date 8888-12-31 23:59:59</td>
 <td>valid_to_date empty</td>
 <td>unit_policy_terms_fact_fv1_current_version_valid_to_empty</td>
 </tr>
 <tr>
-<td>FV2</td>
+<td class="tid">FV2</td>
 <td>NF-100003: IF loaded 2026-10-01 02:00, LP loaded 2026-10-02 02:00</td>
 <td>The first version valid from 2026-10-01 to 2026-10-02; the second valid from 2026-10-02 with valid_to_date empty</td>
 <td>unit_policy_terms_fact_fv2_earlier_version_valid_to_set</td>
 </tr>
 <tr>
-<td>FG4</td>
+<td class="tid">FG4</td>
 <td>finding_fact as built</td>
 <td>Rows equal keys: finding_key unique, one row per finding</td>
 <td>uq_finding_fact_finding_key</td>
 </tr>
 <tr>
-<td>FK7</td>
+<td class="tid">FK7</td>
 <td>Each source_key of finding_fact, the findings&rsquo; SUNBELT and NORTHFIELD mapped to SSI and NFL</td>
 <td>Exists in source_dim; no orphans</td>
 <td>rel_finding_fact_source_key</td>
 </tr>
 <tr>
-<td>FD7</td>
+<td class="tid">FD7</td>
 <td>Each detected_date of finding_fact</td>
 <td>Exists as a date_day in day_dim</td>
 <td>rel_finding_fact_detected_date</td>
 </tr>
 <tr>
-<td>FK8</td>
+<td class="tid">FK8</td>
 <td>Each client_key of client_policy_role_fact</td>
 <td>Exists in person_dim, the base dimension; declared as the foreign key (mart design D-16)</td>
 <td>rel_client_policy_role_fact_client_key_person_dim</td>
 </tr>
 <tr>
-<td>FK9</td>
+<td class="tid">FK9</td>
 <td>Each agent_key of agent_policy_fact</td>
 <td>Exists in person_dim, the base dimension; declared as the foreign key (mart design D-16)</td>
 <td>rel_agent_policy_fact_agent_key_person_dim</td>
 </tr>
 <tr>
-<td>FK11</td>
+<td class="tid">FK11</td>
 <td>Each carrier_key of policy_terms_fact</td>
 <td>Exists in organization_dim; declared as the foreign key (mart design D-17)</td>
 <td>rel_policy_terms_fact_carrier_key_organization_dim</td>
 </tr>
 <tr>
-<td>FK12</td>
+<td class="tid">FK12</td>
 <td>Each carrier_key of client_policy_role_fact</td>
 <td>Exists in organization_dim; declared as the foreign key (mart design D-17)</td>
 <td>rel_client_policy_role_fact_carrier_key_organization_dim</td>
@@ -1616,157 +1619,157 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>SR1</td>
+<td class="tid">SR1</td>
 <td>policies_held grouped by client, carrier, policy and role, through MetricFlow and through a direct query on client_policy_l</td>
 <td>The two routes give equal answers: the distinct count of policy keys in each group</td>
 <td>recon_policies_held_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR2</td>
+<td class="tid">SR2</td>
 <td>client_policy_roles grouped by client, carrier, policy and role, through MetricFlow and through a direct query on client_policy_l</td>
 <td>The two routes give equal answers: the distinct count of role-row keys in each group</td>
 <td>recon_client_policy_roles_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR3</td>
+<td class="tid">SR3</td>
 <td>policies_sold grouped by agent, policy, carrier and first-named source, through MetricFlow and through a direct query on agent_policy_l</td>
 <td>The two routes give equal answers: the distinct count of policy keys in each group</td>
 <td>recon_policies_sold_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR4</td>
+<td class="tid">SR4</td>
 <td>agents_named grouped by policy, through MetricFlow and through a direct query on agent_policy_l</td>
 <td>The two routes give equal answers: the distinct count of agent keys per policy, 2 or more where the sources disagree (D-8)</td>
 <td>recon_agents_named_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR5</td>
+<td class="tid">SR5</td>
 <td>face_amount_current grouped by carrier, through MetricFlow and through a direct query on policy_northfield_s1</td>
 <td>The two routes give equal answers: the sum of face amount over current versions only, load end date 8888-12-31 (D-4)</td>
 <td>recon_face_amount_current_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR6</td>
+<td class="tid">SR6</td>
 <td>face_amount grouped by policy with valid-from and valid-to days, through MetricFlow and through a direct query on policy_northfield_s1</td>
 <td>The two routes give equal answers: the face amount of each version</td>
 <td>recon_face_amount_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR7</td>
+<td class="tid">SR7</td>
 <td>policy_versions grouped by policy with valid-from and valid-to days, through MetricFlow and through a direct query on policy_northfield_s1</td>
 <td>The two routes give equal answers: the distinct count of versions, one per policy and load</td>
 <td>recon_policy_versions_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR8</td>
+<td class="tid">SR8</td>
 <td>records_not_accepted grouped by source and finder type, through MetricFlow and through a direct query on CONFIG.DATA_FINDING</td>
 <td>The two routes give equal answers: the distinct count of form findings in each group</td>
 <td>recon_records_not_accepted_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SR9</td>
+<td class="tid">SR9</td>
 <td>rows_missing_key grouped by source and finder, through MetricFlow and through a direct query on CONFIG.DATA_FINDING</td>
 <td>The two routes give equal answers: the distinct count of rows named by missing-key findings in each group</td>
 <td>recon_rows_missing_key_two_routes, in layer 6</td>
 </tr>
 <tr>
-<td>SQ1</td>
+<td class="tid">SQ1</td>
 <td>Saved query q09_client_policies run: policies_held and client_policy_roles by client, carrier, policy and role</td>
 <td>Equals the figure on Mary&rsquo;s release page for Q-9</td>
 <td>sq_q09_client_policies_answer, in layer 7</td>
 </tr>
 <tr>
-<td>SQ2</td>
+<td class="tid">SQ2</td>
 <td>Saved query q10_coverage_by_carrier run: face_amount_current by carrier</td>
 <td>Northfield Life 110,000, its 8 in-force policies; NF-100003, lapsed on 2026-10-02, not counted (design D-66); the figure on v2026.11.1&rsquo;s release page</td>
 <td>sq_q10_coverage_by_carrier_answer, in layer 7</td>
 </tr>
 <tr>
-<td>SQ3</td>
+<td class="tid">SQ3</td>
 <td>Saved query q11_agent_per_policy run: policies_sold and agents_named by agent and policy</td>
 <td>Equals the figure on Mary&rsquo;s release page for Q-11</td>
 <td>sq_q11_agent_per_policy_answer, in layer 7</td>
 </tr>
 <tr>
-<td>SQ4</td>
+<td class="tid">SQ4</td>
 <td>Saved query q13_client_arrivals run: policies_held and client_policy_roles by the client&rsquo;s source and first-known date</td>
 <td>Equals the figure on Mary&rsquo;s release page for Q-13</td>
 <td>sq_q13_client_arrivals_answer, in layer 7</td>
 </tr>
 <tr>
-<td>SQ5</td>
+<td class="tid">SQ5</td>
 <td>Saved query q14_policy_versions run: policy_versions and face_amount by policy, valid-from day, valid-to day and status</td>
 <td>Equals the figure on Mary&rsquo;s release page for Q-14</td>
 <td>sq_q14_policy_versions_answer, in layer 7</td>
 </tr>
 <tr>
-<td>SQ6</td>
+<td class="tid">SQ6</td>
 <td>Saved query q15_records_not_accepted run: records_not_accepted and rows_missing_key by source and finder type</td>
 <td>Equals the figure on Mary&rsquo;s release page for Q-15</td>
 <td>sq_q15_records_not_accepted_answer, in layer 7</td>
 </tr>
 <tr>
-<td>SD1</td>
+<td class="tid">SD1</td>
 <td>Every semantic model in _conformed_dm.yml</td>
 <td>Each carries a description stating what one row is and which questions it serves</td>
 <td>desc_semantic_models_described, in layer 7</td>
 </tr>
 <tr>
-<td>SD2</td>
+<td class="tid">SD2</td>
 <td>Every metric of section 4.1 of the design</td>
 <td>Each carries a description stating what it counts, how to read it, what it leaves out, what to pair it with, and the decision that defined it</td>
 <td>desc_metrics_described, in layer 7</td>
 </tr>
 <tr>
-<td>SD3</td>
+<td class="tid">SD3</td>
 <td>Every column of sections 3.2 and 3.3 of the design</td>
 <td>Each carries a description stating what it holds, including when it is empty or unknown</td>
 <td>desc_columns_described, in layer 7</td>
 </tr>
 <tr>
-<td>SM1</td>
+<td class="tid">SM1</td>
 <td>insured_dim read as the governance role (D-9)</td>
 <td>birth_date and address return the real values</td>
 <td>assert_insured_dim_masking_governance_role_real_values, in layer 4</td>
 </tr>
 <tr>
-<td>SM2</td>
+<td class="tid">SM2</td>
 <td>insured_dim read as another role (D-9)</td>
 <td>The mask: birth_date gives the birth year only; address is reduced to its state</td>
 <td>assert_insured_dim_masking_other_role_masked, in layer 4</td>
 </tr>
 <tr>
-<td>P-9</td>
+<td class="tid">P-9</td>
 <td>DV Digest asked Q-9: policies_held and client_policy_roles by client, carrier, policy and role</td>
 <td>DV Digest&rsquo;s answer equals the direct query on DV_QA</td>
 <td>probe_q09_client_policies, in consumer certification</td>
 </tr>
 <tr>
-<td>P-10</td>
+<td class="tid">P-10</td>
 <td>DV Digest asked Q-10: face_amount_current by carrier</td>
 <td>DV Digest&rsquo;s answer equals the direct query on DV_QA</td>
 <td>probe_q10_coverage_by_carrier, in consumer certification</td>
 </tr>
 <tr>
-<td>P-11</td>
+<td class="tid">P-11</td>
 <td>DV Digest asked Q-11: policies_sold and agents_named by agent and policy</td>
 <td>DV Digest&rsquo;s answer equals the direct query on DV_QA</td>
 <td>probe_q11_agent_per_policy, in consumer certification</td>
 </tr>
 <tr>
-<td>P-13</td>
+<td class="tid">P-13</td>
 <td>DV Digest asked Q-13: policies_held and client_policy_roles by the client&rsquo;s source and first-known date</td>
 <td>DV Digest&rsquo;s answer equals the direct query on DV_QA</td>
 <td>probe_q13_client_arrivals, in consumer certification</td>
 </tr>
 <tr>
-<td>P-14</td>
+<td class="tid">P-14</td>
 <td>DV Digest asked Q-14: policy_versions and face_amount by policy, valid-from day, valid-to day and status</td>
 <td>DV Digest&rsquo;s answer equals the direct query on DV_QA</td>
 <td>probe_q14_policy_versions, in consumer certification</td>
 </tr>
 <tr>
-<td>P-15</td>
+<td class="tid">P-15</td>
 <td>DV Digest asked Q-15: records_not_accepted and rows_missing_key by source and finder type</td>
 <td>DV Digest&rsquo;s answer equals the direct query on DV_QA</td>
 <td>probe_q15_records_not_accepted, in consumer certification</td>
@@ -1785,43 +1788,43 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1 — Built-ins</td>
+<td class="tid">1 — Built-ins</td>
 <td>Increments 1 and 1.1: nn_sunbelt_client_crm_row_id; nn_sunbelt_client_loaded_at; uq_client_h_hk_client_h; nn_client_h_hk_client_h; uq_seed_source_system_code; nn_seed_source_system_code. Increment 2: nn_sunbelt_policy_sale_loaded_at; nn_northfield_policy_loaded_at; Lab 1-2: nn_pinecrest_policy_loaded_at; uq_ and nn_ on the hash keys of policy_h, insured_h, agent_h, client_policy_l, insured_policy_l and agent_policy_l. D-40: rel_client_sunbelt_s_hk_client_h, rel_client_policy_sunbelt_s_hk_client_policy_l, rel_insured_northfield_s_hk_insured_h and rel_policy_northfield_s_hk_policy_h. D-42: rel_client_policy_l_hk_client_h, rel_client_policy_l_hk_policy_h, rel_insured_policy_l_hk_insured_h, rel_insured_policy_l_hk_policy_h, rel_agent_policy_l_hk_agent_h and rel_agent_policy_l_hk_policy_h; on each of the four satellites uq_<satellite><em>pk, its parent hash key with its load time, and nn</em><satellite><em><parent key> and nn</em><satellite><em>ldts. 42 tests, severity warn. The mart (section 2.3): 43 more, its uq</em>, nn_ and rel_ rows, severity warn</td>
 <td>0 failures</td>
 <td>Applies (design layer 1)</td>
 </tr>
 <tr>
-<td>2 — Expectations</td>
+<td class="tid">2 — Expectations</td>
 <td>uqc_sunbelt_client_loaded_at_crm_row_id; expect_sunbelt_client_row_count; uqc_sunbelt_policy_sale_loaded_at_policy_client_role; uqc_northfield_policy_loaded_at_policy_number; expect_increment_2_staging_keeps_every_landed_row; Lab 1-2: uqc_pinecrest_policy_loaded_at_policy_number and expect_pinecrest_policy_rows_as_profiled. 5 tests, and 2 more with Lab 1-2, severity warn. The mart: uqc_northfield_organization_loaded_at_carrier_code and uqc_pinecrest_organization_loaded_at_carrier_code</td>
 <td>0 failures</td>
 <td>Applies (design layer 2). dbt_utils and singular tests stand in for dbt-expectations, which the workstation cannot install (deviation DEV-2). Increment 2&rsquo;s counts compare a source query with a target query, with no fixed number (design section 8); increment 1&rsquo;s row count checks the counts the profile specifies for each act</td>
 </tr>
 <tr>
-<td>3 — Unit tests</td>
+<td class="tid">3 — Unit tests</td>
 <td>81: the 12 of logic areas A to D (increments 1 and 1.1), the 62 of areas E to Q (increment 2) and the 7 of the fix to release 1 (area Z&rsquo;s 6 and unit_finding_fact_kind_and_row, D-47), each named in section 2. The mart: 23 more, areas R to X (section 2.3)</td>
 <td>v3&rsquo;s tests ran red then green, recorded on DIG-574 at 2026-10-25 01:22 UTC; the 23 added in v4 ran red under planted defects, then green (areas M, P and Q); area Z&rsquo;s 6 pass in the fix&rsquo;s build of 2026-10-28</td>
 <td>Applies (design layer 3). Unit tests carry no severity: under the Fusion engine they always fail as errors</td>
 </tr>
 <tr>
-<td>4 — Logic assertions</td>
+<td class="tid">4 — Logic assertions</td>
 <td>assert_client_h_no_blank_business_key; assert_client_h_covers_usable_source_keys; assert_client_h_ghost_keys_belong_to_ghosts; assert_vault_record_sources_resolve, rewritten to read every hub and link; assert_increment_2_link_hub_keys_exist; D-41: assert_hashdiff_keeps_case_only_change, severity error. 6 tests, five at severity warn. The mart: assert_policy_terms_fact_face_amount_conserved, assert_insured_dim_masking_governance_role_real_values and assert_insured_dim_masking_other_role_masked</td>
 <td>0 rows each</td>
 <td>Applies (design layer 4)</td>
 </tr>
 <tr>
-<td>5 — Detectors</td>
+<td class="tid">5 — Detectors</td>
 <td>inspector_sunbelt_client_number_form (D-9) and inspector_sunbelt_policy_number_form (D-30): one finding per nonconforming value; inspector_sunbelt_client_key_missing, inspector_sunbelt_policy_sale_key_missing and inspector_northfield_policy_key_missing (D-45): one finding per row and missing key; all in CONFIG.DATA_FINDING through merge_into; layer 5 is named inspector in this project</td>
 <td>Ten findings: A1007, A-01008 and NF100009, and 7 missing-key findings</td>
 <td>Applies (design layer 5)</td>
 </tr>
 <tr>
-<td>6 — Reconciliations</td>
+<td class="tid">6 — Reconciliations</td>
 <td>auditor_sunbelt_client_hub, auditor_sunbelt_policy_hub and auditor_northfield_policy_hub, each checking that every distinct usable key of its source exists in its hub; layer 6 is named auditor in this project. The mart: the nine two-route reconciliations recon_ of section 2.3.4</td>
 <td>No new finding; each mart reconciliation&rsquo;s two routes agree. The two findings the auditors&rsquo; first versions wrote stay in CONFIG.DATA_FINDING, disclosed in the post-implementation guide (Ray, answer 1b)</td>
 <td>Applies (design layer 6, D-10)</td>
 </tr>
 <tr>
-<td>7 — Semantic surface</td>
+<td class="tid">7 — Semantic surface</td>
 <td>The release 1 mart&rsquo;s metrics records_not_accepted and rows_missing_key (D-47); the conformed mart&rsquo;s six saved queries sq_q09 to sq_q15 and the three description checks desc_ of section 2.3.4</td>
 <td>records_not_accepted 3 and rows_missing_key 6 in dev; each saved query equals the figure on Mary&rsquo;s release page; every model, metric and column described</td>
 <td>Applies: the branch ships metrics (design D-47; mart design section 4)</td>
@@ -1858,32 +1861,32 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Q-1</td>
+<td class="tid">Q-1</td>
 <td>SELECT client_number, ldts, rsrc FROM the client hub WHERE rsrc = &lsquo;SSI&rsquo; ORDER BY client_number</td>
 <td>35 rows: the client list&rsquo;s 34 keys and A-1033, first seen in the sales data; A-1031, A-1032, A-1033 and the malformed A1007 and A-01008 at act 2&rsquo;s load time, as landing first sent them; all others at act 1&rsquo;s</td>
 </tr>
 <tr>
-<td>Q-2</td>
+<td class="tid">Q-2</td>
 <td>SELECT the inspector_sunbelt_client_number_form findings from CONFIG.DATA_FINDING</td>
 <td>Two findings, one naming A1007 and one naming A-01008</td>
 </tr>
 <tr>
-<td>Q-3</td>
+<td class="tid">Q-3</td>
 <td>SELECT the auditors&rsquo; findings from CONFIG.DATA_FINDING</td>
 <td>No finding written by the auditors</td>
 </tr>
 <tr>
-<td>Q-4</td>
+<td class="tid">Q-4</td>
 <td>Join the record source of every hub and link to the source system seed</td>
 <td>Every row names its source: client and sales rows the Sunbelt Senior client file, carrier rows Northfield Life, ghost rows the vault itself</td>
 </tr>
 <tr>
-<td>Q-5</td>
+<td class="tid">Q-5</td>
 <td>SELECT the client number, the policy key and the role FROM client_policy_l joined to client_h and policy_h</td>
 <td>Each sale&rsquo;s client with the role the sales data sends: owner, insured or payor; A-1010 holds two roles on NF-100010</td>
 </tr>
 <tr>
-<td>Q-6</td>
+<td class="tid">Q-6</td>
 <td>SELECT the policy hub row of NF-100007 with every link row that reaches it</td>
 <td>One policy row; one client_policy_l row to A-1007, one insured_policy_l row to NLI-55007 and one agent_policy_l row to 17001001; no row joins A-1007 to NLI-55007</td>
 </tr>
@@ -1930,22 +1933,22 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Layer 1 built-in tests</td>
+<td class="tid">Layer 1 built-in tests</td>
 <td>49: 46 for the vault and 3 for the release 1 mart views</td>
 <td>2.1, 3</td>
 </tr>
 <tr>
-<td>Layer 2 expectations</td>
+<td class="tid">Layer 2 expectations</td>
 <td>5</td>
 <td>2.1, 3</td>
 </tr>
 <tr>
-<td>Layer 3 unit tests</td>
+<td class="tid">Layer 3 unit tests</td>
 <td>83: 12 for increments 1 and 1.1, 62 for increment 2, 7 for the fix to release 1, 2 for DIG-604</td>
 <td>1, 2, 3</td>
 </tr>
 <tr>
-<td>Layer 4 logic assertions</td>
+<td class="tid">Layer 4 logic assertions</td>
 <td>7</td>
 <td>2.1, 3</td>
 </tr>
@@ -1955,7 +1958,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>2.1, 3</td>
 </tr>
 <tr>
-<td>The conformed mart</td>
+<td class="tid">The conformed mart</td>
 <td>89: layer 1 43, layer 2 2, layer 3 23, layer 4 3, layer 6 9, layer 7 9; and 6 consumer probes</td>
 <td>2.3, 3</td>
 </tr>
@@ -1976,15 +1979,15 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>D-3 (hub keyed by client number), D-11 (two landing acts)</td>
 </tr>
 <tr>
-<td>unit tests P4, P5</td>
+<td class="tid">unit tests P4, P5</td>
 <td>D-8 (toolkit hashing defaults)</td>
 </tr>
 <tr>
-<td>unit test P6</td>
+<td class="tid">unit test P6</td>
 <td>D-7 (ghost records)</td>
 </tr>
 <tr>
-<td>unit test P7</td>
+<td class="tid">unit test P7</td>
 <td>D-4 (blank to NULL)</td>
 </tr>
 <tr>
@@ -2000,7 +2003,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>D-40 (each satellite meets its parent; the links&rsquo; hub keys by assert_increment_2_link_hub_keys_exist)</td>
 </tr>
 <tr>
-<td>layer 2 row counts</td>
+<td class="tid">layer 2 row counts</td>
 <td>D-11</td>
 </tr>
 <tr>
@@ -2032,7 +2035,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>D-17</td>
 </tr>
 <tr>
-<td>dev_scoped_rebuild.sh</td>
+<td class="tid">dev_scoped_rebuild.sh</td>
 <td>D-20</td>
 </tr>
 <tr>
@@ -2052,11 +2055,11 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>D-24, D-32</td>
 </tr>
 <tr>
-<td>unit tests L1 to L6</td>
+<td class="tid">unit tests L1 to L6</td>
 <td>D-29, D-33</td>
 </tr>
 <tr>
-<td>unit tests ST1 to ST5</td>
+<td class="tid">unit tests ST1 to ST5</td>
 <td>D-8, D-34</td>
 </tr>
 <tr>
@@ -2144,15 +2147,15 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>mart design D-2, D-10, D-11, D-14</td>
 </tr>
 <tr>
-<td>DL1</td>
+<td class="tid">DL1</td>
 <td>mart design D-10</td>
 </tr>
 <tr>
-<td>DL2</td>
+<td class="tid">DL2</td>
 <td>mart design D-2</td>
 </tr>
 <tr>
-<td>DS1 to DS4</td>
+<td class="tid">DS1 to DS4</td>
 <td>mart design D-10 and D-11, D-14; DS1 also D-12</td>
 </tr>
 <tr>
@@ -2160,27 +2163,27 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>mart design D-1; FG1 also D-3, the role in the row&rsquo;s identity; FG4 and FK7 also D-5</td>
 </tr>
 <tr>
-<td>FV1, FV2</td>
+<td class="tid">FV1, FV2</td>
 <td>mart design D-4</td>
 </tr>
 <tr>
-<td>SR1 to SR9</td>
+<td class="tid">SR1 to SR9</td>
 <td>mart design D-1, D-4, D-8 and D-13, and its section 4.1</td>
 </tr>
 <tr>
-<td>SQ1 to SQ6, SD1 to SD3</td>
+<td class="tid">SQ1 to SQ6, SD1 to SD3</td>
 <td>mart design section 4.1a</td>
 </tr>
 <tr>
-<td>SM1, SM2</td>
+<td class="tid">SM1, SM2</td>
 <td>mart design D-9</td>
 </tr>
 <tr>
-<td>FK8, FK9</td>
+<td class="tid">FK8, FK9</td>
 <td>mart design D-16</td>
 </tr>
 <tr>
-<td>FK11, FK12</td>
+<td class="tid">FK11, FK12</td>
 <td>mart design D-17</td>
 </tr>
 <tr>
@@ -2188,7 +2191,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>design D-53 to D-55; mart design D-6, D-15, D-16</td>
 </tr>
 <tr>
-<td>P-9 to P-15</td>
+<td class="tid">P-9 to P-15</td>
 <td>mart design section 1.2</td>
 </tr>
 </tbody>
@@ -2207,17 +2210,17 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Header: all eight fields present and filled</td>
 <td>Yes, 8 of 8. The author line reads &ldquo;Ray Serrano; edited by Claude&rdquo;, overriding the template&rsquo;s fixed text (Ray, 2026-10-22)</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Every section present</td>
 <td>Yes, 14 of 14: 1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 5.1 to 5.4, 6, 7; and this section 8</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Written through the governed procedures</td>
 <td>From v6, every change through the Pilot interface, ITEM_SPLICE, which records each body as a new version; earlier versions went through KNOWLEDGE_ITEM_UPDATE, and one write of 2026-10-28 at 17:44Z by direct update before the interface existed in this database (Linear DIG-595)</td>
 </tr>
@@ -2234,27 +2237,27 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Executive summary, one row per model with business logic, counts agreeing with the logic areas</td>
 <td>Yes; v3&rsquo;s rows for areas F, G, H and K disagreed with their own sections and are corrected</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Logic areas with dimensions, brute force, collapse and a path table; every path has a test</td>
 <td>Areas A to Q, Y and Z: 72 path rows naming all 81 unit tests (V1 and V2 name one test per view). The mart: areas R to X, their paths naming its 23 unit tests</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>The seven layers walked in order, artifacts named or n/a with a reason; guardrails in their own section</td>
 <td>Yes: sections 3 and 3.1; build 129 of 129 at 94639b4</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>One runnable probe per consumer question</td>
 <td>Yes: Q-1 to Q-6; Mary&rsquo;s Q-9 to Q-11 and Q-13 to Q-15 by the probes of section 2.3.4</td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>QA item copied before the pull request to qa; inventory agreeing; origin by D-n</td>
 <td>Yes since 2026-10-25: the QA item  was copied from the QA template by the governed procedure, with no placeholder left, after D-13 was superseded; section 5 instantiates it. Inventory: yes, 137 tests with the fix&rsquo;s, equal to dbt ls at commit 2a921a1.</td>
 </tr>
@@ -2271,27 +2274,27 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Coverage: every file, every layer; row count equals the diff</td>
 <td>Yes: 70 rows for 70 files at 94639b4, 16 rows for the fix&rsquo;s 16 files at 976744e, and 6 rows for the release 1 mart&rsquo;s 6 files at f48c24b</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Severity explicit: data tests warn, unit tests error</td>
 <td>Data tests: yes, all 56 at explicit warn. Unit tests: deviation; under the Fusion engine they carry no severity and always fail as errors</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Layer 2 by dbt-expectations, baselines from actual data</td>
 <td>Deviation DEV-2: dbt_utils and singular tests, because the package hub is unreachable from the workstation; increment 2 compares source with target, with no fixed counts</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>Failures solved in unit tests, not builds</td>
 <td>Yes: the auditor defects were reduced to A1 to A6, red, then fixed; the 23 tests added in v4 were each proven red under a planted defect</td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>Every model the design changes, every layer</td>
 <td>Yes. Tests in layers 1, 2, 3 and 4: sources and seed 6, 5, 0, 1; staging (3 models) 0, 1, 18, 1; hubs (4) 8, 0, 17, 5; links (3) 12, 0, 8, 2; satellites and views (8) 16, 0, 21, 0; known-key views (3) 0, 0, 0, 0, proved through their satellites and the inspectors; finders (8) 0, 0, 16, 0. No model is untested; each n/a carries its reason in section 2.1</td>
 </tr>
@@ -2308,24 +2311,24 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>D-2 environment tiers</td>
 <td>Development builds run in DEV__DV__CLAUDE_WS on DEV__LANDING__CLAUDE_WS (3.1); QA in DV_QA on LANDING_QA (section 5). D-13, development-only acceptance, was superseded on 2026-10-25</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>D-5 load timestamps in UTC, without time zone</td>
 <td>The LOADED_AT not_null tests and the unit fixtures&rsquo; load times; set in dbt_project.yml</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>D-23 the NFL row of the source system seed</td>
 <td>assert_vault_record_sources_resolve, which reads every hub and link, Northfield Life&rsquo;s included</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>D-14 patterns recorded as course items; D-31 no separate object for the client relationship</td>
 <td>Not testable: a recording decision (course items 274 and 275) and a decision to build nothing</td>
 </tr>
 </tbody>
-</table></div></article><section class="cta bleed"><h2>Next: Implementation guide</h2><p>The build, step by step, with its code and its exemplars.</p><a class="btn" href="implementation-guide.html">Read the implementation guide</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+</table></div></article><section class="cta bleed"><h2>Next: Implementation guide</h2><p>The build, step by step, with its code and its exemplars.</p><a class="btn" href="implementation-guide.html">Read the implementation guide</a></section></main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

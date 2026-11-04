@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>QA certification | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+<title>QA certification: v2026.11.1, The Site and the Data Model | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
+.doc td.tid{white-space:nowrap}
+h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
 .chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 .owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
@@ -146,8 +149,8 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>QA certification</p><p class="eyebrow">Documentation · next release, in QA</p><h1>QA certification</h1><p>The next release&#x27;s QA cycle: preparation, the build, the tests and the verdict, filled in as it runs.</p></div></header>
+<header class="top" id="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>QA certification: v2026.11.1, The Site and the Data Model</p><p class="eyebrow">Documentation · next release, in QA</p><h1>QA certification: v2026.11.1, The Site and the Data Model</h1><p>The next release&#x27;s QA cycle: preparation, the build, the tests and the verdict, filled in as it runs.</p></div></header>
 <main><article class="doc"><h1>DIG-594 QA Test and Certification: the fix to release 1, keys and missing keys</h1>
 <h3>Branch QA Test and Certification</h3>
 <div class="table-wrap"><table class="meta">
@@ -231,32 +234,32 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Development complete: the governed full development build passed and its warnings are classified</td>
 <td>Met: full development build of 2026-11-01 04:43 UTC, 271 of 271, no warnings; the conformed mart again after pull request 23&rsquo;s changes, 71 of 71 at 08:30 UTC</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Code review complete</td>
 <td>Met: review findings ; F-1 and F-8 fixed by pull request 23, F-2 closed by MetricFlow&rsquo;s own compile in development; F-3 to F-5 checked in this cycle</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>The pull request into qa reviewed and merged by an authorized human</td>
 <td>Met: pull requests 21, 22 and 23, merged by Ray on 2026-11-01</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>This record names the exact qa commit</td>
 <td>Met: qa at 693ef67, the merge of pull request 23</td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>The branch test plan lists every added or changed test, intended data movement, protected metric, consumer question, runbook step, and rollback act</td>
 <td>Met: test plan  v9, agreed 2026-11-01; this record&rsquo;s sections 1.1 to 1.4; the guide &lsquo;s rollback; deviations in the post-implementation guide</td>
 </tr>
 <tr>
-<td>6</td>
+<td class="tid">6</td>
 <td>The promotion switch, landing pointer, deployment scripts, job definition, grants, and role expectations read before the first QA build</td>
 <td>Met: read 2026-11-01 before the build, section 3.3</td>
 </tr>
@@ -285,6 +288,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <p>Run 8, the DIG-604 remediation, qa at c47d430 (pull request 30), 2026-11-03, as SYSADMIN through the workstation: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA first, then dbt Cloud run 70403231811521, Success in 3 minutes 47 seconds: the build without unit tests passed 177 with 6 no-ops; the build with them, 220 of 226 with 6 no-ops; verify_build met every guardrail and expectation with zero warnings. An earlier run, 70403231809665, began on the previous run&rsquo;s data without the two scripts and its verification warned that three row counts did not grow; it is superseded. Then: the structure check, DV_QA matching vault.sql and mart.sql; the QA connector redeployed with this semantic layer; the QA site built from qa for QA and published to Integrationals/dvdigest-qa at 114ccf7; the retest through QA&rsquo;s Ask function, 50 of 50.</p>
 <p>Run 9, the DIG-606 batch, qa at c5c016e (pull request 31), 2026-11-03: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA, then dbt Cloud run 70403231843382, Success: the build without unit tests passed 178 with 6 no-ops, the build with them 221 of 227 with 6 no-ops, verify_build met every guardrail and expectation with zero warnings. Then the structure check, DV_QA matching vault.sql and mart.sql; the QA connector redeployed; the QA site built for QA with its changes highlighted against the last publication, 11 pages changed, and published to Integrationals/dvdigest-qa at 3269e35; the retest through QA&rsquo;s Ask function, 50 of 50.</p>
 <p>Run 10, the DIG-606 batch of agreed pages, qa at 8f9e889 (pull request 32; its content equal to the branch&rsquo;s proven tip 6ec985b), 2026-11-03: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA, then dbt Cloud run 70403231946907, Success: 178 passing with 6 no-ops, then 221 of 227 with 6 no-ops, verify_build meeting every guardrail and expectation with zero warnings. Then the structure check, DV_QA matching vault.sql and mart.sql; the QA connector, Ask function and invitation function redeployed; the QA site built for QA with its changes highlighted, 14 pages changed against the publication at 3269e35, and published to Integrationals/dvdigest-qa at dd565ab; the retest through QA&rsquo;s Ask function, 50 of 50.</p>
+<p class="qa-changed">Run 11, the batch of Ray&rsquo;s last findings, qa at 3c1f57d (pull request 34; its content equal to the branch&rsquo;s proven tip 0b8e21a), 2026-11-04: refresh_landing_tier.sql for LANDING_QA and reset_vault_tier.sql for DV_QA, then dbt Cloud run 70403232065153, Success: 178 passing with 6 no-ops, then 221 of 227 with 6 no-ops, verify_build meeting every guardrail and expectation with zero warnings. Then the structure check, DV_QA matching vault.sql and mart.sql; the QA connector, Ask and invitation functions redeployed, QA answering to Mary&rsquo;s code; the QA site built for QA with its changes highlighted, 10 pages against the publication Ray reviewed at aba2e73, and published at 2542626; one retest through QA&rsquo;s Ask function with Mary&rsquo;s code, 50 of 50, the agent&rsquo;s credit spared. Note: aba2e73, a republication with highlights made by Claude on 2026-11-04 right after the approved revert to run 10&rsquo;s publication, was not reported to Ray at the time.</p>
 <p>Exception granted by Ray, 2026-11-01 (answer 2b): three unit tests, unit_organization_h_oh3_later_load_inserts, unit_client_dim_ds1_client_role_only and unit_organization_dim_dg2_ghost_members_kept, carry the fusion_only tag and run only under Fusion in development; QA&rsquo;s engine skips them.</p>
 <h2>6. Branch test battery</h2>
 <h3>6.1 Added and changed tests</h3>
@@ -331,190 +335,226 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>CR-1</td>
+<td class="tid">CR-1</td>
 <td>Coverage counts lapsed policies. Asked a question outside the suggestions, Mary&rsquo;s Claude ran Coverage, current by policy number and carrier, 19:31:58 UTC, and the answer was correct to the definition: nine Northfield Life policies, 125,000 dollars. But NF-100003 lapsed on 2026-10-02 and its 15,000 is still counted; a lapsed policy provides no coverage, so by the business meaning Northfield Life&rsquo;s current coverage is 110,000. Release 1&rsquo;s 125,000 carries the same flaw</td>
 <td>DV_QA read 2026-11-01 20:10 UTC, the same measure and groupings</td>
 <td>Open: remediate in this release, or record it as a known characteristic (Ray to decide)</td>
 </tr>
 <tr>
-<td>CR-2</td>
+<td class="tid">CR-2</td>
 <td>The streaming Ask path does not record the question&rsquo;s words, only the tool calls and model calls</td>
 <td>QA&rsquo;s Ask log, 18:21 to 20:02 UTC: no question text</td>
 <td>Tabled: out of this branch, not a dbt built-in; a demo needs no question log (Ray, 2026-11-02, answer 1y)</td>
 </tr>
 <tr>
-<td>CR-3</td>
+<td class="tid">CR-3</td>
 <td>Nor does it record the reply</td>
 <td>Same</td>
 <td>Tabled: out of this branch, not a dbt built-in; a demo needs no question log (Ray, 2026-11-02, answer 1y)</td>
 </tr>
 <tr>
-<td>CR-4</td>
+<td class="tid">CR-4</td>
 <td>The Ask page&rsquo;s suggestions and the conversation get in each other&rsquo;s way; the page needs a better design (Ray)</td>
 <td>The chat box stacks its header, the conversation, a row of six full-question suggestion buttons, then the typing box; the row grew from four to six with pull request 29 and sits between the conversation and where Mary types</td>
 <td>Open: a design to propose with the batch</td>
 </tr>
 <tr>
-<td>CR-5</td>
+<td class="tid">CR-5</td>
 <td>The chat&rsquo;s greeting says every number comes from a query against production, on every environment&rsquo;s site; on the QA site it queries QA (found by Claude while recording CR-4)</td>
 <td>site/build_site.py, build_ask: the greeting is one fixed text</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-6</td>
+<td class="tid">CR-6</td>
 <td>The first question is slow; warm the functions before Mary asks (Ray)</td>
 <td>QA logs, Ray&rsquo;s first question 19:29:13 to 19:29:27 UTC, 14.3 s: the connector&rsquo;s cold start 5.6 s, the Ask function&rsquo;s 2.7 s, the semantic catalogue not yet cached (about 10 calls), Claude&rsquo;s two model calls 4.6 s, Snowflake&rsquo;s first query 1.2 s; a later question met a second cold connector (5.5 s); warm, a question took 9.6 s, mostly the model calls and Snowflake (3.4 to 3.6 s). Ways: a wake request when the Ask page opens; a scheduled ping; provisioned concurrency</td>
 <td>Open: a choice with the batch</td>
 </tr>
 <tr>
-<td>CR-7</td>
+<td class="tid">CR-7</td>
 <td>The introduction mentions Snowflake but not Databricks (Ray)</td>
 <td>The home page&rsquo;s introduction: &ldquo;a classic Data Vault on Snowflake&rdquo;; the Build page names Snowflake; Databricks appears only inside the design, test plan and implementation guide pages</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-8</td>
+<td class="tid">CR-8</td>
 <td>The site needs the ER/Studio model (Ray)</td>
 <td>The Model page says &ldquo;The full model with its dictionary, from ER/Studio, joins this section next&rdquo; and shows only the two diagrams drawn from the tables; the repository holds no ER/Studio export; DIG-589&rsquo;s backlog names the dictionary and the ER/Studio report. The model is Ray&rsquo;s in ER/Studio; Claude feeds it the DDL and metadata and turns its exports into the page, including this release&rsquo;s conformed mart</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-9</td>
+<td class="tid">CR-9</td>
 <td>The mart declares no foreign keys in Snowflake (Ray&rsquo;s question)</td>
 <td>DV_QA, 2026-11-01: the 27 declared keys are all in RAW_VAULT (14 primary, 12 foreign) and REFERENCE (1 primary); the 13 CONFORMED_DM objects are views, on which Snowflake allows no keys; the mart&rsquo;s relationships exist as dbt relationship tests and as the semantic layer&rsquo;s entities. Reverse-engineered, ER/Studio would show the mart&rsquo;s views unrelated. Decided with CR-8: the facts and dimensions as tables with declared keys, or the relationships brought into ER/Studio through its metadata</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-10</td>
+<td class="tid">CR-10</td>
 <td>A defect: every table needs a relationship in the model (Ray)</td>
 <td>DV_QA&rsquo;s 12 declared foreign keys connect every link to its hubs and every satellite to its parent, but: (a) nothing relates organization_h, the carrier, to policy_h: no link records that a carrier issued a policy, though Northfield Life&rsquo;s policy data carries the carrier code, and the mart joins them by that business key alone; (b) nothing refers to seed_source_system, though every vault table&rsquo;s record source code is its key; (c) seed_build_expectations relates to nothing, being build test configuration; (d) the mart&rsquo;s views declare none (CR-9)</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-11</td>
+<td class="tid">CR-11</td>
 <td>Complete the solution with dbt Charts (Ray)</td>
 <td>dbt Labs&rsquo; open-source visualization layer, released 2026-09-14 (Apache 2.0, CLI dct): dashboards declared as YAML in a charts/ folder beside the models, validated with dbt parse and dct validate before the build, rendered to SVG, HTML, PNG or PDF, or served as a site; Mary&rsquo;s answers as charts on her pages, reviewed and promoted with the code. Its Python adapter depends on dbt Core 1.x, so it needs its own environment apart from Fusion. Open question, 2026-11-01: dbt&rsquo;s quickstart writes every query in SQL against the built tables and names SQL, values and HTTP query types, with no word on the semantic layer; its query-type documentation lives on docs.dataface.com, and Dataface, the Fivetran project, queries MetricFlow by metric and dimension; whether dbt Charts kept that is not established. The proof in dev starts there: one board asking for Records not accepted by Source by name. A chart computing its numbers in its own SQL would drift from the semantic layer&rsquo;s definitions (Data Consumption Design )</td>
 <td>Moved to the next branch (Ray, 2026-11-02, answer 2b)</td>
 </tr>
 <tr>
-<td>CR-12</td>
+<td class="tid">CR-12</td>
 <td>The introduction mentions the compliance questions but is not clear about which release answers what (Ray)</td>
 <td>The QA site&rsquo;s home page: &ldquo;On that base we propose eight compliance questions for a distributor&rdquo;, with no release named for them; &ldquo;Next, it answers what was known on any date, and with that the first compliance questions&rdquo;, though this release, What We Knew When, answers none and the Ask function tells Mary compliance comes later; &ldquo;Release 1 answers four questions&rdquo;, &ldquo;6 of 6 QA gates certified for release 1&rdquo; and &ldquo;137 tests on every build&rdquo; are release 1&rsquo;s facts. Pull request 29 updated the Releases index, the release page and the guide but not the home page</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-13</td>
+<td class="tid">CR-13</td>
 <td>&ldquo;Book&rdquo; where we aligned on &ldquo;the agency&rsquo;s business&rdquo; (Ray)</td>
 <td>Aligned 2026-10-30 in the DIG-594 keys-branch conversation, when Ray approved the executive summary (&ldquo;an acquired agency&rsquo;s business&rdquo;, &ldquo;what is in the agency&rsquo;s business&rdquo;); the item &ldquo;the agency&rsquo;s business in place of the acquired book&rdquo; was left open and never done. The QA site still says: the home banner &ldquo;an acquired agency&rsquo;s book integrated in a Data Vault&rdquo; and its call to action &ldquo;four questions about the acquired book&rdquo;; the Ask greeting &ldquo;Ask about the acquired book in plain words&rdquo; and its typing box. Release 1&rsquo;s name, The Acquired Book, appears on the home page, the Releases index and its page; whether a released name changes is Ray&rsquo;s to decide</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-14</td>
+<td class="tid">CR-14</td>
 <td>Where the site names ER/Studio, add &ldquo;or similar&rdquo; (Ray)</td>
 <td>The home page: &ldquo;You can open the vault&rsquo;s full model, keys and relationships included, in ER/Studio&rdquo;; the Model page: &ldquo;The full model with its dictionary, from ER/Studio, joins this section next&rdquo; (with CR-8); the Build page already says &ldquo;a modeling tool such as ER/Studio&rdquo;</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-15</td>
+<td class="tid">CR-15</td>
 <td>Rename v2026.11.1 from &ldquo;What We Knew When&rdquo; to &ldquo;The Site and the Data Model&rdquo; (Ray, 2026-11-01)</td>
 <td>The name was decided on 2026-11-01 and recorded in the named-releases item of the data product method; the old name remains on the QA site&rsquo;s pages build/code/infra.html documentation/definition.html documentation/index.html guide/index.html releases/index.html releases/v2026-11-1.html, in both release answers documents for v2026.11.1, and in the product definition&rsquo;s named releases</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-16</td>
+<td class="tid">CR-16</td>
 <td>The site&rsquo;s text on what comes next follows the old plan, not v2026.11.2 (Ray, 2026-11-02)</td>
 <td>The Releases page lists &ldquo;Next · What We Knew When&rdquo; (the release now in QA) and &ldquo;Later · People, Not Numbers&rdquo;; the home page says the next release answers what was known on any date and the first compliance questions; the Ask page names a coming release for each answer it cannot give. None mentions v2026.11.2, which Ray describes as the business vault and the compliance answers</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-17</td>
+<td class="tid">CR-17</td>
 <td>The mart&rsquo;s identifiers end in _key; the standard is _id (Ray, 2026-11-03)</td>
 <td>Every fact and dimension identifier and foreign key in CONFORMED_DM, such as person_key, policy_key, client_key, and the semantic layer&rsquo;s entities that name them</td>
 <td>Open</td>
 </tr>
 <tr>
-<td>CR-18</td>
+<td class="tid">CR-18</td>
 <td>policy_dim joins organization_dim through a declared foreign key; dimensions never join each other (Ray, 2026-11-03)</td>
 <td>policy_dim.carrier_key, declared as a foreign key to organization_dim by mart design D-16 and test FK10; the carrier&rsquo;s attributes belong flattened into policy_dim at build</td>
 <td>Fixed in dev on DIG-606&rsquo;s branch, 2026-11-03: mart design D-17, guide step 94; the conformed mart&rsquo;s 76 builds and tests pass, the 17 answer and reconciliation tests pass, MetricFlow joins the carrier through the facts, mart.sql has 14 foreign keys and none between dimensions</td>
 </tr>
 <tr>
-<td>CR-19</td>
+<td class="tid">CR-19</td>
 <td>The site&rsquo;s menu is organized by our outputs, not by what Mary sets out to do (Ray, 2026-11-03)</td>
 <td>Eight entries, three of them our own folders: Documentation, Build, Learn. Chosen, by prototype (<a href="https://claude.ai/artifact/8WxSoUacBrYsPnoCc5zpqD" target="_blank" rel="noopener">https://claude.ai/artifact/8WxSoUacBrYsPnoCc5zpqD</a>): Home; DV Agent, with the conversation, everything you can ask and the releases with their prompts; Data model, with both ER/Studio reports; Architecture conversation, the textbook&rsquo;s first appendix; Library, with the 12 documents, the 6 code pages and the Universal Data Vault study; the course removed from the site. Each list shows one page per card, groups under headings</td>
 <td>Open: a site change</td>
 </tr>
 <tr>
-<td>CR-20</td>
+<td class="tid">CR-20</td>
 <td>Reviewing a QA iteration means rereading the site to find the fixes (Ray, 2026-11-03)</td>
 <td>Chosen, by prototype: QA&rsquo;s build compares each page&rsquo;s content, without its header and menu, with the QA site as last published; each changed paragraph carries a bar in its margin, and QA&rsquo;s home lists the changed pages; never in production</td>
 <td>Open: a site change</td>
 </tr>
 <tr>
-<td>CR-21</td>
+<td class="tid">CR-21</td>
 <td>The Ask page&rsquo;s access-code field shows the code as typed (Ray, 2026-11-03)</td>
 <td>The field is declared as plain text in site/build_site.py, so the code Ray sent appears on screen; it should be a password field</td>
 <td>Open: a site change, this review&rsquo;s batch</td>
 </tr>
 <tr>
-<td>CR-22</td>
+<td class="tid">CR-22</td>
 <td>The agent refuses to list the semantic layer&rsquo;s metrics, and its instructions keep it to six scripted questions (Ray, 2026-11-03)</td>
 <td>The Ask function forbids writing any metric or dimension name, tells the agent to use labels it never receives, tells it discovery is unnecessary, treats anything beyond six questions as out of scope, and caps replies at 1,024 tokens and six tool calls; DV Digest exists for the consumer and the agent to explore the data</td>
 <td>Open: a data change, this review&rsquo;s batch</td>
 </tr>
 <tr>
-<td>CR-23</td>
+<td class="tid">CR-23</td>
 <td>The release answers do not follow the Release Answers standard as the six earlier release records in Pilot practice it (Ray, 2026-11-03)</td>
 <td>Both pairs made without the pair procedure, their checksums PENDING; v2026.10.1 delivered but not captured final in the release records and changed after delivery; titles by name, not tag. To do: both pairs regenerated by RELEASE_ANSWERS_PAIR_FROM_TEMPLATE on the earlier releases&rsquo; practice, titles with the product and tag, in knowledge 35 (Ray, 2026-11-03, answer 1a); every prompt already carries its expected answer inline, which an earlier check of mine missed by looking only for the earlier releases&rsquo; layout; v2026.10.1 captured final in knowledge 15</td>
 <td>Open: this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-25</td>
+<tr>
+<td class="tid">CR-25</td>
 <td>The first answer can be slow, and the chat box doesn&rsquo;t say so (Ray, 2026-11-03)</td>
 <td>QA measured 14.3 seconds for a first answer before the wake request, which may not always help. Proposed: one line under the typing box, shown until the first answer arrives: &ldquo;The first answer can take up to 15 seconds while the agent starts; the rest come faster.&rdquo;</td>
 <td>Replaced by CR-27 (Ray, 2026-11-04): the waiting line itself explains the first answer&rsquo;s wait</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-26</td>
+<tr>
+<td class="tid">CR-26</td>
 <td>After a long answer, any next question is refused as too long (Ray, 2026-11-04)</td>
 <td>The Ask function refused any message over 2,000 characters, the agent&rsquo;s own earlier replies included, which D-70 let run to 4,096 tokens; raising that limit would only postpone the failure as the history grows</td>
 <td>Open: a data change, this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-27</td>
+<tr>
+<td class="tid">CR-27</td>
 <td>The waiting line is static text with the old name, &ldquo;Asking DV Digest…&rdquo; (Ray, 2026-11-04)</td>
 <td>Chosen by prototype: a line in the site&rsquo;s colors, a light sweeping across it, stepping through what the agent does, &ldquo;Reading the semantic layer…&rdquo;, &ldquo;Running the query…&rdquo;, &ldquo;Writing the answer…&rdquo;; on her first question it starts with &ldquo;Waking the agent…&rdquo; and &ldquo;The first answer takes a little longer while the agent starts.&rdquo;, replacing CR-25&rsquo;s static note; still for reduced motion. The steps show that she&rsquo;s waiting, not which step the agent is on</td>
 <td>Open: a site change, this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-28</td>
+<tr>
+<td class="tid">CR-28</td>
 <td>Musings reads awkwardly and presumes the verdict: &ldquo;suggested there may be a better way … may change some of our minds&rdquo; (Ray, 2026-11-04)</td>
 <td>Chosen: &ldquo;Places where building DV Digest suggested an alternative worth considering. Your team will know which of them hold up in practice.&rdquo;</td>
 <td>Fixed in Musings&rsquo; record, knowledge 35 item 351; this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-29</td>
+<tr>
+<td class="tid">CR-29</td>
 <td>The design&rsquo;s header table wraps its labels onto two lines (Ray, 2026-11-04)</td>
 <td>Every document&rsquo;s header table, labels left and values right under an empty heading row, let the long values squeeze the label column. Fixed in the builder: such tables marked as header tables, their label column kept on one line at its labels&rsquo; width, the empty heading row dropped; all 11 documents</td>
 <td>Fixed in dev, this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-30</td>
+<tr>
+<td class="tid">CR-30</td>
 <td>The documents&rsquo; wide tables are narrow and tall, words split mid-way; the design&rsquo;s Q-6 is not a question (Ray, 2026-11-04)</td>
 <td>Chosen by prototype (answer 1b): every document table of five columns or more shown as cards, one per row, its identifier and state on top, its question or decision as the title, every other field labeled beneath; 440 cards across the documents, one irregular table left as it is; words break only when they cannot fit. Q-6, the team&rsquo;s own aim, moved to the design&rsquo;s new section 2.1.1 (answer 2c)</td>
 <td>Fixed in dev, this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-31</td>
+<tr>
+<td class="tid">CR-31</td>
 <td>The documents&rsquo; tables are plain (Ray, 2026-11-04)</td>
 <td>The documents are working records the site delivers, not web pages, so a touch of color only, chosen by prototype: table headers tinted with a teal rule beneath, identifiers in teal, every other row lightly shaded; cards with a teal left edge and teal labels; header tables, headings and text unchanged</td>
 <td>Fixed in dev, this review&rsquo;s batch</td>
 </tr>
-<tr class="qa-changed">
-<td>CR-32</td>
+<tr>
+<td class="tid">CR-32</td>
 <td>The agent has no name or face of its own (Ray, 2026-11-04)</td>
 <td>Chosen by prototype: the agent is Sage, a round owl in the site&rsquo;s teal with amber eyes that blink; the menu entry and its page are Sage; the owl in the chat header and bobbing on the waiting line, &ldquo;Sage is reading the semantic layer…&rdquo;; Sage greets her by name; the agent&rsquo;s instructions name it Sage; still for reduced motion. The page records 352, 353 and 354 renamed</td>
 <td>Fixed in dev, this review&rsquo;s batch</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-33</td>
+<td>The Sage page&rsquo;s large title stands without the owl (Ray, 2026-11-04)</td>
+<td>Chosen by prototype: the owl beside the large &ldquo;Sage&rdquo;, at the heading&rsquo;s scale, blinking now and then; still for reduced motion. A site change, by the site path</td>
+<td>Fixed in dev; to QA by the site path</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-34</td>
+<td>The design&rsquo;s section 2 jumps from 2.1.1 to 2.3, and 2.1.1 should go (Ray, 2026-11-04)</td>
+<td>Section 2.1.1, added by Claude for Q-6 without a blank line before 2.2, made the page read 2.2&rsquo;s heading as a table row. Section 2.1.1 and Q-6 removed from the design; 2.2 restored on the page</td>
+<td>Fixed in the design and dev, to QA by the site path</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-35</td>
+<td>Short identifiers in decision and test tables wrap, as in the design&rsquo;s section 5 and the test plan&rsquo;s section 8 (Ray, 2026-11-04)</td>
+<td>Tables of four columns or fewer stay tables, and their first column was squeezed; every document table now keeps a first cell of 14 characters or fewer on one line, 126 in the design and 221 in the test plan</td>
+<td>Fixed in dev, to QA by the site path</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-36</td>
+<td>The QA certifications do not say which release they are for, and neither do the post-implementation guides (Ray, 2026-11-04)</td>
+<td>Each pair shared one title. Now each document&rsquo;s heading and browser tab name its release: QA certification and Post-implementation guide, v2026.10.1, The Agency’s Business, and v2026.11.1, The Site and the Data Model</td>
+<td>Fixed in dev, to QA by the site path</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-37</td>
+<td>The test plan&rsquo;s section 3, the seven layers, wraps its first column (Ray, 2026-11-04)</td>
+<td>Its layer names, up to 20 characters, passed CR-35&rsquo;s limit of 14; first cells of up to 24 characters now stay on one line</td>
+<td>Fixed in dev, to QA by the site path</td>
+</tr>
+<tr class="qa-changed">
+<td>CR-38</td>
+<td>Long pages have no way back to the top (Ray, 2026-11-04)</td>
+<td>A &ldquo;Back to top&rdquo; link at the end of every page, above the footer</td>
+<td>Fixed in dev, to QA by the site path</td>
 </tr>
 </tbody>
 </table></div>
@@ -540,41 +580,41 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Environment and deployment rehearsal</td>
 <td>CERTIFIED</td>
 <td>Fresh clones by script; the dev rehearsal on QA&rsquo;s engine; QA&rsquo;s functions deployed from qa by script (sections 3, 9.3)</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Full build and branch tests</td>
 <td>CERTIFIED</td>
 <td>168 and 211 of 211, zero warnings (6.2, 6.3)</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Data regression</td>
 <td>CERTIFIED</td>
 <td>Baseline, movements and findings equal to the ledger (7.1 to 7.5)</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>Semantic protection</td>
 <td>CERTIFIED</td>
 <td>Reconciliations, before-and-after values, six saved queries live (8.1 to 8.3)</td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>Consumer surfaces</td>
 <td>CERTIFIED</td>
 <td>34 of 34 through QA&rsquo;s Ask page, business language only (9.1 to 9.3)</td>
 </tr>
 <tr>
-<td>6</td>
+<td class="tid">6</td>
 <td>Operations, rollback, and evidence</td>
 <td>CERTIFIED</td>
 <td>Section 10 passes in runs 6 and 7; the rollback rehearsed in dev and in DV_QA in both runs, every count restored (11); the record of runs 1 to 7 (5)</td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>Cycle verdict:</strong> CERTIFIED: all six gates, for qa at ad06926, QA run 7, 2026-11-01 (run 6 certified 4ad7057 before the release page).</p></article><section class="cta bleed"><h2>Next: Code review</h2><p>The review of the next release's code: what was checked against data, each finding and where it stands.</p><a class="btn" href="code-review.html">Read the code review</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+<p><strong>Cycle verdict:</strong> CERTIFIED: all six gates, for qa at ad06926, QA run 7, 2026-11-01 (run 6 certified 4ad7057 before the release page).</p></article><section class="cta bleed"><h2>Next: Code review</h2><p>The review of the next release's code: what was checked against data, each finding and where it stands.</p><a class="btn" href="code-review.html">Read the code review</a></section></main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

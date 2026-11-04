@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Study of John Giles&#x27;s Universal Data Vault | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
+.doc td.tid{white-space:nowrap}
+h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
 .chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 .owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
@@ -146,7 +149,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="index.html" class="on">Library</a></nav></div>
+<header class="top" id="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="index.html">Library</a><span>›</span>Universal Data Vault</p><p class="eyebrow">Library</p><h1>Study of John Giles's Universal Data Vault</h1><p>His design, its results, and our reading of it.</p></div></header>
 <main><article class="doc"><h1>Appendix 2: Study of John Giles&rsquo;s Universal Data Vault</h1>
 <div class="table-wrap"><table class="meta">
@@ -312,4 +315,4 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </ol>
 <h2>10. First finding from <em>The Elephant in the Fridge</em></h2>
 <p>In chapter 2, &ldquo;Untangling &lsquo;raw&rsquo; and &lsquo;business&rsquo; Data Vault,&rdquo; Giles separates two questions: whether a hub, link or satellite&rsquo;s <em>structure</em> reflects the business view or a raw source view, and whether each <em>instance</em>, by its record source, came from a raw source feed or from a business rule. His example is an Employee hub holding instances from payroll and HR feeds alongside contractors added by a business rule: neither a &ldquo;raw&rdquo; nor a &ldquo;business&rdquo; hub. He suggests avoiding both phrases, and noting structure and sourcing instead. For integrating satellites, he describes one source-shaped satellite per feed plus a business-centric &ldquo;conformed&rdquo; satellite.</p>
-<p><em>For further study:</em> the course&rsquo;s appendix 1 asks whether that conformed satellite could take the UDM&rsquo;s typed rows instead of columns.</p></article></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+<p><em>For further study:</em> the course&rsquo;s appendix 1 asks whether that conformed satellite could take the UDM&rsquo;s typed rows instead of columns.</p></article></main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

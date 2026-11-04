@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Post-implementation guide | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+<title>Post-implementation guide: v2026.10.1, The Agency’s Business | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
+.doc td.tid{white-space:nowrap}
+h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
 .chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 .owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
@@ -146,8 +149,8 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
-<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Post-implementation guide</p><p class="eyebrow">Documentation · release 1</p><h1>Post-implementation guide</h1><p>What shipped, the evidence, and every difference from the plan, with why.</p></div></header>
+<header class="top" id="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Post-implementation guide: v2026.10.1, The Agency’s Business</p><p class="eyebrow">Documentation · release 1</p><h1>Post-implementation guide: v2026.10.1, The Agency’s Business</h1><p>What shipped, the evidence, and every difference from the plan, with why.</p></div></header>
 <main><article class="doc"><h1>Branch Post-Implementation Guide: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Post-Implementation Guide</h3>
 <div class="table-wrap"><table class="meta">
@@ -195,25 +198,25 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>LANDING infrastructure</td>
+<td class="tid">LANDING infrastructure</td>
 <td>Database LANDING; schemas SUNBELT, STORAGE, CONFIG; tables CLIENT, DATA_FINDING (FINDER_NAME, FINDER_TYPE), BUILD_BASELINE; direct grants to CLAUDE_WS_ROLE</td>
 <td>setup/infrastructure/landing.sql, commit c55b4ff</td>
 <td>Database present; 3 tables visible to CLAUDE_WS_ROLE and, through secondary roles, to DV_ROLE</td>
 </tr>
 <tr>
-<td>Two landing acts</td>
+<td class="tid">Two landing acts</td>
 <td>33 then 10 rows of Sunbelt Senior&rsquo;s client file, planting paths P1 to P8</td>
 <td>setup/landing/sunbelt_client_load_1.sql and _2.sql, d6b2f5a</td>
 <td>LANDING.SUNBELT.CLIENT: 43 rows, 41 distinct CRM row IDs</td>
 </tr>
 <tr>
-<td>Packages</td>
+<td class="tid">Packages</td>
 <td>datavault4dbt fork (pinned); dbt_utils 1.4.1 from GitHub</td>
 <td>dbt/packages.yml, dbt/package-lock.yml, 96a53dc</td>
 <td>dbt deps: 2 packages installed</td>
 </tr>
 <tr>
-<td>Ported macros and seed</td>
+<td class="tid">Ported macros and seed</td>
 <td>landing_storage (default LANDING), merge_into (unchanged), capture_baseline and verify_build (measured set replaced), seed_build_expectations</td>
 <td>macros/, seeds/, 9bf1ae3, ae65b16</td>
 <td>Baselines written to LANDING.CONFIG.BUILD_BASELINE for both acts</td>
@@ -255,7 +258,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>DEV__LANDING__CLAUDE_WS: 14 sales rows and 12 carrier rows over two acts; LANDING: both tables present, empty</td>
 </tr>
 <tr>
-<td>Staging (increment 2)</td>
+<td class="tid">Staging (increment 2)</td>
 <td>stg_sunbelt_policy_sale and stg_northfield_policy with D-24&rsquo;s hard rules; the client list&rsquo;s change hash for its satellite</td>
 <td>dbt/models/staging; commit 23b3d31</td>
 <td>Views in DEV__DV__CLAUDE_WS.STAGING: 16 and 14 rows, each its landed rows and the two ghost records</td>
@@ -298,37 +301,37 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Hub rows and client keys</td>
+<td class="tid">Hub rows and client keys</td>
 <td>DV.DEV_CLAUDE, 2026-10-23 02:34 UTC</td>
 <td>36 rows, 34 client keys (design expects 36 and 34)</td>
 <td>SELECT COUNT(*), COUNT_IF(rsrc = &lsquo;SUNBELT.CLIENT&rsquo;) FROM CLIENT_H</td>
 </tr>
 <tr>
-<td>First sightings</td>
+<td class="tid">First sightings</td>
 <td>same</td>
 <td>30 keys at the act 1 load time; A-1031, A-1032, A1007, A-01008 at act 2</td>
 <td>GROUP BY ldts on CLIENT_H</td>
 </tr>
 <tr>
-<td>Zero key ownership</td>
+<td class="tid">Zero key ownership</td>
 <td>same</td>
 <td>The all-zeros key belongs to the SYSTEM ghost record</td>
 <td>assert_client_h_ghost_keys_belong_to_ghosts passes</td>
 </tr>
 <tr>
-<td>Findings</td>
+<td class="tid">Findings</td>
 <td>LANDING.CONFIG, 02:34 UTC</td>
 <td>Two inspection findings (A1007, A-01008); no audit finding</td>
 <td>SELECT FROM DATA_FINDING</td>
 </tr>
 <tr>
-<td>Build verification</td>
+<td class="tid">Build verification</td>
 <td>act 2, 02:33 UTC</td>
 <td>LOOKOUT, zero warnings; CLIENT_H 32 to 36; inspection findings 0 to 2</td>
 <td>dbt run-operation verify_build</td>
 </tr>
 <tr>
-<td>Baselines B-1, B-2</td>
+<td class="tid">Baselines B-1, B-2</td>
 <td>02:34 UTC</td>
 <td>The three exploratory objects remain; STUDENT_H still 5 rows</td>
 <td>SELECT on DV.INFORMATION_SCHEMA.TABLES and STUDENT_H</td>
@@ -340,19 +343,19 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>SELECT RSRC, COUNT(*) FROM CLIENT_H GROUP BY RSRC</td>
 </tr>
 <tr>
-<td>The live rename</td>
+<td class="tid">The live rename</td>
 <td>same</td>
 <td>SSI&rsquo;s row changed between two commits of the seed (29f7412 as acquired; 5958c9b Sunbelt Senior client file, owner Digest Insurance Distributors); every client hub row still carries SSI</td>
 <td>git log of the seed; SELECT RSRC, COUNT(*) FROM CLIENT_H</td>
 </tr>
 <tr>
-<td>Probe Q-4</td>
+<td class="tid">Probe Q-4</td>
 <td>same, after the simplification</td>
 <td>Every client hub row names its source: 34 Sunbelt Senior client file; ghosts the vault itself</td>
 <td>Client hub joined to the source system seed; vault_checks</td>
 </tr>
 <tr>
-<td>Ray&rsquo;s environment</td>
+<td class="tid">Ray&rsquo;s environment</td>
 <td>DEV__DV__RAYSERRANO (dbt Cloud, v1), 2026-10-23 18:3x UTC</td>
 <td>Client hub SSI 34, SYSTEM 1, ERROR 1, matching the workstation</td>
 <td>Ray&rsquo;s query</td>
@@ -364,7 +367,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>Each link joined to policy_h on NF-100007</td>
 </tr>
 <tr>
-<td>Versions (increment 2)</td>
+<td class="tid">Versions (increment 2)</td>
 <td>same</td>
 <td>NF-100003 has two versions in policy_northfield_s (status IF, then LP); NLI-55008 two in insured_northfield_s (address in letter case only)</td>
 <td>GROUP BY parent key HAVING COUNT(*) &gt; 1 on each satellite</td>
@@ -376,7 +379,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>GROUP BY role; agent_policy_l joined to policy_h</td>
 </tr>
 <tr>
-<td>Findings (increment 2)</td>
+<td class="tid">Findings (increment 2)</td>
 <td>same</td>
 <td>Inspections: A1007, A-01008, NF100009. Audits: the two findings of the auditors&rsquo; first versions, retained (delta 25); the current auditors write none</td>
 <td>SELECT FROM DATA_FINDING GROUP BY finder</td>
@@ -390,12 +393,12 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tbody>
 </table></div>
 <h2>3. Test outcome</h2>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">Layer 1 built-ins</span></div><p class="rc-title">6</p><dl><dt>Passed</dt><dd>6</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Two source not-null tests, hub unique and not-null; increment 1.1: the source system seed&rsquo;s code unique and not-null</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Layer 2 expectations</span></div><p class="rc-title">3</p><dl><dt>Passed</dt><dd>2</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Compound uniqueness (dbt_utils) and the source row count (singular test); the hub row count was not built as a test and is read by the verification queries instead (delta 2)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Layer 3 unit tests</span></div><p class="rc-title">12</p><dl><dt>Passed</dt><dd>12</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>P7 red at 02:11:15 UTC on d4236cf (blank client numbers hashed to 9d4568c0&hellip;, a real key), green at 02:13:59 after D-4; increment 1.1: R1 to R3 pass on Fusion, written after their models, so characterization tests rather than a red-to-green cycle (delta 11)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Layer 4 logic assertions</span></div><p class="rc-title">4</p><dl><dt>Passed</dt><dd>4</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Increment 1 added the ghost-key assertion after delta 5; increment 1.1 added the resolve assertion, which caught delta 9 before passing</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Layer 5 inspector</span></div><p class="rc-title">1</p><dl><dt>Passed</dt><dd>1</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Two findings, as specified</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Layer 6 auditor</span></div><p class="rc-title">1</p><dl><dt>Passed</dt><dd>1</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>No finding, as specified</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Layer 7 semantic surface</span></div><p class="rc-title">not applicable</p><dl><dt>Disposition or evidence</dt><dd>No semantic models in the repository</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Full build, act 2</span></div><p class="rc-title">26 nodes</p><dl><dt>Passed</dt><dd>26</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>dbt build, 02:33 UTC</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Full build, increment 1.1</span></div><p class="rc-title">30 nodes</p><dl><dt>Passed</dt><dd>30</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>dbt build on the workstation after the simplification (38 before it, with the reference objects)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Increment 2, layer 1</span></div><p class="rc-title">14</p><dl><dt>Passed</dt><dd>14</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Written after the code from the branch&rsquo;s diff (commit 905955d): LOADED_AT not null on both new sources; unique and not null on the hash keys of the six new hubs and links</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Increment 2, layer 2</span></div><p class="rc-title">3</p><dl><dt>Passed</dt><dd>3</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>The grain of each new source; staging keeps every landed row, a source query against a target query</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Increment 2, layer 3</span></div><p class="rc-title">62</p><dl><dt>Passed</dt><dd>62</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>39 written first: red at 01:12 UTC on beb49c9 (seven for their content reasons, four setup errors in increment 1&rsquo;s client_h tests), green on 23b3d31. 23 added on 2026-10-25 (Ray, answer 1a): each red for its content under a planted defect, then green (delta 24)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Increment 2, layers 4 to 6</span></div><p class="rc-title">1 new and 1 rewritten assertion; 1 inspector; 2 new auditors and 1 corrected</p><dl><dt>Passed</dt><dd>All pass</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>assert_increment_2_link_hub_keys_exist; the resolve assertion reads every hub and link; NF100009 inspected; the auditors&rsquo; false findings reduced to unit tests A1 to A6, red, then fixed (delta 21)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Full build, increment 2</span></div><p class="rc-title">129 nodes</p><dl><dt>Passed</dt><dd>129</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>dbt build on the workstation at 94639b4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">D-40, layer 1 relationship tests</span></div><p class="rc-title">4</p><dl><dt>Passed</dt><dd>4</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>One per satellite, to its parent; each passes on the development tier, and rel_client_sunbelt_s_hk_client_h, run read-only with a planted orphan key, returns that row. Full suite on 2026-10-26 at commit 5d5c59d: 108 of 108 pass, 34 data tests and 74 unit tests (delta 27)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">D-41, layer 4 case-only assertion</span></div><p class="rc-title">1</p><dl><dt>Passed</dt><dd>1</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Passes on the development tier on v2 and on dbt v1 1.12.6; run read-only against QA&rsquo;s upper-cased staging, it returns Martin Lowe&rsquo;s &ldquo;12 ELM ST&rdquo; pair. Both engines compile all four hashdiffs case-sensitive with the root setting. Full suites on 2026-10-26: v2 109 of 109, v1 QA selection 58 of 58 (delta 29)</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h3>Finance workbook delivery and UAT evidence</h3>
 <p>For finance reporting branches, record delivered workbook revision/location, reporting period, repository generation script, query/build references, technical reconciliation evidence and consumer acceptance or pending cases under K#12 I#27. Otherwise state NA with a reason.</p>
 <p>Not applicable: this branch is not a finance reporting branch.</p>
 <h2>4. Deltas from the plan</h2>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">1</span></div><p class="rc-title">Three LANDING roles, run by Ray (guide G-2)</p><dl><dt>Actual</dt><dd>No roles; SYSADMIN grants LANDING privileges directly to CLAUDE_WS_ROLE</dd><dt>Why</dt><dd>The Corteza connector runs as ALBA with ALBA_ROLE and cannot create roles; one-user project (Ray, answer 3b)</dd><dt>Canonical document or standard updated</dt><dd>Implementation record, knowledge 35 (via this document)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">2</span></div><p class="rc-title">dbt_expectations from the dbt hub for layer 2</p><dl><dt>Actual</dt><dd>dbt_utils from GitHub; source row count as a singular test; hub row count left to the verification queries</dd><dt>Why</dt><dd>The container&rsquo;s egress gateway re-signs TLS and the local Fusion engine cannot download from the hub; dbt_expectations depends on dbt_date through the hub (Ray, answer 1b with fallback)</dd><dt>Canonical document or standard updated</dt><dd>Workstation canonical (Corteza knowledge 336), lessons (a)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">3</span></div><p class="rc-title">Unit tests with explicit severity error</p><dl><dt>Actual</dt><dd>No severity key on unit tests</dd><dt>Why</dt><dd>Fusion rejects it; unit tests always fail as errors</dd><dt>Canonical document or standard updated</dt><dd>This document</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">4</span></div><p class="rc-title">Staging derived column as written in guide step 8</p><dl><dt>Actual</dt><dd>The overwrite of client_number also declares src_cols_required</dd><dt>Why</dt><dd>An overwrite removes the source column from the stage&rsquo;s input; without the declaration the compiled SQL referenced a missing column</dd><dt>Canonical document or standard updated</dt><dd>This document; a course pattern item (design D-14)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">5</span></div><p class="rc-title">Build order: unit tests, then capture and build</p><dl><dt>Actual</dt><dd>Both models were first built empty for the unit tests, so the hub&rsquo;s first real build ran incrementally, dropped its unknown ghost, and let Sunbelt Senior&rsquo;s NULL client number own the all-zeros key. Rebuilt with full refresh; assertion assert_client_h_ghost_keys_belong_to_ghosts added (Ray, answer 1y)</dd><dt>Why</dt><dd>Claude&rsquo;s sequencing error, caught by verification</dd><dt>Canonical document or standard updated</dt><dd>Workstation canonical, lessons (b)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">6</span></div><p class="rc-title">Ported finder counts</p><dl><dt>Actual</dt><dd>COALESCE around COUNT_IF in the baseline metrics</dd><dt>Why</dt><dd>COUNT_IF returned NULL on the empty findings table, so an expectation read NOT FOUND</dd><dt>Canonical document or standard updated</dt><dd>This document</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">7</span></div><p class="rc-title">Coverage: 19 planned files</p><dl><dt>Actual</dt><dd>23 files changed against main</dd><dt>Why</dt><dd>Added: dbt/package-lock.yml, dbt/seeds/seed_build_expectations.csv (G-3), dbt/tests/expect_sunbelt_client_row_count.sql (delta 2), dbt/tests/assert_client_h_ghost_keys_belong_to_ghosts.sql (delta 5); the ported macros live in dbt/macros/verification and dbt/macros/materializations instead of the macros root</dd><dt>Canonical document or standard updated</dt><dd>Test plan coverage table, amendment pending Ray&rsquo;s approval</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">8</span></div><p class="rc-title">Reference table on the version-0 reference satellite (guide G-11)</p><dl><dt>Actual</dt><dd>A version-1 view, record_source_rs1, added between them</dd><dt>Why</dt><dd>datavault4dbt&rsquo;s reference table reads load-end dates and a current flag, which only the version-1 satellite provides (Ray, answer 1y)</dd><dt>Canonical document or standard updated</dt><dd>Guide G-11 reversed</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">9</span></div><p class="rc-title">Rebuild the client hub with the scoped script (guide step 19)</p><dl><dt>Actual</dt><dd>The first run named client_h and rebuilt it from the old staging view, so 34 rows kept SUNBELT.CLIENT; rerun from stg_sunbelt_client it was correct</dd><dt>Why</dt><dd>A scoped rebuild must start from the model that changed, not from the table holding stale rows; the resolve assertion caught it</dd><dt>Canonical document or standard updated</dt><dd>This document; the lesson on development rebuilds</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">10</span></div><p class="rc-title">Rebuild script&rsquo;s database check</p><dl><dt>Actual</dt><dd>Its first parsing found nothing and refused every database, failing safe; replaced with an exact match and tested on developer, QA and production names before use</dd><dt>Why</dt><dd>Claude&rsquo;s text-matching error</dd><dt>Canonical document or standard updated</dt><dd>This document</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">11</span></div><p class="rc-title">Unit tests R1 to R3 before their models (test-driven development)</p><dl><dt>Actual</dt><dd>Written after the staging view, reference hub and satellite</dd><dt>Why</dt><dd>Claude&rsquo;s ordering error in step 14</dd><dt>Canonical document or standard updated</dt><dd>This document. The tests were later removed with the reference objects (delta 14)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">12</span></div><p class="rc-title">Rebuild command for Ray&rsquo;s v1 environment</p><dl><dt>Actual</dt><dd>The command omitted the fusion_only exclusion, so v1 ran unit tests it cannot run</dd><dt>Why</dt><dd>Claude&rsquo;s instruction error; fixed by the selectors v1_safe and qa_build, so exclusions live in the repository</dd><dt>Canonical document or standard updated</dt><dd>dbt/selectors.yml; the QA runbook</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">13</span></div><p class="rc-title">Coverage for increment 1.1: eight added files and two changed</p><dl><dt>Actual</dt><dd>Ten added (the version-1 satellite view and dbt/selectors.yml beyond the plan) and two changed; the branch differs from qa in 48 files</dd><dt>Why</dt><dd>Deltas 8 and 12</dd><dt>Canonical document or standard updated</dt><dd>The test plan&rsquo;s coverage table, amendment pending</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">14</span></div><p class="rc-title">Data Vault reference objects for the source names (design D-16, D-18, D-19)</p><dl><dt>Actual</dt><dd>One source system seed; history in git; reference hub, satellites, dated view, reference table and unit tests R1 to R3 removed</dd><dt>Why</dt><dd>Ray: the six objects only mapped a code to a name; a three-row file the team edits needs no vault objects to keep its history</dd><dt>Canonical document or standard updated</dt><dd>Design D-21; the pragmatic principle in the course record</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">15</span></div><p class="rc-title">Removed models leave their objects behind</p><dl><dt>Actual</dt><dd>Objects of removed models were dropped by hand in both developer databases; then the macro dev_drop_orphans was added</dd><dt>Why</dt><dd>A build never drops what the project no longer defines</dd><dt>Canonical document or standard updated</dt><dd>Standard: Operations as dbt Macros</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">16</span></div><p class="rc-title">Words: &ldquo;registry&rdquo; for the seed; &ldquo;link&rdquo; for a Data Vault link</p><dl><dt>Actual</dt><dd>&ldquo;registry&rdquo; replaced by the source system seed; one exception added to the project instructions&rsquo; struck-words list: &ldquo;link&rdquo; for the Data Vault object, in this course only</dd><dt>Why</dt><dd>The project instructions&rsquo; struck-words list</dd><dt>Canonical document or standard updated</dt><dd>The course record and acceptance log, entry 19</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">17</span></div><p class="rc-title">Landing acts as SQL scripts run with the Snowflake command line</p><dl><dt>Actual</dt><dd>The macro land_act, with the rows moved verbatim and the scripts removed</dd><dt>Why</dt><dd>Ray: operational SQL against the warehouse is a dbt macro</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">18</span></div><p class="rc-title">Step 22&rsquo;s landing statements run against LANDING and the developer clone</p><dl><dt>Actual</dt><dd>Run in the workstation&rsquo;s clone only (Ray, answer 1b); LANDING&rsquo;s block ran from a temporary extract file, against the transport rule</dd><dt>Why</dt><dd>Claude&rsquo;s transport error for the second part</dd><dt>Canonical document or standard updated</dt><dd>This document</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">19</span></div><p class="rc-title">Increment 1&rsquo;s twelve unit tests kept unchanged (guide section 6)</p><dl><dt>Actual</dt><dd>Four client_h tests rewritten to mock the hub&rsquo;s second source</dd><dt>Why</dt><dd>The hub gained a source, so its fixtures must give the sales data&rsquo;s staging model too; their setup errors at 01:12 UTC showed it</dd><dt>Canonical document or standard updated</dt><dd>This document; the guide&rsquo;s disposition is superseded here</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">20</span></div><p class="rc-title">Path ST4 tested on the insured satellite</p><dl><dt>Actual</dt><dd>Tested on stg_northfield_policy&rsquo;s change hash; since 2026-10-25 the satellite side is proven by insured_northfield_s&rsquo;s own ST3</dd><dt>Why</dt><dd>The reason for the first move was not recorded</dd><dt>Canonical document or standard updated</dt><dd>Test plan v4, logic area M</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">21</span></div><p class="rc-title">Auditors comparing the counts of their own record source</p><dl><dt>Actual</dt><dd>Each checks that every usable source key exists in its hub, whichever record source the hub kept</dd><dt>Why</dt><dd>A key both sources send in one load is kept under one of them (path PH3), so the count comparison raised false findings at both acts</dd><dt>Canonical document or standard updated</dt><dd>Design D-10 and guide step 31, reworded 2026-10-25</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">22</span></div><p class="rc-title">Guide G-17&rsquo;s build expectations for the landing tables</p><dl><dt>Actual</dt><dd>Dropped from seed_build_expectations</dd><dt>Why</dt><dd>The reason was not recorded</dd><dt>Canonical document or standard updated</dt><dd>This document</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">23</span></div><p class="rc-title">Incremental unit tests dated inside the loaded acts</p><dl><dt>Actual</dt><dd>Dated 2099-01-01</dd><dt>Why</dt><dd>The toolkit&rsquo;s satellite reads the latest load time from the live table, not from the mocked one, so a fixture dated inside the loaded acts is filtered out</dd><dt>Canonical document or standard updated</dt><dd>A note proposed for the layered testing methodology (DIG-574 handover, not enacted)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">24</span></div><p class="rc-title">Unit tests as the test plan v3 named them</p><dl><dt>Actual</dt><dd>23 more, for the client satellites, insured_northfield_s, the four version 1 views and the three staging change hashes; layers 1, 2 and 4 written after the code</dd><dt>Why</dt><dd>Logic left unproven by v3, found by the test plan&rsquo;s compliance check (Ray, answer 1a)</dd><dt>Canonical document or standard updated</dt><dd>Test plan v4, agreed 2026-10-25</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">25</span></div><p class="rc-title">No audit finding after the build</p><dl><dt>Actual</dt><dd>Two findings of the auditors&rsquo; first versions remain in DATA_FINDING with status detected</dd><dt>Why</dt><dd>Ray, answer 1b: they stay, disclosed here; a finder that agrees returns no row, so merge_into never revisits its earlier finding</dd><dt>Canonical document or standard updated</dt><dd>This document</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">26</span></div><p class="rc-title">Landing acts load developer clones only (land_act refused every other database), and increment 2&rsquo;s acts ran in development only (answer 1b)</p><dl><dt>Actual</dt><dd>land_act delivers to LANDING, as the stand-in source system; QA and developer landing receive the data by cloning LANDING. Increment 2&rsquo;s acts were delivered to LANDING on 2026-10-25 and match the development clone row for row</dd><dt>Why</dt><dd>Landing data flows down while code flows up (Ray, 2026-10-25, answer 1y); the old guard had the direction backward</dd><dt>Canonical document or standard updated</dt><dd>Implementation guide, QA, promotion and production, step 4; QA item , section 1.3; land_act&rsquo;s header, commit 0472975</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">27</span></div><p class="rc-title">D-40 as first agreed: ten relationship tests, one per line of the design&rsquo;s ERD, including six from the links&rsquo; hub keys</p><dl><dt>Actual</dt><dd>Four, on the satellites only; the six link tests were written, passed, and removed (commits df44975 and 5d5c59d)</dd><dt>Why</dt><dd>The links&rsquo; six hub keys were already proved by the layer 4 assertion assert_increment_2_link_hub_keys_exist, which the author missed by searching only the YAML files; the test plan rule reuses existing proof (Ray, 2026-10-26, answer 1a)</dd><dt>Canonical document or standard updated</dt><dd>Design D-40 and the test plan&rsquo;s layer 1, amended</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">28</span></div><p class="rc-title">Every vault unit test tagged fusion_only, run only on v2 (64 of 74; v1 ran 10)</p><dl><dt>Actual</dt><dd>51 tagged; the 13 that pass on dbt 1.12.6 untagged, so v1 runs 23 (commit f17b983, pull request #3)</dd><dt>Why</dt><dd>Run on dbt v1 1.12.6 on 2026-10-26, 13 of the 64 passed; the tag was wider than the failure, which is datavault4dbt&rsquo;s hub macro describing a unit test&rsquo;s fixed input (Ray, answer 1b)</dd><dt>Canonical document or standard updated</dt><dd>Implementation guide&rsquo;s tagging sentence; the QA item&rsquo;s scope</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">29</span></div><p class="rc-title">One build behavior on every engine</p><dl><dt>Actual</dt><dd>dbt Cloud&rsquo;s QA build (version 2026.10.14+638bb1a) compiled every hashdiff upper-cased, while the workstation&rsquo;s v1 1.12.6 and v2 compiled them case-sensitive from the same code and package pin; QA lost one case-only version</dd><dt>Why</dt><dd>Found by comparing DV_QA with the development vault, table by table; the cause in dbt Cloud is not known (Ray, 2026-10-26, answer 1y)</dd><dt>Canonical document or standard updated</dt><dd>Design D-41; test plan layer 4; implementation guide step 38</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">30</span></div><p class="rc-title">Release 1 reviewed by Ray as part 1&rsquo;s exam before it reached qa</p><dl><dt>Actual</dt><dd>Pull request #2 merged into qa without the review, 2026-10-26</dd><dt>Why</dt><dd>Expedited for time to market: the consumer could ask at any moment (Ray, answer 1b); release 2 follows the full process, its review being part 1&rsquo;s exam (Ray, 2026-10-27)</dd><dt>Canonical document or standard updated</dt><dd>Lesson 8, note 7; product definition , section 5; acceptance log entry 41</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">31</span></div><p class="rc-title">One identity for QA and production (DBT_DEPLOY)</p><dl><dt>Actual</dt><dd>Split by data product: DV_QA_DEPLOY with DV_QA_ROLE, which holds nothing on DV or LANDING, and DV_DEPLOY with DV_ROLE</dd><dt>Why</dt><dd>A QA job pointed at production by mistake must fail on privileges, not write there (Ray, answers 1b and 2y)</dd><dt>Canonical document or standard updated</dt><dd>Object Naming standard rule 7 (, v1.3); QA item , section 3.2</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">32</span></div><p class="rc-title">Promotion by swapping QA into production</p><dl><dt>Actual</dt><dd>Production built from main by its own job, after squash-merging qa into main and converging qa with main</dd><dt>Why</dt><dd>The minimal route for a first release with an empty production; the swap waits for a later release (Ray, 2026-10-26 and 27)</dd><dt>Canonical document or standard updated</dt><dd>QA item , sections 10 and 11</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h2>5. Known characteristics</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -417,7 +420,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>They may name clients A-1007 and A-1008; the vault cannot tell; the inspector discloses both until an identity increment resolves them</td>
 </tr>
 <tr>
-<td>The hub grows only</td>
+<td class="tid">The hub grows only</td>
 <td>Design D-3, insert-only</td>
 <td>A client absent from a later load stays in the hub; disappearance is not tracked in this increment</td>
 </tr>
@@ -489,7 +492,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>Course record, Pilot knowledge 34</td>
 </tr>
 <tr>
-<td>Part 1, lesson 7</td>
+<td class="tid">Part 1, lesson 7</td>
 <td>The source system seed as built, including the live rename and the side-by-side of the Data Vault way and the pragmatic way</td>
 <td>Course record, Pilot knowledge 34</td>
 </tr>
@@ -552,29 +555,29 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Header with references to the design, implementation guide, test plan and QA certification; every template section present; the write time in the Status cell</td>
 <td>Yes: items 270, 272 and 271; QA certification , open; sections 1 to 7; the Status cell carries the write time</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>What shipped: every planned deliverable with repository and warehouse evidence</td>
 <td>Yes for all three increments: every increment 2 deliverable with its commits and its rows in the developer tier</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Verified live output with environment and clock; test outcome reconciling planned, passed, failed and dispositioned</td>
 <td>Yes: increment 2 read back in DEV__DV__CLAUDE_WS on 2026-10-25, every figure regenerated from the vault for this write; test outcome per layer, 129 of 129</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>Deltas from the plan, each with why and the document that absorbed it; known characteristics limited to disclosed behavior; where this feeds; follow-up</td>
 <td>Yes: deltas 1 to 25, two of them stating that the reason was not recorded; characteristics cite their design disclosures; the undisclosed satellite rows on the unknown key are follow-up, not a characteristic</td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>Covers the branch as built</td>
 <td>Yes, at commit 94639b4</td>
 </tr>
 </tbody>
-</table></div></article><section class="cta bleed"><h2>Next: QA certification</h2><p>The QA cycle: preparation, the build, the tests, the comparisons, and the verdict on six gates.</p><a class="btn" href="qa-certification.html">Read the qa certification</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+</table></div></article><section class="cta bleed"><h2 class="qa-changed">Next: QA certification: v2026.10.1, The Agency’s Business</h2><p>The QA cycle: preparation, the build, the tests, the comparisons, and the verdict on six gates.</p><a class="btn" href="qa-certification.html">Read the qa certification: v2026.10.1, the agency’s business</a></section></main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

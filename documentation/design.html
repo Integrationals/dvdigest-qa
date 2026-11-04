@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Design | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
+.doc td.tid{white-space:nowrap}
+h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
 .chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 .owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
@@ -146,7 +149,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<header class="top" id="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Design</p><p class="eyebrow">Documentation · release 1</p><h1>Design</h1><p>Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-71.</p></div></header>
 <main><article class="doc"><h1>Branch Design: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Design Document</h3>
@@ -194,13 +197,11 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <p>Increment 2 builds the first two-source raw vault. Sunbelt Senior&rsquo;s policy sales data and Northfield Life&rsquo;s policy data land beside Sunbelt Senior&rsquo;s client list, and the vault records each source&rsquo;s roles at its own grain, the policies, each role&rsquo;s relationship to a policy, and the agents who sold and wrote the policies, with descriptive history. The two sources meet at the policy, matched on the carrier&rsquo;s number, while one person stays under two unrelated numbers, one per source: A-1007 at Sunbelt Senior and NLI-55007 at Northfield Life.</p>
 <h2>2. Consumer questions</h2>
 <h3>2.1 Questions from consumers</h3>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">Q-1</span><span class="rc-state">Answered: probe Q-1 on 2026-10-25 returns 35 client keys under SSI, A-1031, A-1032, A1007, A-01008 and A-1033 at act 2</span></div><p class="rc-title">Which clients has Sunbelt Senior sent, and when did each first arrive?</p><dl><dt>Asked by</dt><dd>Ray Serrano</dd><dt>Asked at</dt><dd>2026-10-22</dd><dt>Origin</dt><dd>Course increment 1</dd><dt>Answer</dt><dd>The client hub answers it: one row per client key with its first load timestamp and record source</dd><dt>Decision(s)</dt><dd>D-3, D-5</dd><dt>Test probe</dt><dd>Probe Q-1</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-2</span><span class="rc-state">Answered: probe Q-2 on 2026-10-25 returns the two findings, A1007 and A-01008</span></div><p class="rc-title">Which client numbers might name the same client?</p><dl><dt>Asked by</dt><dd>Ray Serrano</dd><dt>Asked at</dt><dd>2026-10-22</dd><dt>Origin</dt><dd>Course increment 1</dd><dt>Answer</dt><dd>The hub cannot answer it; the client-number form inspector lists the candidates, one finding each (A1007, A-01008)</dd><dt>Decision(s)</dt><dd>D-9</dd><dt>Test probe</dt><dd>Probe Q-2</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-3</span><span class="rc-state">Answered: on 2026-10-25 the client list&rsquo;s 43 rows give 34 keys and the current auditor writes no finding; the two findings of its first version stay disclosed</span></div><p class="rc-title">How many source rows became how many client keys, and why do the counts differ?</p><dl><dt>Asked by</dt><dd>Ray Serrano</dd><dt>Asked at</dt><dd>2026-10-22</dd><dt>Origin</dt><dd>Course increment 1</dd><dt>Answer</dt><dd>43 rows become 34 keys plus two ghost records; the reconciliation accounts for every row</dd><dt>Decision(s)</dt><dd>D-10</dd><dt>Test probe</dt><dd>Probe Q-3</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-4</span><span class="rc-state">Answered: probe Q-4 on 2026-10-25 resolves every hub and link row to a named source system</span></div><p class="rc-title">Where did this row come from, by name, now and when it arrived?</p><dl><dt>Asked by</dt><dd>Ray Serrano</dd><dt>Asked at</dt><dd>2026-10-23</dd><dt>Origin</dt><dd>Increment 1.1</dd><dt>Answer</dt><dd>Join the row&rsquo;s record source code to the source system seed for the current name; the seed&rsquo;s git history gives any earlier name</dd><dt>Decision(s)</dt><dd>D-15, D-21</dd><dt>Test probe</dt><dd>Probe Q-4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-5</span><span class="rc-state">Answered: probe Q-5 on 2026-10-25 returns each client&rsquo;s role on each policy, owner, insured and payor, A-1010 holding two roles on NF-100010</span></div><p class="rc-title">Do we know if these are paying customers, beneficiaries, or something else?</p><dl><dt>Asked by</dt><dd>Ray Serrano</dd><dt>Asked at</dt><dd>2026-10-24</dd><dt>Origin</dt><dd>Increment 2</dd><dt>Answer</dt><dd>Sunbelt Senior&rsquo;s source documentation states that its people table is its client list, so each client number identifies a client of Sunbelt Senior. The sales data says, for each policy, what each client is on it: owner, insured, or any other code the source sends. No source in scope sends beneficiaries</dd><dt>Decision(s)</dt><dd>D-32, D-33</dd><dt>Test probe</dt><dd>Probe Q-5</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-7</span><span class="rc-state">Later: recorded before any branch serves Mary; a release answers each once it ships</span></div><p class="rc-title">How many distinct people are our clients, across every agency we&rsquo;ve acquired?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>Needs the integration layer: matching the person behind role keys and across agencies (DD-5)</dd><dt>Decision(s)</dt><dd>None yet</dd><dt>Test probe</dt><dd>None yet: a probe is written by the branch that answers it</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-8</span><span class="rc-state">Later: recorded before any branch serves Mary; a release answers each once it ships</span></div><p class="rc-title">Which clients came to us through more than one agency?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>Needs a second acquired agency and the integration layer (DD-1, DD-5)</dd><dt>Decision(s)</dt><dd>None yet</dd><dt>Test probe</dt><dd>None yet: a probe is written by the branch that answers it</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-9</span><span class="rc-state">Answered: release 1 serves it; the mart design rebuilds it in CONFORMED_DM</span></div><p class="rc-title">Which policies does each client hold, with which carriers, in which roles (owner, insured, payor)?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>The client-policy-role fact, grouped by client, carrier, policy and role</dd><dt>Decision(s)</dt><dd>mart design D-1, D-3</dd><dt>Test probe</dt><dd>P-9, test plan 2.3.4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-10</span><span class="rc-state">Answered: release 1 serves it for Northfield Life, the one carrier that sends amounts; the mart design rebuilds it</span></div><p class="rc-title">How much coverage does each carrier provide through us?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>The current face amount of the policy-terms fact by carrier; only Northfield Life sends amounts today</dd><dt>Decision(s)</dt><dd>mart design D-1, D-4</dd><dt>Test probe</dt><dd>P-10, test plan 2.3.4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-11</span><span class="rc-state">Answered: release 1 serves it; the mart design rebuilds it</span></div><p class="rc-title">Which agent sold each policy, and where do our sources disagree about it?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>The agent-policy fact: the agents named per policy; a policy with two or more agents named is where the sources disagree</dd><dt>Decision(s)</dt><dd>mart design D-1, D-8</dd><dt>Test probe</dt><dd>P-11, test plan 2.3.4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-12</span><span class="rc-state">Later: deferred by the mart design until OQ-1 is answered</span></div><p class="rc-title">Which independent agents sell through us without an agency?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>Needs the rule for what makes an agent independent (mart design OQ-1)</dd><dt>Decision(s)</dt><dd>mart design DD-1</dd><dt>Test probe</dt><dd>None yet</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-13</span><span class="rc-state">Later: served by this release&rsquo;s conformed mart</span></div><p class="rc-title">Where did this client&rsquo;s record come from, and when did we first know it?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>The client-policy-role fact&rsquo;s metrics grouped by the client&rsquo;s source and first-known date</dd><dt>Decision(s)</dt><dd>mart design D-1, D-12</dd><dt>Test probe</dt><dd>P-13, test plan 2.3.4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-14</span><span class="rc-state">Later: served by this release&rsquo;s conformed mart</span></div><p class="rc-title">What did we know about this policy on a given date, and what changed since?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>The policy-terms fact grouped by policy and by each version&rsquo;s valid-from and valid-to days</dd><dt>Decision(s)</dt><dd>mart design D-1, D-4</dd><dt>Test probe</dt><dd>P-14, test plan 2.3.4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-15</span><span class="rc-state">Answered: release 1 serves it</span></div><p class="rc-title">How many records arrive in a form we don&rsquo;t accept, from which source?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>Release 1 answers it with records_not_accepted, the form findings (D-47); the mart design rebuilds it in CONFORMED_DM</dd><dt>Decision(s)</dt><dd>D-47; mart design D-1, D-5</dd><dt>Test probe</dt><dd>P-15, test plan 2.3.4</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Q-16</span><span class="rc-state">Later: recorded before any branch serves Mary; a release answers each once it ships</span></div><p class="rc-title">When we acquire the next agency, how much of its book already overlaps ours?</p><dl><dt>Asked by</dt><dd>Mary Mink (predicted by Ray and Claude)</dd><dt>Asked at</dt><dd>2026-10-25</dd><dt>Origin</dt><dd>DIG-574; the Data Consumption Design standard&rsquo;s elicitation principle: a prediction of her initial questions, ratified as such (Ray, answer 4a)</dd><dt>Answer</dt><dd>Needs a second acquired agency and the integration layer (DD-1, DD-5)</dd><dt>Decision(s)</dt><dd>None yet</dd><dt>Test probe</dt><dd>None yet: a probe is written by the branch that answers it</dd></dl></div></div></div>
-<h3 class="qa-changed">2.1.1 The team&rsquo;s own aims</h3>
-<p class="qa-changed">Aims the team set itself, kept apart from the consumers&rsquo; questions above; in the asker&rsquo;s words, as section 2.1 records them (Ray, 2026-11-04, answer 2c; review finding CR-30).</p>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">Q-6</span><span class="rc-state">Partially answered: lessons and diagram follow the build</span></div><p class="rc-title">we need to be ready for when Mary calls.</p><dl><dt>Asked by</dt><dd>Ray Serrano</dd><dt>Asked at</dt><dd>2026-10-23</dd><dt>Origin</dt><dd>DIG-574</dd><dt>Answer</dt><dd>Partially: this increment builds the two-source raw vault the conversation rests on, where the sources meet at the policy and one person stays under two unrelated numbers; the lessons and the milestone diagram that complete the readiness are course work after the build</dd><dt>Decision(s)</dt><dd>D-26, D-32, D-33, D-34</dd><dt>Test probe</dt><dd>Probe Q-6</dd></dl></div></div></div>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">none</span><span class="rc-state"></span></div><p class="rc-title">No question to a consumer is open</p><dl></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
+<h3 class="qa-changed">2.2 Questions to consumers</h3>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h3>2.3 Questions to source owners</h3>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">none</span><span class="rc-state"></span></div><p class="rc-title">Not applicable: the source is synthetic and has no owner</p><dl></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h2>3. Concept</h2>
 <p>A Data Vault requires every row to carry its record source and load date, so values can be traced back to the source (Wikipedia, Data vault modeling, <a href="https://en.wikipedia.org/wiki/Data_vault_modeling" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Data_vault_modeling</a>). Linstedt and Olschimke define hard business rules as never changing the meaning of incoming data, only the way it is stored, and list the consolidation of data from multiple sources among the soft business rules (Building a Scalable Data Warehouse with Data Vault 2.0, section 2.2, read from Ray&rsquo;s copy on 2026-10-22). So the vault does not consolidate data from different sources; sources meet in one place only: a hub holds one row per business key, shared by every source that carries it (Snowflake, Data Vault techniques: hub tables are always multi-source and unique by business object, <a href="https://snowflake.com/blog/data-vault-techinques-hub-locking" target="_blank" rel="noopener">https://snowflake.com/blog/data-vault-techinques-hub-locking</a>). Staging applies only hard business rules, such as type casting, formatting and null handling; rules that change data according to business requirements are soft business rules, applied in the business vault (VaultSpeed, Data Vault 2.0 concepts, <a href="https://docs.vaultspeed.com/space/VPD/3011870744.md" target="_blank" rel="noopener">https://docs.vaultspeed.com/space/VPD/3011870744.md</a>; GFT, Data Vault 2.0, <a href="https://www.gft.com/pl/en/blog/data-vault-2-0-jako-nowa-metodyka-projektowania-i-implementowania-hurtowni-danych" target="_blank" rel="noopener">https://www.gft.com/pl/en/blog/data-vault-2-0-jako-nowa-metodyka-projektowania-i-implementowania-hurtowni-danych</a>). All read 2026-10-23. Increment 1 builds the vault&rsquo;s first two pieces; increment 2 adds the policy, a second role, and the relationships and descriptions.</p>
 <p><strong>Staging</strong> takes one landed source table and prepares it without changing its meaning. It enforces types (the load timestamp arrives as text and becomes a timestamp), fixes the record source, and computes the hash key. These are hard rules: they change how a value is stored, never what it means.</p>
@@ -220,97 +221,97 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>P-1</td>
+<td class="tid">P-1</td>
 <td>43 rows over two loads plant eight behavioral paths; expected 34 client keys plus two ghost records</td>
 <td>The hub&rsquo;s row count after the build is a check (36 rows)</td>
 </tr>
 <tr>
-<td>P-2</td>
+<td class="tid">P-2</td>
 <td>Case and surrounding-space variants hash to the same key; internal-form variants do not</td>
 <td>Trust the toolkit&rsquo;s TRIM and UPPER; do not add normalization of internal form</td>
 </tr>
 <tr>
-<td>P-3</td>
+<td class="tid">P-3</td>
 <td>A1007 and A-01008 may name existing clients; SOLUTION NEEDED, open by design</td>
 <td>Disclose with an inspector (D-9); do not merge</td>
 </tr>
 <tr>
-<td>P-4</td>
+<td class="tid">P-4</td>
 <td>Empty and whitespace-only client numbers would hash as a value; RESOLVED by design decision D-4</td>
 <td>Staging hard rule turns them into NULL (D-4); the P7 characterization test runs first</td>
 </tr>
 <tr>
-<td>P-5</td>
+<td class="tid">P-5</td>
 <td>A NULL client number takes the all-zeros key</td>
 <td>The unknown ghost record absorbs it; no extra hub row; no satellite stores the row (D-44), and an inspector raises it as a finding (D-45)</td>
 </tr>
 <tr>
-<td>P-6</td>
+<td class="tid">P-6</td>
 <td>A changed CRM row ID does not change identity</td>
 <td>The hub ignores the technical key; CRM_ROW_ID is rejected</td>
 </tr>
 <tr>
-<td>P-7</td>
+<td class="tid">P-7</td>
 <td>Every LOADED_AT value parses</td>
 <td>The cast in staging needs no error path for this data</td>
 </tr>
 <tr>
-<td>P-8</td>
+<td class="tid">P-8</td>
 <td>The planted rename: code SSI keeps its code while name, description and owner change between two commits of the seed</td>
 <td>The seed&rsquo;s git history holds both versions; no vault row changes</td>
 </tr>
 <tr>
-<td>P-9</td>
+<td class="tid">P-9</td>
 <td>The ghost records carry record sources SYSTEM and ERROR; RESOLVED by design decision D-17: add them to the seed</td>
 <td>The seed has three codes; every vault record source resolves</td>
 </tr>
 <tr>
-<td>P-10</td>
+<td class="tid">P-10</td>
 <td>Client-file rows&rsquo; record source becomes the code SSI</td>
 <td>The development client hub is rebuilt by scoped full refresh (D-20)</td>
 </tr>
 <tr>
-<td>P-11</td>
+<td class="tid">P-11</td>
 <td>The two new source tables plant 33 paths, one row set each</td>
 <td>Each path has its own test (section 8)</td>
 </tr>
 <tr>
-<td>P-12</td>
+<td class="tid">P-12</td>
 <td>Eight policy paths, by source and load and by key form; a key missing one part hashes a placeholder in that part</td>
 <td>One policy hub keyed by carrier and policy number (D-26); an inspector for the nonconforming form (D-30)</td>
 </tr>
 <tr>
-<td>P-13</td>
+<td class="tid">P-13</td>
 <td>Sunbelt Senior&rsquo;s client list keeps one row per client; Northfield Life&rsquo;s number identifies an insured</td>
 <td>Two role hubs at their sources&rsquo; grains (D-32)</td>
 </tr>
 <tr>
-<td>P-14</td>
+<td class="tid">P-14</td>
 <td>The sales data relates a client to a policy in a role and can repeat the pair; the carrier data relates one insured to each policy</td>
 <td>Two links at their sources&rsquo; grains (D-33)</td>
 </tr>
 <tr>
-<td>P-15</td>
+<td class="tid">P-15</td>
 <td>Each source describes its own objects in its own shape; changes arrive as new rows</td>
 <td>One satellite per source on its own parent (D-34)</td>
 </tr>
 <tr>
-<td>P-16</td>
+<td class="tid">P-16</td>
 <td>14 sales rows and 12 carrier rows across the two acts</td>
 <td>Two landing tables loaded in the same two acts (D-22)</td>
 </tr>
 <tr>
-<td>P-17</td>
+<td class="tid">P-17</td>
 <td>What the client table holds, and how a missing number behaves, are resolved</td>
 <td>D-32</td>
 </tr>
 <tr>
-<td>P-18</td>
+<td class="tid">P-18</td>
 <td>The agent&rsquo;s number in the carrier data, WRITING_AGENT_NPN, is a business key, and the sales data carries the same national producer number</td>
 <td>An agent hub (D-35) and a link from the agent to the policy (D-36)</td>
 </tr>
 <tr>
-<td>P-19</td>
+<td class="tid">P-19</td>
 <td>Seven agent paths: one agent from both sources, from one source only, on several policies, with an empty number, the sources disagreeing about a policy&rsquo;s agent, and a resend</td>
 <td>D-35, D-36</td>
 </tr>
@@ -329,421 +330,421 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>D-1</td>
+<td class="tid">D-1</td>
 <td>The LANDING database holds landed sources (one schema per source system: SUNBELT, and NORTHFIELD from increment 2), STORAGE and CONFIG</td>
 <td>One database gives findings and baselines a home beside the landed sources</td>
 <td>infra/snowflake/landing.sql</td>
 </tr>
 <tr>
-<td>D-2</td>
+<td class="tid">D-2</td>
 <td>The classic Data Vault is built into one vault database per tier, each reading its own landing database: DV with LANDING in production, DV_QA with LANDING_QA in QA, and DEV__DV__<user> with DEV__LANDING__<user> for each developer. Each landing database&rsquo;s STORAGE schema is reserved for Pragmatic Data Platform history in later increments</td>
 <td>Building both approaches from the same landed data makes the comparison controlled; a developer&rsquo;s tier has production&rsquo;s shape, so a privilege fault shows in development first</td>
 <td>infra/snowflake/environment_tiers.sql</td>
 </tr>
 <tr>
-<td>D-3</td>
+<td class="tid">D-3</td>
 <td>The hub is named client and keyed by the client number alone; no UDM role taxonomy is applied (D-32 names client_h a role hub at its source&rsquo;s grain)</td>
 <td>Plain Data Vault first; the UDM taxonomy and the issuer-qualified key wait for later increments</td>
 <td>Candidate pattern, course record item 268</td>
 </tr>
 <tr>
-<td>D-4</td>
+<td class="tid">D-4</td>
 <td>Staging turns empty and whitespace-only client numbers into NULL before hashing</td>
 <td>Without the rule, a blank number becomes a real hub row with an empty business key</td>
 <td>Profile P-4</td>
 </tr>
 <tr>
-<td>D-5</td>
+<td class="tid">D-5</td>
 <td>LOADED_AT is cast to a timestamp without time zone that means UTC; the project sets datavault4dbt.timestamp_default_dtype to TIMESTAMP_NTZ</td>
 <td>A time-zone-aware type takes the session&rsquo;s zone for zone-less values, so results differ by user</td>
 <td>Commit 1ace099; datavault4dbt code read 2026-10-22</td>
 </tr>
 <tr>
-<td>D-6</td>
+<td class="tid">D-6</td>
 <td>Superseded by D-15</td>
 <td>See D-15</td>
 <td>See D-15</td>
 </tr>
 <tr>
-<td>D-7</td>
+<td class="tid">D-7</td>
 <td>Ghost records stay enabled, with the toolkit&rsquo;s defaults</td>
 <td>The unknown record absorbs NULL keys (P-5)</td>
 <td>datavault4dbt documentation, staging page</td>
 </tr>
 <tr>
-<td>D-8</td>
+<td class="tid">D-8</td>
 <td>Hashing keeps the toolkit&rsquo;s defaults: MD5, business keys uppercased, change hashes case-sensitive</td>
 <td>The defaults produce P-2&rsquo;s unification; changing them would mean rehashing later</td>
 <td>datavault4dbt dbt/dbt_project.yml read 2026-10-22</td>
 </tr>
 <tr>
-<td>D-9</td>
+<td class="tid">D-9</td>
 <td>An inspector, inspector_sunbelt_client_number_form, writes one finding to LANDING.CONFIG.DATA_FINDING for each distinct client number whose trimmed, uppercased form does not match the designed form (letter A, hyphen, four digits)</td>
 <td>Discloses P-3 without hiding or correcting the rows; one finding per value, because the findings table has no count column</td>
 <td>Testing methodology, layer 5; infra/snowflake/landing.sql; layer 5 is named inspector in this project</td>
 </tr>
 <tr>
-<td>D-10</td>
+<td class="tid">D-10</td>
 <td>An auditor, auditor_sunbelt_client_hub, compares the source with the hub: every distinct usable client key staged from the client list must exist in client_h, and rows with no usable number fall to the unknown ghost record. It writes one summary finding, carrying the counts, only when a key is missing. From increment 2 the hub also reads the sales data (D-32), so a count comparison would report keys the client list never sent</td>
 <td>Makes the gap between 43 rows and 34 keys explicit, by comparing one system against another as an auditor does</td>
 <td>Testing methodology, layer 6; layer 6 is named auditor in this project</td>
 </tr>
 <tr>
-<td>D-11</td>
+<td class="tid">D-11</td>
 <td>Data lands in two acts, load 1 then load 2, with a build after each</td>
 <td>The second build exercises the hub&rsquo;s incremental path (insert only new keys)</td>
 <td>Profile P-1 paths P2 and P3</td>
 </tr>
 <tr>
-<td>D-12</td>
+<td class="tid">D-12</td>
 <td>Four generic macros serve the vault: landing_storage, merge_into, capture_baseline, verify_build; LANDING is created by a committed script</td>
 <td>Findings and baselines need the same machinery the standards assume</td>
 <td>The four macros in dbt/macros</td>
 </tr>
 <tr>
-<td>D-13</td>
+<td class="tid">D-13</td>
 <td>Course increments promote through qa to production with certification</td>
 <td>The vault serves a consumer, Mary, through a semantic layer and an agent, and only a release can answer her questions</td>
 <td>QA item ; infra/snowflake/environment_tiers.sql</td>
 </tr>
 <tr>
-<td>D-14</td>
+<td class="tid">D-14</td>
 <td>The datavault4dbt stage and hub are new patterns for this project, recorded as items under the course record</td>
 <td>No pattern record covers them yet</td>
 <td>None beyond the rationale</td>
 </tr>
 <tr>
-<td>D-15</td>
+<td class="tid">D-15</td>
 <td>Record source codes are short mnemonic system codes, never changed (SSI for Sunbelt Senior Insurance&rsquo;s client file); every vault row carries the code, and the staging view stamps it as its static record source</td>
 <td>A code that never changes keeps kept rows correct forever; the name lives in the source system seed</td>
 <td>D-21</td>
 </tr>
 <tr>
-<td>D-16</td>
+<td class="tid">D-16</td>
 <td>Superseded by D-21</td>
 <td>See D-21</td>
 <td>See D-21</td>
 </tr>
 <tr>
-<td>D-17</td>
+<td class="tid">D-17</td>
 <td>SYSTEM and ERROR, the record sources of the toolkit&rsquo;s ghost records, are codes in the source system seed describing the vault itself, with the vault&rsquo;s team as owner</td>
 <td>Every record source in the vault then resolves in one join, with no special case in any consumer</td>
 <td>Profile P-9</td>
 </tr>
 <tr>
-<td>D-18</td>
+<td class="tid">D-18</td>
 <td>Superseded by D-21</td>
 <td>See D-21</td>
 <td>See D-21</td>
 </tr>
 <tr>
-<td>D-19</td>
+<td class="tid">D-19</td>
 <td>Superseded by D-21</td>
 <td>See D-21</td>
 <td>See D-21</td>
 </tr>
 <tr>
-<td>D-20</td>
+<td class="tid">D-20</td>
 <td>Development rebuilds use dbt&rsquo;s scoped full refresh (full refresh of a model and everything downstream of it) through a documented script; never hand-written schema drops; never in QA or production</td>
 <td>Rebuilding is legitimate only where data can be replayed; the scope stays as small as the change</td>
 <td>setup/scripts/dev_scoped_rebuild.sh</td>
 </tr>
 <tr>
-<td>D-21</td>
+<td class="tid">D-21</td>
 <td>The source system seed: seed_source_system.csv (schema REFERENCE), columns SOURCE_SYSTEM_CODE, SOURCE_NAME, DESCRIPTION, OWNER; vault rows carry the code and join to the seed for the name; the seed&rsquo;s history is its git history</td>
 <td>The simplest object that keeps every guarantee: the permanent code, a rename in one place, every change reviewed and kept. First instance of the pragmatic principle: build an object only when it buys a guarantee nothing simpler gives</td>
 <td>None beyond the rationale</td>
 </tr>
 <tr>
-<td>D-22</td>
+<td class="tid">D-22</td>
 <td>Two landing tables, LANDING.SUNBELT.POLICY_SALE and LANDING.NORTHFIELD.POLICY, loaded by the land_act macro in the same two acts</td>
 <td>Same landing contract as the client list</td>
 <td>D-1, D-11; profile 2.1.3, 2.1.4 and P-16</td>
 </tr>
 <tr>
-<td>D-23</td>
+<td class="tid">D-23</td>
 <td>The source system seed gains one row, NFL (Northfield Life&rsquo;s policy data); both of Sunbelt Senior&rsquo;s tables carry SSI</td>
 <td>One code per source system</td>
 <td>D-21; profile 2.1.3 and 2.1.4</td>
 </tr>
 <tr>
-<td>D-24</td>
+<td class="tid">D-24</td>
 <td>Two staging models, stg_sunbelt_policy_sale and stg_northfield_policy, apply only hard rules: type casts, and empty or whitespace-only numbers (client, insured, policy, carrier code, agent) turned into NULL, as D-4 does; hash keys use the toolkit&rsquo;s defaults</td>
 <td>Hard rules are technical changes such as type casting, formatting and null handling (VaultSpeed, Data Vault 2.0 concepts, <a href="https://docs.vaultspeed.com/space/VPD/3011870744.md" target="_blank" rel="noopener">https://docs.vaultspeed.com/space/VPD/3011870744.md</a>)</td>
 <td>D-4, D-8, D-14; profile P-12 and P-13</td>
 </tr>
 <tr>
-<td>D-25</td>
+<td class="tid">D-25</td>
 <td>Superseded by D-32</td>
 <td>See D-32</td>
 <td>See D-32</td>
 </tr>
 <tr>
-<td>D-26</td>
+<td class="tid">D-26</td>
 <td>The policy hub, policy_h, is keyed by the issuing carrier&rsquo;s code and the policy number together; Northfield Life&rsquo;s staging supplies NFL as the carrier code. A key missing one part hashes a placeholder in that part; only a key missing every part takes the all-zeros key</td>
 <td>A policy number is unique only within its carrier&rsquo;s namespace; a practitioner source confirms a collision code is used where keys from different sources could clash (<a href="https://blog.devgenius.io/data-vault-agility-on-snowflake-747a04485499" target="_blank" rel="noopener">https://blog.devgenius.io/data-vault-agility-on-snowflake-747a04485499</a>)</td>
 <td>datavault4dbt hash and hash_standardization macros, read at the fork&rsquo;s pinned commit; profile P-12</td>
 </tr>
 <tr>
-<td>D-27</td>
+<td class="tid">D-27</td>
 <td>Superseded by D-33</td>
 <td>See D-33</td>
 <td>See D-33</td>
 </tr>
 <tr>
-<td>D-28</td>
+<td class="tid">D-28</td>
 <td>Superseded by D-34</td>
 <td>See D-34</td>
 <td>See D-34</td>
 </tr>
 <tr>
-<td>D-29</td>
+<td class="tid">D-29</td>
 <td>No column is merged across sources and no person is matched across hubs in this increment</td>
 <td>Changes of meaning are soft rules, applied in the business vault (VaultSpeed, as D-24)</td>
 <td>The course&rsquo;s milestone: the raw vault keeps the two sides apart</td>
 </tr>
 <tr>
-<td>D-30</td>
+<td class="tid">D-30</td>
 <td>An inspector, inspector_sunbelt_policy_number_form, reports policy numbers not in the carrier&rsquo;s usual form (NF-, a hyphen, six digits), one finding per value</td>
 <td>Same pattern as the client number inspector</td>
 <td>D-9; profile P-12, path PH6</td>
 </tr>
 <tr>
-<td>D-31</td>
+<td class="tid">D-31</td>
 <td>The client relationship to Sunbelt Senior is not built as a separate object: it is the grain of client_h, one row per Sunbelt Senior client</td>
 <td>No source sends the relationship apart from the client row; a relationship between two party roles belongs in an integration layer</td>
 <td>Profile P-13 and P-17</td>
 </tr>
 <tr>
-<td>D-32</td>
+<td class="tid">D-32</td>
 <td>Two role hubs at their sources&rsquo; grains: client_h, keyed by Sunbelt Senior&rsquo;s client number and read from the client list and the sales data; insured_h, keyed by Northfield Life&rsquo;s insured number. A missing number takes the unknown ghost record</td>
 <td>Each number identifies one instance of a role in one source; the person behind the roles, and any matching between them, is built after the raw vault</td>
 <td>Profile P-13 and P-17</td>
 </tr>
 <tr>
-<td>D-33</td>
+<td class="tid">D-33</td>
 <td>Two links at their sources&rsquo; grains: client_policy_l (client and policy, with the role as a dependent child key: owner, insured, and any code the source adds, such as payor) from the sales data; insured_policy_l (insured and policy, no role key) from the carrier data</td>
 <td>A link records a relationship at the grain its source sends it; a dependent child key is needed only where one source row can repeat the same pair; a new role code adds rows, never structure</td>
 <td>Red Gate, Data Vault modeling basics (<a href="https://www.red-gate.com/blog/data-vault-series-data-vault-2-0-modeling-basics/" target="_blank" rel="noopener">https://www.red-gate.com/blog/data-vault-series-data-vault-2-0-modeling-basics/</a>); datavault4dbt dependent child keys page; profile P-14</td>
 </tr>
 <tr>
-<td>D-34</td>
+<td class="tid">D-34</td>
 <td>Satellites, one per source on its own parent, named by the course&rsquo;s raw vault naming rule: client_sunbelt_s (first name, last name, state); insured_northfield_s (name, birth date, address); policy_northfield_s (face amount, status, effective date); client_policy_sunbelt_s (sale date, agent, plan). Each is a version 0 satellite with a version 1 view</td>
 <td>Satellites can sit one per source system; change hashes are case-sensitive (D-8), so a change in letter case alone is a new version</td>
 <td>Navicat (<a href="https://www.navicat.com/company/aboutus/blog/3970-designing-better-databases-with-data-vault-2-0-and-navicat-data-modeler-4" target="_blank" rel="noopener">https://www.navicat.com/company/aboutus/blog/3970-designing-better-databases-with-data-vault-2-0-and-navicat-data-modeler-4</a>); datavault4dbt standard satellite pages; profile P-15</td>
 </tr>
 <tr>
-<td>D-35</td>
+<td class="tid">D-35</td>
 <td>An agent hub, agent_h, keyed by the national producer number and fed by both sources: AGENT_NPN from the sales data and WRITING_AGENT_NPN from the carrier data. An empty number takes the unknown ghost record. The agent&rsquo;s name stays a description of the sale</td>
 <td>A business key belongs in a hub; the number is assigned through the National Insurance Producer Registry and is the same in every source, so the hub matches an agent across sources</td>
 <td>National Insurance Producer Registry, NPN lookup (<a href="https://pdb.nipr.com/html/NPNsearch.htm" target="_blank" rel="noopener">https://pdb.nipr.com/html/NPNsearch.htm</a>); profile P-18 and P-19</td>
 </tr>
 <tr>
-<td>D-36</td>
+<td class="tid">D-36</td>
 <td>One link, agent_policy_l, from the agent to the policy, fed by both sources, with no dependent child key; when the sources name different agents for one policy, both rows are kept</td>
 <td>Both sources send the same relationship at the same grain, one agent per policy row, between the same two hubs, so one link holds both; deciding which agent is right changes meaning and belongs after the raw vault (D-29)</td>
 <td>Red Gate, Data Vault modeling basics (<a href="https://www.red-gate.com/blog/data-vault-series-data-vault-2-0-modeling-basics/" target="_blank" rel="noopener">https://www.red-gate.com/blog/data-vault-series-data-vault-2-0-modeling-basics/</a>); profile P-19, paths AG1 and LA2</td>
 </tr>
 <tr>
-<td>D-37</td>
+<td class="tid">D-37</td>
 <td>LANDING gains the schema PINECREST and the table PINECREST.POLICY, created by the teacher as the stand-in source for Ray&rsquo;s Lab 1-2, since populating landing is outside the vault: POLICY_NUMBER, PLAN_NAME, FACE_AMOUNT, STATUS, EFFECTIVE_DATE, WRITING_AGENT_NPN and LOADED_AT, every column text, as Pinecrest Mutual sends it</td>
 <td>Landing keeps a source&rsquo;s columns as sent; turning the amount and the dates from text into numbers and dates is staging&rsquo;s hard rule, Lab 1-3&rsquo;s subject</td>
 <td>D-1, D-11; profile 2.1.5 and P-20</td>
 </tr>
 <tr>
-<td>D-38</td>
+<td class="tid">D-38</td>
 <td>land_act gains a fourth table, pinecrest_policy, carrying the twelve rows of profile P-20 in the same two acts, delivered to LANDING; QA and developer landing receive them only by cloning LANDING</td>
 <td>The same landing contract as D-22, under the rule that landing data flows down from production</td>
 <td>Course record, &ldquo;Landing data flows down&rdquo;; land_act, commit 0472975; profile P-20, path PM1</td>
 </tr>
 <tr>
-<td>D-39</td>
+<td class="tid">D-39</td>
 <td>dbt declares LANDING.PINECREST.POLICY as a source, through landing_storage(), with LOADED_AT not null and the grain (LOADED_AT, POLICY_NUMBER) unique, both at severity warn</td>
 <td>Every landed source carries layer 1 and layer 2 proofs, as the other three tables do</td>
 <td>Section 8, layers 1 and 2; profile 2.1.5, grain</td>
 </tr>
 <tr>
-<td>D-40</td>
+<td class="tid">D-40</td>
 <td>Each satellite&rsquo;s hash key to its parent hub or link carries a dbt relationships test, severity warn: four tests, on client_sunbelt_s, client_policy_sunbelt_s, insured_northfield_s and policy_northfield_s. The links&rsquo; hub keys keep their existing proof, the layer 4 assertion assert_increment_2_link_hub_keys_exist, which checks all six link-to-hub pairs</td>
 <td>Section 0 draws these relationships solid, and the delivery standard draws a line solid only where the build tests it; the satellites&rsquo; lines had no check, while the links&rsquo; already had one, and the test plan rule reuses existing proof</td>
 <td>Section 0; read on 2026-10-26, 0 link or satellite rows without their parent across the three links&rsquo; 45 rows and the four satellites</td>
 </tr>
 <tr>
-<td>D-41</td>
+<td class="tid">D-41</td>
 <td>Hashdiffs are case-sensitive: a change only in letter case is a change, and the satellite keeps it as a new version. dbt_project.yml sets datavault4dbt.hashdiff_input_case_sensitive to true in the root project, and the layer 4 assertion assert_hashdiff_keeps_case_only_change, at severity error, fails when two staged versions of one insured differ only in case yet share a hashdiff</td>
 <td>The package sets the variable itself, and the workstation&rsquo;s dbt v1 1.12.6 and v2 both read it case-sensitive; dbt Cloud&rsquo;s QA build of 2026-10-26 (version 2026.10.14+638bb1a) compiled every hashdiff upper-cased and lost Martin Lowe&rsquo;s &ldquo;12 ELM ST&rdquo; version. The cause in dbt Cloud is not known; the root setting removes the dependence on how an engine reads a package&rsquo;s variables, and the assertion proves the behavior on any engine</td>
 <td>QA item ; DV_QA against the development vault, 2026-10-26: insured_northfield_s 10 rows against 11, hub and link keys identical</td>
 </tr>
 <tr>
-<td>D-42</td>
+<td class="tid">D-42</td>
 <td>Every link&rsquo;s hub keys carry a dbt relationships test to their hub, and every satellite&rsquo;s primary key, its parent hash key with its load time, carries a unique-combination test and a not-null test on each of the two columns, all at severity warn: six relationships tests on the three links and twelve tests on the four satellites</td>
 <td>The Code Review Standard requires a relationships test on every foreign key, in layer 1; the links had only the layer 4 assertion, and no satellite&rsquo;s key was tested for uniqueness</td>
 <td>Code Review Standard, layer 1; the first run of uq_client_sunbelt_s_pk failed on the zero key, which held three client rows without a client number as one false client</td>
 </tr>
 <tr>
-<td>D-43</td>
+<td class="tid">D-43</td>
 <td>The vault declares its keys from those layer 1 tests: the macro declare_vault_keys, run as the project&rsquo;s on-run-end hook, turns each unique test into its table&rsquo;s primary key and each relationships test into a foreign key, 12 primary keys (11 in the raw vault, 1 in reference) and 10 foreign keys. Snowflake keeps them as information and never enforces them, and a key already present is left alone</td>
 <td>The keys reach the DDL a modeling tool imports, since Snowflake&rsquo;s GET_DDL reports them; one definition serves the tests and the keys, so the two cannot disagree; an informational key never fails a load</td>
 <td>The development vault, read on 2026-10-28: 22 constraints in its information schema; GET_DDL of client_policy_l shows its primary key and both foreign keys</td>
 </tr>
 <tr>
-<td>D-44</td>
+<td class="tid">D-44</td>
 <td>A satellite stores only source rows whose key is known: client_sunbelt_s, insured_northfield_s and policy_northfield_s read the staging views stg_sunbelt_client_known_client, stg_northfield_policy_known_insured and stg_northfield_policy_known_policy, which keep the rows whose business key is not NULL. Links to the unknown keys stay</td>
 <td>A row without its business key describes no one: on the zero key every such row becomes a version of one false entity. A link row records a real sale or policy whose other parts are known, so it stays</td>
 <td>Code Review Standard, no silent record loss; the development vault, read on 2026-10-28: no zero-key source row in any satellite</td>
 </tr>
 <tr>
-<td>D-45</td>
+<td class="tid">D-45</td>
 <td>Each source row without a business key is a finding: the inspectors inspector_sunbelt_client_key_missing, inspector_sunbelt_policy_sale_key_missing and inspector_northfield_policy_key_missing each read its landing table, the persistent staging that keeps every row as sent, and treat a key as missing when staging&rsquo;s rule NULLIF(TRIM(key), &lsquo;&rsquo;) makes it NULL; each writes one finding per row and missing key to LANDING.CONFIG.DATA_FINDING through merge_into, naming the row so it can be found in landing</td>
 <td>The rows D-44 keeps out of the satellites stay visible, so nothing is lost silently; the inspector reads the history the rows arrived in, so the finding needs no vault object to hold the row</td>
 <td>Code Review Standard, no silent record loss; the development vault, read on 2026-10-28: 7 missing-key findings beside the 3 form findings</td>
 </tr>
 <tr>
-<td>D-46</td>
+<td class="tid">D-46</td>
 <td>Production&rsquo;s satellite rows stored on the zero key before D-44, three client rows and one insured row, are removed once, at the promotion that carries the fix, by infra/snowflake/correct_zero_key_satellite_rows.sql. The package&rsquo;s placeholder rows (record source SYSTEM or ERROR) stay; a vault built after the fix holds none, so the script removes nothing there</td>
 <td>D-44 keeps new rows out of the satellites but does not remove the rows production&rsquo;s incremental satellites already hold</td>
 <td>The script run on the development vault with production&rsquo;s four rows copied in: 3 and 1 before, 0 and 0 after, placeholders kept, a rerun removing nothing, a database outside the vault tiers refused</td>
 </tr>
 <tr>
-<td>D-47</td>
+<td class="tid">D-47</td>
 <td>The meaning of a finding is defined in the semantic layer: finding_fact carries finding_kind, taken from the finder that wrote the finding (form: a record arrived in a form the vault does not accept and was not accepted; missing_key: a row arrived without a business key and was kept and flagged; audit: a count that does not reconcile), and finding_row, the row a finding names. The metric records_not_accepted counts the findings whose finding_kind is form and answers Q-15; rows_missing_key counts the distinct rows named by findings whose finding_kind is missing_key</td>
 <td>After D-45 the findings metric counted both, so Q-15 answered 10, not 3; the meaning of the data belongs in the semantic layer, where every consumer reads it, not in instructions to a model</td>
 <td>Development vault at commit 2a921a1: 3 form findings naming 3 rows, 7 missing_key findings naming 6 rows; unit test unit_finding_fact_kind_and_row red before the model change and green after; dev build 174 of 174</td>
 </tr>
 <tr>
-<td>D-48</td>
+<td class="tid">D-48</td>
 <td>Nothing from the reference architecture appears in the repository, its documents or the site: its mentions are removed from comments with no code changed, and the site build holds its pages in memory and writes none when a built page, code views included, carries a term of site/excluded_terms.txt</td>
 <td>The reference architecture is a reference only, and a published page that names it can&rsquo;t be taken back; a guard in the build stops a return that a review could miss</td>
 <td>The build refused 120 hits in 11 pages before the removal and wrote 22 pages with none after; the committed tree carries no listed term outside the list itself</td>
 </tr>
 <tr>
-<td>D-49</td>
+<td class="tid">D-49</td>
 <td>The home page opens with an executive summary: what the vault answers about an acquired agency&rsquo;s business and what can be shown a regulator, the proof behind it, and where to start; its Databricks line appears only while DATABRICKS_SOON is on</td>
 <td>A first-time reader has to get the point before the tour of layers; a line about work not yet done stays hidden until it is true</td>
 <td>The summary first on the built home page, word for word as approved; the switch off omits the line and on shows it; every address in it resolves</td>
 </tr>
 <tr>
-<td>D-50</td>
+<td class="tid">D-50</td>
 <td>The release page sends a reader to the Ask page, with the access code Ray sends, to try its questions; it names no connector</td>
 <td>A reader of the site has no connector address, and the Ask page needs none</td>
 <td>The release page&rsquo;s prompts read as Ask page questions; no connector instruction on any page</td>
 </tr>
 <tr>
-<td>D-51</td>
+<td class="tid">D-51</td>
 <td>The QA retest runs inside the workstation container, accepting the container&rsquo;s gateway certificate only where that certificate is installed, and counts a number given as digits or spelled out</td>
 <td>The container&rsquo;s gateway re-signs HTTPS with its own authority, which the test browser refused, so no question reached the function; a reply that spells out a number is still correct</td>
 <td>The retest passed 26 of 26 from the container against the QA function</td>
 </tr>
 <tr>
-<td>D-52</td>
+<td class="tid">D-52</td>
 <td>The counts Mary&rsquo;s site shows about the branch documents and the dbt project are read from their sources at every build: the design decisions from the design&rsquo;s decision table, the finders and auditors from the inspector and auditor models</td>
 <td>Typed counts went stale: the site showed 41 design decisions against 51, and 5 finders and auditors against 8</td>
 <td>The build&rsquo;s guard compares each shown count with its source and refuses a mismatch</td>
 </tr>
 <tr>
-<td>D-53</td>
+<td class="tid">D-53</td>
 <td>Every vault table, version view and seed, and every one of their columns, carries a description in the dbt model files, the one source of the vault&rsquo;s metadata</td>
 <td>A data model without definitions is of little use to a data architect; the vault had descriptions for 1 of its 14 tables and none of its columns (Ray, 2026-11-01, DIG-604)</td>
 <td>Dev&rsquo;s information schema, 2026-11-01: 20 vault objects and 2 seeds, 144 descriptions needed</td>
 </tr>
 <tr>
-<td>D-54</td>
+<td class="tid">D-54</td>
 <td>dbt writes those descriptions into Snowflake as table and column comments on every build (persist_docs, relation and columns), for the vault, its version views and the seeds</td>
 <td>Snowflake&rsquo;s DDL then carries the definitions, so a model reverse-engineered from it has them (Ray, 2026-11-01, DIG-604)</td>
 <td>The committed DDL file held no comment on 2026-11-01</td>
 </tr>
 <tr>
-<td>D-55</td>
+<td class="tid">D-55</td>
 <td>The structure DDL is generated as two files, one per ER/Studio submodel: the vault (RAW_VAULT only) and the mart (CONFORMED_DM only), each file holding only its own schema&rsquo;s objects; the REFERENCE schema, which holds the seeds, is in neither file for now (Ray, 2026-11-02, answer 1y), each carrying its keys and comments. Each file defines every table first, without its foreign keys, then declares every foreign key at its end, so each one names a table already defined: ER/Studio&rsquo;s import dropped each foreign key that named a table defined later in the file (Ray, 2026-11-02, answer 1y; GET_DDL has no option for the order).</td>
 <td>Ray reverse-engineers each file into its own submodel (Ray, 2026-11-01, DIG-604)</td>
 <td>The one committed file mixed both on 2026-11-01</td>
 </tr>
 <tr>
-<td>D-56</td>
+<td class="tid">D-56</td>
 <td>Mary&rsquo;s site shows the two ER/Studio reports. Each is the HTML report ER/Studio exports, committed as exported in docs/model/vault and docs/model/mart and replaced whole at each export; the site builder adds only the Model page&rsquo;s two entries, pointing at model/vault/index.htm and model/mart/index.htm, and never writes those folders</td>
 <td>One copy of each report in the repository; GitHub Pages serves it as exported, as rayserrano2735/HDB_Model already does (Ray, 2026-11-02, answer 1a, DIG-604)</td>
 <td>HDB_Model, read 2026-11-02: an ER/Studio report served from main by Pages, entry page index.htm, every path inside relative</td>
 </tr>
 <tr>
-<td>D-57</td>
+<td class="tid">D-57</td>
 <td>A link, policy_organization_l, joins each policy to the carrier organization that issued it: one row per policy and organization, keyed by the hash of both business keys, carrying the policy&rsquo;s and the organization&rsquo;s hash keys as foreign keys to policy_h and organization_h. It is loaded from the same two staged sources as policy_h, Sunbelt Senior&rsquo;s sales data and Northfield Life&rsquo;s policy data, each hashing the policy&rsquo;s carrier code exactly as organization_h does</td>
 <td>A carrier organization&rsquo;s products are its policies, and the vault related a policy to its carrier only through a code inside the policy&rsquo;s key, which left the organization apart from the rest of the data model (Ray, 2026-11-02, answer 1y, DIG-604)</td>
 <td>The vault model in ER/Studio, 2026-11-02: organization_h and its satellites form a group joined to nothing; policy_h carries carrier_code in its business key, organization_h is keyed by carrier_code</td>
 </tr>
 <tr>
-<td>D-58</td>
+<td class="tid">D-58</td>
 <td>The ER/Studio model file, the .dm1 that ER/Studio opens, lives in infra/data_model/ and is committed with each release, beside the DDL files it is built from</td>
 <td>Each release carries the model it was built from, as it carries its DDL files (Ray, 2026-11-02, answer 1y, DIG-604)</td>
 <td>No home existed; the HTML reports live in docs/model (D-56)</td>
 </tr>
 <tr>
-<td>D-59</td>
+<td class="tid">D-59</td>
 <td>Where the site names ER/Studio it says &ldquo;ER/Studio or a similar modeling tool&rdquo;, and the Model page no longer promises the model next: it introduces the two ER/Studio reports and points to them</td>
 <td>The model may be opened with any modeling tool, and the reports now exist (Ray, 2026-11-02, review findings CR-8 and CR-14)</td>
 <td>The Model page&rsquo;s subtitle and the home page&rsquo;s sentence on the vault&rsquo;s full model, read in site/build_site.py on 2026-11-02</td>
 </tr>
 <tr>
-<td>D-60</td>
+<td class="tid">D-60</td>
 <td>The Ask page&rsquo;s greeting names the environment the site queries, production, QA or dev, taken from the environment the site is built for</td>
 <td>On the QA site the greeting said every number comes from production while it queried QA (Ray&rsquo;s review, CR-5)</td>
 <td>site/build_site.py, build_ask: one fixed greeting for every environment</td>
 </tr>
 <tr>
-<td>D-61</td>
+<td class="tid">D-61</td>
 <td>The home page&rsquo;s introduction says the vault is a classic Data Vault on Snowflake, built with dbt and datavault4dbt, which builds the same vault on Databricks</td>
 <td>The introduction named Snowflake but not Databricks (Ray&rsquo;s review, CR-7; Ray, 2026-11-02, answer 4y)</td>
 <td>datavault4dbt&rsquo;s documentation lists Databricks among its supported platforms, read 2026-11-02</td>
 </tr>
 <tr>
-<td>D-62</td>
+<td class="tid">D-62</td>
 <td>The home page names, for each release, the questions it answers: v2026.10.1 the four questions of the agency&rsquo;s business, v2026.11.1 the origin and history questions, v2026.11.2 the compliance questions; counts and gates stated on the page carry the release they belong to</td>
 <td>The introduction did not say which release answers what, and showed release 1&rsquo;s facts as current (Ray&rsquo;s review, CR-12)</td>
 <td>The QA site&rsquo;s home page, read in the review</td>
 </tr>
 <tr>
-<td>D-63</td>
+<td class="tid">D-63</td>
 <td>v2026.11.1 is named The Site and the Data Model on every page and in every document, the release answers documents and the product definition included</td>
 <td>Ray renamed it on 2026-11-01; the old name remained in six pages and three documents (Ray&rsquo;s review, CR-15)</td>
 <td>The named-releases item of the data product method</td>
 </tr>
 <tr>
-<td>D-64</td>
+<td class="tid">D-64</td>
 <td>The Releases and home pages say what comes next by Ray&rsquo;s plan: v2026.11.2, the business vault and the compliance answers, named later; the entry for People, Not Numbers is removed until that release is planned</td>
 <td>The pages followed the old plan (Ray&rsquo;s review, CR-16; Ray, 2026-11-02, answers 2a and 3b)</td>
 <td>The Releases page&rsquo;s Next and Later entries and the home page&rsquo;s sentence on what comes next</td>
 </tr>
 <tr>
-<td>D-65</td>
+<td class="tid">D-65</td>
 <td>The site says &ldquo;the agency&rsquo;s business&rdquo; where it said &ldquo;book&rdquo;: the home page&rsquo;s banner and its call to action, and the Ask page&rsquo;s greeting and typing box; release v2026.10.1 is renamed The Agency&rsquo;s Business on every page and in every document</td>
 <td>The wording aligned on 2026-10-30 was never applied, and the released name kept the old word (Ray&rsquo;s review, CR-13; Ray, 2026-11-02, answers 1b and 1b)</td>
 <td>The QA site&rsquo;s home banner, its call to action, the Ask greeting and typing box, read in the review</td>
 </tr>
 <tr>
-<td>D-66</td>
+<td class="tid">D-66</td>
 <td>Coverage, current counts in-force policies only: the metric face_amount_current keeps its filter to each policy&rsquo;s current terms and adds the policy status IF, in force. The change ships with v2026.11.1, whose release page states the corrected coverage and why; v2026.10.1&rsquo;s page keeps the answer it was released with, with a note</td>
 <td>A lapsed policy provides no coverage; NF-100003, lapsed 2026-10-02, kept its 15,000 in Northfield Life&rsquo;s 125,000 (Ray&rsquo;s review, CR-1; Ray, 2026-11-02, answer 1a)</td>
 <td>DV_QA read 2026-11-01 20:10 UTC; the metric&rsquo;s filter in _conformed_dm_facts.yml</td>
 </tr>
 <tr>
-<td>D-68</td>
+<td class="tid">D-68</td>
 <td>The Ask page shows its suggestions only until the first question is asked, then folds them into one control that reopens them on demand</td>
 <td>The six full-question buttons sat between the conversation and the typing box (Ray&rsquo;s review, CR-4; Ray, 2026-11-02, answer 2a)</td>
 <td>The Ask page&rsquo;s chat box, read in the review</td>
 </tr>
 <tr>
-<td>D-69</td>
+<td class="tid">D-69</td>
 <td>Opening the Ask page sends one wake request to the Ask function, which answers at once; no question is spent and no allowance consumed. The connector is not woken: the demo keeps the change minimal (Ray, 2026-11-02, answer 2y)</td>
 <td>The first question took 14.3 seconds, 8.3 of them the two cold starts (Ray&rsquo;s review, CR-6; Ray, 2026-11-02, answer 3a)</td>
 <td>QA logs of 2026-11-01; the Ask function already answers a plain GET with its status</td>
 </tr>
 <tr>
-<td>D-70</td>
+<td class="tid">D-70</td>
 <td>The agent explores: it may list every metric and dimension of the semantic layer by label and name with what each means, call the discovery tools whenever it needs them, combine any metric with any dimension the layer allows, suggest analyses nobody listed, and give details when asked; every number still comes from a query it ran, named with its metric and grouping, and no table or column name reaches the consumer, since the agent never sees one. Replies may run to 4,096 tokens and a question to twelve tool calls</td>
 <td>The point of DV Digest is for the consumer and the agent to explore the data and find new ways to analyze it (Ray, 2026-11-03, answers 1y and 2y; review finding CR-22)</td>
 <td>The Ask function&rsquo;s instructions and limits, read 2026-11-03</td>
 </tr>
-<tr class="qa-changed">
-<td>D-71</td>
+<tr>
+<td class="tid">D-71</td>
 <td>The conversation&rsquo;s history is shaped by the industry&rsquo;s standard tools: the function trims it to a budget of 100,000 tokens with langchain-core&rsquo;s trim_messages, newest turns kept, starting and ending on the consumer&rsquo;s question, counted with its approximate counter; automatic prompt caching reads the earlier turns from cache; the consumer&rsquo;s question keeps its 2,000-character limit, and the agent&rsquo;s replies and the number of messages are no longer capped. Server-side compaction and context editing are left out: both are in beta, compaction&rsquo;s model list does not name the agent&rsquo;s model, and tool results never persist between questions here</td>
 <td>Ray, 2026-11-04, answers 1y, 2a, 1b: use what the industry already solved; at the full budget a question costs about $0.04 with caching, $0.80 without (Sonnet 5.5 rates, four model calls)</td>
 <td>Review finding CR-26</td>
@@ -752,10 +753,10 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </table></div>
 <h2>6. Domain specification</h2>
 <h3>6.1 source-to-target map</h3>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">Integrate</span></div><p class="rc-title">D-3, D-4, D-8</p><dl><dt>Source concept and column</dt><dd>Client identifier: SUNBELT.CLIENT.CLIENT_NUMBER</dd><dt>Target area</dt><dd>Tabled until the vanilla Data Vault increments are done</dd><dt>Destination table and column</dt><dd>DV hub client_h, columns hk_client_h and client_number</dd><dt>Identity recipe</dt><dd>Hash of the trimmed, uppercased client number after D-4; NULL takes the all-zeros key</dd><dt>Pattern</dt><dd>datavault4dbt stage and hub (D-14)</dd><dt>Additive?</dt><dd>Yes: new keys insert; existing keys never change</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>Internal-form variants are not unified (P-3)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate</span></div><p class="rc-title">D-5</p><dl><dt>Source concept and column</dt><dd>Arrival time: SUNBELT.CLIENT.LOADED_AT</dd><dt>Target area</dt><dd>Tabled, and a technical attribute in any case</dd><dt>Destination table and column</dt><dd>The load timestamp ldts of the staging view and the hub</dd><dt>Identity recipe</dt><dd>Not an identity column</dd><dt>Pattern</dt><dd>Staging hard rule</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">(derived)</span></div><p class="rc-title">D-15</p><dl><dt>Source concept and column</dt><dd>Record source: the code SSI (increment 1.1; was the name SUNBELT.CLIENT)</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>The record source rsrc of the staging view and the hub</dd><dt>Identity recipe</dt><dd>Not an identity column</dd><dt>Pattern</dt><dd>Staging</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate</span></div><p class="rc-title">D-21</p><dl><dt>Source concept and column</dt><dd>Record source code: SEED_SOURCE_SYSTEM.SOURCE_SYSTEM_CODE</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>The source system seed</dd><dt>Identity recipe</dt><dd>The permanent code every vault row carries</dd><dt>Pattern</dt><dd>dbt seed</dd><dt>Additive?</dt><dd>No: edited by commit</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate</span></div><p class="rc-title">D-21</p><dl><dt>Source concept and column</dt><dd>Source name, description, owner: SEED_SOURCE_SYSTEM.SOURCE_NAME, DESCRIPTION, OWNER</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>The source system seed</dd><dt>Identity recipe</dt><dd>Not identity columns</dd><dt>Pattern</dt><dd>dbt seed</dd><dt>Additive?</dt><dd>No: edited by commit; history in git</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Defer</span></div><p class="rc-title">Profile 6.2</p><dl><dt>Source concept and column</dt><dd>FIRST_NAME, LAST_NAME, STATE</dd><dt>Target area</dt><dd>Absent</dd><dt>Destination table and column</dt><dd>Absent until the satellites increment</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>Deferred by the profile</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Reject</span></div><p class="rc-title">Profile 6.3</p><dl><dt>Source concept and column</dt><dd>CRM_ROW_ID</dd><dt>Target area</dt><dd>Absent</dd><dt>Destination table and column</dt><dd>Absent</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>Rejected as a technical key</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-34</p><dl><dt>Source concept and column</dt><dd>Client details: SUNBELT.CLIENT.FIRST_NAME, LAST_NAME, STATE</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>client_sunbelt_s</dd><dt>Identity recipe</dt><dd>Parent key hk_client_h; change hash over the three columns</dd><dt>Pattern</dt><dd>datavault4dbt satellite</dd><dt>Additive?</dt><dd>Yes: insert-only versions</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-24, D-26</p><dl><dt>Source concept and column</dt><dd>Policy identifier: SUNBELT.POLICY_SALE.CARRIER_CODE and POLICY_NUMBER; NORTHFIELD.POLICY.POLICY_NUMBER with NFL supplied in staging</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>policy_h, columns hk_policy_h, carrier_code, policy_number</dd><dt>Identity recipe</dt><dd>Hash of the carrier code and the policy number, each trimmed and uppercased; one missing part hashes a placeholder; both missing take the all-zeros key</dd><dt>Pattern</dt><dd>datavault4dbt stage and hub</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>NF100009 and NF-100009 are not unified (path PH6)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-32</p><dl><dt>Source concept and column</dt><dd>Client in a sale: SUNBELT.POLICY_SALE.CLIENT_NUMBER</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>client_h, existing</dd><dt>Identity recipe</dt><dd>As D-4 and D-8</dd><dt>Pattern</dt><dd>datavault4dbt hub, second source</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-24, D-32</p><dl><dt>Source concept and column</dt><dd>Insured: NORTHFIELD.POLICY.INSURED_ID</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>insured_h, columns hk_insured_h, insured_number</dd><dt>Identity recipe</dt><dd>Hash of the trimmed, uppercased insured number; a missing number takes the all-zeros key</dd><dt>Pattern</dt><dd>datavault4dbt stage and hub</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-33</p><dl><dt>Source concept and column</dt><dd>Role in a sale: SUNBELT.POLICY_SALE.ROLE, with the client and policy keys</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>client_policy_l, columns hk_client_policy_l, hk_client_h, hk_policy_h, role</dd><dt>Identity recipe</dt><dd>Link hash over the client key, the policy key and the role</dd><dt>Pattern</dt><dd>datavault4dbt link with a dependent child key</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-33</p><dl><dt>Source concept and column</dt><dd>Insured on a policy: NORTHFIELD.POLICY.INSURED_ID with the policy key</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>insured_policy_l, columns hk_insured_policy_l, hk_insured_h, hk_policy_h</dd><dt>Identity recipe</dt><dd>Link hash over the insured key and the policy key</dd><dt>Pattern</dt><dd>datavault4dbt link</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-34</p><dl><dt>Source concept and column</dt><dd>Sale details: SUNBELT.POLICY_SALE.SOLD_ON, AGENT_NAME, PLAN_NAME</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>client_policy_sunbelt_s</dd><dt>Identity recipe</dt><dd>Parent key hk_client_policy_l</dd><dt>Pattern</dt><dd>datavault4dbt satellite</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-34</p><dl><dt>Source concept and column</dt><dd>Insured details: NORTHFIELD.POLICY.INSURED_NAME, BIRTH_DATE, ADDRESS</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>insured_northfield_s</dd><dt>Identity recipe</dt><dd>Parent key hk_insured_h</dd><dt>Pattern</dt><dd>datavault4dbt satellite</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>Not merged with client_sunbelt_s (D-29)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-34</p><dl><dt>Source concept and column</dt><dd>Policy details: NORTHFIELD.POLICY.FACE_AMOUNT, STATUS, EFFECTIVE_DATE</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>policy_northfield_s</dd><dt>Identity recipe</dt><dd>Parent key hk_policy_h</dd><dt>Pattern</dt><dd>datavault4dbt satellite</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile 6.1, the agent)</span></div><p class="rc-title">D-24, D-35</p><dl><dt>Source concept and column</dt><dd>The agent: SUNBELT.POLICY_SALE.AGENT_NPN and NORTHFIELD.POLICY.WRITING_AGENT_NPN</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>agent_h, columns hk_agent_h, agent_npn</dd><dt>Identity recipe</dt><dd>Hash of the trimmed number; an empty number takes the all-zeros key</dd><dt>Pattern</dt><dd>datavault4dbt stage and hub, two sources</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile 6.1, the agent)</span></div><p class="rc-title">D-36</p><dl><dt>Source concept and column</dt><dd>The agent on a policy: either agent number with the policy key</dd><dt>Target area</dt><dd>Tabled</dd><dt>Destination table and column</dt><dd>agent_policy_l, columns hk_agent_policy_l, hk_agent_h, hk_policy_h</dd><dt>Identity recipe</dt><dd>Link hash over the agent key and the policy key</dd><dt>Pattern</dt><dd>datavault4dbt link, two sources</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>Disagreeing sources are kept as two rows (path LA2)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Integrate (profile section 5, item 8)</span></div><p class="rc-title">D-5, D-15, D-23</p><dl><dt>Source concept and column</dt><dd>Arrival time and record source of both new tables: LOADED_AT; the codes SSI and NFL</dd><dt>Target area</dt><dd>Tabled; technical</dd><dt>Destination table and column</dt><dd>ldts and rsrc of every new staging view, hub, link and satellite</dd><dt>Identity recipe</dt><dd>Not identity columns</dd><dt>Pattern</dt><dd>Staging hard rule</dd><dt>Additive?</dt><dd>Yes</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>None</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Reject, as CRM_ROW_ID</span></div><p class="rc-title">D-24</p><dl><dt>Source concept and column</dt><dd>SUNBELT.POLICY_SALE.SALE_ROW_ID</dd><dt>Target area</dt><dd>Absent</dd><dt>Destination table and column</dt><dd>Absent</dd><dt>Deliberate collapse, omission, or deferral</dt><dd>A technical key that identifies a row, not a sale</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <p>Completion check: every profiling Integrate row has a destination; every Defer and Reject is named as absent; every written target column traces to a source column or stated derivation.</p>
 <h3>6.2 Dictionary</h3>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">Client</span></div><p class="rc-title">D-3, D-32</p><dl><dt>Business meaning</dt><dd>One instance of the client role: a person Sunbelt Senior&rsquo;s client list keeps one row for</dd><dt>source-to-target mapping</dt><dd>Tabled</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified row: client number A-1001, first load 2026-10-01 02:00 UTC</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Client number</span></div><p class="rc-title">D-3, D-4</p><dl><dt>Business meaning</dt><dd>Sunbelt Senior&rsquo;s identifier for a client, designed as the letter A, a hyphen and four digits</dd><dt>source-to-target mapping</dt><dd>Tabled</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>A-1001; variants a-1004 and A-1005 with a trailing space resolve to existing keys; A1007 does not</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">CRM row ID</span></div><p class="rc-title">Profile 6.3</p><dl><dt>Business meaning</dt><dd>The number Sunbelt Senior&rsquo;s CRM gives a row; not a client identifier</dd><dt>source-to-target mapping</dt><dd>None: rejected</dd><dt>Mapping state</dt><dd>Not applicable</dd><dt>Verified example</dt><dd>A-1003 arrives under a new CRM row ID in load 2 and stays the same client</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Load timestamp</span></div><p class="rc-title">D-5</p><dl><dt>Business meaning</dt><dd>The time a row arrived from the source</dd><dt>source-to-target mapping</dt><dd>Tabled; technical</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>2026-10-01T02:00:00 for every load 1 row</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Record source</span></div><p class="rc-title">D-15</p><dl><dt>Business meaning</dt><dd>The permanent code of the source system a row came from; its name lives in the source system seed</dd><dt>source-to-target mapping</dt><dd>Tabled; technical</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>SSI on every client-file row</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Source system seed</span></div><p class="rc-title">D-21</p><dl><dt>Business meaning</dt><dd>The table of every source system code with its current name, description and owner; its history is its git history</dd><dt>source-to-target mapping</dt><dd>Tabled; technical</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>SSI: Sunbelt Senior client file</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Role</span></div><p class="rc-title">D-32, D-33</p><dl><dt>Business meaning</dt><dd>What a party does in a context, never what it is: client and insured as roles held with a source; owner, insured and payor as roles on a policy</dd><dt>source-to-target mapping</dt><dd>Tabled</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified rows: A-1010 as owner and as insured on NF-100010</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Insured</span></div><p class="rc-title">D-32</p><dl><dt>Business meaning</dt><dd>One instance of the insured role: a person a carrier&rsquo;s policy covers, as Northfield Life keeps them</dd><dt>source-to-target mapping</dt><dd>Tabled</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified row: NLI-55007, Garrity, Irene, on NF-100007</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Policy</span></div><p class="rc-title">D-26</p><dl><dt>Business meaning</dt><dd>An insurance contract issued by a carrier, identified by the carrier&rsquo;s code and its policy number together</dd><dt>source-to-target mapping</dt><dd>Tabled</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified row: NFL with NF-100001</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Link</span></div><p class="rc-title">D-33</p><dl><dt>Business meaning</dt><dd>A vault table recording a relationship between hub keys, at the grain its source sends it</dd><dt>source-to-target mapping</dt><dd>Tabled; technical</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified row: client A-1007, policy NFL NF-100007, role insured</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Dependent child key</span></div><p class="rc-title">D-33</p><dl><dt>Business meaning</dt><dd>A column added to a link&rsquo;s key so that one source can record the same pair more than once, told apart</dd><dt>source-to-target mapping</dt><dd>Tabled; technical</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified rows: A-1010 as owner and as insured on NF-100010</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Agent</span></div><p class="rc-title">D-35</p><dl><dt>Business meaning</dt><dd>A licensed insurance producer who sells policies, identified by a national producer number</dd><dt>source-to-target mapping</dt><dd>Tabled</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified row: 17001001, on NF-100001 in both sources</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">National producer number</span></div><p class="rc-title">D-35</p><dl><dt>Business meaning</dt><dd>The number assigned through the National Insurance Producer Registry to a licensed producer, the same in every state and every source</dd><dt>source-to-target mapping</dt><dd>Tabled</dd><dt>Mapping state</dt><dd>Tabled</dd><dt>Verified example</dt><dd>Specified rows: 17001001 in the sales data and the carrier data</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h3>6.3 Domain content</h3>
 <p><strong>The hash rule, step by step</strong> (datavault4dbt code, read 2026-10-22): the client number is cast to text, trimmed, and checked for NULL; text is escaped and quoted; the whole input is uppercased because business keys are case-insensitive by default (D-8); line breaks and tabs are removed; the result is hashed with MD5. Only a NULL input becomes the all-zeros key. D-4 moves empty and whitespace-only values into that NULL path.</p>
 <p><strong>Ghost records.</strong> The staging view adds an unknown row (all-zeros key, business key (unknown), load timestamp 0001-01-01 00:00:01, record source SYSTEM) and an error row (all-f key, business key (error), load timestamp 8888-12-31 23:59:59, record source ERROR). The hub keeps them like any other key, so after the build it holds 34 client keys and these two rows. No satellite stores a source row on the unknown key: each satellite reads a staging view that keeps only rows with their key (D-44), and an inspector raises every row without its key as a finding (D-45).</p>
@@ -785,17 +786,17 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>SSI</td>
+<td class="tid">SSI</td>
 <td>Sunbelt Senior client file</td>
 <td>Digest Insurance Distributors</td>
 </tr>
 <tr>
-<td>SYSTEM</td>
+<td class="tid">SYSTEM</td>
 <td>The vault itself: unknown ghost record</td>
 <td>The vault&rsquo;s team</td>
 </tr>
 <tr>
-<td>ERROR</td>
+<td class="tid">ERROR</td>
 <td>The vault itself: error ghost record</td>
 <td>The vault&rsquo;s team</td>
 </tr>
@@ -825,7 +826,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
   B1 ==&gt; G
 </code></pre>
 <h2>7. Deferred decisions</h2>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">DD-1</span></div><p class="rc-title">Qualify a business key by its issuer</p><dl><dt>Reason</dt><dd>Resolved: the policy key carries the carrier&rsquo;s code (D-26), and each person number stays in its own source&rsquo;s role hub (D-32)</dd><dt>Unblocking condition</dt><dd>None</dd><dt>Owner</dt><dd>Ray</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">DD-2</span></div><p class="rc-title">UDM taxonomy: party, roles, role names</p><dl><dt>Reason</dt><dd>UDM tabled until the vanilla Data Vault increments are done</dd><dt>Unblocking condition</dt><dd>Ray lifts the table</dd><dt>Owner</dt><dd>Ray</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">DD-3</span></div><p class="rc-title">The descriptive columns FIRST_NAME, LAST_NAME, STATE</p><dl><dt>Reason</dt><dd>Resolved by D-34</dd><dt>Unblocking condition</dt><dd>None</dd><dt>Owner</dt><dd>Ray</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">DD-4</span></div><p class="rc-title">Pragmatic Data Platform history in LANDING.STORAGE</p><dl><dt>Reason</dt><dd>Comparison belongs to a later increment</dd><dt>Unblocking condition</dt><dd>The increment that builds both approaches side by side</dd><dt>Owner</dt><dd>Ray</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">DD-5</span></div><p class="rc-title">Match the person behind client and insured role keys</p><dl><dt>Reason</dt><dd>Matching changes meaning: a soft rule, applied after the raw vault (D-29)</dd><dt>Unblocking condition</dt><dd>The course&rsquo;s business vault part</dd><dt>Owner</dt><dd>Ray</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h2>8. Testing plan</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -837,37 +838,37 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1: built-in dbt tests</td>
+<td class="tid">1: built-in dbt tests</td>
 <td>Source SUNBELT.CLIENT: not_null on CRM_ROW_ID and LOADED_AT. Hub client_h: unique and not_null on hk_client_h. Source system seed: unique and not_null on SOURCE_SYSTEM_CODE. Sources SUNBELT.POLICY_SALE and NORTHFIELD.POLICY: not_null on LOADED_AT. Source PINECREST.POLICY (Lab 1-2, D-39): not_null on LOADED_AT. Hubs policy_h, insured_h and agent_h, links client_policy_l, insured_policy_l and agent_policy_l: unique and not_null on their hash keys. Satellites client_sunbelt_s, client_policy_sunbelt_s, insured_northfield_s and policy_northfield_s: a relationships test from each hash key to its parent (D-40), four tests. Links client_policy_l, insured_policy_l and agent_policy_l: a relationships test from each hub key to its hub (D-42), six tests, beside the layer 4 assertion. Satellites: a unique-combination test on the parent hash key with the load time, and a not-null test on each (D-42), twelve tests. Severity warn, stated explicitly.</td>
 <td>Applies: structural integrity of every source, hub, link and satellite</td>
 </tr>
 <tr>
-<td>2: dbt-expectations</td>
+<td class="tid">2: dbt-expectations</td>
 <td>Compound uniqueness of each source table&rsquo;s grain: (LOADED_AT, CRM_ROW_ID) on SUNBELT.CLIENT, and the grains of profile 2.1.3 and 2.1.4; (LOADED_AT, POLICY_NUMBER) on PINECREST.POLICY (Lab 1-2, D-39); row counts checked as a source query against a target query, never against a fixed number. Severity warn.</td>
 <td>Applies; the expectations package cannot be installed on the workstation, so these are dbt_utils or singular tests</td>
 </tr>
 <tr>
-<td>3: PCM unit tests</td>
+<td class="tid">3: PCM unit tests</td>
 <td>One unit test per path, P1 to P8, on the client list&rsquo;s staging view and the client hub, the P7 test first as a characterization; one passing and one failing unit test each for the inspectors and the auditors. One unit test per path of profile P-12 to P-15 and P-19 on the two new staging models, the hubs, the links and the satellites, built from the planted source data. All written and run before the code they prove. Severity error.</td>
 <td>Applies: the staging hard rules (D-4, D-24), the hubs&rsquo; keep-first behavior, the link&rsquo;s dependent child key and the satellites&rsquo; change detection are logic; the source system seed has none Lab 1-2 adds no unit test: land_act is an operations macro, proved live, as for D-22: its dry run lists 8 and then 4 rows, a second load of an act is refused, and LANDING_QA is refused.</td>
 </tr>
 <tr>
-<td>4: logic assertions</td>
+<td class="tid">4: logic assertions</td>
 <td>No hub row has an empty or whitespace-only business key. Every source row with a usable client number has its hash key in client_h. Every record source value in the vault resolves to a code in the source system seed (D-17), NFL included. Every link row&rsquo;s hub keys exist in their hubs. Severity warn.</td>
 <td>Applies: modeled truths the vault claims</td>
 </tr>
 <tr>
-<td>5: detectors</td>
+<td class="tid">5: detectors</td>
 <td>inspector_sunbelt_client_number_form (D-9) and inspector_sunbelt_policy_number_form (D-30), each writing one finding per nonconforming value to LANDING.CONFIG.DATA_FINDING through merge_into. For the planted data: the client numbers of profile P-3 and the policy number of path PH6. The missing-key inspectors inspector_sunbelt_client_key_missing, inspector_sunbelt_policy_sale_key_missing and inspector_northfield_policy_key_missing (D-45), one finding per row and missing key.</td>
 <td>Applies: P-3, PH6 and the rows without a business key are real conditions to disclose</td>
 </tr>
 <tr>
-<td>6: reconciliation</td>
+<td class="tid">6: reconciliation</td>
 <td>auditor_sunbelt_client_hub (D-10), and in its pattern one auditor per new source table, auditor_sunbelt_policy_hub and auditor_northfield_policy_hub: every distinct usable key in the source must exist in the hub it feeds, a source query against a target query, with a finding only when a key is missing</td>
 <td>Applies: the gap between rows and keys is the lesson</td>
 </tr>
 <tr>
-<td>7: semantic surface</td>
+<td class="tid">7: semantic surface</td>
 <td>The release 1 mart&rsquo;s metrics records_not_accepted and rows_missing_key (D-47), each with a saved query and a two-route verification; the conformed mart&rsquo;s semantic layer is the mart design&rsquo;s (, section 4)</td>
 <td>Applies: the branch ships metrics (D-47)</td>
 </tr>
@@ -889,32 +890,32 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Q-1</td>
+<td class="tid">Q-1</td>
 <td>SELECT client_number, ldts, rsrc FROM the client hub WHERE rsrc = &lsquo;SSI&rsquo;, against the distinct usable client numbers of SUNBELT.CLIENT with their first load</td>
 <td>The two lists agree; A-1031 and A-1032 first arrive in load 2 (profile P-1)</td>
 </tr>
 <tr>
-<td>Q-2</td>
+<td class="tid">Q-2</td>
 <td>SELECT column_value, detail FROM LANDING.CONFIG.DATA_FINDING for the inspector inspector_sunbelt_client_number_form</td>
 <td>Two findings, one naming A1007 and one naming A-01008</td>
 </tr>
 <tr>
-<td>Q-3</td>
+<td class="tid">Q-3</td>
 <td>The auditor&rsquo;s findings in LANDING.CONFIG.DATA_FINDING</td>
 <td>No finding: 34 keys and 43 rows agree</td>
 </tr>
 <tr>
-<td>Q-4</td>
+<td class="tid">Q-4</td>
 <td>SELECT h.client_number, s.source_name FROM the client hub h JOIN the source system seed s ON s.source_system_code = h.rsrc</td>
 <td>Every row names its source: client rows the Sunbelt Senior client file, ghost rows the vault itself</td>
 </tr>
 <tr>
-<td>Q-5</td>
+<td class="tid">Q-5</td>
 <td>SELECT the client number, the policy key and the role FROM client_policy_l joined to client_h and policy_h</td>
 <td>Each sale&rsquo;s client appears with the role the sales data sends: owner, insured or payor; A-1010 holds two roles on NF-100010 (profile P-14)</td>
 </tr>
 <tr>
-<td>Q-6</td>
+<td class="tid">Q-6</td>
 <td>SELECT the policy hub row of NF-100007 with every link row that reaches it, and the client and insured keys at their other ends</td>
 <td>One policy row; a client_policy_l row to client A-1007 and an insured_policy_l row to insured NLI-55007; no row joins A-1007 to NLI-55007 (profile P-14, path L4)</td>
 </tr>
@@ -932,103 +933,103 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>P-1</td>
+<td class="tid">P-1</td>
 <td>The client list&rsquo;s 43 rows give 34 client keys; with A-1033 from the sales data and the two ghost records, the hub holds 37 rows</td>
 <td>2 and 6</td>
 <td>row-count expectation; auditor_sunbelt_client_hub</td>
 </tr>
 <tr>
-<td>P-2</td>
+<td class="tid">P-2</td>
 <td>Variants unify or stay separate as specified</td>
 <td>3</td>
 <td>unit tests P4, P5, P8</td>
 </tr>
 <tr>
-<td>P-3</td>
+<td class="tid">P-3</td>
 <td>Two findings, one per nonconforming client number</td>
 <td>5</td>
 <td>inspector_sunbelt_client_number_form</td>
 </tr>
 <tr>
-<td>P-4</td>
+<td class="tid">P-4</td>
 <td>No hub row with an empty business key</td>
 <td>3 and 4</td>
 <td>unit test P7; logic assertion</td>
 </tr>
 <tr>
-<td>P-5</td>
+<td class="tid">P-5</td>
 <td>NULL key lands on the unknown ghost record; no satellite stores the row, and an inspector raises it</td>
 <td>1, 3 and 5</td>
 <td>unit test P6; uq_client_sunbelt_s_pk; the missing-key inspectors and their unit tests</td>
 </tr>
 <tr>
-<td>P-6</td>
+<td class="tid">P-6</td>
 <td>Changed CRM row ID keeps the key</td>
 <td>3</td>
 <td>unit test P2</td>
 </tr>
 <tr>
-<td>P-7</td>
+<td class="tid">P-7</td>
 <td>Parse count equals populated count</td>
 <td>1</td>
 <td>not_null after the cast, plus the build itself</td>
 </tr>
 <tr>
-<td>P-8</td>
+<td class="tid">P-8</td>
 <td>The seed&rsquo;s git history holds both versions of SSI; every hub row still carries SSI</td>
 <td>4</td>
 <td>git log of the seed; logic assertion and probe Q-4</td>
 </tr>
 <tr>
-<td>P-9</td>
+<td class="tid">P-9</td>
 <td>Every vault record source resolves to a code in the source system seed</td>
 <td>4</td>
 <td>logic assertion</td>
 </tr>
 <tr>
-<td>P-10</td>
+<td class="tid">P-10</td>
 <td>Every client-file hub row carries SSI</td>
 <td>4</td>
 <td>logic assertion and the Q-4 probe</td>
 </tr>
 <tr>
-<td>P-11 to P-15, P-19</td>
+<td class="tid">P-11 to P-15, P-19</td>
 <td>Every planted path behaves as specified</td>
 <td>3</td>
 <td>one unit test per path</td>
 </tr>
 <tr>
-<td>P-19, path AG1</td>
+<td class="tid">P-19, path AG1</td>
 <td>One agent sold through both sources is one hub row</td>
 <td>3 and 4</td>
 <td>the AG1 unit test; every link row&rsquo;s hub keys exist in their hubs</td>
 </tr>
 <tr>
-<td>P-12, path PH6</td>
+<td class="tid">P-12, path PH6</td>
 <td>The nonconforming policy number is reported</td>
 <td>5</td>
 <td>inspector_sunbelt_policy_number_form</td>
 </tr>
 <tr>
-<td>P-14, path L4</td>
+<td class="tid">P-14, path L4</td>
 <td>One person stays two role keys</td>
 <td>4 and probe Q-6</td>
 <td>probe Q-6</td>
 </tr>
 <tr>
-<td>P-16</td>
+<td class="tid">P-16</td>
 <td>Every planted row lands in its act</td>
 <td>2 and 6</td>
 <td>grain uniqueness; the new auditors</td>
 </tr>
 <tr>
-<td>P-17</td>
+<td class="tid">P-17</td>
 <td>A missing number takes the unknown ghost record</td>
 <td>3</td>
 <td>the unit tests of paths CH3 and IH4</td>
 </tr>
 <tr>
-<td>P-18</td>
+<td class="tid">P-18</td>
 <td>One agent hub keyed by the national producer number, fed by both tables, and a link from the agent to the policy</td>
 <td>3 and 4</td>
 <td>the unit tests of paths AG1 to AG5, LA2 and LA3; every link row&rsquo;s hub keys exist in their hubs</td>
@@ -1053,22 +1054,22 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Header: every field present and filled</td>
 <td>Yes. The author line reads &ldquo;Ray Serrano; edited by Claude&rdquo;, overriding the template&rsquo;s fixed text (Ray, 2026-10-22)</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Every section of the template</td>
 <td>Yes, 22 of 22: 0 to 9 with 2.1 to 2.3, 6.1 to 6.5, the probes, the profile check list and the finance workbook section</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Written through the governed procedures</td>
 <td>Instantiated from the template; changes through the Pilot interface, ITEM_SPLICE, which records each body as a new version. One write of 2026-10-28 at 17:44Z, before the interface existed in this database, went by direct update (Linear DIG-595 installed the interface)</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>Section 0, the target ERD, drawn from the source-to-target map and the profile&rsquo;s source ERD</td>
 <td>Yes: present and agreeing with the source-to-target map; each solid line is checked: the links&rsquo; by D-42&rsquo;s relationship tests and the layer 4 assertion, the satellites&rsquo; by D-40&rsquo;s relationship tests</td>
 </tr>
@@ -1085,27 +1086,27 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Consumer questions: id, asker, time, origin, words, answer, decisions, probe, and a state of answered, partially answered, later or not answered</td>
 <td>Yes: Q-1 to Q-5 answered, each by its probe run against the developer vault on 2026-10-25; Q-6 partially answered, the lessons and diagram following the build; Q-9 to Q-11 and Q-15 answered by release 1; Q-13 and Q-14 later, in this release&rsquo;s conformed mart; Q-12 deferred (mart design DD-1); Q-7, Q-8 and Q-16 later; Mary&rsquo;s probes in the test plan&rsquo;s section 2.3.4</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Data reality cites the profile results</td>
 <td>Yes: section 4 cites P-1 to P-19</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Decisions numbered, each with rationale and evidence, no attribution inside</td>
 <td>Yes: D-1 to D-52, 45 live and 7 superseded; D-13 states only its current rule; no decision row carries attribution</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>Domain specification: source-to-target map first, then dictionary, content, instance models and worked examples, each model and example with its diagram</td>
 <td>Yes: 6.1 to 6.5 in that order; diagrams in the instance models and the worked examples</td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>Deferred decisions with their unblocking conditions; testing plan with the seven layers, a probe per question, and the profile&rsquo;s checks</td>
 <td>Yes: DD-1 to DD-5 with condition and owner; layers 1 to 7; probes Q-1 to Q-6; a check row for every profile result, P-18 added and P-1 brought to the hub&rsquo;s increment 2 count</td>
 </tr>
@@ -1122,14 +1123,14 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Every live decision carried by the domain specification, the testing plan or the implementation guide</td>
 <td>Yes for 44 of 45; D-31, a decision to build no separate object, has nothing to carry; D-47 to D-52 are carried by the implementation guide&rsquo;s steps 46 to 51. D-37 to D-39 are carried by profile P-20 and section 8; D-40 by section 0, section 8&rsquo;s layer 1 and the test plan&rsquo;s layer 1; D-41 by the test plan&rsquo;s layer 4; D-42 by section 0 and section 8&rsquo;s layer 1; D-43 by section 6.3 and the implementation guide; D-44 by sections 4, 6.3 and 6.5; D-45 by section 8&rsquo;s layer 5 and the P-5 check; D-46 by the implementation guide and the production runbook</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Each decision confirmed, against its map row, instance model, worked example, dictionary term and tests, to say what the decision says</td>
 <td>Yes, on 2026-10-25: all 29 live decisions read beside every line that cites them in sections 2 to 8 and in the implementation guide. Four were reworded to match what was built: D-1 (the NORTHFIELD schema), D-3 (no UDM role taxonomy, against D-32&rsquo;s role hubs), D-10 (the auditor checks that each key exists) and D-24 (the agent&rsquo;s number). D-42 to D-46 on 2026-10-28, each read beside the passages that carry it in sections 0, 4, 6.3, 6.5 and 8</td>
 </tr>
 </tbody>
-</table></div></article><section class="cta bleed"><h2>Next: Product definition</h2><p>Mary's questions, the metrics they need, the open points settled, and the named releases.</p><a class="btn" href="definition.html">Read the product definition</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+</table></div></article><section class="cta bleed"><h2>Next: Product definition</h2><p>Mary's questions, the metrics they need, the open points settled, and the named releases.</p><a class="btn" href="definition.html">Read the product definition</a></section></main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

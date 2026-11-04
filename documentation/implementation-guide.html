@@ -1,6 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Implementation guide | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.to-top{max-width:1080px;margin:28px auto 8px;padding:0 20px;text-align:right;font-size:14px}.to-top a{color:var(--teal-d);font-weight:700;text-decoration:none}
+.doc td.tid{white-space:nowrap}
+h1.ttl-owl{display:flex;align-items:center;gap:14px}h1.ttl-owl .owl{flex:none}
 .chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 .owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
@@ -146,7 +149,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<header class="top" id="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Implementation guide</p><p class="eyebrow">Documentation · release 1</p><h1>Implementation guide</h1><p>The build, step by step, with its code and its exemplars.</p></div></header>
 <main><article class="doc"><h1>Branch Implementation Guide: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Implementation Guide (part 1 of 1)</h3>
@@ -202,127 +205,127 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>D-1, D-12</td>
+<td class="tid">D-1, D-12</td>
 <td>LANDING holds SUNBELT and, from increment 2, NORTHFIELD (sources), STORAGE (empty in this increment) and CONFIG (DATA_FINDING, BUILD_BASELINE), created by a committed file; four generic macros serve it</td>
 </tr>
 <tr>
-<td>D-2, D-3</td>
+<td class="tid">D-2, D-3</td>
 <td>The vault is built in its tier&rsquo;s vault database, DEV__DV__<user> in development; the hub client_h is keyed by the client number alone</td>
 </tr>
 <tr>
-<td>D-4</td>
+<td class="tid">D-4</td>
 <td>A derived column overwrites client_number with NULLIF(TRIM(client_number), &lsquo;&rsquo;) before hashing</td>
 </tr>
 <tr>
-<td>D-5</td>
+<td class="tid">D-5</td>
 <td>ldts is TIMESTAMP_NTZ meaning UTC (already set in dbt/dbt_project.yml at commit 1ace099)</td>
 </tr>
 <tr>
-<td>D-7, D-8, D-15</td>
+<td class="tid">D-7, D-8, D-15</td>
 <td>Static record source code SSI; ghost records enabled; datavault4dbt hashing defaults (MD5, keys uppercased)</td>
 </tr>
 <tr>
-<td>D-9</td>
+<td class="tid">D-9</td>
 <td>inspector_sunbelt_client_number_form writes one finding per nonconforming client number</td>
 </tr>
 <tr>
-<td>D-10</td>
+<td class="tid">D-10</td>
 <td>auditor_sunbelt_client_hub writes one summary finding only when a usable client key of the source is missing from the hub</td>
 </tr>
 <tr>
-<td>D-11</td>
+<td class="tid">D-11</td>
 <td>Data lands in two acts, each followed by a full build</td>
 </tr>
 <tr>
-<td>D-13</td>
+<td class="tid">D-13</td>
 <td>Superseded 2026-10-25: course increments promote through qa to production with certification</td>
 </tr>
 <tr>
-<td>D-22, D-23</td>
+<td class="tid">D-22, D-23</td>
 <td>Two landing tables, SUNBELT.POLICY_SALE and NORTHFIELD.POLICY, loaded by land_act in the same two acts; the seed gains NFL</td>
 </tr>
 <tr>
-<td>D-24</td>
+<td class="tid">D-24</td>
 <td>Two staging models apply only hard rules: casts, and empty numbers (client, insured, policy, carrier code, agent) turned into NULL</td>
 </tr>
 <tr>
-<td>D-26, D-30</td>
+<td class="tid">D-26, D-30</td>
 <td>policy_h keyed by carrier code and policy number; Northfield Life&rsquo;s staging supplies NFL; an inspector reports nonconforming policy numbers</td>
 </tr>
 <tr>
-<td>D-32, D-33</td>
+<td class="tid">D-32, D-33</td>
 <td>client_h read from the client list and the sales data; insured_h; client_policy_l with the role as a dependent child key; insured_policy_l</td>
 </tr>
 <tr>
-<td>D-34, D-35, D-36</td>
+<td class="tid">D-34, D-35, D-36</td>
 <td>One satellite per source on its parent; agent_h keyed by the national producer number from both sources; agent_policy_l fed by both sources</td>
 </tr>
 <tr>
-<td>D-9, D-10</td>
+<td class="tid">D-9, D-10</td>
 <td>Layer 5 is named inspector and layer 6 auditor; the findings table&rsquo;s columns are FINDER_NAME and FINDER_TYPE, with type values inspection and audit</td>
 </tr>
 <tr>
-<td>D-42, D-43</td>
+<td class="tid">D-42, D-43</td>
 <td>Every link&rsquo;s hub keys and every satellite&rsquo;s key carry layer 1 tests, and the vault declares its 22 keys from those tests, informational only</td>
 </tr>
 <tr>
-<td>D-44, D-45</td>
+<td class="tid">D-44, D-45</td>
 <td>A satellite reads only rows with their key; every row without a business key is a finding, one per row and missing key</td>
 </tr>
 <tr>
-<td>D-46</td>
+<td class="tid">D-46</td>
 <td>Production&rsquo;s four zero-key satellite rows are removed once, at the promotion that carries the fix</td>
 </tr>
 <tr>
-<td>mart design D-1</td>
+<td class="tid">mart design D-1</td>
 <td>Four facts, one per grain: client_policy_role_fact, agent_policy_fact, policy_terms_fact and finding_fact</td>
 </tr>
 <tr>
-<td>mart design D-2</td>
+<td class="tid">mart design D-2</td>
 <td>Base dimensions person_dim and organization_dim with role views over them; policy_dim; source_dim from the source system seed; day_dim, also MetricFlow&rsquo;s time spine</td>
 </tr>
 <tr>
-<td>mart design D-3</td>
+<td class="tid">mart design D-3</td>
 <td>The role stays on client_policy_role_fact as a degenerate code</td>
 </tr>
 <tr>
-<td>mart design D-4</td>
+<td class="tid">mart design D-4</td>
 <td>A version&rsquo;s valid-to day is empty while it is current; face_amount_current filters on that</td>
 </tr>
 <tr>
-<td>mart design D-5</td>
+<td class="tid">mart design D-5</td>
 <td>The finding&rsquo;s finder name and type, table, column, value and status stay on finding_fact as degenerate codes; only the source is a dimension key</td>
 </tr>
 <tr>
-<td>mart design D-6</td>
+<td class="tid">mart design D-6</td>
 <td>Every mart object a view in CONFORMED_DM (models/marts/conformed_dm); the five MART views retired in the same pull request</td>
 </tr>
 <tr>
-<td>mart design D-8</td>
+<td class="tid">mart design D-8</td>
 <td>Disagreement about a policy&rsquo;s agent is read from agents_named grouped by policy, not a SQL flag</td>
 </tr>
 <tr>
-<td>mart design D-9</td>
+<td class="tid">mart design D-9</td>
 <td>insured_dim&rsquo;s birth date and address under a secure view that mocks a masking policy: real values for the governance role, a mask for every other role</td>
 </tr>
 <tr>
-<td>mart design D-10</td>
+<td class="tid">mart design D-10</td>
 <td>person_dim holds one row per person record, unmatched; client_dim, insured_dim and agent_dim are role views over it</td>
 </tr>
 <tr>
-<td>mart design D-11</td>
+<td class="tid">mart design D-11</td>
 <td>A carrier is an organization: each carrier sends its code and name through its own feed to organization_h; carrier_dim is a role view over organization_dim</td>
 </tr>
 <tr>
-<td>mart design D-12</td>
+<td class="tid">mart design D-12</td>
 <td>No client_arrival_fact: source_key and first_known_date are person_dim columns for client records, shown by client_dim</td>
 </tr>
 <tr>
-<td>mart design D-13</td>
+<td class="tid">mart design D-13</td>
 <td>Q-15 is answered by records_not_accepted (form findings) and rows_missing_key (distinct rows named by missing-key findings); finding_fact carries finding_kind and finding_row</td>
 </tr>
 <tr>
-<td>mart design D-14</td>
+<td class="tid">mart design D-14</td>
 <td>Each ghost key appears once in person_dim, with no role; every role view carries its base dimension&rsquo;s two ghost rows</td>
 </tr>
 </tbody>
@@ -379,73 +382,73 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Client key</td>
+<td class="tid">Client key</td>
 <td>CLIENT_NUMBER</td>
 <td>datavault4dbt hash of the client number after D-4: CAST to text, TRIM, quote and escape, UPPER, remove line breaks and tabs, MD5, lower-case hex; NULL becomes the all-zeros key</td>
 <td>stg_sunbelt_client, hashed column hk_client_h</td>
 </tr>
 <tr>
-<td>Inspector finding</td>
+<td class="tid">Inspector finding</td>
 <td>The nonconforming client number</td>
 <td>dbt_utils.generate_surrogate_key over the finder name, source system, source table, source column and the value</td>
 <td>inspector_sunbelt_client_number_form</td>
 </tr>
 <tr>
-<td>Auditor finding</td>
+<td class="tid">Auditor finding</td>
 <td>None (one finding at most)</td>
 <td>dbt_utils.generate_surrogate_key over the finder name, source system and source table</td>
 <td>auditor_sunbelt_client_hub</td>
 </tr>
 <tr>
-<td>Policy key</td>
+<td class="tid">Policy key</td>
 <td>CARRIER_CODE with POLICY_NUMBER</td>
 <td>datavault4dbt hash of the two after D-24, each standardized like a single key; one missing part hashes the placeholder ^^ in its place; both missing give the all-zeros key</td>
 <td>stg_sunbelt_policy_sale and stg_northfield_policy (NFL supplied), column hk_policy_h</td>
 </tr>
 <tr>
-<td>Insured key</td>
+<td class="tid">Insured key</td>
 <td>INSURED_ID, renamed insured_number</td>
 <td>datavault4dbt hash after D-24; missing gives the all-zeros key</td>
 <td>stg_northfield_policy, hk_insured_h</td>
 </tr>
 <tr>
-<td>Agent key</td>
+<td class="tid">Agent key</td>
 <td>AGENT_NPN, and WRITING_AGENT_NPN renamed agent_npn</td>
 <td>datavault4dbt hash after D-24; missing gives the all-zeros key</td>
 <td>both staging models, hk_agent_h</td>
 </tr>
 <tr>
-<td>Link keys</td>
+<td class="tid">Link keys</td>
 <td>client, policy and role; insured and policy; agent and policy</td>
 <td>datavault4dbt hash over the link&rsquo;s business keys, the role included as the dependent child key</td>
 <td>hk_client_policy_l, hk_insured_policy_l, hk_agent_policy_l in the staging models</td>
 </tr>
 <tr>
-<td>Organization key</td>
+<td class="tid">Organization key</td>
 <td>CARRIER_CODE</td>
 <td>datavault4dbt hash of the carrier code after the hard rule NULLIF(TRIM(carrier_code), &lsquo;&rsquo;)</td>
 <td>stg_northfield_organization and stg_pinecrest_organization, hk_organization_h</td>
 </tr>
 <tr>
-<td>Client policy role key</td>
+<td class="tid">Client policy role key</td>
 <td>The client, the policy and the role</td>
 <td>client_policy_l&rsquo;s hash key hk_client_policy_l, as is (mart design section 3.2)</td>
 <td>client_policy_role_fact, client_policy_role_key</td>
 </tr>
 <tr>
-<td>Agent policy key</td>
+<td class="tid">Agent policy key</td>
 <td>The agent and the policy</td>
 <td>agent_policy_l&rsquo;s hash key hk_agent_policy_l, as is (mart design section 3.2)</td>
 <td>agent_policy_fact, agent_policy_key</td>
 </tr>
 <tr>
-<td>Policy terms key</td>
+<td class="tid">Policy terms key</td>
 <td>The policy and the load</td>
 <td>dbt_utils.generate_surrogate_key over hk_policy_h and ldts of policy_northfield_s1 (mart design section 3.2)</td>
 <td>policy_terms_fact, policy_terms_key</td>
 </tr>
 <tr>
-<td>Finding key</td>
+<td class="tid">Finding key</td>
 <td>The finding</td>
 <td>The finding&rsquo;s FINDING_PK, as is (mart design section 3.2)</td>
 <td>finding_fact, finding_key</td>
@@ -465,19 +468,19 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </thead>
 <tbody>
 <tr>
-<td>Project configuration</td>
+<td class="tid">Project configuration</td>
 <td>dbt/dbt_project.yml</td>
 <td>Every model and seed in the project</td>
 <td>git grep, branch claude_ws/dig-574-arrival-and-identity at 1ace099, 2026-10-23 01:41 UTC</td>
 </tr>
 <tr>
-<td>Package list</td>
+<td class="tid">Package list</td>
 <td>dbt/packages.yml</td>
 <td>dbt deps; the lock file dbt/package-lock.yml</td>
 <td>read 2026-10-23 01:41 UTC: one package, datavault4dbt</td>
 </tr>
 <tr>
-<td>Every other deliverable</td>
+<td class="tid">Every other deliverable</td>
 <td>new files</td>
 <td>None at the baseline clock; their consumers are the files this guide adds</td>
 <td>git ls-files at 1ace099 lists 8 files, none of them consumers</td>
@@ -489,7 +492,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <td>git grep -l for each name &ndash; dbt setup, branch claude_ws/dig-574-arrival-and-identity at 8e74a07, 2026-10-25 00:12 UTC</td>
 </tr>
 <tr>
-<td>Generic macros</td>
+<td class="tid">Generic macros</td>
 <td>dbt/macros/landing_storage.sql, dbt/macros/materializations/merge_into.sql, dbt/macros/verification/capture_baseline.sql, dbt/macros/verification/verify_build.sql</td>
 <td>In this project: every model reading LANDING, the inspector, the auditor, the build sequence</td>
 <td>read from this repository</td>
@@ -509,7 +512,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tbody>
 </table></div>
 <h2>4. Baseline</h2>
-<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">B-1</span></div><p class="rc-title">Objects in DV.DEV_CLAUDE</p><dl><dt>Capture command or query</dt><dd>SELECT TABLE_NAME, TABLE_TYPE FROM DV.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = &lsquo;DEV_CLAUDE&rsquo;</dd><dt>Captured result and clock</dt><dd>3: STUDENT (table), STG_STUDENT (view), STUDENT_H (table); 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>Still present and unchanged after both builds, plus the new objects</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-2</span></div><p class="rc-title">Rows in DV.DEV_CLAUDE.STUDENT_H</p><dl><dt>Capture command or query</dt><dd>SELECT COUNT(*) FROM DV.DEV_CLAUDE.STUDENT_H</dd><dt>Captured result and clock</dt><dd>5; 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>Unchanged (5) after both builds</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-3</span></div><p class="rc-title">LANDING database</p><dl><dt>Capture command or query</dt><dd>SELECT COUNT(*) FROM SNOWFLAKE.INFORMATION_SCHEMA.DATABASES WHERE DATABASE_NAME = &lsquo;LANDING&rsquo;</dd><dt>Captured result and clock</dt><dd>0; 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>1 after step 1</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-5</span></div><p class="rc-title">Increment 2&rsquo;s landing tables</p><dl><dt>Capture command or query</dt><dd>SELECT TABLE_NAME FROM DEV__LANDING__CLAUDE_WS.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;SUNBELT&rsquo;, &lsquo;NORTHFIELD&rsquo;), and the same on LANDING</dd><dt>Captured result and clock</dt><dd>CLIENT only (43 rows) in both databases; 2026-10-25 00:13 UTC</dd><dt>Reconciliation condition</dt><dd>POLICY_SALE and POLICY present after step 22; CLIENT unchanged</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-6</span></div><p class="rc-title">The client hub by record source</p><dl><dt>Capture command or query</dt><dd>SELECT RSRC, COUNT(*) FROM DEV__DV__CLAUDE_WS.RAW_VAULT.CLIENT_H GROUP BY 1</dd><dt>Captured result and clock</dt><dd>SSI 34, SYSTEM 1, ERROR 1; 2026-10-25 00:13 UTC</dd><dt>Reconciliation condition</dt><dd>Every kept row unchanged; new rows only for client numbers first seen in the sales data</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-7</span></div><p class="rc-title">Findings by finder type</p><dl><dt>Capture command or query</dt><dd>SELECT FINDER_TYPE, COUNT(*) FROM DEV__LANDING__CLAUDE_WS.CONFIG.DATA_FINDING GROUP BY 1</dd><dt>Captured result and clock</dt><dd>inspection 2; 2026-10-25 00:13 UTC</dd><dt>Reconciliation condition</dt><dd>The two client-number findings unchanged; new findings only from the new inspector and auditors</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-4</span></div><p class="rc-title">Semantic models in the repository</p><dl><dt>Capture command or query</dt><dd>git ls-files, filtered for semantic and metric</dd><dt>Captured result and clock</dt><dd>0; 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>Still 0 (layer 7 not applicable)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-8</span></div><p class="rc-title">Production&rsquo;s zero-key source rows in client_sunbelt_s and insured_northfield_s</p><dl><dt>Capture command or query</dt><dd>The before query of infra/snowflake/correct_zero_key_satellite_rows.sql against DV</dd><dt>Captured result and clock</dt><dd>3 and 1, as the fix&rsquo;s tests recorded them on 2026-10-28, copied into the development vault for the script&rsquo;s proof</dd><dt>Reconciliation condition</dt><dd>0 and 0 after the promotion&rsquo;s correction, the placeholder rows kept</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-9</span></div><p class="rc-title">Objects in DV_QA.MART and DV_QA.CONFORMED_DM before the mart&rsquo;s build</p><dl><dt>Capture command or query</dt><dd>SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE FROM DV_QA.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;MART&rsquo;, &lsquo;CONFORMED_DM&rsquo;) ORDER BY 1, 2</dd><dt>Captured result and clock</dt><dd>MART: the five views, CLIENT_POLICY_FACT, AGENT_POLICY_FACT, POLICY_FACT, FINDING_FACT and TIME_SPINE_DAY; CONFORMED_DM: absent</dd><dt>Reconciliation condition</dt><dd>After the build, MART: none; CONFORMED_DM: the thirteen models</dd></dl></div></div></div>
+<div class="table-wrap"><div class="rcards"></div></div>
 <h2>5. Ordered implementation steps</h2>
 <p><strong>Step 1. LANDING infrastructure.</strong> File: setup/infrastructure/landing.sql. Design D-1, D-12. The workstation runs it as SYSADMIN (G-2). Expected movement: B-3 becomes 1. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
 <pre><code class="language-sql">USE ROLE SYSADMIN;
@@ -1247,7 +1250,7 @@ SELECT table_name FROM &lt;% vault %&gt;.INFORMATION_SCHEMA.VIEWS WHERE table_sc
 <p><strong>Step 94. Dimensions meet through the facts.</strong> Mart design D-17; test plan FK11 and FK12, replacing FK10; review finding CR-18. Files: dbt/models/marts/conformed_dm/policy_dim.sql, its carrier key dropped and the carrier&rsquo;s name added, derived as organization_dim derives it; policy_terms_fact.sql and client_policy_role_fact.sql, each given the carrier key from the policy&rsquo;s carrier code, as policy_dim derived it; _conformed_dm_dimensions.yml and _conformed_dm_facts.yml, the carrier entity and its tests moved to the two facts, policy_dim&rsquo;s unit tests updated; tests/sq_q10_coverage_by_carrier_answer.sql and tests/recon_face_amount_current_two_routes.sql, joining the carrier through the fact. Command: build the conformed mart with its tests in dev, then the DDL files. Expected movement: Q-9 and Q-10 answer as before; mart.sql with 8 primary and 14 foreign keys, none between dimensions; Ray re-exports the mart model.</p>
 <p><strong>Step 95. The finding fact joined in the data model.</strong> Mart design D-6&rsquo;s exception, amended 2026-11-03. File: dbt/models/marts/conformed_dm/finding_fact.sql, still a view, its source key and detected date read through outer joins to source_dim and day_dim, so every finding stays; ER/Studio&rsquo;s import draws no join for it, so it is left out of the mart diagram until v2026.11.2 (a plain-FROM version failed to import, 2026-11-03). Known exception until v2026.11.2, which brings the findings into the vault. Command: build the finding fact and its tests in dev, then the DDL files. Expected movement: its row count and every test unchanged; mart.sql&rsquo;s view reading both dimensions; the view left out of the mart diagram.</p>
 <p><strong>Step 96. The agent explores.</strong> Design D-70; review finding CR-22. Files: infra/aws/metricflow_backend.py, the catalogue&rsquo;s metrics carrying their labels; infra/aws/conversation_function.py, the agent&rsquo;s instructions rewritten for exploration as D-70 states, replies up to 4,096 tokens and twelve tool calls a question; a call the semantic layer refuses returns to the agent as a flagged result to correct, instead of ending the conversation, and the agent lists what is available from its catalogue (found in dev, 2026-11-03: one refused query ended a listing); site/dev/qa_retest.py, its check that no table or schema name reaches a reply. Command: the connector&rsquo;s tests; the dev connector and dev Ask function deployed; the retest through dev&rsquo;s Ask, and the question &ldquo;list the available metrics&rdquo;. Expected movement: the retest passing; the agent listing every metric by label with its meaning.</p>
-<p class="qa-changed"><strong>Step 97. The history shaped by standard tools.</strong> Design D-71; review finding CR-26. Files: infra/aws/requirements-lambda.txt, langchain-core pinned at 1.6.12, released 2026-10-16; infra/aws/conversation_function.py, the question&rsquo;s 2,000-character limit kept and the reply and message-count limits removed, the history trimmed with trim_messages to 100,000 tokens, strategy last, starting and ending on a question, and the request given automatic caching; site/build_site.py, the page sending the whole conversation rather than its last 20 messages; infra/aws/test_web_functions.py, the tests of test plan&rsquo;s D-71 row. Command: the connector&rsquo;s tests; the dev connector and Ask function deployed; a dev conversation past the budget; the retest. Expected movement: the tests passing, the long conversation answered, the retest 50 of 50.</p>
+<p><strong>Step 97. The history shaped by standard tools.</strong> Design D-71; review finding CR-26. Files: infra/aws/requirements-lambda.txt, langchain-core pinned at 1.6.12, released 2026-10-16; infra/aws/conversation_function.py, the question&rsquo;s 2,000-character limit kept and the reply and message-count limits removed, the history trimmed with trim_messages to 100,000 tokens, strategy last, starting and ending on a question, and the request given automatic caching; site/build_site.py, the page sending the whole conversation rather than its last 20 messages; infra/aws/test_web_functions.py, the tests of test plan&rsquo;s D-71 row. Command: the connector&rsquo;s tests; the dev connector and Ask function deployed; a dev conversation past the budget; the retest. Expected movement: the tests passing, the long conversation answered, the retest 50 of 50.</p>
 <h2>6. Tests</h2>
 <h3>Existing-test dispositions</h3>
 <div class="table-wrap"><table>
@@ -1427,187 +1430,187 @@ SELECT table_name FROM &lt;% vault %&gt;.INFORMATION_SCHEMA.VIEWS WHERE table_sc
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Ray runs setup/infrastructure/landing.sql in Snowsight or snow sql</td>
 <td>Objects created; B-3 reads 1</td>
 <td>B-1, B-2 unchanged</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>snow sql -f setup/landing/sunbelt_client_load_1.sql (CLAUDE_WS_ROLE)</td>
 <td>33 source rows</td>
 <td></td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>dbt deps, then dbt seed</td>
 <td>Three packages; seed loaded</td>
 <td></td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>dbt test, selecting the unit tests only</td>
 <td>Unit tests per step 7 and 8: P7 red first, recorded; then all green after D-4</td>
 <td></td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>dbt run-operation capture_baseline</td>
 <td>Before snapshot written</td>
 <td></td>
 </tr>
 <tr>
-<td>6</td>
+<td class="tid">6</td>
 <td>dbt build</td>
 <td>Clean; hub 32 rows: 30 client keys (a-1010 resolves to A-1010; NULL and blank land on the unknown ghost record) plus the 2 ghost records; no inspector or auditor finding</td>
 <td></td>
 </tr>
 <tr>
-<td>7</td>
+<td class="tid">7</td>
 <td>dbt run-operation verify_build</td>
 <td>Expectations for act 1 pass</td>
 <td>B-1, B-2 unchanged</td>
 </tr>
 <tr>
-<td>8</td>
+<td class="tid">8</td>
 <td>snow sql -f setup/landing/sunbelt_client_load_2.sql</td>
 <td>43 source rows</td>
 <td></td>
 </tr>
 <tr>
-<td>9</td>
+<td class="tid">9</td>
 <td>capture_baseline, dbt build, verify_build</td>
 <td>Hub 36 rows (34 keys plus 2 ghosts); two inspector findings; no auditor finding</td>
 <td>B-1, B-2 unchanged; B-4 still 0</td>
 </tr>
 <tr>
-<td>10</td>
+<td class="tid">10</td>
 <td>Increment 1.1, workstation development tier: dbt seed, then dbt build</td>
 <td>30 of 30; the seed&rsquo;s two built-in tests pass</td>
 <td></td>
 </tr>
 <tr>
-<td>11</td>
+<td class="tid">11</td>
 <td>setup/scripts/dev_scoped_rebuild.sh stg_sunbelt_client (the model that changed), then the resolve assertion</td>
 <td>Every client hub row carries SSI; the resolve assertion passes</td>
 <td>Hub still 36 rows, 34 keys</td>
 </tr>
 <tr>
-<td>12</td>
+<td class="tid">12</td>
 <td>Change SSI&rsquo;s row in the seed to version 2, commit, dbt seed, dbt build</td>
 <td>The seed shows the new name; its git log shows both versions</td>
 <td>No client hub row changes</td>
 </tr>
 <tr>
-<td>13</td>
+<td class="tid">13</td>
 <td>Run step 22&rsquo;s statements as SYSADMIN on LANDING; refresh the developer clone with part B of setup/infrastructure/environment_tiers.sql</td>
 <td>Both new tables exist, empty, in LANDING and DEV__LANDING__CLAUDE_WS</td>
 <td>B-5 moves as stated; SUNBELT.CLIENT keeps its 43 rows</td>
 </tr>
 <tr>
-<td>14</td>
+<td class="tid">14</td>
 <td>dbt seed; then dbt test, selecting increment 2&rsquo;s unit tests only</td>
 <td>The seed carries NFL; the 39 tests run red for their content reasons, recorded on the course issue with the commit and clock</td>
 <td></td>
 </tr>
 <tr>
-<td>15</td>
+<td class="tid">15</td>
 <td>dbt run-operation land_act for act 1 of policy_sale and of policy, dry_run false; capture_baseline; dbt build &ndash;select the new models and their parents, with &ndash;full-refresh on each new hub, link and satellite; verify_build</td>
 <td>9 and 9 landed rows; unit tests green; build clean</td>
 <td>B-6: every kept client hub row unchanged; B-7: the two client-number findings unchanged</td>
 </tr>
 <tr>
-<td>16</td>
+<td class="tid">16</td>
 <td>land_act for act 2 of both tables; capture_baseline; dbt build of the same selection without full refresh; verify_build</td>
 <td>14 and 12 landed rows; the second build runs the incremental paths</td>
 <td>Kept rows of every hub, link and satellite unchanged</td>
 </tr>
 <tr>
-<td>17</td>
+<td class="tid">17</td>
 <td>The full build of the branch, one command per stroke, wrapped by the facility</td>
 <td>Clean; every warning named</td>
 <td>Every baseline reconciles</td>
 </tr>
 <tr>
-<td>18</td>
+<td class="tid">18</td>
 <td>dbt test, the full suite, after step 37</td>
 <td>108 tests pass: 34 data tests and 74 unit tests, no warning</td>
 <td>Data unchanged; the four rel_ tests find no orphan</td>
 </tr>
 <tr>
-<td>19</td>
+<td class="tid">19</td>
 <td>On the fix&rsquo;s branch: dbt build, the full project</td>
 <td>Clean, with every test passing and no warning beyond the semantic manifest notice; the hook reports 22 keys defined</td>
 <td>Every hub and link count unchanged; no satellite row on the zero key from a source</td>
 </tr>
 <tr>
-<td>20</td>
+<td class="tid">20</td>
 <td>python3 infra/scripts/vault_ddl.py &ndash;database DEV__DV__<USER> &ndash;landing DEV__LANDING__<USER> &ndash; <snow options>, then with &ndash;check</td>
 <td>dv.sql written; the check reports a match</td>
 <td>Against qa&rsquo;s dv.sql, only the 22 constraint lines and their trailing commas</td>
 </tr>
 <tr>
-<td>21</td>
+<td class="tid">21</td>
 <td>python3 site/build_site.py <preview path>, then its guards</td>
 <td>The site built; every address resolves, no wide page, no secret found</td>
 <td>The design card names D-1 to D-46</td>
 </tr>
 <tr>
-<td>22</td>
+<td class="tid">22</td>
 <td>Run step 52&rsquo;s statements as SYSADMIN, first in a developer landing clone and then in LANDING; dbt run-operation land_act &ndash;args &lsquo;{act: 1, table: northfield_organization, dry_run: false}&rsquo;; dbt run-operation land_act &ndash;args &lsquo;{act: 2, table: northfield_organization, dry_run: false}&rsquo;; dbt run-operation land_act &ndash;args &lsquo;{act: 2, table: pinecrest_organization, dry_run: false}&rsquo;</td>
 <td>Both ORGANIZATION tables exist, empty before the acts; NORTHFIELD.ORGANIZATION has one and then two rows, PINECREST.ORGANIZATION one after act 2; a replay is refused</td>
 <td>Every existing landing table keeps its rows; B-9 still shows the five MART views and no CONFORMED_DM.</td>
 </tr>
 <tr>
-<td>23</td>
+<td class="tid">23</td>
 <td>dbt seed &ndash;select seed_source_system</td>
 <td>The PMC row loads; its two seed tests and assert_vault_record_sources_resolve pass</td>
 <td>The existing seed codes and every vault row are unchanged; B-9 is unchanged.</td>
 </tr>
 <tr>
-<td>24</td>
+<td class="tid">24</td>
 <td>At each of steps 56, 61, 67 and 70, before its models: dbt test &ndash;select test_type:unit</td>
 <td>The mart&rsquo;s 23 unit tests run red for their content reasons at their own steps, each recorded with its commit and clock; a missing object is never accepted as the red reason</td>
 <td>The tests move no warehouse data; every previous build&rsquo;s baselines and B-9 are unchanged.</td>
 </tr>
 <tr>
-<td>25</td>
+<td class="tid">25</td>
 <td>dbt build &ndash;select stg_northfield_organization stg_pinecrest_organization organization_h organization_northfield_s organization_northfield_s1 organization_pinecrest_s organization_pinecrest_s1 &ndash;full-refresh</td>
 <td>The two staging views, the hub, two satellites and two version 1 views build; OS1, OH1 to OH4, OT1 to OT3 and the models&rsquo; layer 1 tests pass</td>
 <td>Every pre-mart vault row is unchanged; the organization keys and versions reconcile to the landed acts; B-9 is unchanged.</td>
 </tr>
 <tr>
-<td>26</td>
+<td class="tid">26</td>
 <td>dbt build &ndash;select person_dim organization_dim policy_dim source_dim day_dim</td>
 <td>Five views build; DG1 to DG3, DL1, DL2 and DU1 to DU5 pass; day_dim covers 2026 and 2027 and is MetricFlow&rsquo;s time spine</td>
 <td>The raw vault is unchanged; B-9 now stands partway: MART still has its five views and CONFORMED_DM has only these five dimensions.</td>
 </tr>
 <tr>
-<td>27</td>
+<td class="tid">27</td>
 <td>dbt build &ndash;select client_dim insured_dim agent_dim carrier_dim; dbt test &ndash;select assert_insured_dim_masking_governance_role_real_values, in a session holding SYSADMIN; dbt test &ndash;select assert_insured_dim_masking_other_role_masked, in a session without it</td>
 <td>Four role views build, insured_dim secure; DS1 to DS4 and DU6 to DU9 pass, and SM1 and SM2 return no rows</td>
 <td>The base dimensions are unchanged; B-9 remains partway: MART still has its five views and CONFORMED_DM has the nine dimensions and role views.</td>
 </tr>
 <tr>
-<td>28</td>
+<td class="tid">28</td>
 <td>git diff &ndash;check &ndash; dbt/models/marts/conformed_dm dbt/models/mart dbt/tests infra/snowflake/drop_mart_views.sql</td>
 <td>The four fact models and their tests join steps 75 to 78 in one working tree; there is no separate fact commit or build</td>
 <td>No warehouse object moves; B-9 still shows five MART views and the nine CONFORMED_DM views.</td>
 </tr>
 <tr>
-<td>29</td>
+<td class="tid">29</td>
 <td>dbt parse</td>
 <td>The same working tree of steps 71 to 78 parses with ten semantic models, nine metrics and six saved queries, and records_not_accepted and rows_missing_key defined once; there is no separate semantic-layer commit or build</td>
 <td>No warehouse object moves; B-9 still shows five MART views and the nine CONFORMED_DM views.</td>
 </tr>
 <tr>
-<td>30</td>
+<td class="tid">30</td>
 <td>git add dbt/models/marts/conformed_dm dbt/models/mart dbt/tests infra/snowflake/drop_mart_views.sql &amp;&amp; git commit -m &ldquo;Build the conformed mart and retire MART&rdquo;; in the QA build job, dbt run-operation capture_baseline, then dbt build, then dbt run-operation verify_build; snow sql -f infra/snowflake/drop_mart_views.sql -D vault=DV_QA</td>
 <td>The one commit of steps 71 to 78 builds once; dbt ls lists none of the five MART models, the thirteen conformed views and their tests build, and the guarded drop script lists the five old MART views before the drop and none after; a run naming another database is refused</td>
 <td>B-9 reconciles after the build and drop: MART has none of the five views and CONFORMED_DM has the thirteen models; all earlier landing and vault baselines reconcile.</td>
 </tr>
 <tr>
-<td>31</td>
+<td class="tid">31</td>
 <td>dbt run-operation capture_baseline; dbt build; dbt run-operation verify_build</td>
 <td>The full QA build is clean on rerun, every mart test and saved-query check passes, no MART model returns, and verify_build names every warning</td>
 <td>Every baseline reconciles; B-9 remains MART none and CONFORMED_DM thirteen, and all pre-mart landing and vault rows are unchanged.</td>
@@ -1644,117 +1647,117 @@ Each count is read from the warehouse at its stroke, never asserted from this gu
 </thead>
 <tbody>
 <tr>
-<td>G-1</td>
+<td class="tid">G-1</td>
 <td>Folders dbt/models/inspectors and dbt/models/auditors</td>
 <td>Mirrors the two layer names</td>
 </tr>
 <tr>
-<td>G-2</td>
+<td class="tid">G-2</td>
 <td>landing.sql runs as SYSADMIN and grants LANDING&rsquo;s privileges to CLAUDE_WS_ROLE directly</td>
 <td>The project has one workstation user, and no landing roles are needed</td>
 </tr>
 <tr>
-<td>G-3</td>
+<td class="tid">G-3</td>
 <td>verify_build reads the expectations seed through ref(), and the seed file joins the branch</td>
 <td>This project had no fixed REFERENCE schema at the time; the test plan&rsquo;s file list grows from 19 to 20 at reconciliation</td>
 </tr>
 <tr>
-<td>G-4</td>
+<td class="tid">G-4</td>
 <td>capture_baseline and verify_build measure SUNBELT.CLIENT rows, client_h rows, and DATA_FINDING rows by FINDER_TYPE</td>
 <td>They are this vault&rsquo;s own tables</td>
 </tr>
 <tr>
-<td>G-5</td>
+<td class="tid">G-5</td>
 <td>Seed expectations that hold after both acts: the hub&rsquo;s row count increased; audit findings below 1. The act-specific numbers (32, then 36 hub rows; 0, then 2 inspection findings) are read by the verification queries</td>
 <td>An expectation fixed at 36 would fail the act 1 verification, where the hub holds 32</td>
 </tr>
 <tr>
-<td>G-6</td>
+<td class="tid">G-6</td>
 <td>Landing by committed INSERT files; grain (LOADED_AT, CRM_ROW_ID)</td>
 <td>Small, readable, replayable; act 2 repeats two CRM row IDs by design (P2)</td>
 </tr>
 <tr>
-<td>G-7</td>
+<td class="tid">G-7</td>
 <td>Names and states from fixed invented lists</td>
 <td>Deterministic and free of real people</td>
 </tr>
 <tr>
-<td>G-8</td>
+<td class="tid">G-8</td>
 <td>Expected hash literals computed in Snowflake with the toolkit&rsquo;s expression</td>
 <td>A hand-typed MD5 would test the typist</td>
 </tr>
 <tr>
-<td>G-9</td>
+<td class="tid">G-9</td>
 <td>dbt_utils added</td>
 <td>The finding keys use generate_surrogate_key; the package was not installed</td>
 </tr>
 <tr>
-<td>G-10</td>
+<td class="tid">G-10</td>
 <td>Superseded by D-21</td>
 <td>See D-21</td>
 </tr>
 <tr>
-<td>G-11</td>
+<td class="tid">G-11</td>
 <td>Superseded by D-21</td>
 <td>See D-21</td>
 </tr>
 <tr>
-<td>G-12</td>
+<td class="tid">G-12</td>
 <td>dev_scoped_rebuild.sh refuses targets outside developer databases</td>
 <td>Design D-20 forbids rebuilds in QA and production; the script enforces it instead of relying on care</td>
 </tr>
 <tr>
-<td>G-13</td>
+<td class="tid">G-13</td>
 <td>Operational SQL is packaged as dbt macros, guarded, dry run by default</td>
 <td>They run the same in dbt Studio, on a workstation and in a deployment job</td>
 </tr>
 <tr>
-<td>G-14</td>
+<td class="tid">G-14</td>
 <td>client_h lists its two staging models without rsrc_static, so it loads without the high-water mark</td>
 <td>Both of its sources carry SSI, so a per-source mark cannot tell them apart; the toolkit disables the mark when rsrc_static is absent (fork documentation, page 07), and the course&rsquo;s volumes need none</td>
 </tr>
 <tr>
-<td>G-15</td>
+<td class="tid">G-15</td>
 <td>A version 1 satellite view takes its satellite&rsquo;s name with 1 appended: policy_northfield_s1</td>
 <td>The course&rsquo;s naming rule names version 0 objects only; the increment 1.1 reference satellite&rsquo;s view used the same suffix</td>
 </tr>
 <tr>
-<td>G-16</td>
+<td class="tid">G-16</td>
 <td>Descriptive values of the new tables come from fixed invented lists: agents Dana Whitaker, Marcus Reyes, Priya Natarajan and Owen Fitch; plans Senior Term 20, Final Expense 10K and Guaranteed Whole Life; the insureds&rsquo; names, birth dates and addresses of step 24</td>
 <td>Deterministic and free of real people, as G-7</td>
 </tr>
 <tr>
-<td>G-17</td>
+<td class="tid">G-17</td>
 <td>inc2 expectations that hold after both acts: each new hub, link and satellite has more rows than before the act; audit findings below 1</td>
 <td>An act-specific count would fail the other act, as G-5</td>
 </tr>
 <tr>
-<td>G-18</td>
+<td class="tid">G-18</td>
 <td>client_h, read by 18 repository files, gains the sales data as a second source (step 28)</td>
 <td>Ratified by Ray on 2026-10-25, answer 1y, after the change: every test that reads it passed and the build was 129 of 129</td>
 </tr>
 <tr>
-<td>G-19</td>
+<td class="tid">G-19</td>
 <td>stg_sunbelt_client, read by 9 repository files, gains the change hash for client_sunbelt_s (step 27), keys and rows unchanged</td>
 <td>Ratified by Ray on 2026-10-25, answer 2y, after the change</td>
 </tr>
 <tr>
-<td>G-20</td>
+<td class="tid">G-20</td>
 <td>Steps 8, 9, 29 and 30 take their shape from the toolkit&rsquo;s documentation, no repository holding an exemplar; their files are the exemplars for later increments</td>
 <td>Ratified by Ray on 2026-10-25, answer 3y</td>
 </tr>
 <tr>
-<td>G-21</td>
+<td class="tid">G-21</td>
 <td>Step 40&rsquo;s exemplar is vault_checks.sql, the project&rsquo;s only macro that runs warehouse statements through run_query</td>
 <td>No repository holds a macro that declares keys; vault_checks.sql shares its shape: run_query, then a log line with the counts</td>
 </tr>
 <tr>
-<td>G-22</td>
+<td class="tid">G-22</td>
 <td>client_sunbelt_s (11 consumer files by git grep), insured_northfield_s (10) and policy_northfield_s (10) change their source to the known-key views (step 41)</td>
 <td>Each has more than five consumers, so each went to Ray as its own decision line; approved on 2026-10-28 (answer 1y), with the missing-key inspectors reading landing</td>
 </tr>
 <tr>
-<td>G-23</td>
+<td class="tid">G-23</td>
 <td>The governance role of mart design D-9 is SYSADMIN, a role that already exists; no role is created or granted at this point</td>
 <td>Ray, 2026-11-01: no need to keep separating roles this early</td>
 </tr>
@@ -1785,7 +1788,7 @@ Each count is read from the warehouse at its stroke, never asserted from this gu
 <td>Test plan, written after the code</td>
 </tr>
 <tr>
-<td>UDM structures</td>
+<td class="tid">UDM structures</td>
 <td>Design DD-2</td>
 </tr>
 <tr>
@@ -1801,11 +1804,11 @@ Each count is read from the warehouse at its stroke, never asserted from this gu
 <td>The promotion steps, infra/runbooks/dbt_cloud_prod_environment.md, step 4</td>
 </tr>
 <tr>
-<td>GOVERNANCE_DM</td>
+<td class="tid">GOVERNANCE_DM</td>
 <td>Release 2 (mart design D-7).</td>
 </tr>
 <tr>
-<td>Q-12</td>
+<td class="tid">Q-12</td>
 <td>Until OQ-1 is answered (mart design DD-1).</td>
 </tr>
 <tr>
@@ -1827,17 +1830,17 @@ Each count is read from the warehouse at its stroke, never asserted from this gu
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Header: every field present and filled, Prerequisites and Companions included</td>
 <td>Yes. The author line reads &ldquo;Ray Serrano; edited by Claude&rdquo;, overriding the template&rsquo;s fixed text (Ray, 2026-10-22)</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Every section of the template</td>
 <td>Yes, 19 of 19: 1 to 10 with the pattern declaration, scope parts, test dispositions and verification queries</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>The implementer preamble, verbatim; the pattern declaration; the grounding command</td>
 <td>Yes, all three; the grounding command is git grep</td>
 </tr>
@@ -1854,27 +1857,27 @@ Each count is read from the warehouse at its stroke, never asserted from this gu
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>Each step names its exact file</td>
 <td>Yes for every live code step; steps 15 and 16 are superseded, step 20 is an operation, and steps 44 and 45 are commands that write their files</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Each step names its pattern, cited in knowledge 14</td>
 <td>Deviation by D-14: pattern citations go to course items 274 and 275 and the datavault4dbt fork&rsquo;s pages, not knowledge 14</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Each step and each test file names its repository exemplar, by path</td>
 <td>Yes, by the standard&rsquo;s first-instance rule: steps 1, 3 to 7, 10 to 13, 19 and 21, and the first source, unit, seed, assertion and expectation test files, were the repository&rsquo;s first of their classification, aligned with the reference architecture, and name no exemplar; every later step and test file names one of them. Steps 8, 9, 29 and 30 had no file of their classification in either place, the first datavault4dbt staging model, hub, links and satellites, and copied the toolkit&rsquo;s documentation; that gap went to Ray as a decision line on 2026-10-25, ratified as G-20 (answer 3y). Steps 39 to 45 name theirs: step 37&rsquo;s tests, vault_checks.sql (G-21), policy_fact.sql, inspector_sunbelt_client_number_form.sql, refresh_landing_tier.sql, and Mary&rsquo;s site guide; step 46 names the findings metric and unit_inspector_sunbelt_client_key_missing_one_finding_per_row</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>Tests: dispositions of existing tests, and the new tests as literal code</td>
 <td>Yes: both parts present</td>
 </tr>
 <tr>
-<td>5</td>
+<td class="tid">5</td>
 <td>Every live design decision carried by a step</td>
 <td>Branch design: yes for 44 of 45; D-31 decides to build nothing. D-42 to D-46 by steps 39 to 43, D-43 also by step 44, D-47 by step 46, D-48 to D-52 by steps 47 to 51. Mart design: yes; steps 52 to 78 carry its build decisions, and steps 80 to 82 its D-6, D-15 and D-16</td>
 </tr>
@@ -1891,24 +1894,24 @@ Each count is read from the warehouse at its stroke, never asserted from this gu
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td class="tid">1</td>
 <td>A change to an object with more than five repository consumers presented to Ray as its own decision line, with the count</td>
 <td>Put to Ray on 2026-10-25, after the change: client_h (18 consumers by git grep) and stg_sunbelt_client (9), ratified as G-18 and G-19 (answers 1y and 2y). For the fix to release 1: client_sunbelt_s (11), insured_northfield_s (10) and policy_northfield_s (10), recorded as G-22 and approved on 2026-10-28 (answer 1y)</td>
 </tr>
 <tr>
-<td>2</td>
+<td class="tid">2</td>
 <td>Decisions recorded in this guide, numbered</td>
 <td>Yes: G-1 to G-22</td>
 </tr>
 <tr>
-<td>3</td>
+<td class="tid">3</td>
 <td>Rollback and exclusions stated</td>
 <td>Yes: sections 9 and 10</td>
 </tr>
 <tr>
-<td>4</td>
+<td class="tid">4</td>
 <td>The text agrees with the code it guides</td>
 <td>Yes since 2026-10-25: step 31 describes the key-existence check, verification query 1 filters on SSI with both increments&rsquo; counts, the recap rows of D-1 and D-10 match the design, and the tests section counts 62 unit tests for increment 2. Steps 39 to 45 were written from the branch at 976744e, steps 46 to 50 from fd68751, each code block read from its file</td>
 </tr>
 </tbody>
-</table></div></article><section class="cta bleed"><h2>Next: Post-implementation guide</h2><p>What shipped, the evidence, and every difference from the plan, with why.</p><a class="btn" href="post-implementation.html">Read the post-implementation guide</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+</table></div></article><section class="cta bleed"><h2 class="qa-changed">Next: Post-implementation guide: v2026.10.1, The Agency’s Business</h2><p>What shipped, the evidence, and every difference from the plan, with why.</p><a class="btn" href="post-implementation.html">Read the post-implementation guide: v2026.10.1, the agency’s business</a></section></main><p class="to-top"><a href="#top">Back to top ↑</a></p><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
