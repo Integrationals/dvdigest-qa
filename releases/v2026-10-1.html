@@ -142,7 +142,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <p><b>Q-10. How much coverage does each carrier provide through us?</b> Northfield Life: 125,000.00 dollars in face amount.</p>
 <p><b>Q-11. Which agent sold each policy, and where do our sources disagree about it?</b> Sunbelt Senior's sales data and Northfield Life's policy data agree about the agent who sold it on 15 policies and disagree on 1.</p>
 <p><b>Q-15. How many records arrive in a form we don't accept, from which source?</b> 3, all from Sunbelt Senior.</p>
-<h2 class="qa-changed">2. Terms</h2>
+<h2>2. Terms</h2>
 <ul>
 <li><b>Client:</b> a client number Sunbelt Senior, the agency the distributor acquired, sends for a person it serves.</li>
 <li><b>Policy:</b> an insurance contract issued by a carrier, identified by the carrier and its policy number together.</li>
@@ -152,7 +152,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <li><b>Face amount:</b> the death benefit a carrier states for a policy, in dollars.</li>
 <li><b>Rejected record:</b> a record that arrived in a form the vault does not accept, such as a client number written another way.</li>
 </ul>
-<h2 class="qa-changed">3. What to know</h2>
+<h2>3. What to know</h2>
 <ul><li>v2026.11.1 corrected coverage to count in-force policies only: a lapsed policy provides no coverage, so Northfield Life's coverage became 110,000 dollars, NF-100003 having lapsed on 2026-10-02. The figures on this page are as this release was answered.</li>
 <li>Face amounts appear only where a carrier sends them. In this release only Northfield Life does.</li>
 <li>One sale arrived without a carrier code (policy NF-100005). It counts as a policy, with no carrier and no amount.</li>
@@ -161,7 +161,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 <li>The data is invented for the DIGEST Data Vault course: two deliveries from Sunbelt Senior and Northfield Life, on 2026-10-01 and 2026-10-02.</li>
 </ul>
 
-<h2 class="qa-changed"><span class="sec">4</span> Try these</h2>
+<h2><span class="sec">4</span> Try these</h2>
 <div class="prompts"><p>Ask your Claude with the DV Digest connector. Expected results are as of the date above.</p>
 <ol>
 <li>&ldquo;With DV Digest, show policies_held by client_policy__role.&rdquo; Expected: owner 9, insured 3, payor 1.</li>
@@ -173,5 +173,5 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 
 <h2><span class="sec">5</span> Verification</h2>
 <div class="qa"><p>Each answer above was asked through DV Digest and equals an independent direct query on production, row for row. Production was built from the certified release and is identical to the certified QA build: every table, and every row of history.</p></div>
-<p class="qa-changed" class="rel-foot">DV Digest release answers. Release v2026.10.1, The Agency's Business.
+<p class="rel-foot">DV Digest release answers. Release v2026.10.1, The Agency's Business.
 <p class="disclaimer">Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this page is invented for the DIGEST Data Vault course.</p></p></div></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
