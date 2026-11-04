@@ -1,6 +1,19 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Post-implementation guide | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
+@media (prefers-reduced-motion:reduce){.owl.bob,.owl .eye{animation:none}}
+.doc table:not(.meta) th{background:var(--soft);color:var(--teal-d);border-bottom:2px solid var(--teal)}
+.doc table:not(.meta) tbody tr:nth-child(even) td{background:rgba(63,165,144,.06)}
+.doc table:not(.meta) td:first-child{color:var(--teal-d);font-weight:700}
+.rc{border-left:4px solid var(--teal)}.rc dt{color:var(--teal-d)}
+.rc{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0;background:var(--card)}.rc-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.rc-id{font-weight:800;color:var(--teal-d);font-size:13px}.rc-state{font-size:12.5px;color:var(--muted)}.rc-title{margin:6px 0 8px;font-size:16px;font-weight:600;color:var(--ink)}
+.rc dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:0;font-size:14px}.rc dt{font-weight:700;color:var(--ink)}.rc dd{margin:0;overflow-wrap:break-word}
+@media (max-width:560px){.rc dl{grid-template-columns:1fr}.rc dt{margin-top:4px}}
+table.meta td:first-child{white-space:nowrap;width:1%;padding-right:18px;vertical-align:top}
 .rel-record{max-width:900px;margin:0 auto}.rel-head{margin:8px 0 18px}.rel-record .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .rel-record .chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--teal);color:var(--teal-d)}.rel-record .chip.solid{background:var(--teal);color:#fff}
 .rel-record .clockcard{background:var(--soft);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:14px}
@@ -100,7 +113,7 @@ main{min-width:0}
 .doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
 .table-wrap,pre{max-width:100%}
 details.file{overflow:hidden}
-.doc{overflow-wrap:anywhere}
+.doc{overflow-wrap:break-word}  /* CR-29: words break only when they cannot fit */
 
 .kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
 .kicker+h2{margin-top:0}
@@ -133,18 +146,12 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Post-implementation guide</p><p class="eyebrow">Documentation · next release, in QA</p><h1>Post-implementation guide</h1><p>What the next release shipped, the evidence, and every difference from the plan, with why.</p></div></header>
 <main><article class="doc"><h1>Branch Post-Implementation Guide: the fix to release 1 and the conformed mart</h1>
 <h3>Post-Implementation Guide</h3>
 <p><em>Branch Delivery Document</em> — <strong>Validation Evidence — Post-Implementation Guide</strong></p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
+<div class="table-wrap"><table class="meta">
 <tbody>
 <tr>
 <td><strong>Effort</strong></td>
@@ -300,239 +307,12 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tbody>
 </table></div>
 <h2>3. Test outcome</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Test scope</th>
-<th>Planned</th>
-<th>Passed</th>
-<th>Failed</th>
-<th>Disposition or evidence</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Full dev build of the branch</td>
-<td>271</td>
-<td>271</td>
-<td>0</td>
-<td>dbt build, 2026-11-01 04:43 UTC</td>
-</tr>
-<tr>
-<td>The conformed mart&rsquo;s unit, key and date tests</td>
-<td>43</td>
-<td>43</td>
-<td>0</td>
-<td>Steps 61 to 74</td>
-</tr>
-<tr>
-<td>The semantic layer&rsquo;s tests (layers 6 and 7)</td>
-<td>18</td>
-<td>18</td>
-<td>0</td>
-<td>Step 77; the dev route is the facts&rsquo; own SQL (answer 1a)</td>
-</tr>
-<tr>
-<td>The carrier feed&rsquo;s tests</td>
-<td>26</td>
-<td>26</td>
-<td>0</td>
-<td>12 unit, 10 key, 4 source tests</td>
-</tr>
-<tr>
-<td>QA runs 1 to 5</td>
-<td>the QA job, then the after-build checks</td>
-<td>run 1 failed on 3 unit tests; runs 2 to 5 built clean and failed in turn on the structure check, the Ask deploy and the connector&rsquo;s role</td>
-<td>—</td>
-<td>, section 5; each fixed by pull requests 24 to 27</td>
-</tr>
-<tr>
-<td>QA run 6, certified</td>
-<td>168 and 211 nodes, 34 retest checks, the rollback rehearsal</td>
-<td>all</td>
-<td>0</td>
-<td>, all six gates, qa at 4ad7057</td>
-</tr>
-<tr>
-<td>The dev rehearsal, before pull requests 24 to 28</td>
-<td>the QA job on dbt-core, Fusion, structure, connector, retest</td>
-<td>all</td>
-<td>0</td>
-<td>implementation guide , section 7</td>
-</tr>
-</tbody>
-</table></div>
+<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">Full dev build of the branch</span></div><p class="rc-title">271</p><dl><dt>Passed</dt><dd>271</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>dbt build, 2026-11-01 04:43 UTC</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The conformed mart&rsquo;s unit, key and date tests</span></div><p class="rc-title">43</p><dl><dt>Passed</dt><dd>43</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Steps 61 to 74</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The semantic layer&rsquo;s tests (layers 6 and 7)</span></div><p class="rc-title">18</p><dl><dt>Passed</dt><dd>18</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>Step 77; the dev route is the facts&rsquo; own SQL (answer 1a)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The carrier feed&rsquo;s tests</span></div><p class="rc-title">26</p><dl><dt>Passed</dt><dd>26</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>12 unit, 10 key, 4 source tests</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">QA runs 1 to 5</span></div><p class="rc-title">the QA job, then the after-build checks</p><dl><dt>Passed</dt><dd>run 1 failed on 3 unit tests; runs 2 to 5 built clean and failed in turn on the structure check, the Ask deploy and the connector&rsquo;s role</dd><dt>Failed</dt><dd>—</dd><dt>Disposition or evidence</dt><dd>, section 5; each fixed by pull requests 24 to 27</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">QA run 6, certified</span></div><p class="rc-title">168 and 211 nodes, 34 retest checks, the rollback rehearsal</p><dl><dt>Passed</dt><dd>all</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>, all six gates, qa at 4ad7057</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The dev rehearsal, before pull requests 24 to 28</span></div><p class="rc-title">the QA job on dbt-core, Fusion, structure, connector, retest</p><dl><dt>Passed</dt><dd>all</dd><dt>Failed</dt><dd>0</dd><dt>Disposition or evidence</dt><dd>implementation guide , section 7</dd></dl></div></div></div>
 <h3>Finance workbook delivery and UAT evidence</h3>
 <p>For finance reporting branches, record delivered workbook revision/location, reporting period, repository generation script, query/build references, technical reconciliation evidence and consumer acceptance or pending cases under K#12 I#27. Otherwise state NA with a reason.</p>
 <p>Not applicable: this branch is not a finance reporting branch.</p>
 <h2>4. Deltas from the plan</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Delta</th>
-<th>Planned</th>
-<th>Actual</th>
-<th>Why</th>
-<th>Canonical document or standard updated</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Landing grants</td>
-<td>Grants to CLAUDE_WS_ROLE</td>
-<td>Ownership to LANDING_ROLE, reads to DV_ROLE and LANDING_READ_ROLE</td>
-<td>The file&rsquo;s own pattern, its exemplar</td>
-<td>none</td>
-</tr>
-<tr>
-<td>land_act on an empty act</td>
-<td>One INSERT per act</td>
-<td>An act with no profiled rows logs that it has none</td>
-<td>Pinecrest has no act 1 row; an empty INSERT fails</td>
-<td>none</td>
-</tr>
-<tr>
-<td>Organization staging&rsquo;s carrier_code</td>
-<td>VARCHAR(8), as the exemplar</td>
-<td>VARCHAR(16)</td>
-<td>VARCHAR(8) cut the unknown ghost&rsquo;s code to u</td>
-<td>none; policy_h keeps the cut code until release 2 (answer 3b)</td>
-</tr>
-<tr>
-<td>Carrier feed&rsquo;s OT2 and OT3 tests</td>
-<td>Load times of the real acts</td>
-<td>Staging rows loaded 2099-01-01</td>
-<td>The toolkit&rsquo;s newest-load filter reads the real table, which the release 1 satellite tests also guard against</td>
-<td>none</td>
-</tr>
-<tr>
-<td>day_dim</td>
-<td>GENERATOR in the guide&rsquo;s illustration</td>
-<td>dbt_utils.date_spine</td>
-<td>Its exemplar, time_spine_day.sql</td>
-<td>none</td>
-</tr>
-<tr>
-<td>organization_dim</td>
-<td>Names from both satellite views</td>
-<td>Each view filtered by its own record source; a ghost&rsquo;s code as its name</td>
-<td>A ghost row appears in both views</td>
-<td>none</td>
-</tr>
-<tr>
-<td>Masking assertions SM1 and SM2</td>
-<td>Run in their sessions</td>
-<td>Each checks only in its own session</td>
-<td>CLAUDE_WS_ROLE holds SYSADMIN; SM2 proven as DEV_CLAUDE_WS_ROLE, granted read on the dev CONFORMED_DM</td>
-<td>none</td>
-</tr>
-<tr>
-<td>Semantic YAML</td>
-<td>Semantic models and metrics in _conformed_dm.yml</td>
-<td>In each model&rsquo;s property file, release 1&rsquo;s form; _conformed_dm.yml holds the saved queries</td>
-<td>The repository&rsquo;s form</td>
-<td>none</td>
-</tr>
-<tr>
-<td>finding_row</td>
-<td>table, a space, the value</td>
-<td>table, a colon, the value</td>
-<td>Release 1&rsquo;s form, which its moved unit test expects</td>
-<td>none</td>
-</tr>
-<tr>
-<td>Reconciliations and saved-query tests</td>
-<td>MetricFlow&rsquo;s compiled answer</td>
-<td>The facts&rsquo; own SQL in dev; Q-13 and Q-14 pinned to vault figures</td>
-<td>MetricFlow cannot compile on the workstation (answers 1a and 2a)</td>
-<td>test plan 2.3.4 to follow at agreement</td>
-</tr>
-<tr>
-<td>Facts and ghost rows</td>
-<td>Facts read their links whole</td>
-<td>Facts leave out the links&rsquo; ghost rows</td>
-<td>Ghost rows are dimension members, never fact rows (mart design 3.5)</td>
-<td>none</td>
-</tr>
-<tr>
-<td>Commits for steps 70 to 78</td>
-<td>One commit</td>
-<td>Three: eda74c8, c27fef2, 9ee10b2</td>
-<td>The name collision the rule guards against was resolved in the first</td>
-<td>none</td>
-</tr>
-<tr>
-<td>Production landing</td>
-<td>At promotion</td>
-<td>Delivered 2026-11-01, after the dev proof</td>
-<td>So QA can clone LANDING (answer 2y)</td>
-<td>none</td>
-</tr>
-<tr>
-<td>Unit tests on QA&rsquo;s engine</td>
-<td>Every unit test runs on both engines</td>
-<td>Three tagged fusion_only, run under Fusion in dev</td>
-<td>dbt-core cannot run them as written; Ray&rsquo;s exception, answer 2b</td>
-<td>none</td>
-</tr>
-<tr>
-<td>The dev rehearsal</td>
-<td>Development built on Fusion</td>
-<td>Development runs the QA job on dbt-core, from fresh clones, before any pull request</td>
-<td>QA run 1 found what Fusion alone had hidden; Ray, nothing is supposed to fail in QA</td>
-<td>guide section 7</td>
-</tr>
-<tr>
-<td>The structure check</td>
-<td>dv.sql compared as written</td>
-<td>dbt&rsquo;s signature stripped before comparing</td>
-<td>The signature differs between engines and on every run</td>
-<td>none</td>
-</tr>
-<tr>
-<td>The Ask function</td>
-<td>Streaming in dev</td>
-<td>Streaming in every environment, run.sh packed for each</td>
-<td>Running dev differently from QA or production is a process violation (Ray)</td>
-<td>none</td>
-</tr>
-<tr>
-<td>The connector&rsquo;s access</td>
-<td>Its user&rsquo;s default session</td>
-<td>Secondary roles off; read-only grant on the conformed mart</td>
-<td>The session carried SYSADMIN, lifting the insured mask</td>
-<td>release 2: its own user (answer 2y)</td>
-</tr>
-<tr>
-<td>The rollback</td>
-<td>Rebuild release 1&rsquo;s MART</td>
-<td>Time Travel clone at the restore point, swapped in</td>
-<td>Ray: we have time travel; rehearsed in dev and QA</td>
-<td>the production runbook</td>
-</tr>
-<tr>
-<td>Reconciliations&rsquo; route</td>
-<td>The facts&rsquo; own SQL in dev (answer 1a)</td>
-<td>Also MetricFlow, the connector&rsquo;s version, compiled and run in dev and on QA&rsquo;s manifest</td>
-<td>My claim that MetricFlow could not run here was wrong</td>
-<td>none</td>
-</tr>
-<tr>
-<td>The ER/Studio data models, order of work (DIG-604)</td>
-<td>Design decisions, test plan entries and guide steps before any code</td>
-<td>The code of guide steps 79 to 81 was written first, on 2026-11-01; the documents followed and the code was kept on Ray&rsquo;s word, since undoing it would cost more</td>
-<td>Claude&rsquo;s plan went to code first; the branch delivery documents standard already required documents first</td>
-<td>Branch design D-53 to D-55; mart design D-6, D-15, D-16; test plan v10; guide steps 79 to 84</td>
-</tr>
-<tr>
-<td>The finding fact&rsquo;s source key (DIG-604)</td>
-<td>As built, text of length 32</td>
-<td>Cast to unbounded text, the source dimension&rsquo;s type</td>
-<td>Snowflake declares a foreign key only between columns of the same type; the dev build of 2026-11-02 refused it</td>
-<td>Guide step 82</td>
-</tr>
-</tbody>
-</table></div>
+<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">Landing grants</span></div><p class="rc-title">Grants to CLAUDE_WS_ROLE</p><dl><dt>Actual</dt><dd>Ownership to LANDING_ROLE, reads to DV_ROLE and LANDING_READ_ROLE</dd><dt>Why</dt><dd>The file&rsquo;s own pattern, its exemplar</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">land_act on an empty act</span></div><p class="rc-title">One INSERT per act</p><dl><dt>Actual</dt><dd>An act with no profiled rows logs that it has none</dd><dt>Why</dt><dd>Pinecrest has no act 1 row; an empty INSERT fails</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Organization staging&rsquo;s carrier_code</span></div><p class="rc-title">VARCHAR(8), as the exemplar</p><dl><dt>Actual</dt><dd>VARCHAR(16)</dd><dt>Why</dt><dd>VARCHAR(8) cut the unknown ghost&rsquo;s code to u</dd><dt>Canonical document or standard updated</dt><dd>none; policy_h keeps the cut code until release 2 (answer 3b)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Carrier feed&rsquo;s OT2 and OT3 tests</span></div><p class="rc-title">Load times of the real acts</p><dl><dt>Actual</dt><dd>Staging rows loaded 2099-01-01</dd><dt>Why</dt><dd>The toolkit&rsquo;s newest-load filter reads the real table, which the release 1 satellite tests also guard against</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">day_dim</span></div><p class="rc-title">GENERATOR in the guide&rsquo;s illustration</p><dl><dt>Actual</dt><dd>dbt_utils.date_spine</dd><dt>Why</dt><dd>Its exemplar, time_spine_day.sql</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">organization_dim</span></div><p class="rc-title">Names from both satellite views</p><dl><dt>Actual</dt><dd>Each view filtered by its own record source; a ghost&rsquo;s code as its name</dd><dt>Why</dt><dd>A ghost row appears in both views</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Masking assertions SM1 and SM2</span></div><p class="rc-title">Run in their sessions</p><dl><dt>Actual</dt><dd>Each checks only in its own session</dd><dt>Why</dt><dd>CLAUDE_WS_ROLE holds SYSADMIN; SM2 proven as DEV_CLAUDE_WS_ROLE, granted read on the dev CONFORMED_DM</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Semantic YAML</span></div><p class="rc-title">Semantic models and metrics in _conformed_dm.yml</p><dl><dt>Actual</dt><dd>In each model&rsquo;s property file, release 1&rsquo;s form; _conformed_dm.yml holds the saved queries</dd><dt>Why</dt><dd>The repository&rsquo;s form</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">finding_row</span></div><p class="rc-title">table, a space, the value</p><dl><dt>Actual</dt><dd>table, a colon, the value</dd><dt>Why</dt><dd>Release 1&rsquo;s form, which its moved unit test expects</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Reconciliations and saved-query tests</span></div><p class="rc-title">MetricFlow&rsquo;s compiled answer</p><dl><dt>Actual</dt><dd>The facts&rsquo; own SQL in dev; Q-13 and Q-14 pinned to vault figures</dd><dt>Why</dt><dd>MetricFlow cannot compile on the workstation (answers 1a and 2a)</dd><dt>Canonical document or standard updated</dt><dd>test plan 2.3.4 to follow at agreement</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Facts and ghost rows</span></div><p class="rc-title">Facts read their links whole</p><dl><dt>Actual</dt><dd>Facts leave out the links&rsquo; ghost rows</dd><dt>Why</dt><dd>Ghost rows are dimension members, never fact rows (mart design 3.5)</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Commits for steps 70 to 78</span></div><p class="rc-title">One commit</p><dl><dt>Actual</dt><dd>Three: eda74c8, c27fef2, 9ee10b2</dd><dt>Why</dt><dd>The name collision the rule guards against was resolved in the first</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Production landing</span></div><p class="rc-title">At promotion</p><dl><dt>Actual</dt><dd>Delivered 2026-11-01, after the dev proof</dd><dt>Why</dt><dd>So QA can clone LANDING (answer 2y)</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Unit tests on QA&rsquo;s engine</span></div><p class="rc-title">Every unit test runs on both engines</p><dl><dt>Actual</dt><dd>Three tagged fusion_only, run under Fusion in dev</dd><dt>Why</dt><dd>dbt-core cannot run them as written; Ray&rsquo;s exception, answer 2b</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The dev rehearsal</span></div><p class="rc-title">Development built on Fusion</p><dl><dt>Actual</dt><dd>Development runs the QA job on dbt-core, from fresh clones, before any pull request</dd><dt>Why</dt><dd>QA run 1 found what Fusion alone had hidden; Ray, nothing is supposed to fail in QA</dd><dt>Canonical document or standard updated</dt><dd>guide section 7</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The structure check</span></div><p class="rc-title">dv.sql compared as written</p><dl><dt>Actual</dt><dd>dbt&rsquo;s signature stripped before comparing</dd><dt>Why</dt><dd>The signature differs between engines and on every run</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The Ask function</span></div><p class="rc-title">Streaming in dev</p><dl><dt>Actual</dt><dd>Streaming in every environment, run.sh packed for each</dd><dt>Why</dt><dd>Running dev differently from QA or production is a process violation (Ray)</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The connector&rsquo;s access</span></div><p class="rc-title">Its user&rsquo;s default session</p><dl><dt>Actual</dt><dd>Secondary roles off; read-only grant on the conformed mart</dd><dt>Why</dt><dd>The session carried SYSADMIN, lifting the insured mask</dd><dt>Canonical document or standard updated</dt><dd>release 2: its own user (answer 2y)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The rollback</span></div><p class="rc-title">Rebuild release 1&rsquo;s MART</p><dl><dt>Actual</dt><dd>Time Travel clone at the restore point, swapped in</dd><dt>Why</dt><dd>Ray: we have time travel; rehearsed in dev and QA</dd><dt>Canonical document or standard updated</dt><dd>the production runbook</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">Reconciliations&rsquo; route</span></div><p class="rc-title">The facts&rsquo; own SQL in dev (answer 1a)</p><dl><dt>Actual</dt><dd>Also MetricFlow, the connector&rsquo;s version, compiled and run in dev and on QA&rsquo;s manifest</dd><dt>Why</dt><dd>My claim that MetricFlow could not run here was wrong</dd><dt>Canonical document or standard updated</dt><dd>none</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The ER/Studio data models, order of work (DIG-604)</span></div><p class="rc-title">Design decisions, test plan entries and guide steps before any code</p><dl><dt>Actual</dt><dd>The code of guide steps 79 to 81 was written first, on 2026-11-01; the documents followed and the code was kept on Ray&rsquo;s word, since undoing it would cost more</dd><dt>Why</dt><dd>Claude&rsquo;s plan went to code first; the branch delivery documents standard already required documents first</dd><dt>Canonical document or standard updated</dt><dd>Branch design D-53 to D-55; mart design D-6, D-15, D-16; test plan v10; guide steps 79 to 84</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">The finding fact&rsquo;s source key (DIG-604)</span></div><p class="rc-title">As built, text of length 32</p><dl><dt>Actual</dt><dd>Cast to unbounded text, the source dimension&rsquo;s type</dd><dt>Why</dt><dd>Snowflake declares a foreign key only between columns of the same type; the dev build of 2026-11-02 refused it</dd><dt>Canonical document or standard updated</dt><dd>Guide step 82</dd></dl></div></div></div>
 <h2>5. Known characteristics</h2>
 <div class="table-wrap"><table>
 <thead>

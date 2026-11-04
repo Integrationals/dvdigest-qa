@@ -1,6 +1,19 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Implementation guide | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
+@media (prefers-reduced-motion:reduce){.owl.bob,.owl .eye{animation:none}}
+.doc table:not(.meta) th{background:var(--soft);color:var(--teal-d);border-bottom:2px solid var(--teal)}
+.doc table:not(.meta) tbody tr:nth-child(even) td{background:rgba(63,165,144,.06)}
+.doc table:not(.meta) td:first-child{color:var(--teal-d);font-weight:700}
+.rc{border-left:4px solid var(--teal)}.rc dt{color:var(--teal-d)}
+.rc{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0;background:var(--card)}.rc-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.rc-id{font-weight:800;color:var(--teal-d);font-size:13px}.rc-state{font-size:12.5px;color:var(--muted)}.rc-title{margin:6px 0 8px;font-size:16px;font-weight:600;color:var(--ink)}
+.rc dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:0;font-size:14px}.rc dt{font-weight:700;color:var(--ink)}.rc dd{margin:0;overflow-wrap:break-word}
+@media (max-width:560px){.rc dl{grid-template-columns:1fr}.rc dt{margin-top:4px}}
+table.meta td:first-child{white-space:nowrap;width:1%;padding-right:18px;vertical-align:top}
 .rel-record{max-width:900px;margin:0 auto}.rel-head{margin:8px 0 18px}.rel-record .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .rel-record .chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--teal);color:var(--teal-d)}.rel-record .chip.solid{background:var(--teal);color:#fff}
 .rel-record .clockcard{background:var(--soft);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:14px}
@@ -100,7 +113,7 @@ main{min-width:0}
 .doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
 .table-wrap,pre{max-width:100%}
 details.file{overflow:hidden}
-.doc{overflow-wrap:anywhere}
+.doc{overflow-wrap:break-word}  /* CR-29: words break only when they cannot fit */
 
 .kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
 .kicker+h2{margin-top:0}
@@ -133,17 +146,11 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>Implementation guide</p><p class="eyebrow">Documentation · release 1</p><h1>Implementation guide</h1><p>The build, step by step, with its code and its exemplars.</p></div></header>
 <main><article class="doc"><h1>Branch Implementation Guide: Sunbelt Senior Insurance Client Hub and Source System Seed (Arrival and Identity)</h1>
 <h3>Implementation Guide (part 1 of 1)</h3>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
+<div class="table-wrap"><table class="meta">
 <tbody>
 <tr>
 <td><strong>Effort</strong></td>
@@ -502,82 +509,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tbody>
 </table></div>
 <h2>4. Baseline</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Baseline ID</th>
-<th>Behavior or value</th>
-<th>Capture command or query</th>
-<th>Captured result and clock</th>
-<th>Reconciliation condition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>B-1</td>
-<td>Objects in DV.DEV_CLAUDE</td>
-<td>SELECT TABLE_NAME, TABLE_TYPE FROM DV.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = &lsquo;DEV_CLAUDE&rsquo;</td>
-<td>3: STUDENT (table), STG_STUDENT (view), STUDENT_H (table); 2026-10-23 01:41 UTC</td>
-<td>Still present and unchanged after both builds, plus the new objects</td>
-</tr>
-<tr>
-<td>B-2</td>
-<td>Rows in DV.DEV_CLAUDE.STUDENT_H</td>
-<td>SELECT COUNT(*) FROM DV.DEV_CLAUDE.STUDENT_H</td>
-<td>5; 2026-10-23 01:41 UTC</td>
-<td>Unchanged (5) after both builds</td>
-</tr>
-<tr>
-<td>B-3</td>
-<td>LANDING database</td>
-<td>SELECT COUNT(*) FROM SNOWFLAKE.INFORMATION_SCHEMA.DATABASES WHERE DATABASE_NAME = &lsquo;LANDING&rsquo;</td>
-<td>0; 2026-10-23 01:41 UTC</td>
-<td>1 after step 1</td>
-</tr>
-<tr>
-<td>B-5</td>
-<td>Increment 2&rsquo;s landing tables</td>
-<td>SELECT TABLE_NAME FROM DEV__LANDING__CLAUDE_WS.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;SUNBELT&rsquo;, &lsquo;NORTHFIELD&rsquo;), and the same on LANDING</td>
-<td>CLIENT only (43 rows) in both databases; 2026-10-25 00:13 UTC</td>
-<td>POLICY_SALE and POLICY present after step 22; CLIENT unchanged</td>
-</tr>
-<tr>
-<td>B-6</td>
-<td>The client hub by record source</td>
-<td>SELECT RSRC, COUNT(*) FROM DEV__DV__CLAUDE_WS.RAW_VAULT.CLIENT_H GROUP BY 1</td>
-<td>SSI 34, SYSTEM 1, ERROR 1; 2026-10-25 00:13 UTC</td>
-<td>Every kept row unchanged; new rows only for client numbers first seen in the sales data</td>
-</tr>
-<tr>
-<td>B-7</td>
-<td>Findings by finder type</td>
-<td>SELECT FINDER_TYPE, COUNT(*) FROM DEV__LANDING__CLAUDE_WS.CONFIG.DATA_FINDING GROUP BY 1</td>
-<td>inspection 2; 2026-10-25 00:13 UTC</td>
-<td>The two client-number findings unchanged; new findings only from the new inspector and auditors</td>
-</tr>
-<tr>
-<td>B-4</td>
-<td>Semantic models in the repository</td>
-<td>git ls-files, filtered for semantic and metric</td>
-<td>0; 2026-10-23 01:41 UTC</td>
-<td>Still 0 (layer 7 not applicable)</td>
-</tr>
-<tr>
-<td>B-8</td>
-<td>Production&rsquo;s zero-key source rows in client_sunbelt_s and insured_northfield_s</td>
-<td>The before query of infra/snowflake/correct_zero_key_satellite_rows.sql against DV</td>
-<td>3 and 1, as the fix&rsquo;s tests recorded them on 2026-10-28, copied into the development vault for the script&rsquo;s proof</td>
-<td>0 and 0 after the promotion&rsquo;s correction, the placeholder rows kept</td>
-</tr>
-<tr>
-<td>B-9</td>
-<td>Objects in DV_QA.MART and DV_QA.CONFORMED_DM before the mart&rsquo;s build</td>
-<td>SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE FROM DV_QA.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;MART&rsquo;, &lsquo;CONFORMED_DM&rsquo;) ORDER BY 1, 2</td>
-<td>MART: the five views, CLIENT_POLICY_FACT, AGENT_POLICY_FACT, POLICY_FACT, FINDING_FACT and TIME_SPINE_DAY; CONFORMED_DM: absent</td>
-<td>After the build, MART: none; CONFORMED_DM: the thirteen models</td>
-</tr>
-</tbody>
-</table></div>
+<div class="table-wrap"><div class="rcards"><div class="rc"><div class="rc-top"><span class="rc-id">B-1</span></div><p class="rc-title">Objects in DV.DEV_CLAUDE</p><dl><dt>Capture command or query</dt><dd>SELECT TABLE_NAME, TABLE_TYPE FROM DV.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = &lsquo;DEV_CLAUDE&rsquo;</dd><dt>Captured result and clock</dt><dd>3: STUDENT (table), STG_STUDENT (view), STUDENT_H (table); 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>Still present and unchanged after both builds, plus the new objects</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-2</span></div><p class="rc-title">Rows in DV.DEV_CLAUDE.STUDENT_H</p><dl><dt>Capture command or query</dt><dd>SELECT COUNT(*) FROM DV.DEV_CLAUDE.STUDENT_H</dd><dt>Captured result and clock</dt><dd>5; 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>Unchanged (5) after both builds</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-3</span></div><p class="rc-title">LANDING database</p><dl><dt>Capture command or query</dt><dd>SELECT COUNT(*) FROM SNOWFLAKE.INFORMATION_SCHEMA.DATABASES WHERE DATABASE_NAME = &lsquo;LANDING&rsquo;</dd><dt>Captured result and clock</dt><dd>0; 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>1 after step 1</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-5</span></div><p class="rc-title">Increment 2&rsquo;s landing tables</p><dl><dt>Capture command or query</dt><dd>SELECT TABLE_NAME FROM DEV__LANDING__CLAUDE_WS.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;SUNBELT&rsquo;, &lsquo;NORTHFIELD&rsquo;), and the same on LANDING</dd><dt>Captured result and clock</dt><dd>CLIENT only (43 rows) in both databases; 2026-10-25 00:13 UTC</dd><dt>Reconciliation condition</dt><dd>POLICY_SALE and POLICY present after step 22; CLIENT unchanged</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-6</span></div><p class="rc-title">The client hub by record source</p><dl><dt>Capture command or query</dt><dd>SELECT RSRC, COUNT(*) FROM DEV__DV__CLAUDE_WS.RAW_VAULT.CLIENT_H GROUP BY 1</dd><dt>Captured result and clock</dt><dd>SSI 34, SYSTEM 1, ERROR 1; 2026-10-25 00:13 UTC</dd><dt>Reconciliation condition</dt><dd>Every kept row unchanged; new rows only for client numbers first seen in the sales data</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-7</span></div><p class="rc-title">Findings by finder type</p><dl><dt>Capture command or query</dt><dd>SELECT FINDER_TYPE, COUNT(*) FROM DEV__LANDING__CLAUDE_WS.CONFIG.DATA_FINDING GROUP BY 1</dd><dt>Captured result and clock</dt><dd>inspection 2; 2026-10-25 00:13 UTC</dd><dt>Reconciliation condition</dt><dd>The two client-number findings unchanged; new findings only from the new inspector and auditors</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-4</span></div><p class="rc-title">Semantic models in the repository</p><dl><dt>Capture command or query</dt><dd>git ls-files, filtered for semantic and metric</dd><dt>Captured result and clock</dt><dd>0; 2026-10-23 01:41 UTC</dd><dt>Reconciliation condition</dt><dd>Still 0 (layer 7 not applicable)</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-8</span></div><p class="rc-title">Production&rsquo;s zero-key source rows in client_sunbelt_s and insured_northfield_s</p><dl><dt>Capture command or query</dt><dd>The before query of infra/snowflake/correct_zero_key_satellite_rows.sql against DV</dd><dt>Captured result and clock</dt><dd>3 and 1, as the fix&rsquo;s tests recorded them on 2026-10-28, copied into the development vault for the script&rsquo;s proof</dd><dt>Reconciliation condition</dt><dd>0 and 0 after the promotion&rsquo;s correction, the placeholder rows kept</dd></dl></div><div class="rc"><div class="rc-top"><span class="rc-id">B-9</span></div><p class="rc-title">Objects in DV_QA.MART and DV_QA.CONFORMED_DM before the mart&rsquo;s build</p><dl><dt>Capture command or query</dt><dd>SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE FROM DV_QA.INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA IN (&lsquo;MART&rsquo;, &lsquo;CONFORMED_DM&rsquo;) ORDER BY 1, 2</dd><dt>Captured result and clock</dt><dd>MART: the five views, CLIENT_POLICY_FACT, AGENT_POLICY_FACT, POLICY_FACT, FINDING_FACT and TIME_SPINE_DAY; CONFORMED_DM: absent</dd><dt>Reconciliation condition</dt><dd>After the build, MART: none; CONFORMED_DM: the thirteen models</dd></dl></div></div></div>
 <h2>5. Ordered implementation steps</h2>
 <p><strong>Step 1. LANDING infrastructure.</strong> File: setup/infrastructure/landing.sql. Design D-1, D-12. The workstation runs it as SYSADMIN (G-2). Expected movement: B-3 becomes 1. Exemplar: first instance in this repository, aligned with the reference architecture.</p>
 <pre><code class="language-sql">USE ROLE SYSADMIN;
@@ -1314,7 +1246,8 @@ SELECT table_name FROM &lt;% vault %&gt;.INFORMATION_SCHEMA.VIEWS WHERE table_sc
 <p><strong>Step 93. The finding fact stays a view.</strong> Mart design D-6&rsquo;s exception. Found by the dev build of 2026-11-02: as a table, the finding fact was built before the inspectors wrote their findings on fresh data, and three tests warned; declaring it after them broke its unit test, which cannot be given the inspectors as inputs. File: dbt/models/marts/conformed_dm/finding_fact.sql, configured as a view. Expected movement: both builds without a warning; mart.sql with 8 primary and 13 foreign keys; the finding fact&rsquo;s relationship tests still run as tests.</p>
 <p><strong>Step 94. Dimensions meet through the facts.</strong> Mart design D-17; test plan FK11 and FK12, replacing FK10; review finding CR-18. Files: dbt/models/marts/conformed_dm/policy_dim.sql, its carrier key dropped and the carrier&rsquo;s name added, derived as organization_dim derives it; policy_terms_fact.sql and client_policy_role_fact.sql, each given the carrier key from the policy&rsquo;s carrier code, as policy_dim derived it; _conformed_dm_dimensions.yml and _conformed_dm_facts.yml, the carrier entity and its tests moved to the two facts, policy_dim&rsquo;s unit tests updated; tests/sq_q10_coverage_by_carrier_answer.sql and tests/recon_face_amount_current_two_routes.sql, joining the carrier through the fact. Command: build the conformed mart with its tests in dev, then the DDL files. Expected movement: Q-9 and Q-10 answer as before; mart.sql with 8 primary and 14 foreign keys, none between dimensions; Ray re-exports the mart model.</p>
 <p><strong>Step 95. The finding fact joined in the data model.</strong> Mart design D-6&rsquo;s exception, amended 2026-11-03. File: dbt/models/marts/conformed_dm/finding_fact.sql, still a view, its source key and detected date read through outer joins to source_dim and day_dim, so every finding stays; ER/Studio&rsquo;s import draws no join for it, so it is left out of the mart diagram until v2026.11.2 (a plain-FROM version failed to import, 2026-11-03). Known exception until v2026.11.2, which brings the findings into the vault. Command: build the finding fact and its tests in dev, then the DDL files. Expected movement: its row count and every test unchanged; mart.sql&rsquo;s view reading both dimensions; the view left out of the mart diagram.</p>
-<p class="qa-changed"><strong>Step 96. The agent explores.</strong> Design D-70; review finding CR-22. Files: infra/aws/metricflow_backend.py, the catalogue&rsquo;s metrics carrying their labels; infra/aws/conversation_function.py, the agent&rsquo;s instructions rewritten for exploration as D-70 states, replies up to 4,096 tokens and twelve tool calls a question; a call the semantic layer refuses returns to the agent as a flagged result to correct, instead of ending the conversation, and the agent lists what is available from its catalogue (found in dev, 2026-11-03: one refused query ended a listing); site/dev/qa_retest.py, its check that no table or schema name reaches a reply. Command: the connector&rsquo;s tests; the dev connector and dev Ask function deployed; the retest through dev&rsquo;s Ask, and the question &ldquo;list the available metrics&rdquo;. Expected movement: the retest passing; the agent listing every metric by label with its meaning.</p>
+<p><strong>Step 96. The agent explores.</strong> Design D-70; review finding CR-22. Files: infra/aws/metricflow_backend.py, the catalogue&rsquo;s metrics carrying their labels; infra/aws/conversation_function.py, the agent&rsquo;s instructions rewritten for exploration as D-70 states, replies up to 4,096 tokens and twelve tool calls a question; a call the semantic layer refuses returns to the agent as a flagged result to correct, instead of ending the conversation, and the agent lists what is available from its catalogue (found in dev, 2026-11-03: one refused query ended a listing); site/dev/qa_retest.py, its check that no table or schema name reaches a reply. Command: the connector&rsquo;s tests; the dev connector and dev Ask function deployed; the retest through dev&rsquo;s Ask, and the question &ldquo;list the available metrics&rdquo;. Expected movement: the retest passing; the agent listing every metric by label with its meaning.</p>
+<p class="qa-changed"><strong>Step 97. The history shaped by standard tools.</strong> Design D-71; review finding CR-26. Files: infra/aws/requirements-lambda.txt, langchain-core pinned at 1.6.12, released 2026-10-16; infra/aws/conversation_function.py, the question&rsquo;s 2,000-character limit kept and the reply and message-count limits removed, the history trimmed with trim_messages to 100,000 tokens, strategy last, starting and ending on a question, and the request given automatic caching; site/build_site.py, the page sending the whole conversation rather than its last 20 messages; infra/aws/test_web_functions.py, the tests of test plan&rsquo;s D-71 row. Command: the connector&rsquo;s tests; the dev connector and Ask function deployed; a dev conversation past the budget; the retest. Expected movement: the tests passing, the long conversation answered, the retest 50 of 50.</p>
 <h2>6. Tests</h2>
 <h3>Existing-test dispositions</h3>
 <div class="table-wrap"><table>

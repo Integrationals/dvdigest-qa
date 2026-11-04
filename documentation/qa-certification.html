@@ -1,6 +1,19 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>QA certification | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
+@media (prefers-reduced-motion:reduce){.owl.bob,.owl .eye{animation:none}}
+.doc table:not(.meta) th{background:var(--soft);color:var(--teal-d);border-bottom:2px solid var(--teal)}
+.doc table:not(.meta) tbody tr:nth-child(even) td{background:rgba(63,165,144,.06)}
+.doc table:not(.meta) td:first-child{color:var(--teal-d);font-weight:700}
+.rc{border-left:4px solid var(--teal)}.rc dt{color:var(--teal-d)}
+.rc{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0;background:var(--card)}.rc-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.rc-id{font-weight:800;color:var(--teal-d);font-size:13px}.rc-state{font-size:12.5px;color:var(--muted)}.rc-title{margin:6px 0 8px;font-size:16px;font-weight:600;color:var(--ink)}
+.rc dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:0;font-size:14px}.rc dt{font-weight:700;color:var(--ink)}.rc dd{margin:0;overflow-wrap:break-word}
+@media (max-width:560px){.rc dl{grid-template-columns:1fr}.rc dt{margin-top:4px}}
+table.meta td:first-child{white-space:nowrap;width:1%;padding-right:18px;vertical-align:top}
 .rel-record{max-width:900px;margin:0 auto}.rel-head{margin:8px 0 18px}.rel-record .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .rel-record .chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--teal);color:var(--teal-d)}.rel-record .chip.solid{background:var(--teal);color:#fff}
 .rel-record .clockcard{background:var(--soft);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:14px}
@@ -100,7 +113,7 @@ main{min-width:0}
 .doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
 .table-wrap,pre{max-width:100%}
 details.file{overflow:hidden}
-.doc{overflow-wrap:anywhere}
+.doc{overflow-wrap:break-word}  /* CR-29: words break only when they cannot fit */
 
 .kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
 .kicker+h2{margin-top:0}
@@ -133,17 +146,11 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">DV Agent</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
+<header class="top"><div class="bar"><a class="brand" href="../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../index.html">Home</a><a href="../agent/index.html">Sage</a><a href="../model/index.html">Data model</a><a href="../conversation/index.html">Musings</a><a href="../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="crumbs"><a href="../index.html">Home</a><span>›</span><a href="../library/index.html">Library</a><span>›</span><a href="index.html">Documentation</a><span>›</span>QA certification</p><p class="eyebrow">Documentation · release 1</p><h1>QA certification</h1><p>The QA cycle: preparation, the build, the tests, the comparisons, and the verdict on six gates.</p></div></header>
 <main><article class="doc"><h1>DIG-574 QA Test and Certification: the Sunbelt Senior and Northfield Life raw vault</h1>
 <h3>Branch QA Test and Certification</h3>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
+<div class="table-wrap"><table class="meta">
 <tbody>
 <tr>
 <td><strong>Effort</strong></td>
@@ -438,4 +445,4 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 </tr>
 </tbody>
 </table></div>
-<p><strong>Cycle verdict:</strong> CERTIFIED on all six gates for release 1, The Acquired Book, on qa 827d5d4, promoted to main f48c24b and built in production (Ray, 2026-10-27, answers 1y).</p></article><section class="cta bleed"><h2>Next: Design</h2><p class="qa-changed">Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-70.</p><a class="btn" href="design.html">Read the design</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>
+<p><strong>Cycle verdict:</strong> CERTIFIED on all six gates for release 1, The Acquired Book, on qa 827d5d4, promoted to main f48c24b and built in production (Ray, 2026-10-27, answers 1y).</p></article><section class="cta bleed"><h2>Next: Design</h2><p class="qa-changed">Every Data Vault choice, argued: business keys, hashing, satellites per source, ghost records, inspectors and auditors, decisions D-1 to D-71.</p><a class="btn" href="design.html">Read the design</a></section></main><footer><div><b>DV Digest</b>: Mary's questions, answered from a tested Data Vault. Prepared by Ray Serrano for AmeriLife's data architecture team as a demonstration. Not an AmeriLife site. All data on this site is invented for the DIGEST Data Vault course.</div></footer></body></html>

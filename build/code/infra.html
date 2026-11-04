@@ -1,6 +1,19 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Infrastructure | DV Digest</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"><style>
+.chat-head .owl{vertical-align:middle;margin-right:6px}.wait-row{display:flex;align-items:center;gap:8px}.wait-row .owl{width:22px;height:22px;flex:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.owl.bob{animation:bob 1.4s ease-in-out infinite}.owl .eye{animation:blink 3.6s infinite;transform-origin:center;transform-box:fill-box}
+@media (prefers-reduced-motion:reduce){.owl.bob,.owl .eye{animation:none}}
+.doc table:not(.meta) th{background:var(--soft);color:var(--teal-d);border-bottom:2px solid var(--teal)}
+.doc table:not(.meta) tbody tr:nth-child(even) td{background:rgba(63,165,144,.06)}
+.doc table:not(.meta) td:first-child{color:var(--teal-d);font-weight:700}
+.rc{border-left:4px solid var(--teal)}.rc dt{color:var(--teal-d)}
+.rc{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0;background:var(--card)}.rc-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.rc-id{font-weight:800;color:var(--teal-d);font-size:13px}.rc-state{font-size:12.5px;color:var(--muted)}.rc-title{margin:6px 0 8px;font-size:16px;font-weight:600;color:var(--ink)}
+.rc dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:0;font-size:14px}.rc dt{font-weight:700;color:var(--ink)}.rc dd{margin:0;overflow-wrap:break-word}
+@media (max-width:560px){.rc dl{grid-template-columns:1fr}.rc dt{margin-top:4px}}
+table.meta td:first-child{white-space:nowrap;width:1%;padding-right:18px;vertical-align:top}
 .rel-record{max-width:900px;margin:0 auto}.rel-head{margin:8px 0 18px}.rel-record .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .rel-record .chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--teal);color:var(--teal-d)}.rel-record .chip.solid{background:var(--teal);color:#fff}
 .rel-record .clockcard{background:var(--soft);border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;font-size:14px}
@@ -100,7 +113,7 @@ main{min-width:0}
 .doc,.grid,.card,details.file,.qa,.prompt{min-width:0;max-width:100%}
 .table-wrap,pre{max-width:100%}
 details.file{overflow:hidden}
-.doc{overflow-wrap:anywhere}
+.doc{overflow-wrap:break-word}  /* CR-29: words break only when they cannot fit */
 
 .kicker{font:700 13px "Poppins",Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:44px 0 4px}
 .kicker+h2{margin-top:0}
@@ -133,7 +146,7 @@ text-decoration:none;padding:11px 20px;border-radius:999px;background:var(--teal
 @media(max-width:640px){.menu{margin-left:-8px;width:100%}.menu a{padding:6px 10px;font-size:13.5px}
 .doc{padding:4px 16px 22px}}
 </style></head><body>
-<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../agent/index.html">DV Agent</a><a href="../../model/index.html">Data model</a><a href="../../conversation/index.html">Musings</a><a href="../../library/index.html" class="on">Library</a></nav></div>
+<header class="top"><div class="bar"><a class="brand" href="../../index.html">DV <span>Digest</span></a><nav class="menu" aria-label="Main"><a href="../../index.html">Home</a><a href="../../agent/index.html">Sage</a><a href="../../model/index.html">Data model</a><a href="../../conversation/index.html">Musings</a><a href="../../library/index.html" class="on">Library</a></nav></div>
 <div class="hero"><p class="eyebrow">Build · code, read-only</p><h1>Infrastructure</h1><p>Every database, role, grant and protection rule as a committed script, the connector&#x27;s code, and the runbooks for QA and production. 50 files.</p></div></header>
 <main><details class="file"><summary>infra/__init__.py</summary><pre><code>&quot;&quot;&quot;Infrastructure packages for DIGEST Data Vault.&quot;&quot;&quot;
 </code></pre></details><details class="file"><summary>infra/aws/__init__.py</summary><pre><code>&quot;&quot;&quot;AWS connector and website functions for DIG-590.&quot;&quot;&quot;
@@ -183,6 +196,7 @@ import time
 from infra.aws.conversation_function import (
     UnverifiedAnswerError,
     answer,
+    shape_history,
     validate_messages,
 )
 from infra.aws.web_functions import (
@@ -248,7 +262,7 @@ async def app(scope, receive, send) -&gt; None:
         await send_response(send, 401, {&quot;error&quot;: &quot;access_code&quot;})
         return
     try:
-        messages = validate_messages(value.get(&quot;messages&quot;))
+        messages = shape_history(validate_messages(value.get(&quot;messages&quot;)))
     except ValueError as error:
         await send_response(send, 400, {&quot;error&quot;: str(error)})
         return
@@ -339,7 +353,7 @@ from infra.aws.web_functions import (
     valid_access_code,
 )
 
-SYSTEM_PROMPT = &quot;&quot;&quot;You are DV Digest&#x27;s data agent, on a demonstration site prepared by Ray Serrano for AmeriLife&#x27;s data architecture team. All data is invented for the DIGEST Data Vault course: an acquired agency, Sunbelt Senior, and its carriers, with two deliveries on 2026-10-01 and 2026-10-02.
+SYSTEM_PROMPT = &quot;&quot;&quot;You are Sage, DV Digest&#x27;s data agent, on a demonstration site prepared by Ray Serrano for AmeriLife&#x27;s data architecture team. All data is invented for the DIGEST Data Vault course: an acquired agency, Sunbelt Senior, and its carriers, with two deliveries on 2026-10-01 and 2026-10-02.
 
 You reach the data only through DV Digest&#x27;s semantic layer, with three tools: list-metrics, get-dimensions and query-metrics. The catalogue below lists every metric with its label, what it means and the dimensions it can be grouped by; call the tools whenever you need more. Explore freely with the user: combine any metric with any dimension the layer allows, compare and break down, and suggest analyses the user may not have thought of. When asked what is available, list the metrics and dimensions by label, with their names when useful, and say what each means. To list what is available, use the catalogue; query only to answer with numbers. If a tool refuses a call, read why, correct the call, and continue.
 
@@ -360,18 +374,42 @@ class UpstreamError(RuntimeError):
     pass
 
 
+QUESTION_CHARS = 2000        # the consumer&#x27;s question (design D-71)
+HISTORY_TOKENS = 100_000     # the history kept for the agent, newest turns first (design D-71; Ray, 2026-11-04, answer 1b)
+SANITY_MESSAGES = 1000       # a request size no page sends; the budget, not a count, shapes the history
+SANITY_CHARS = 200_000       # one reply larger than any the agent writes
+
+
 def validate_messages(value) -&gt; list[dict]:
-    if not isinstance(value, list) or not 1 &lt;= len(value) &lt;= 20:
+    &quot;&quot;&quot;The request&#x27;s shape: her question is held to its limit; the agent&#x27;s own replies are not, since the
+    history&#x27;s budget, applied by shape_history, bounds what reaches the model (design D-71).&quot;&quot;&quot;
+    if not isinstance(value, list) or not 1 &lt;= len(value) &lt;= SANITY_MESSAGES:
         raise ValueError(&quot;too_long&quot;)
     messages = []
     for message in value:
         if not isinstance(message, dict) or message.get(&quot;role&quot;) not in {&quot;user&quot;, &quot;assistant&quot;}:
             raise ValueError(&quot;invalid_request&quot;)
         content = message.get(&quot;content&quot;)
-        if not isinstance(content, str) or not 1 &lt;= len(content) &lt;= 2000:
+        limit = QUESTION_CHARS if message[&quot;role&quot;] == &quot;user&quot; else SANITY_CHARS
+        if not isinstance(content, str) or not 1 &lt;= len(content) &lt;= limit:
             raise ValueError(&quot;too_long&quot;)
         messages.append({&quot;role&quot;: message[&quot;role&quot;], &quot;content&quot;: content})
+    if messages[-1][&quot;role&quot;] != &quot;user&quot;:
+        raise ValueError(&quot;invalid_request&quot;)
     return messages
+
+
+def shape_history(messages: list[dict]) -&gt; list[dict]:
+    &quot;&quot;&quot;The history trimmed to its token budget by langchain-core&#x27;s trim_messages: the newest turns kept,
+    starting and ending on one of her questions (design D-71).&quot;&quot;&quot;
+    from langchain_core.messages import AIMessage, HumanMessage, trim_messages
+    from langchain_core.messages.utils import count_tokens_approximately
+    as_lc = [HumanMessage(m[&quot;content&quot;]) if m[&quot;role&quot;] == &quot;user&quot; else AIMessage(m[&quot;content&quot;]) for m in messages]
+    kept = trim_messages(as_lc, max_tokens=HISTORY_TOKENS, strategy=&quot;last&quot;, token_counter=count_tokens_approximately,
+                         start_on=&quot;human&quot;, end_on=&quot;human&quot;, include_system=False, allow_partial=False)
+    if not kept:  # her question alone is over budget: send it alone, as the limit on questions keeps it small
+        kept = as_lc[-1:]
+    return [{&quot;role&quot;: &quot;user&quot; if isinstance(m, HumanMessage) else &quot;assistant&quot;, &quot;content&quot;: m.content} for m in kept]
 
 
 def result_text(result) -&gt; str:
@@ -581,6 +619,7 @@ async def answer(messages: list[dict], on_text=None) -&gt; tuple[str, list[dict]
                         &quot;cache_control&quot;: {&quot;type&quot;: &quot;ephemeral&quot;},
                     }],
                     &quot;messages&quot;: messages,
+                    &quot;cache_control&quot;: {&quot;type&quot;: &quot;ephemeral&quot;},  # automatic caching: the history read from cache (design D-71)
                 }
                 if tools_enabled:
                     request_payload[&quot;tools&quot;] = cached_tools(tools)
@@ -727,7 +766,7 @@ def handler(event, context):
     if not valid_access_code(body.get(&quot;access_code&quot;)):
         return response(401, {&quot;error&quot;: &quot;access_code&quot;})
     try:
-        messages = validate_messages(body.get(&quot;messages&quot;))
+        messages = shape_history(validate_messages(body.get(&quot;messages&quot;)))
     except ValueError as error:
         return response(400, {&quot;error&quot;: str(error)})
     cap = int(os.environ.get(&quot;DIGEST_DAILY_CAP&quot;, &quot;200&quot;))
@@ -2038,6 +2077,8 @@ snowflake-connector-python==4.8.1
 mangum==0.22.0
 boto3==1.43.120
 uvicorn==0.38.0
+# The conversation&#x27;s history trimmed by the industry&#x27;s standard utility (design D-71); released 2026-10-16.
+langchain-core==1.6.12
 </code></pre></details><details class="file"><summary>infra/aws/requirements.txt</summary><pre><code>mcp==2.3.0
 metricflow==0.213.0
 snowflake-connector-python==5.1.0
@@ -2593,15 +2634,32 @@ class WebFunctionTests(unittest.TestCase):
         self.assertEqual(result[&quot;statusCode&quot;], 401)
         self.assertEqual(json.loads(result[&quot;body&quot;]), {&quot;error&quot;: &quot;access_code&quot;})
 
-    def test_message_contract_rejects_overlong_history(self):
+    def test_message_contract_limits_the_question_not_the_replies(self):
+        # Design D-71: her question keeps its 2,000 characters; the agent&#x27;s own replies are not capped.
         with self.assertRaisesRegex(ValueError, &quot;too_long&quot;):
-            conversation_function.validate_messages([
-                {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;x&quot;}
-            ] * 21)
-        with self.assertRaisesRegex(ValueError, &quot;too_long&quot;):
-            conversation_function.validate_messages([
-                {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;x&quot; * 2001}
-            ])
+            conversation_function.validate_messages([{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;x&quot; * 2001}])
+        long_reply = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;list the metrics&quot;}, {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;y&quot; * 16000},
+                      {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;which are the refused ones?&quot;}]
+        self.assertEqual(len(conversation_function.validate_messages(long_reply)), 3)
+        with self.assertRaisesRegex(ValueError, &quot;invalid_request&quot;):
+            conversation_function.validate_messages([{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;q&quot;}, {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;a&quot;}])
+
+    def test_history_trimmed_to_its_budget_newest_first(self):
+        # Design D-71: trim_messages keeps the newest turns within 100,000 tokens, starting on a question.
+        history = []
+        for i in range(40):
+            history += [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: f&quot;question {i}&quot;}, {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;z&quot; * 16000}]
+        history.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;the newest question&quot;})
+        shaped = conversation_function.shape_history(conversation_function.validate_messages(history))
+        from langchain_core.messages.utils import count_tokens_approximately
+        from langchain_core.messages import AIMessage, HumanMessage
+        tokens = count_tokens_approximately([HumanMessage(m[&quot;content&quot;]) if m[&quot;role&quot;] == &quot;user&quot; else AIMessage(m[&quot;content&quot;]) for m in shaped])
+        self.assertLessEqual(tokens, conversation_function.HISTORY_TOKENS)
+        self.assertLess(len(shaped), len(history))
+        self.assertEqual(shaped[0][&quot;role&quot;], &quot;user&quot;)
+        self.assertEqual(shaped[-1][&quot;content&quot;], &quot;the newest question&quot;)
+        short = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;q1&quot;}, {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;a1&quot;}, {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;q2&quot;}]
+        self.assertEqual(conversation_function.shape_history(short), short)
 
     def test_daily_cap_response(self):
         with patch.object(conversation_function, &quot;valid_access_code&quot;, return_value=True), patch.object(
@@ -3120,6 +3178,7 @@ class WebFunctionTests(unittest.TestCase):
             reply, queries, usage = asyncio.run(conversation_function.answer([
                 {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Which carrier?&quot;}
             ]))
+        self.assertTrue(all(p[&quot;cache_control&quot;] == {&quot;type&quot;: &quot;ephemeral&quot;} for p in request_payloads))  # automatic caching (design D-71)
         self.assertEqual(reply, &quot;Answer from gathered evidence.&quot;)
         self.assertEqual(digest.call_tool.await_count, 13)
         self.assertEqual(len(queries), 12)
@@ -19417,7 +19476,7 @@ Every act below runs in dev and in QA before it runs in production (Promotion st
    read-only grant).
 5. The structure check: `python3 infra/scripts/vault_ddl.py --check --database DV --landing LANDING -- &lt;snow options&gt;` compares production&#x27;s deployed structure with the committed `infra/snowflake/ddl/vault.sql` and `mart.sql`; a difference fails the promotion (Ray, 2026-10-28, answer 3y).
 5b. Production&#x27;s connector and Ask function, after the data (Promotion standard, section 13.6):
-   `python infra/aws/deploy_lambda.py --stage prod`, then `python infra/aws/deploy_functions.py --stage prod` with `OP_ACCESS_CODE_REFERENCE` set to the vault item &quot;Mary&#x27;s Password&quot;, the code Mary uses (Ray, 2026-11-03), from
+   `python infra/aws/deploy_lambda.py --stage prod`, then `python infra/aws/deploy_functions.py --stage prod` with `OP_ACCESS_CODE_REFERENCE` set to `op://Agentic Workstation/offxiudfgn2gwqcj3cwyyjayee/password`, the vault item DV Agent Code - Mary, the code Mary uses, referred to by its ID, which outlasts any rename (Ray, 2026-11-03), from
    main. Until the repository&#x27;s GitHub Actions deploy each environment&#x27;s stack (section 13.3 and 13.4), these run from
    the workstation, an exception Ray granted on 2026-11-01 (answer 2a).
 6. A GitHub release tagged vYYYY.M.R on the commit production built, its name leading the description, with that commit&#x27;s `vault.sql` and `mart.sql` attached as the release&#x27;s structure.
@@ -19473,6 +19532,9 @@ It compares DV_QA&#x27;s deployed raw vault, reference and mart structure with t
 
 **Expected after the first run** (increments 1 and 2): DV_QA.RAW_VAULT.CLIENT_H holds 37 rows, 35 client keys, the same as the
 development tier&#x27;s vault_checks on 2026-10-26; the QA item (k35ki293) records the full comparison.
+
+
+QA&#x27;s access code (Ray, 2026-11-03): QA&#x27;s functions are deployed with `OP_ACCESS_CODE_REFERENCE` set to `op://Agentic Workstation/offxiudfgn2gwqcj3cwyyjayee/password`, the vault item DV Agent Code - Mary, so QA answers to Mary&#x27;s code, since QA is where she accepts each release; the QA retest takes the same reference.
 </code></pre></details><details class="file"><summary>infra/runbooks/github_machine_account.md</summary><pre><code># GitHub machine account for Claude: rayserrano2735-claude-ws
 
 Ray, 2026-10-23. Claude contributes to this repository as a first-class developer under its own GitHub
